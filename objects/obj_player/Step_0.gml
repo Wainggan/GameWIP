@@ -10,3 +10,6 @@ if hkey == 0 && vkey == 0 {
 
 x += lengthdir_x(spd, keydir) * global.delta_multi;
 y += lengthdir_y(spd, keydir) * global.delta_multi;
+
+x = clamp(x, 0, 480)
+y = clamp(y, 0, 480)

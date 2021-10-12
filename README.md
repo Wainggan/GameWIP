@@ -1,3 +1,3 @@
 # repo-skyGame
 
-a wip game that may never come out
+ok it will come out

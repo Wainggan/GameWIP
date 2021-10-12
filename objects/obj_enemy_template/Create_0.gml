@@ -17,14 +17,17 @@ bP_aimPlayerDirect = function() {
 	}
 }
 
+func_destroyBullets = function(){
+	for (var i = 0; i < array_length(bulletList); i++) {
+		if instance_exists(bulletList[i]) {
+			instance_destroy(bulletList[i])
+		}
+	}
+}
+
 
 defaultPattern = [
-	[bP_aimPlayerDirect, 10],
-	[bP_aimPlayerDirect, 10],
-	[bP_aimPlayerDirect, 10],
-	[bP_aimPlayerDirect, 10],
-	[bP_aimPlayerDirect, 10],
-	[bP_aimPlayerDirect, 60]
+	[-1, 999]
 ]
 
 
