@@ -7,9 +7,16 @@ if hkey == 0 && vkey == 0 {
 	spd = 0
 }
 
+if iFrames <= 0 && place_meeting(x, y, obj_bullet) {
+	global.pause = 8;
+	iFrames = 20;
+}
+
 
 x += lengthdir_x(spd, keydir) * global.delta_multi;
 y += lengthdir_y(spd, keydir) * global.delta_multi;
 
 x = clamp(x, 0, 480)
 y = clamp(y, 0, 480)
+
+iFrames -= global.delta_multi
