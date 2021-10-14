@@ -16,7 +16,7 @@ if iFrames <= 0 && place_meeting(x, y, obj_bullet) {
 x += lengthdir_x(spd, keydir) * global.delta_multi;
 y += lengthdir_y(spd, keydir) * global.delta_multi;
 
-x = clamp(x, 0, 480)
-y = clamp(y, 0, 480)
+x = clamp(x, 0, WIDTH)
+y = clamp(y, 0, HEIGHT)
 
 iFrames -= global.delta_multi

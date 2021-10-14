@@ -17,7 +17,7 @@ function bp_shootDownNormal() {
 	
 	with inst {
 		x_vel = 0
-		y_vel = 3
+		y_vel = 2
 	}
 	return inst
 }

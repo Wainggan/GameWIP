@@ -32,7 +32,7 @@
     "path": "folders/Objects/enemies.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_enemy_template",
+  "name": "obj_enemy",
   "tags": [],
   "resourceType": "GMObject",
 }

@@ -1,2 +1,2 @@
-#macro WIDTH 480
+#macro WIDTH 512
 #macro HEIGHT 480
