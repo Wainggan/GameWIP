@@ -3,6 +3,7 @@ bulletList = [];
 x_vel = 0;
 y_vel = 0;
 
+hp = 12;
 
 
 func_destroyBullets = function(){

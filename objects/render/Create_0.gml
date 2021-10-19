@@ -1,1 +1,3 @@
 application_surface_draw_enable(false)
+
+draw_set_font(ft_debug)

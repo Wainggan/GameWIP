@@ -17,7 +17,7 @@ var dir = point_direction(x, y, targetX, targetY)
 x += lengthdir_x(currentCommand[2], dir) * global.delta_multi
 y += lengthdir_y(currentCommand[2], dir) * global.delta_multi
 
-if (x == targetX && y == targetY) || dir != point_direction(x, y, targetX, targetY) {
+if (x == targetX && y == targetY) || round(dir) != round(point_direction(x, y, targetX, targetY)) {
 	x = targetX;
 	y = targetY;
 	

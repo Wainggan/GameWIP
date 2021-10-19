@@ -1,6 +1,8 @@
 // Inherit the parent event
 event_inherited();
 
+hp = 2
+
 directionToMove = sign(0 - x) * 4
 
 tReloadTime = 32;
