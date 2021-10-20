@@ -3,7 +3,7 @@ event_inherited();
 
 hp = 2
 
-directionToMove = sign(0 - x) * 4
+directionToMove = sign(0 - x) * 6
 
 tReloadTime = 32;
 reloadTime = tReloadTime;
@@ -13,9 +13,9 @@ bP_shoot = function() {
 	
 	with inst {
 		x_vel = 0
-		y_vel = 3
+		y_vel = 4
 	}
-	 array_push(bulletList, inst)
+	array_push(bulletList, inst)
 }
 
 bP_move = function() {
@@ -25,7 +25,7 @@ bP_move = function() {
 	if reloadTime <= 0 {
 		reloadTime = tReloadTime;
 		
-		bP_shoot()
+		bp_shootDownNormal()
 	}
 	
 	if sign(directionToMove) == 1 {

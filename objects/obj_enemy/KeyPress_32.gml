@@ -1,2 +1,2 @@
-func_destroyBullets()
+//func_destroyBullets()
 instance_destroy()

@@ -11,4 +11,9 @@ if global.pause {
 }
 global.pause = max(global.pause - h, 0)
 
+
+if global.score > global.file.save.highscore {
+	global.file.save.highscore = global.score;
+}
+
 //show_debug_message(global.delta_multi)

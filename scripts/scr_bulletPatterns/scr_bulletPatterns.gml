@@ -4,8 +4,8 @@ function bP_aimPlayerDirect() {
 		var inst = instance_create_depth(x, y, depth, obj_bullet);
 		
 		with inst {
-			x_vel = lengthdir_x(2, dir)
-			y_vel = lengthdir_y(2, dir)
+			x_vel = lengthdir_x(4, dir)
+			y_vel = lengthdir_y(4, dir)
 		}
 		
 		return inst//array_push(bulletList, inst)
@@ -17,7 +17,7 @@ function bp_shootDownNormal() {
 	
 	with inst {
 		x_vel = 0
-		y_vel = 2
+		y_vel = 5
 	}
 	return inst
 }

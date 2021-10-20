@@ -4,6 +4,7 @@ x_vel = 0;
 y_vel = 0;
 
 hp = 12;
+scoreGive = 1000;
 
 
 func_destroyBullets = function(){

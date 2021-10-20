@@ -1,4 +1,4 @@
-draw_sprite(sprite_index, 0, x, y)
+draw_sprite(sprite_index, 0, round(x), round(y))
 
 if keyboard_check(vk_shift) {
 	slowHitboxAnim += slowHitboxAnimSpeed * global.delta_multi
@@ -7,5 +7,5 @@ if keyboard_check(vk_shift) {
 }
 slowHitboxAnim = clamp(slowHitboxAnim, 0, 1)
 
-draw_sprite_ext(sprite_index, 1, x, y, 1, 1, 0, c_white, slowHitboxAnim)
+draw_sprite_ext(sprite_index, 1, round(x), round(y), 1, 1, 0, c_white, slowHitboxAnim)
 

@@ -5,7 +5,11 @@ if bulletPatternBuffer >= bulletPattern[bulletPatternTimeline][1] {
 	
 	bulletPatternTimeline = (bulletPatternTimeline + 1) % (array_length(bulletPattern));
 	if bulletPattern[bulletPatternTimeline][0] != -1 {
-		bulletPattern[bulletPatternTimeline][0]();
+		
+		var _inst = bulletPattern[bulletPatternTimeline][0]();
+		if _inst != undefined && instance_exists(_inst) {
+			array_push(bulletList, _inst)
+		}
 	}
 	
 }

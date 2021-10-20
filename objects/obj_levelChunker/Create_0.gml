@@ -11,9 +11,9 @@ func_setupLevel = function() {
 		instance_deactivate_object(inst)
 	}
 	
-	array_sort(enemyList, function(inst1, inst2) {
-		return inst1.y - inst2.y;
-	})
+	//array_sort(enemyList, function(inst1, inst2) {
+	//	return inst1.y - inst2.y;
+	//})
 	
 	ds_list_destroy(nearEnemies)
 	
