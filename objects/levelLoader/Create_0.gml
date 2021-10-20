@@ -39,4 +39,6 @@ func_loadChunk = function() {
 	
 }
 
+pauseTime = -69;
+
 currentChunk = 0;

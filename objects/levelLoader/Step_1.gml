@@ -1,12 +1,12 @@
-if array_length(chunkList) >= 1 {
+if array_length(chunkList) >= 1 && pauseTime = -69 {
 	if !(array_length(chunkList)-1 < currentChunk) {
 		if array_length(chunkList[currentChunk].enemyList) == 0 {
 		
 			if array_length(chunkList) == 0 {
 				game_end() // umm something weird happened ig
 			} else {
-				currentChunk++
-				func_loadChunk()
+				pauseTime = chunkList[currentChunk].pauseTime;
+				
 				
 				show_debug_message("ohno")
 				show_debug_message(array_length(chunkList))
@@ -16,5 +16,15 @@ if array_length(chunkList) >= 1 {
 		}
 	} else {
 		game_end() // no more chunks, end of level
+	}
+}
+
+if pauseTime != -69 {
+	if pauseTime <= 0 {
+		currentChunk++
+		func_loadChunk()
+		pauseTime = -69
+	} else {
+		pauseTime -= global.delta_multi;
 	}
 }

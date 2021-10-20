@@ -13,3 +13,4 @@ if bulletPatternBuffer >= bulletPattern[bulletPatternTimeline][1] {
 	}
 	
 }
+

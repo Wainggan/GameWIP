@@ -1,4 +1,6 @@
 hp--
+hitAnim = 0.3
+
 
 instance_destroy(other)
 

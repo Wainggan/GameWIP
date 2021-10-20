@@ -3,8 +3,11 @@ bulletList = [];
 x_vel = 0;
 y_vel = 0;
 
-hp = 12;
-scoreGive = 1000;
+hp = var_hp;
+scoreGive = var_scoreGive;
+
+hitAnim = 0;
+hitAnimSpeed = 0.04;
 
 
 func_destroyBullets = function(){

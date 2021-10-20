@@ -1,1 +1,0 @@
-draw_text(0,0,string(instance_number(obj_bullet)))

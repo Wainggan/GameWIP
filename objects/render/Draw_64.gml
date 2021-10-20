@@ -18,3 +18,22 @@ draw_set_halign(fa_right)
 	draw_set_font(ft_debug)
 
 draw_set_halign(fa_left)
+
+
+with obj_enemy {
+	var dist = 999;
+	if y < 0 {
+		dist = 0 - y;
+		
+		draw_sprite_ext(spr_warning, 0, gameSurfaceX+x, gameSurfaceY+0, 1, 1, 0, c_white, 1 - dist/96)
+	} else {
+		if x < 0 {
+			dist = 0 - x;
+			draw_sprite_ext(spr_warning, 0, gameSurfaceX+0, gameSurfaceY+y, 1, 1, 0, c_white, 1 - dist/96)
+		}
+		if x > WIDTH {
+			dist = WIDTH - x;
+			draw_sprite_ext(spr_warning, 0, gameSurfaceX+WIDTH, gameSurfaceY+y, 1, 1, 0, c_white, 1 - dist/96)
+		}
+	}
+}

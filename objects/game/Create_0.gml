@@ -34,9 +34,35 @@ global.file = undefined;
 		*/
 	}
 	
+	{ // changes
+		
+		changes = {
+			
+		}
+		
+		changeOrder = [
+			"0.1.0"
+		]
+		
+	}
+	
+	function func_checkKeyExist /*= function*/(_struct, _key, _val) {
+		if !variable_struct_exists(_struct, _key) {
+			variable_struct_set(_struct, _key, _val)
+		}
+	}
+	
 	global.file = json_readFrom(FILENAME);
-	if global.file = undefined {
-		global.file = {
+	
+	if global.file != undefined && !variable_struct_exists(global.file, "fileVersion") {
+		global.file = undefined
+	}
+	
+	if global.file = undefined { // first time creating a file
+		
+		var fileTest = { // latest version of the file
+			gameVersion : "0.1.0",
+			fileVersion : "0.1.0",
 			save : {
 				highscore : 0,
 				leaderboard : [
@@ -50,9 +76,38 @@ global.file = undefined;
 			settings : {}
 		}
 		
-		json_writeFrom(FILENAME, global.file);
+		
+		json_writeFrom(FILENAME, fileTest);
+		
+		global.file = fileTest
 		
 	}
+	
+	var currentArrayCheckLocation = 0;
+	// find where the current file version is in the array
+	for (var i = 0; i < array_length(changeOrder); i++) {
+		if changeOrder[i] = global.file.fileVersion {
+			currentArrayCheckLocation = i;
+			break
+		}
+	}
+	
+	// loop through all new version changes
+	for (var i = currentArrayCheckLocation+1; i < array_length(changeOrder); i++) {
+		
+		var checkNewVersion = changeOrder[i]
+		show_debug_message(checkNewVersion)
+		
+		switch checkNewVersion {
+			default:
+				show_error("oh god", 0)
+			break
+		}
+		
+		global.file.fileVersion = checkNewVersion
+		
+	}
+	
 	
 }
 
@@ -60,3 +115,6 @@ global.score = 0;
 
 
 instance_create_depth(0,0,depth, render)
+
+
+room_goto(rm_stage1)
