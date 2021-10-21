@@ -10,7 +10,7 @@ for (var i = 0; i < array_length(menuList); i++) {
 		draw_set_alpha(1)
 		draw_set_color(c_white)
 	}
-	if instance_exists(menuList[i]) {
-		menuList[i].func_drawOptions()
-	}
+
+	menuList[i].func_drawOptions()
+	
 }
