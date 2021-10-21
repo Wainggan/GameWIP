@@ -115,6 +115,8 @@ global.score = 0;
 
 
 instance_create_depth(0,0,depth, render)
+instance_create_depth(0,0,depth, levelLoader)
+instance_create_depth(0,0,depth, menu)
 
 
 room_goto(rm_stage1)

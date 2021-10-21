@@ -19,7 +19,7 @@ bP_shoot = function() {
 }
 
 bP_move = function() {
-	x += directionToMove;
+	x += directionToMove * global.delta_multi;
 	
 	reloadTime -= global.delta_multi;
 	if reloadTime <= 0 {

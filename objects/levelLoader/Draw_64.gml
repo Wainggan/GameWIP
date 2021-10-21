@@ -1,1 +1,1 @@
-draw_text(0,16,string(pauseTime))
+//draw_text(0,16,string(pauseTime))
