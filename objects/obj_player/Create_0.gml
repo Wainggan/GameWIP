@@ -1,6 +1,32 @@
 moveSpeed = 5;
 slowMoveSpeed = 3;
 
+grazeRadius = 48;
+
+grazeCombo = 0;
+tGrazeComboTimer = 90;
+grazeComboTimer = 0;
+
+grazeBulletList = [];
+grazeBulletListClearTime = 64;
+
+grazeHitboxGraphicShow = 0;
+grazeHitboxGraphicShowSpeed = 0.04;
+
+
+bulletCharge = 0;
+bulletChargeSpeed = 0.02;
+bulletChargeSpeedSlow = 0.1;
+bulletChargeTarget = 2;
+
+tReloadTime = 10;
+reloadTime = tReloadTime;
+
+bulletSpread = 28;
+bulletSpreadSlow = 8
+bulletAmount = 3;
+bulletSpeed = 10;
+
 
 horzMovementPriority = [];
 vertMovementPriority = [];
@@ -66,12 +92,20 @@ func_inputUpdate = function(kleft = 0, kright = 0, kup = 0, kdown = 0) {
 	}
 }
 
-tReloadTime = 8;
-reloadTime = tReloadTime;
+func_grazeFlavorText = function(_text) {
+	var _inst = instance_create_depth(x+16, y-16, depth, obj_flavorText)
+	with _inst {
+		_inst.accel_y = 0.1;
+		_inst.x_vel = 0.3;
+		_inst.y_vel = -1.3;
+			
+		_inst.life = 20;
+			
+		_inst.text = string(_text)
+	}
+}
 
-bulletSpread = 28;
-bulletSpreadSlow = 8
-bulletAmount = 3;
+
 
 slowHitboxAnim = 0;
 slowHitboxAnimSpeed = 0.3;

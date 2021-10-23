@@ -1,11 +1,20 @@
 draw_sprite(sprite_index, 0, round(x), round(y))
 
-if keyboard_check(vk_shift) {
-	slowHitboxAnim += slowHitboxAnimSpeed * global.delta_multi
-} else {
-	slowHitboxAnim -= slowHitboxAnimSpeed * global.delta_multi
-}
-slowHitboxAnim = clamp(slowHitboxAnim, 0, 1)
+slowHitboxAnim = approach(slowHitboxAnim, keyboard_check(vk_shift) ? 1 : 0, slowHitboxAnimSpeed * global.delta_multi)
 
 draw_sprite_ext(sprite_index, 1, round(x), round(y), 1, 1, 0, c_white, slowHitboxAnim)
 
+var _mask = mask_index;
+mask_index = spr_player_hitbox_graze
+
+draw_set_alpha(grazeHitboxGraphicShow)
+	draw_circle(round(x)-1, round(y)-1, (round(bbox_left) - round(x)), 1)
+draw_set_alpha(1)
+mask_index = _mask
+/*
+draw_text(x, y, string(grazeCombo))
+draw_text(x, y+16, string( max( ( tReloadTime - (sqrt(grazeCombo) / 4) ) - bulletCharge, 3) ))
+for (var i = 0; i < array_length(grazeBulletList); i++) {
+	draw_text(x, y + 32 + i*16, string(grazeBulletList[i]))
+}
+*/
