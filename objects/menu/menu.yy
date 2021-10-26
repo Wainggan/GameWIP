@@ -25,8 +25,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "menu",
-    "path": "folders/Objects/controller/menu.yy",
+    "name": "controller",
+    "path": "folders/Objects/controller.yy",
   },
   "resourceVersion": "1.0",
   "name": "menu",

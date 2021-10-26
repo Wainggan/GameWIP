@@ -1,22 +1,22 @@
 moveSpeed = 5;
 slowMoveSpeed = 3;
 
-grazeRadius = 48;
+grazeRadius = 38;
 
 grazeCombo = 0;
-tGrazeComboTimer = 90;
+tGrazeComboTimer = 120;
 grazeComboTimer = 0;
 
 grazeBulletList = [];
 grazeBulletListClearTime = 64;
 
 grazeHitboxGraphicShow = 0;
-grazeHitboxGraphicShowSpeed = 0.04;
+grazeHitboxGraphicShowSpeed = 0.05;
 
 
 bulletCharge = 0;
-bulletChargeSpeed = 0.02;
-bulletChargeSpeedSlow = 0.1;
+bulletChargeSpeed = 0.08;
+bulletChargeSpeedSlow = 0.02;
 bulletChargeTarget = 2;
 
 tReloadTime = 10;

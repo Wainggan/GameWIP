@@ -35,7 +35,7 @@ if iFrames <= 0 && _bulletHit {
 
 
 
-var _grazeBulletHit = instance_place(x, y, obj_bullet)
+var _grazeBulletHit = collision_circle(x, y, grazeRadius, obj_bullet, 0, 1) //instance_place(x, y, obj_bullet)
 if _grazeBulletHit && !_bulletHit {
 	
 	var _out = 0;

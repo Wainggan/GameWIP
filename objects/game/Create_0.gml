@@ -32,6 +32,21 @@ global.file = undefined;
 			}
 		}
 		*/
+		global.file_default = { // latest version of the file
+			gameVersion : "0.1.0",
+			fileVersion : "0.1.0",
+			save : {
+				highscore : 0,
+				leaderboard : [
+					{
+						name : "Alex",
+						score : "-999"
+					}
+				],
+				recordLevel : 0
+			},
+			settings : {}
+		}
 	}
 	
 	{ // changes
@@ -60,26 +75,12 @@ global.file = undefined;
 	
 	if global.file = undefined { // first time creating a file
 		
-		var fileTest = { // latest version of the file
-			gameVersion : "0.1.0",
-			fileVersion : "0.1.0",
-			save : {
-				highscore : 0,
-				leaderboard : [
-					{
-						name : "Alex",
-						score : "-999"
-					}
-				],
-				recordLevel : 0
-			},
-			settings : {}
-		}
 		
 		
-		json_writeFrom(FILENAME, fileTest);
 		
-		global.file = fileTest
+		json_writeFrom(FILENAME, global.file_default);
+		
+		global.file = global.file_default;
 		
 	}
 	
@@ -112,6 +113,7 @@ global.file = undefined;
 }
 
 global.score = 0;
+global.gameActive = false;
 
 
 instance_create_depth(0,0,depth, render)
@@ -119,4 +121,4 @@ instance_create_depth(0,0,depth, levelLoader)
 instance_create_depth(0,0,depth, menu)
 
 
-room_goto(rm_stage1)
+room_goto(rm_mainmenu)

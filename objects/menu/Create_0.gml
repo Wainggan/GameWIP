@@ -34,7 +34,7 @@ ui_Menu = function() constructor {
 		draw_set_font(ft_ui);
 		for (var i = 0; i < array_length(menuOptions); i++) {
 			draw_set_color(selectedOption == i ? c_red : c_white)
-				draw_text(x, y + i * 24, menuOptions[i][0])
+				draw_text(x, y + i * 32, menuOptions[i][0])
 		
 		}
 		draw_set_font(ft_debug);
@@ -63,6 +63,7 @@ func_addSubmenu = function(_submenu) {
 	_submenu.parent = id;
 	array_push(menuList, _submenu);
 }
+
 
 
 
@@ -104,5 +105,68 @@ func_menuTest = function(){
 		func_addSubmenu(_menu)
 	} else {
 		menuList = [];
+	}
+}
+func_createMainMenu = function(){
+	if !array_length(menuList) {
+		var _menu = new ui_Menu()
+		with _menu {
+			
+			func_addOption("Test", function(){
+				game_start()
+				
+				destroyMe = true;
+			})
+			
+			func_addOption("Settings", function(){
+				
+				var _menu = new parent.ui_Menu()
+				with _menu {
+					
+					
+					
+					func_addOption("Test", function(){
+				
+						var _menu = new parent.ui_Menu()
+						with _menu {
+					
+							func_addOption("AAA", -1)
+					
+					
+						}
+						func_addSubmenu(_menu)
+				
+					})
+					
+					func_addOption("nothing here for now", -1)
+					
+					
+				}
+				func_addSubmenu(_menu)
+				
+			})
+			
+			func_addOption("Debug", function(){
+				
+				var _menu = new parent.ui_Menu()
+				with _menu {
+					
+					func_addOption("Delete File", function(){
+						global.file = global.file_default
+						json_writeFrom(FILENAME, global.file)
+					})
+					
+					
+				}
+				func_addSubmenu(_menu)
+				
+			})
+			
+			func_addOption("Exit", function(){
+				game_end();
+			})
+			
+		}
+		func_addSubmenu(_menu)
 	}
 }

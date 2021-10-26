@@ -9,6 +9,8 @@ func_findChunks = function() {
 		return inst2.y - inst1.y;
 	})
 	
+	currentChunk = 0
+	
 	//instance_deactivate_object(obj_enemy)
 }
 

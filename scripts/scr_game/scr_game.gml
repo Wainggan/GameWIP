@@ -1,0 +1,14 @@
+function game_start(_rm = rm_stage1) {
+	room_goto(_rm)
+	global.gameActive = 1;
+	
+	
+}
+
+function game_stop() {
+	global.gameActive = 0;
+	global.score = 0;
+	json_writeFrom(FILENAME, global.file);
+	
+	room_goto(rm_mainmenu);
+}

@@ -15,7 +15,10 @@ if array_length(chunkList) >= 1 && pauseTime = -69 {
 			}
 		}
 	} else {
-		game_end() // no more chunks, end of level
+		//game_end() // no more chunks, end of level
+		
+		//room_goto(rm_mainmenu)
+		game_stop()
 	}
 }
 

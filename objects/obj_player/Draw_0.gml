@@ -4,13 +4,11 @@ slowHitboxAnim = approach(slowHitboxAnim, keyboard_check(vk_shift) ? 1 : 0, slow
 
 draw_sprite_ext(sprite_index, 1, round(x), round(y), 1, 1, 0, c_white, slowHitboxAnim)
 
-var _mask = mask_index;
-mask_index = spr_player_hitbox_graze
 
 draw_set_alpha(grazeHitboxGraphicShow)
-	draw_circle(round(x)-1, round(y)-1, (round(bbox_left) - round(x)), 1)
+	draw_circle(round(x)-1, round(y)-1, /*grazeRadius*/32, 1)
 draw_set_alpha(1)
-mask_index = _mask
+
 /*
 draw_text(x, y, string(grazeCombo))
 draw_text(x, y+16, string( max( ( tReloadTime - (sqrt(grazeCombo) / 4) ) - bulletCharge, 3) ))
