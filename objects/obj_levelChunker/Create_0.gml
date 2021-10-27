@@ -42,7 +42,7 @@ func_activateChunk = function() {
 func_createEnemy = function(_deltaX, _deltaY, _object) {
 	if object_exists(_object) {
 		var _inst = instance_create_layer(_deltaX, _deltaY, "Instances", _object)
-		_inst.scoreGive = 0 // probably a bad idea
+		//_inst.scoreGive = 0 // probably a bad idea
 		//array_push(enemyList, _inst)
 	}
 }

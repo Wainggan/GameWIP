@@ -3,7 +3,7 @@
 */
 defaultPattern = [
 	[64, 0, 1],
-	[64, 0, 2]
+	[64, 23, 2]
 ]
 
 bPToShoot = bP_aimPlayerDirect;

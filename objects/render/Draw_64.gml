@@ -17,7 +17,7 @@ if global.gameActive {
 		draw_set_font(ft_score)
 			draw_text(gameSurfaceX - 8, gameSurfaceY + 2 + 24 * 1, string(global.score))
 		draw_set_font(ft_ui)
-			draw_text_transformed(gameSurfaceX - 8, gameSurfaceY + 2 + 24 * 2.25, string(global.file.save.highscore), 0.75, 0.75, 0)
+			draw_text_transformed(gameSurfaceX - 8, gameSurfaceY + 2 + 24 * 2.25, string(global.highscore), 0.75, 0.75, 0)
 		
 		draw_set_font(ft_debug)
 
@@ -42,4 +42,13 @@ if global.gameActive {
 		}
 	}
 
+} else {
+	if array_length(menu.menuList) <= 1 {
+		var _lb = global.file.save.leaderboard;
+	
+		for (var i = 0; i < array_length(_lb); i++) {
+			draw_text(500, 64 + 32 * i*2, string(_lb[i].name))
+			draw_text(500, 64 + 32 * i*2 + 24, string(_lb[i].score))
+		}
+	}
 }

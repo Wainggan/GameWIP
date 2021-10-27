@@ -2,3 +2,5 @@
 #macro HEIGHT 480
 
 #macro FILENAME "gam.ing"
+
+#macro LEADERBOARDSIZE 6

@@ -16,7 +16,6 @@ global.file = undefined;
 		FILENAME
 		{
 			"save" : {
-				"highscore" : 0,
 				"leaderboard" : [
 					{
 						"name" : "example",
@@ -36,29 +35,32 @@ global.file = undefined;
 		*/
 		global.file_default = { // latest version of the file
 			gameVersion : "0.1.0",
-			fileVersion : "0.1.0",
+			fileVersion : "0.2.0",
 			save : {
-				highscore : 0,
 				leaderboard : [
 					{
 						name : "Alex",
-						score : "-999"
+						score : -7000
+					},
+					{
+						name : "Lych",
+						score : -3839000
 					}
 				],
 				recordLevel : 0
 			},
-			settings : {}
+			settings : {
+				allowScreenShake : false,
+				fastBulletGlow : false
+			}
 		}
 	}
 	
 	{ // changes
 		
-		changes = {
-			
-		}
-		
 		changeOrder = [
-			"0.1.0"
+			"0.1.0",
+			"0.2.0"
 		]
 		
 	}
@@ -102,6 +104,12 @@ global.file = undefined;
 		show_debug_message(checkNewVersion)
 		
 		switch checkNewVersion {
+			case "0.2.0":
+				//variable_struct_remove(global.file.save, "highscore");
+				//func_checkKeyExist(global.file.settings, "allowScreenShake", false)
+				//func_checkKeyExist(global.file.settings, "fastBulletGlow", false)
+				global.file = global.file_default; // reset the file
+			break;
 			default:
 				show_error("oh god", 0)
 			break
@@ -115,6 +123,7 @@ global.file = undefined;
 }
 
 global.score = 0;
+global.highscore = 0;
 global.gameActive = false;
 
 

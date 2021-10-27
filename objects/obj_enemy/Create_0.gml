@@ -22,8 +22,19 @@ func_destroyBullets = function(){
 defaultPattern = [
 	[-1, 999]
 ]
-
-
 bulletPattern = defaultPattern;
 bulletPatternTimeline = 0;
 bulletPatternBuffer = 0;
+
+
+// movement
+
+// [deltaX, deltaY, speed, optional function call]
+defaultMPattern = [
+	[0, 0, 1]
+]
+targetX = 0;
+targetY = 0;
+
+movePattern = defaultMPattern;
+movePatternTimeline = -1;

@@ -49,6 +49,8 @@ if _grazeBulletHit && !_bulletHit {
 		grazeCombo += 1;
 		grazeComboTimer = tGrazeComboTimer;
 		
+		global.score += 100;
+		
 		grazeHitboxGraphicShow = 1;
 		
 		func_grazeFlavorText(string(grazeCombo))

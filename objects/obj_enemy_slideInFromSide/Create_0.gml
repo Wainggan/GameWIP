@@ -3,47 +3,25 @@ event_inherited();
 
 hp = 2
 
-directionToMove = sign(0 - x) * 6
+directionToMove = sign(0 - x)
 
-tReloadTime = 32;
-reloadTime = tReloadTime;
 
-bP_shoot = function() {
-	var inst = instance_create_depth(x, y, depth, obj_bullet)
-	
-	with inst {
-		x_vel = 0
-		y_vel = 4
-	}
-	array_push(bulletList, inst)
-}
-
-bP_move = function() {
-	x += directionToMove * global.delta_multi;
-	
-	reloadTime -= global.delta_multi;
-	if reloadTime <= 0 {
-		reloadTime = tReloadTime;
-		
-		bp_shootDownNormal()
-	}
-	
-	if sign(directionToMove) == 1 {
-		if WIDTH + 64 < x {
-			instance_destroy()
-		}
-	} else {
-		if -64 > x {
-			instance_destroy()
-		}
-	}
-}
-
-pattern_move = [
-	[bP_move, 0]
+pattern_shoot = [
+	[bp_shootDownNormal, 32]
 ]
-//pattern_shoot = [
-//	[bP_move, 0]
-//]
+mPattern_move = [
+	[directionToMove * 6, 0, 6, function(){
+		if sign(directionToMove) == 1 {
+			if WIDTH + 64 < x {
+				instance_destroy()
+			}
+		} else {
+			if -64 > x {
+				instance_destroy()
+			}
+		}
+	}]
+]
 
-bulletPattern = pattern_move
+bulletPattern = pattern_shoot
+movePattern = mPattern_move
