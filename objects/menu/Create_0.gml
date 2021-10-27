@@ -15,6 +15,7 @@ ui_Menu = function() constructor {
 	selectedOption = 0;
 	priority = 0;
 	destroyMe = false;
+	cantBeDestroyed = false;
 	
 	x = 96;
 	y = 64;
@@ -54,7 +55,9 @@ ui_Menu = function() constructor {
 			}
 		}
 		if _input == MENUBUTTON.BACK {
-			destroyMe = true;
+			if !cantBeDestroyed {
+				destroyMe = true;
+			}
 		}
 	}
 }
@@ -111,6 +114,8 @@ func_createMainMenu = function(){
 	if !array_length(menuList) {
 		var _menu = new ui_Menu()
 		with _menu {
+			
+			cantBeDestroyed = true
 			
 			func_addOption("Test", function(){
 				game_start()

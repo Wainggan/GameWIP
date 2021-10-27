@@ -5,6 +5,8 @@ global.pause = 0;
 
 global.showHitboxes = false;
 
+testSlowDown = 0
+
 
 global.file = undefined;
 

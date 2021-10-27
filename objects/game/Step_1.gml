@@ -1,4 +1,5 @@
-//global.delta_target = keyboard_check(vk_shift) ? 1/30 : 1/60
+testSlowDown = keyboard_check_pressed(ord("Q")) ? !testSlowDown : testSlowDown
+global.delta_target = testSlowDown ? 1/15 : 1/60
 
 var actualDelta = 1/60//delta_time / 1000000
 

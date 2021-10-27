@@ -21,17 +21,17 @@ for (var i = 0; i < array_length(menuList); i++) {
 	if i == array_length(menuList)-1 {
 		var input = -1;
 		if inputFix[0] {
-			input = MENUBUTTON.DOWN
-			inputFix[0] = 0
+			input = MENUBUTTON.DOWN;
+			inputFix[0] = 0;
 		} else if inputFix[1] {
-			input = MENUBUTTON.UP
-			inputFix[1] = 0
+			input = MENUBUTTON.UP;
+			inputFix[1] = 0;
 		} else if inputFix[2] {
-			input = MENUBUTTON.SELECT
-			inputFix[2] = 0
+			input = MENUBUTTON.SELECT;
+			inputFix[2] = 0;
 		} else if inputFix[3] {
-			input = MENUBUTTON.BACK
-			inputFix[3] = 0
+			input = MENUBUTTON.BACK;
+			inputFix[3] = 0;
 		}
 		
 		menuList[i].func_update(input);

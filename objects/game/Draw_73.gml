@@ -4,15 +4,17 @@ if global.showHitboxes {
 	draw_set_color(c_red)
 	with all {
 		
-		var left = bbox_left
-		var right = bbox_right-1
-		var up = bbox_top
-		var down = bbox_bottom-1
+		var left = floor(bbox_left)
+		var right = floor(bbox_right)-1
+		var up = floor(bbox_top)
+		var down = floor(bbox_bottom)-1
 		
-		draw_line_width(left, up, right, up, 2)
-		draw_line_width(right, up, right, down, 2)
-		draw_line_width(right, down, left, down, 2)
-		draw_line_width(left, down, left, up, 2)
+		draw_rectangle(left, up, right, down, 1)
+		
+		//draw_line(left, up, right, up)
+		//draw_line(right, up, right, down)
+		//draw_line(right, down, left, down)
+		//draw_line(left, down, left, up)
 
 	}
 	

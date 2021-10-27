@@ -16,26 +16,15 @@ func_findChunks = function() {
 
 func_loadChunk = function() {
 	
+	
+	
 	if array_length(chunkList) <= currentChunk {
 		return false
 	}
 	
 	var chunkInst = chunkList[currentChunk];
 	
-	with chunkInst {
-		for (var i = 0; i < array_length(enemyList); i++) {
-			var inst = enemyList[i];
-			
-			instance_activate_object(inst);
-			
-			var offset = inst.y - bbox_bottom;
-			
-			inst.y = HEIGHT + offset;
-		}
-		
-		active = true;
-		
-	}
+	chunkInst.func_activateChunk()
 	
 	
 	

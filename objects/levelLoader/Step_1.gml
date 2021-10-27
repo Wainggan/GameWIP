@@ -24,6 +24,7 @@ if array_length(chunkList) >= 1 && pauseTime = -69 {
 
 if pauseTime != -69 {
 	if pauseTime <= 0 {
+		chunkList[currentChunk].active = false
 		currentChunk++
 		func_loadChunk()
 		pauseTime = -69

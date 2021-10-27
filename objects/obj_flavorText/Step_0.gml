@@ -1,8 +1,8 @@
-x_vel += accel_x;
-y_vel += accel_y;
+x_vel += accel_x * global.delta_multi;
+y_vel += accel_y * global.delta_multi;
 
-x += x_vel;
-y += y_vel;
+x += x_vel * global.delta_multi;
+y += y_vel * global.delta_multi;
 
 life -= global.delta_multi;
 if life <= 0 {
