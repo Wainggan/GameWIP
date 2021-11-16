@@ -1,6 +1,6 @@
 draw_sprite(sprite_index, 0, round(x), round(y))
 
-slowHitboxAnim = approach(slowHitboxAnim, keyboard_check(vk_shift) ? 1 : 0, slowHitboxAnimSpeed * global.delta_multi)
+slowHitboxAnim = approach(slowHitboxAnim, inputSystem.check("sneak") ? 1 : 0, slowHitboxAnimSpeed * global.delta_multi)
 
 draw_sprite_ext(sprite_index, 1, round(x), round(y), 1, 1, 0, c_white, slowHitboxAnim)
 

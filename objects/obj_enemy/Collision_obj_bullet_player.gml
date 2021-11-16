@@ -1,9 +1,9 @@
-hp--
-hitAnim = 0.3
+if !invinsible {
+	hp--
+	hitAnim = 0.3
 
-
-instance_destroy(other)
-
+	instance_destroy(other)
+}
 if hp <= 0 {
 	global.score += scoreGive;
 	

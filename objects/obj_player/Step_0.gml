@@ -1,7 +1,7 @@
-func_inputUpdate(keyboard_check(vk_left),
-				keyboard_check(vk_right),
-				keyboard_check(vk_up),
-				keyboard_check(vk_down))
+func_inputUpdate(inputSystem.check("left"),
+				inputSystem.check("right"),
+				inputSystem.check("up"),
+				inputSystem.check("down"))
 
 var hkey = 0;
 var vkey = 0;
@@ -16,7 +16,7 @@ if array_length(vertMovementPriority) > 0 {
 //var hkey = keyboard_check(vk_right) - keyboard_check(vk_left);
 //var vkey = keyboard_check(vk_down) - keyboard_check(vk_up);
 
-var spd = keyboard_check(vk_shift) ? slowMoveSpeed : moveSpeed;
+var spd = inputSystem.check("sneak") ? slowMoveSpeed : moveSpeed;
 var keydir = point_direction(0,0,hkey,vkey)
 if hkey == 0 && vkey == 0 {
 	spd = 0
@@ -71,9 +71,9 @@ bulletCharge = approach(bulletCharge, vkey == -1 ? bulletChargeTarget : 0,
 			vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow)
 var newReloadTime = max( ( tReloadTime - (sqrt(grazeCombo) / 4) ) - bulletCharge, 3)
 
-if keyboard_check(ord("Z")) && reloadTime <= 0 {
+if inputSystem.check("shoot") && reloadTime <= 0 {
 	reloadTime = newReloadTime
-	var spreadTemp = keyboard_check(vk_shift) ? bulletSpreadSlow : bulletSpread
+	var spreadTemp = inputSystem.check("sneak") ? bulletSpreadSlow : bulletSpread
 	for (var i = 0; i < bulletAmount; i++) {
 		var dir = (90 + spreadTemp/2) - (spreadTemp/(bulletAmount-1) * i)
 		

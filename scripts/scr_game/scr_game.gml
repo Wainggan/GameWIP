@@ -1,7 +1,7 @@
 function game_start(_rm = rm_stage1) {
 	room_goto(_rm)
 	global.gameActive = 1;
-	
+	global.highscore = global.file.save.leaderboard[0].score
 	
 }
 

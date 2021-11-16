@@ -8,7 +8,9 @@ startY = y;
 //directionToMove = point_direction(x, y, startX, startY);
 spd = 4
 hp = 9;
-scoreGive = 9000
+scoreGive = 9000;
+
+
 
 
 

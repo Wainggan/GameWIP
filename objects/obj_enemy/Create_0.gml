@@ -9,6 +9,9 @@ scoreGive = var_scoreGive;
 hitAnim = 0;
 hitAnimSpeed = 0.04;
 
+invinsible = false;
+important = 0;
+
 
 func_destroyBullets = function(){
 	for (var i = 0; i < array_length(bulletList); i++) {
@@ -18,7 +21,7 @@ func_destroyBullets = function(){
 	}
 }
 
-
+// [function, time until next]
 defaultPattern = [
 	[-1, 999]
 ]

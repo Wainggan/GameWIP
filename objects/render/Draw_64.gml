@@ -40,6 +40,12 @@ if global.gameActive {
 				draw_sprite_ext(spr_warning, 0, gameSurfaceX+WIDTH, gameSurfaceY+y, 1, 1, 0, c_white, 1 - dist/96)
 			}
 		}
+		
+		if important > 0 {
+			if 0 < x && x < WIDTH {
+				draw_sprite(spr_enemyIndicator, 0, gameSurfaceX+x, gameSurfaceY+HEIGHT)
+			}
+		}
 	}
 
 } else {

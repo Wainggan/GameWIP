@@ -5,12 +5,19 @@ if bulletPatternBuffer >= bulletPattern[bulletPatternTimeline][1] {
 	bulletPatternBuffer = 0;
 	
 	bulletPatternTimeline = (bulletPatternTimeline + 1) % (array_length(bulletPattern));
-	if bulletPattern[bulletPatternTimeline][0] != -1 {
+	
+	var a = bulletPattern[bulletPatternTimeline][0];
+	if a != -1 {
 		
-		var _inst = bulletPattern[bulletPatternTimeline][0]();
-		if _inst != undefined && instance_exists(_inst) {
-			array_push(bulletList, _inst)
+		if is_array(a) {
+			script_execute_ext(a[0], a, 1);
+		} else {
+			bulletPattern[bulletPatternTimeline][0]();
 		}
+		//var _inst = bulletPattern[bulletPatternTimeline][0]();
+		//if _inst != undefined && instance_exists(_inst) {
+		//	array_push(bulletList, _inst)
+		//}
 	}
 	
 }

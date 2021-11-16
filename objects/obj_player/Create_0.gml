@@ -92,6 +92,15 @@ func_inputUpdate = function(kleft = 0, kright = 0, kup = 0, kdown = 0) {
 	}
 }
 
+inputSystem = new Input();
+inputSystem.bind("up", [vk_up, ord("W")]);
+inputSystem.bind("down", [vk_down, ord("S")]);
+inputSystem.bind("left", [vk_left, ord("A")]);
+inputSystem.bind("right", [vk_right, ord("D")]);
+
+inputSystem.bind("shoot", [ord("Z"), ord("J")]);
+inputSystem.bind("sneak", [vk_shift, ord("K")]);
+
 func_grazeFlavorText = function(_text) {
 	var _inst = instance_create_depth(x+16, y-16, depth, obj_flavorText)
 	with _inst {
@@ -106,9 +115,8 @@ func_grazeFlavorText = function(_text) {
 }
 
 
-
 slowHitboxAnim = 0;
 slowHitboxAnimSpeed = 0.3;
 
-
 iFrames = 0;
+

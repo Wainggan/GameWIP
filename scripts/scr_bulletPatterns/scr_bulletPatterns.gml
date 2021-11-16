@@ -12,7 +12,7 @@ function bP_aimPlayerDirect() {
 	}
 }
 
-function bp_shootDownNormal() {
+function bP_shootDownNormal() {
 	if instance_exists(obj_player) {
 		var dir = point_direction(x, y, obj_player.x, obj_player.y);
 		var inst = instance_create_depth(x, y, depth, obj_bullet)
@@ -26,4 +26,21 @@ function bp_shootDownNormal() {
 		}
 		return inst
 	}
+}
+
+function bP_shootAround(amount = 8) {
+	var allBullets = [];
+	
+	var changeAngle = 0;
+			
+	repeat amount {
+		var inst = instance_create_depth(x, y, depth, obj_bullet);
+		with inst {
+			x_vel = lengthdir_x(3, changeAngle);
+			y_vel = lengthdir_y(3, changeAngle);
+		}
+		array_push(allBullets, inst);
+		changeAngle += 360 / amount;
+	}
+	return allBullets[0]
 }

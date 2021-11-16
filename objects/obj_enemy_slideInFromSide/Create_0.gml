@@ -7,7 +7,7 @@ directionToMove = sign(0 - x)
 
 
 pattern_shoot = [
-	[bp_shootDownNormal, 32]
+	[bP_shootDownNormal, 32]
 ]
 mPattern_move = [
 	[directionToMove * 6, 0, 6, function(){
