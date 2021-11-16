@@ -4,7 +4,7 @@ slowMoveSpeed = 3;
 grazeRadius = 38;
 
 grazeCombo = 0;
-tGrazeComboTimer = 120;
+tGrazeComboTimer = 60 * 5;
 grazeComboTimer = 0;
 
 grazeBulletList = [];

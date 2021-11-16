@@ -3,6 +3,8 @@ global.delta_multi = global.delta_target
 
 global.pause = 0;
 
+global.time = 0;
+
 global.showHitboxes = false;
 
 testSlowDown = 0
