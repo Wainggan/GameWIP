@@ -1,6 +1,8 @@
 enemyList = noone;
 active = false;
 
+activeFrames = 0;
+
 miniWave = [];
 currentMiniWave = 0;
 miniWaveReload = 0;

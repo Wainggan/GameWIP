@@ -1,9 +1,9 @@
-hp = 240;
-scoreGive = 80000
-
-important = 1;
+hp = 180;
+scoreGive = 60000
 
 deathRadius = WIDTH
+
+important = 1;
 
 bP_test = function() {
 	
@@ -16,7 +16,7 @@ bP_test = function() {
 			[0, 0, 1, function(){ instance_destroy() }]
 		]
 		bulletPattern = [
-			[[bP_shootAround, 21, 1.4], 32]
+			[bp_placeBulletDown, 24]
 		]
 	}
 	var _inst = instance_create_layer(x, y, layer, obj_enemy);
@@ -28,13 +28,26 @@ bP_test = function() {
 			[0, 0, 1, function(){ instance_destroy() }]
 		]
 		bulletPattern = [
-			[[bP_shootAround, 21, 1.4], 32]
+			[bp_placeBulletDown, 24]
 		]
 	}
 }
-mPattern_goAway = [[0,0,0]]
+
 pattern_frame = [
-	[bP_test, 120]
+	[bP_test, 120],
+	[function(){
+		if (instance_exists(obj_player)) {
+			for (var i = 0; i < array_length(bulletList); i++) {
+				var inst = bulletList[i]
+				var d = point_direction(inst.x, inst.y, obj_player.x, obj_player.y);
+				
+				inst.x_vel = lengthdir_x(3, d)
+				inst.y_vel = lengthdir_y(3, d)
+			}
+		}
+	}, 40]
 ]
+
+mPattern_goAway = [[0,0,0]]
 
 //bulletPattern = testPattern

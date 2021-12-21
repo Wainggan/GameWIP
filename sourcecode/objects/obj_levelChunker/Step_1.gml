@@ -1,4 +1,5 @@
 if active {
+	activeFrames++
 	//var fix = []
 	
 	miniWaveReload -= global.delta_multi;

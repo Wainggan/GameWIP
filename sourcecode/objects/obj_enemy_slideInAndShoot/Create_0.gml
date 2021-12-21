@@ -1,17 +1,11 @@
 // Inherit the parent event
 event_inherited();
 
-startX = x;
-startY = y;
-
 
 //directionToMove = point_direction(x, y, startX, startY);
 spd = 4
 hp = 9;
 scoreGive = 9000;
-
-
-
 
 
 pattern_frame = [
@@ -20,12 +14,28 @@ pattern_frame = [
 
 mPattern_getInPosition = [
 	[deltaX, deltaY, 999],
-	[-deltaX, -deltaY, 4],
+	[-deltaX, -deltaY, 3],
 	[0, 0, 0, function(){
-		movePattern = defaultMPattern
+		movePattern = mPattern_goAway
 		bulletPattern = pattern_frame
 	}]
 ]
+mPattern_goAway = [
+	[directionToMove*WIDTH, 128, 1],
+	[0,0,0,function(){instance_destroy()}]
+]
+
+frameFunc = function(){
+	if sign(directionToMove) == 1 {
+		if WIDTH + 64 < x {
+			instance_destroy()
+		}
+	} else {
+		if -64 > x {
+			instance_destroy()
+		}
+	}
+}
 
 movePattern = mPattern_getInPosition
 

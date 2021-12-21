@@ -28,19 +28,24 @@ function bP_shootDownNormal() {
 	}
 }
 
-function bP_shootAround(amount = 8) {
+function bP_shootAround(amount = 8, spd = 3) {
 	var allBullets = [];
 	
 	var changeAngle = 0;
 			
 	repeat amount {
-		var inst = instance_create_depth(x, y, depth, obj_bullet);
+		var inst = instance_create_depth(x, y, layer, obj_bullet);
 		with inst {
-			x_vel = lengthdir_x(3, changeAngle);
-			y_vel = lengthdir_y(3, changeAngle);
+			x_vel = lengthdir_x(spd, changeAngle);
+			y_vel = lengthdir_y(spd, changeAngle);
 		}
 		array_push(allBullets, inst);
 		changeAngle += 360 / amount;
 	}
-	return allBullets[0]
+	return allBullets
+}
+
+function bp_placeBulletDown() {
+	var inst = instance_create_depth(x, y, layer, obj_bullet);
+	return inst
 }
