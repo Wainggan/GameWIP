@@ -20,6 +20,8 @@ lastParent = noone
 
 directionToMove = sign(WIDTH/2 - x)
 
+//active = false
+
 
 func_destroyBullets = function(){
 	for (var i = 0; i < array_length(bulletList); i++) {

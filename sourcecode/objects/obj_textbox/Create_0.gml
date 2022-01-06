@@ -10,4 +10,4 @@ textSpeed = 1.4
 anim = new AnimCurve("ease")
 
 x = 16
-y = 336
+y = 336+24

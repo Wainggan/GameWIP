@@ -23,7 +23,7 @@ function map(val, start1, end1, start2, end2) {
 	return prop*(end2-start2) + start2;
 }
 
-function wave(_from, _to, _duration, _offset = 0, _time = current_time * 0.001) {
+function wave(_from, _to, _duration, _offset = 0, _time = global.time / 60/*current_time * 0.001*/) {
 	var a4 = (_from - _to) * 0.5;
 	return _to + a4 + sin((((_time) + _duration * _offset) / _duration) * (pi*2)) * a4;
 }
@@ -39,19 +39,20 @@ function chance(_percent) {
 }
 
 
-///@func script_execute_deep(array)
-function script_execute_deep(_in) {
-	if (!is_array(_in)) { 
+///@func script_execute_deep(array, [runPlainFunctionFirst = true])
+function script_execute_deep(_in, _plainFunction = true) {
+	if (!is_array(_in)) {
+		if !_plainFunction return _in;
 		if (is_method(_in) || (_in > 100000 && script_exists(_in))) {
 			return _in();
 		} else {
 			return _in;
 		}
-	} else if (!(is_method(_in[0]) || (_in[0] > 100000 && script_exists(_in[0])))) return _in;
+	} else if (array_length(_in)==0 || !(is_method(_in[0]) || (_in[0] > 100000 && script_exists(_in[0])))) return _in;
 	
 	var newIn = [];
 	for (var i = 1; i < array_length(_in); i++) {
-		array_push(newIn, script_execute_deep(_in[i]));
+		array_push(newIn, script_execute_deep(_in[i], false));
 	}
 	var fix = _in[0]
 	if is_method(fix) {
@@ -59,6 +60,7 @@ function script_execute_deep(_in) {
 	}
 	return script_execute_ext(fix, newIn);
 }
+
 
 ///@func array_append(array, array)
 function array_append(array1, array2) {

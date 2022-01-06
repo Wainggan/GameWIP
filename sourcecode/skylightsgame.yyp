@@ -51,6 +51,7 @@
     {"id":{"name":"scr_stringParser","path":"scripts/scr_stringParser/scr_stringParser.yy",},"order":11,},
     {"id":{"name":"spr_bullet_playerTest","path":"sprites/spr_bullet_playerTest/spr_bullet_playerTest.yy",},"order":2,},
     {"id":{"name":"obj_bulletDestroyer","path":"objects/obj_bulletDestroyer/obj_bulletDestroyer.yy",},"order":4,},
+    {"id":{"name":"obj_bullet_parent","path":"objects/obj_bullet_parent/obj_bullet_parent.yy",},"order":5,},
     {"id":{"name":"ac_tween","path":"animcurves/ac_tween/ac_tween.yy",},"order":0,},
     {"id":{"name":"obj_levelChunker","path":"objects/obj_levelChunker/obj_levelChunker.yy",},"order":0,},
     {"id":{"name":"spr_comcat","path":"sprites/spr_comcat/spr_comcat.yy",},"order":2,},

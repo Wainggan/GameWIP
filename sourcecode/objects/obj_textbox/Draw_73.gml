@@ -3,7 +3,7 @@ if delay > 0 exit
 draw_set_font(ft_text)
 draw_sprite_stretched(sprite_index, 0, x, y, 480 * anim.evaluate(), 104)
 
-var out = draw_parsedText(32, 352, textParsed, 448, textProgress, lastTextProgress)
+var out = draw_parsedText(x+16, y+10, textParsed, 448, textProgress, lastTextProgress)
 if out[$ "pause"] != undefined {
 	textProgressPause = out[$ "pause"]
 	textProgress += textSpeed

@@ -28,7 +28,7 @@ bP_test = function() {
 			[0, 0, 1, function(){ instance_destroy() }]
 		]
 		bulletPattern = [
-			[[bP_shootAround, [function(){return irandom_range(16, 35)}], 0.5], 38]
+			[[bP_shootAround, [function(){return irandom_range(16, 30)}], 0.5], 38]
 		]
 	}
 }

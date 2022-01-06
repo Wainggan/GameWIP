@@ -246,7 +246,7 @@ state.add("respawn", {
 	}
 })
 
-respawnAnim = new AnimCurve("smooth");
+respawnAnim = new AnimCurve("back");
 
 
 

@@ -22,6 +22,10 @@
         {"th0":-0.1,"th1":2.09547579E-09,"tv0":0.0,"tv1":0.0,"x":0.0,"y":0.0,},
         {"th0":-0.5,"th1":0.1,"tv0":0.0,"tv1":0.0,"x":1.0,"y":0.999999762,},
       ],"resourceVersion":"1.0","name":"ease","tags":[],"resourceType":"GMAnimCurveChannel",},
+    {"colour":4279015665,"visible":true,"points":[
+        {"th0":-0.25,"th1":0.245958686,"tv0":0.0,"tv1":1.55103278,"x":0.0,"y":0.0,},
+        {"th0":-0.1607408,"th1":0.25,"tv0":0.0,"tv1":0.0,"x":1.0,"y":1.0,},
+      ],"resourceVersion":"1.0","name":"back","tags":[],"resourceType":"GMAnimCurveChannel",},
   ],
   "parent": {
     "name": "Animation Curves",

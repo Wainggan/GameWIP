@@ -21,7 +21,7 @@ if global.score != lastScore {
 }
 if global.score != scoreAnim {
 	scoreAnim = scoreAnimCurve.evaluate()
-	scoreAnimCurve.percent += 0.04 * global.delta_multi;
+	scoreAnimCurve.percent += 0.03 * global.delta_multi;
 	if scoreAnimCurve.percent >= 1 {
 		scoreAnim = global.score
 	}

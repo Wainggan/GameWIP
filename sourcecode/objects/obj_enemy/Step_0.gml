@@ -1,3 +1,5 @@
+//if !active exit
+
 if (lastParent != noone) {
 	if (!instance_exists(parent)) {
 		instance_destroy()

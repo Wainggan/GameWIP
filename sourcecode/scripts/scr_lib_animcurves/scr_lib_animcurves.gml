@@ -1,3 +1,4 @@
+///@func AnimCurve([curveType = "smooth"], [start = 0], [target = 1])
 function AnimCurve(_curve = "smooth", _start = 0, _target = 1) constructor {
 	percent = 0;
 	curve = _curve
