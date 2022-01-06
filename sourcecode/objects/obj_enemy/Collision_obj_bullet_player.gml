@@ -1,17 +1,22 @@
 if !invinsible {
 	hp--
-	hitAnim = 0.3
+	hitAnim = 1
+	
+	instance_create_depth(x, y, depth+100, obj_effect_hitpop)
 
 	instance_destroy(other)
 }
 if hp <= 0 {
 	global.score += scoreGive;
 	
-	var list = ds_list_create()
-	collision_circle_list(x, y, deathRadius, obj_bullet, 0, true, list, 0)
-	for (var i = 0; i < ds_list_size(list); i++) {
-		instance_destroy(list[| i])
-	}
+	
+	var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+	inst.targetSize = deathRadius
+	
+	var shockwave = render.shockwave_create(x, y)
+	shockwave.mode = 1
+	shockwave.scaleTarget = deathRadius * 4
+	shockwave.scaleSpeed = 18
 	
 	instance_destroy()
 	//func_destroyBullets()

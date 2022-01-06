@@ -1,11 +1,14 @@
 function game_start(_rm = rm_stage1) {
+	global.logger.log("Game started, " + room_get_name(_rm))
+	
 	room_goto(_rm)
 	global.gameActive = 1;
 	global.highscore = global.file.save.leaderboard[0].score
-	
 }
 
 function game_stop() {
+	global.logger.log("Game end")
+	
 	global.gameActive = 0;
 	
 	var _lb = global.file.save.leaderboard;

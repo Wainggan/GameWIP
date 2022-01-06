@@ -5,8 +5,6 @@ if !surface_exists(surf_playerBullet) {
 	surf_playerBullet = surface_create(WIDTH, HEIGHT)
 }
 
-//var surf_playerBullet = surface_create(WIDTH, HEIGHT)
-
 surface_set_target(surf_playerBullet)
 	draw_clear_alpha(c_black, 0)
 		with obj_bullet_player {

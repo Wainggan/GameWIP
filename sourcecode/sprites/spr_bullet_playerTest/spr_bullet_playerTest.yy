@@ -76,8 +76,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "player",
+    "path": "folders/Sprites/gameplay/player.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_bullet_playerTest",

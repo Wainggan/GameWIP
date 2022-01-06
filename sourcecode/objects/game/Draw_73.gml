@@ -5,9 +5,9 @@ if global.showHitboxes {
 	with all {
 		
 		var left = floor(bbox_left)
-		var right = floor(bbox_right)-1
+		var right = ceil(bbox_right)+1
 		var up = floor(bbox_top)
-		var down = floor(bbox_bottom)-1
+		var down = ceil(bbox_bottom)+1
 		
 		draw_rectangle(left, up, right, down, 1)
 		

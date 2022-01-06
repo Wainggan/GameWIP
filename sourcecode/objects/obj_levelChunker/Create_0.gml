@@ -11,7 +11,7 @@ func_setupLevel = function() {
 	
 	enemyList = [];
 	var nearEnemies = ds_list_create()
-	instance_place_list(x, y, obj_enemy, nearEnemies, false)
+	instance_place_list(x, y, obj_parent_chunkable, nearEnemies, false)
 	for (var i = 0; i < ds_list_size(nearEnemies); i++) {
 		var inst = nearEnemies[| i];
 		array_push(enemyList, inst);
@@ -34,6 +34,9 @@ func_activateChunk = function() {
 			
 		var offset = inst.y - bbox_bottom;
 		inst.y = HEIGHT + offset;
+		
+		if variable_instance_exists(inst, "activateFunc") inst.activateFunc()
+		inst.active = true
 		
 	}
 	

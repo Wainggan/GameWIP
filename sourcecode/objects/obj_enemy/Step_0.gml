@@ -5,6 +5,10 @@ if (lastParent != noone) {
 }
 lastParent = parent
 
+if hp > maxhp {
+	maxhp = hp
+}
+
 
 
 // making sure the bullet list has active instances
@@ -26,17 +30,9 @@ if bulletPatternBuffer >= bulletPattern[bulletPatternTimeline][1] {
 	var a = bulletPattern[bulletPatternTimeline][0];
 	if a != -1 {
 		
-		var _b;
-		if is_array(a) {
-			_b = script_execute_ext(a[0], a, 1);
-		} else {
-			_b = a();
-		}
+		var _b = script_execute_deep(a);
 		func_addBullets(_b);
-		//var _inst = bulletPattern[bulletPatternTimeline][0]();
-		//if _inst != undefined && instance_exists(_inst) {
-		//	array_push(bulletList, _inst)
-		//}
+
 	}
 	
 }
@@ -61,11 +57,7 @@ if (x == targetX && y == targetY) || round(dir) != round(point_direction(x, y, t
 	
 	if array_length(movePattern[movePatternTimeline]) == 4 {
 		var f = movePattern[movePatternTimeline][3]
-		if (is_array(f)) {
-			script_execute_ext(f[0], f, 1);
-		} else {
-			f();
-		}
+		script_execute_deep(f);
 	}
 	
 	movePatternTimeline += 1;

@@ -1,4 +1,5 @@
 function json_writeFrom(_filename, _tree) {
+	log("Writing to file " + _filename)
 	var _string = json_stringify(_tree);
 	var _buffer = buffer_create(string_byte_length(_string)+1, buffer_fixed, 1);
 	buffer_write(_buffer, buffer_string, _string);
@@ -7,6 +8,7 @@ function json_writeFrom(_filename, _tree) {
 }
 
 function json_readFrom(_filename) {
+	log("Reading from file " + _filename)
 	if file_exists(_filename) {
 		var _buffer = buffer_load(_filename);
 		var _string = buffer_read(_buffer, buffer_string);
@@ -17,6 +19,7 @@ function json_readFrom(_filename) {
 		return _loadData
 		
 	} else {
+		log("File \"" + _filename + "\" doesn't exist")
 		return undefined;
 	}
 }

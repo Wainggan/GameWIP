@@ -3,13 +3,12 @@ if array_length(chunkList) >= 1 && pauseTime = -69 {
 		if array_length(chunkList[currentChunk].enemyList) == 0 {
 		
 			if array_length(chunkList) == 0 {
+				log("??? This shouldn't run?????? check obj_levelLoader's Begin Step", LOG_WARNING)
+				
 				game_end() // umm something weird happened ig
 			} else {
 				pauseTime = chunkList[currentChunk].pauseTime;
 				
-				
-				show_debug_message("ohno")
-				show_debug_message(array_length(chunkList))
 			
 			
 			}
@@ -28,6 +27,8 @@ if pauseTime != -69 {
 		currentChunk++
 		func_loadChunk()
 		pauseTime = -69
+		
+		log("New chunk loaded, " + string(currentChunk))
 	} else {
 		pauseTime -= global.delta_multi;
 	}

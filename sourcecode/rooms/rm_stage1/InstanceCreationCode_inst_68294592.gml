@@ -1,5 +1,7 @@
-hp = 180;
+hp = 350;
 scoreGive = 60000
+
+sprite_index = spr_comcat
 
 deathRadius = WIDTH
 

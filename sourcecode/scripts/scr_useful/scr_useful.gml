@@ -37,3 +37,33 @@ function wrap(_value,_min,_max) {
 function chance(_percent) {
 	return argument0 > random(1);
 }
+
+
+///@func script_execute_deep(array)
+function script_execute_deep(_in) {
+	if (!is_array(_in)) { 
+		if (is_method(_in) || (_in > 100000 && script_exists(_in))) {
+			return _in();
+		} else {
+			return _in;
+		}
+	} else if (!(is_method(_in[0]) || (_in[0] > 100000 && script_exists(_in[0])))) return _in;
+	
+	var newIn = [];
+	for (var i = 1; i < array_length(_in); i++) {
+		array_push(newIn, script_execute_deep(_in[i]));
+	}
+	var fix = _in[0]
+	if is_method(fix) {
+		fix = method_get_index(fix)
+	}
+	return script_execute_ext(fix, newIn);
+}
+
+///@func array_append(array, array)
+function array_append(array1, array2) {
+	for(var i = 0; i < array_length(array2); i++) {
+		array1[array_length(array1)] = array2[i];
+	}
+	return array1;
+}

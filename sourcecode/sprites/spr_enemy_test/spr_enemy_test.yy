@@ -69,8 +69,8 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "gameplay",
+    "path": "folders/Sprites/gameplay.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_enemy_test",

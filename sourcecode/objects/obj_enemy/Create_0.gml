@@ -4,10 +4,11 @@ x_vel = 0;
 y_vel = 0;
 
 hp = var_hp;
+maxhp = hp
 scoreGive = var_scoreGive;
 
 hitAnim = 0;
-hitAnimSpeed = 0.04;
+hitAnimSpeed = 0.2;
 
 invinsible = false;
 important = 0;

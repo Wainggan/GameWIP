@@ -9,6 +9,9 @@ global.showHitboxes = false;
 
 testSlowDown = 0
 
+var gameSurfaceX = (window_get_width()/2-WIDTH/2)+WIDTH/8;
+var gameSurfaceY = 16
+window_mouse_set(gameSurfaceX, gameSurfaceY)
 
 global.file = undefined;
 
@@ -35,6 +38,8 @@ global.file = undefined;
 			}
 		}
 		*/
+		log("File time! :D")
+		
 		global.file_default = { // latest version of the file
 			gameVersion : "0.1.0",
 			fileVersion : "0.2.0",
@@ -103,7 +108,7 @@ global.file = undefined;
 	for (var i = currentArrayCheckLocation+1; i < array_length(changeOrder); i++) {
 		
 		var checkNewVersion = changeOrder[i]
-		show_debug_message(checkNewVersion)
+		log("New file version detected, " + checkNewVersion + ", updating...")
 		
 		switch checkNewVersion {
 			case "0.2.0":
@@ -113,7 +118,7 @@ global.file = undefined;
 				global.file = global.file_default; // reset the file
 			break;
 			default:
-				show_error("oh god", 0)
+				log("Attempted to update to file version " + checkNewVersion + ", but it does not exist.", LOG_ERROR)
 			break
 		}
 		
@@ -129,9 +134,9 @@ global.highscore = 0;
 global.gameActive = false;
 
 
-instance_create_depth(0,0,depth, render)
-instance_create_depth(0,0,depth, levelLoader)
-instance_create_depth(0,0,depth, menu)
+instance_create_layer(0,0, "Instances", render)
+instance_create_layer(0,0, "Instances", levelLoader)
+instance_create_layer(0,0, "Instances", menu)
 
 
 room_goto(rm_mainmenu)

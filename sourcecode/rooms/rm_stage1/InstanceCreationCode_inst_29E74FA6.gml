@@ -1,5 +1,5 @@
-hp = 240;
-scoreGive = 80000
+hp = 580;
+scoreGive = 90000
 
 important = 1;
 
@@ -16,7 +16,7 @@ bP_test = function() {
 			[0, 0, 1, function(){ instance_destroy() }]
 		]
 		bulletPattern = [
-			[[bP_shootAround, 21, 1.4], 32]
+			[[bP_shootAround, [function(){return irandom_range(16, 35)}], 0.5], 38]
 		]
 	}
 	var _inst = instance_create_layer(x, y, layer, obj_enemy);
@@ -28,13 +28,13 @@ bP_test = function() {
 			[0, 0, 1, function(){ instance_destroy() }]
 		]
 		bulletPattern = [
-			[[bP_shootAround, 21, 1.4], 32]
+			[[bP_shootAround, [function(){return irandom_range(16, 35)}], 0.5], 38]
 		]
 	}
 }
 mPattern_goAway = [[0,0,0]]
 pattern_frame = [
-	[bP_test, 120]
+	[bP_test, 110]
 ]
 
 //bulletPattern = testPattern

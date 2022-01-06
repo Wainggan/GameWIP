@@ -15,13 +15,19 @@ if global.gameActive {
 		draw_set_font(ft_ui)
 			draw_text(gameSurfaceX - 8, gameSurfaceY + 2, "Score")
 		draw_set_font(ft_score)
-			draw_text(gameSurfaceX - 8, gameSurfaceY + 2 + 24 * 1, string(global.score))
+			draw_text(gameSurfaceX - 8, gameSurfaceY + 2 + 24 * 1, string(round(scoreAnim)))//string(global.score))
 		draw_set_font(ft_ui)
 			draw_text_transformed(gameSurfaceX - 8, gameSurfaceY + 2 + 24 * 2.25, string(global.highscore), 0.75, 0.75, 0)
 		
 		draw_set_font(ft_debug)
 
 	draw_set_halign(fa_left)
+	
+	if (instance_exists(obj_player)) {
+		for (var i = 0; i < obj_player.livesLeft; i++) {
+			draw_sprite(spr_playericon, 0, gameSurfaceX-24, gameSurfaceY + 96 + i*18)
+		}
+	}
 
 
 	with obj_enemy {
@@ -43,7 +49,8 @@ if global.gameActive {
 		
 		if important > 0 {
 			if 0 < x && x < WIDTH {
-				draw_sprite(spr_enemyIndicator, 0, gameSurfaceX+x, gameSurfaceY+HEIGHT)
+				draw_sprite_ext(spr_enemyIndicator, 0, gameSurfaceX+x, gameSurfaceY+HEIGHT + 16, 1, 1, 0, c_white, 1)
+				draw_sprite_ext(spr_enemyIndicator, 0, gameSurfaceX+x, gameSurfaceY+HEIGHT + 16, 1-hp/maxhp, 1-hp / maxhp, 0, merge_color(c_black, c_fuchsia, 0.2), 0.7)
 			}
 		}
 	}

@@ -28,10 +28,10 @@ function bP_shootDownNormal() {
 	}
 }
 
-function bP_shootAround(amount = 8, spd = 3) {
+function bP_shootAround(amount = 8, spd = 3, startAngle = 0) {
 	var allBullets = [];
 	
-	var changeAngle = 0;
+	var changeAngle = startAngle;
 			
 	repeat amount {
 		var inst = instance_create_depth(x, y, layer, obj_bullet);
@@ -49,3 +49,4 @@ function bp_placeBulletDown() {
 	var inst = instance_create_depth(x, y, layer, obj_bullet);
 	return inst
 }
+
