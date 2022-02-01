@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_bulletTest",
-    "path": "sprites/spr_bulletTest/spr_bulletTest.yy",
+    "name": "spr_bullet_normal",
+    "path": "sprites/spr_bullet_normal/spr_bullet_normal.yy",
   },
   "solid": false,
   "visible": true,
@@ -23,7 +23,10 @@
   "physicsStartAwake": true,
   "physicsKinematic": false,
   "physicsShapePoints": [],
-  "eventList": [],
+  "eventList": [
+    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+  ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {

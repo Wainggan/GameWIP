@@ -25,7 +25,7 @@ if global.gameActive {
 	
 	if (instance_exists(obj_player)) {
 		for (var i = 0; i < obj_player.livesLeft; i++) {
-			draw_sprite(spr_playericon, 0, gameSurfaceX-24, gameSurfaceY + 96 + i*18)
+			draw_sprite(spr_playericon, 0, gameSurfaceX-24, gameSurfaceY + HEIGHT - i*18 - 18)
 		}
 	}
 
@@ -49,6 +49,9 @@ if global.gameActive {
 		
 		if important > 0 {
 			if 0 < x && x < WIDTH {
+				if instance_exists(obj_player) {
+					draw_line(gameSurfaceX+obj_player.x, gameSurfaceY+HEIGHT + 16, gameSurfaceX+x, gameSurfaceY+HEIGHT + 16)
+				}
 				draw_sprite_ext(spr_enemyIndicator, 0, gameSurfaceX+x, gameSurfaceY+HEIGHT + 16, 1, 1, 0, c_white, 1)
 				draw_sprite_ext(spr_enemyIndicator, 0, gameSurfaceX+x, gameSurfaceY+HEIGHT + 16, 1-hp/maxhp, 1-hp / maxhp, 0, merge_color(c_black, c_fuchsia, 0.2), 0.7)
 			}
@@ -56,12 +59,27 @@ if global.gameActive {
 	}
 
 } else {
+	
+	
 	if array_length(menu.menuList) <= 1 {
 		var _lb = global.file.save.leaderboard;
-	
+		draw_set_font(ft_ui)
 		for (var i = 0; i < array_length(_lb); i++) {
-			draw_text(500, 64 + 32 * i*2, string(_lb[i].name))
-			draw_text(500, 64 + 32 * i*2 + 24, string(_lb[i].score))
+			draw_set_alpha(0.1)
+			draw_set_color(c_black)
+				draw_text_outline(500, 48 + 32 * i*2, string(_lb[i].name))
+			draw_set_alpha(1)
+			draw_set_color(c_white)
+				draw_text(500, 48 + 32 * i*2, string(_lb[i].name))
+				
+			draw_set_alpha(0.1)
+			draw_set_color(c_black)
+				draw_text_outline(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
+				draw_set_alpha(1)
+			draw_set_color(c_white)
+				draw_text(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
 		}
 	}
+	
+	
 }

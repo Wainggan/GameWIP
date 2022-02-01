@@ -8,5 +8,15 @@ spd = 0;
 spd_accel = 0;
 dir_vel = 0
 
+spd_target = undefined;
+spd_targetSpd = 0
+
+highlight = false
+showDirection = false;
+
+life = undefined
+
 step = function(){}
 death = function(){}
+
+glow = c_red

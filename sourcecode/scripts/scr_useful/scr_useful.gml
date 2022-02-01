@@ -65,7 +65,7 @@ function script_execute_deep(_in, _plainFunction = true) {
 ///@func array_append(array, array)
 function array_append(array1, array2) {
 	for(var i = 0; i < array_length(array2); i++) {
-		array1[array_length(array1)] = array2[i];
+		array1[@ array_length(array1)] = array2[i];
 	}
 	return array1;
 }

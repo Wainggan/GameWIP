@@ -8,35 +8,8 @@ hp = 9;
 scoreGive = 9000;
 
 
-pattern_frame = [
-	[bP_aimPlayerDirect, 32],
-]
+var _bPattern = new Timeline()
+_bPattern.add(bP_aimPlayerDirect, 24)
+array_push(bulletPatterns, _bPattern)
 
-mPattern_getInPosition = [
-	[deltaX, deltaY, 999],
-	[-deltaX, -deltaY, 3],
-	[0, 0, 0, function(){
-		movePattern = mPattern_goAway
-		bulletPattern = pattern_frame
-	}]
-]
-mPattern_goAway = [
-	[directionToMove*WIDTH, 128, 1],
-	[0,0,0,function(){instance_destroy()}]
-]
 
-frameFunc = function(){
-	if sign(directionToMove) == 1 {
-		if WIDTH + 64 < x {
-			instance_destroy()
-		}
-	} else {
-		if -64 > x {
-			instance_destroy()
-		}
-	}
-}
-
-movePattern = mPattern_getInPosition
-
-//bulletPattern = pattern_frame

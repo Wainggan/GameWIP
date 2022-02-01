@@ -1,17 +1,30 @@
-moveSpeed = 5;
+moveSpeed = 4;
 slowMoveSpeed = 2;
+
+x_vel = 0;
+y_vel = 0
+
+accel = 2.5;
+slowAccel = 1;
+
 
 grazeRadius = 38;
 
 grazeCombo = 0;
 tGrazeComboTimer = 60 * 5;
 grazeComboTimer = 0;
+grazeComboQueue = 0;
+grazeComboQueueTimer = 0;
+tGrazeComboQueueTimer = 4;
 
 grazeBulletList = [];
-grazeBulletListClearTime = 64;
+grazeBulletListClearTime = 60 * 4;
 
 grazeHitboxGraphicShow = 0;
 grazeHitboxGraphicShowSpeed = 0.05;
+
+
+parryRadius = 20;
 
 
 bulletCharge = 0;
@@ -96,24 +109,42 @@ func_inputUpdate = function(kleft = 0, kright = 0, kup = 0, kdown = 0) {
 	}
 }
 
-inputSystem = new Input();
-inputSystem.bind("up", [vk_up, ord("W")]);
-inputSystem.bind("up", gp_padu, INPUT_MODE_CONTROLLER);
-inputSystem.bind("down", [vk_down, ord("S")]);
-inputSystem.bind("down", gp_padd, INPUT_MODE_CONTROLLER);
-inputSystem.bind("left", [vk_left, ord("A")]);
-inputSystem.bind("left", gp_padl, INPUT_MODE_CONTROLLER);
-inputSystem.bind("right", [vk_right, ord("D")]);
-inputSystem.bind("right", gp_padr, INPUT_MODE_CONTROLLER);
+inputSystem = new InputManager(); // vk_up, ord("W")
+inputSystem.create_input("up")
+	.add_keyboard_key(vk_up)
+	.add_keyboard_key(ord("W"))
+	.add_gamepad_stick(gp_axislv, -1)
+	.add_gamepad_button(gp_padu)
+inputSystem.create_input("down")
+	.add_keyboard_key(vk_down)
+	.add_keyboard_key(ord("S"))
+	.add_gamepad_stick(gp_axislv, 1)
+	.add_gamepad_button(gp_padd)
+inputSystem.create_input("left")
+	.add_keyboard_key(vk_left)
+	.add_keyboard_key(ord("A"))
+	.add_gamepad_stick(gp_axislh, -1)
+	.add_gamepad_button(gp_padl)
+inputSystem.create_input("right")
+	.add_keyboard_key(vk_right)
+	.add_keyboard_key(ord("D"))
+	.add_gamepad_stick(gp_axislh, 1)
+	.add_gamepad_button(gp_padr)
 
-inputSystem.bind("stickhorz", gp_axislh, INPUT_MODE_CONTROLLER_STICKTODIGITAL);
-inputSystem.bind("stickvert", gp_axislv, INPUT_MODE_CONTROLLER_STICKTODIGITAL);
+inputSystem.create_input("shoot")
+	.add_keyboard_key(ord("Z"))
+	.add_keyboard_key(ord("J"))
+	.add_gamepad_button(gp_face3)
+	.add_gamepad_button(gp_face2)
+	.add_gamepad_button(gp_face1)
+inputSystem.create_input("sneak")
+	.add_keyboard_key(vk_shift)
+	.add_keyboard_key(ord("K"))
+	.add_gamepad_button(gp_face2)
+	.add_gamepad_button(gp_face4)
+	.add_gamepad_shoulder(gp_shoulderlb)
+	.add_gamepad_shoulder(gp_shoulderrb)
 
-inputSystem.bind("shoot", [ord("Z"), ord("J")]);
-inputSystem.bind("shoot", [gp_face3, gp_face1, gp_face2], INPUT_MODE_CONTROLLER);
-inputSystem.bind("sneak", [vk_shift, ord("K")]);
-inputSystem.bind("sneak", gp_face2, INPUT_MODE_CONTROLLER);
-inputSystem.bind("sneak", gp_shoulderrb, INPUT_MODE_CONTROLLER_ANALOGBUTTONTODIGITAL);
 
 func_grazeFlavorText = function(_text) {
 	var _inst = instance_create_depth(x+16, y-16, depth, obj_flavorText)
@@ -122,7 +153,7 @@ func_grazeFlavorText = function(_text) {
 		_inst.x_vel = 0.3;
 		_inst.y_vel = -1.3;
 			
-		_inst.life = 20;
+		_inst.life = 15;
 			
 		_inst.text = string(_text)
 	}
@@ -141,15 +172,26 @@ state.add("idle", {
 			vkey = vertMovementPriority[0]
 		}
 
-		//var hkey = keyboard_check(vk_right) - keyboard_check(vk_left);
-		//var vkey = keyboard_check(vk_down) - keyboard_check(vk_up);
+		//var _spd = inputSystem.check("sneak") ? slowMoveSpeed : moveSpeed;
+		//var keydir = point_direction(0,0,hkey,vkey)
+		//if hkey == 0 && vkey == 0 {
+		//	_spd = 0
+		//}
+		
+		var directionFix = (hkey != 0 && vkey != 0 ? 0.71 : 1)
+    
+	    var targetTopSpeed = (inputSystem.check("sneak") ? slowMoveSpeed : moveSpeed)
+	    var targetAccel = (inputSystem.check("sneak") ? slowAccel : accel)
+    
+	    x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
+	    y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
 
-		var spd = inputSystem.check("sneak") ? slowMoveSpeed : moveSpeed;
-		var keydir = point_direction(0,0,hkey,vkey)
-		if hkey == 0 && vkey == 0 {
-			spd = 0
-		}
+		x += x_vel * global.delta_multi;
+		y += y_vel * global.delta_multi;
 
+
+		x = clamp(x, 4, WIDTH-4)
+		y = clamp(y, 10, HEIGHT-2)
 
 
 		var _bulletHit = place_meeting(x, y, obj_bullet)
@@ -157,73 +199,98 @@ state.add("idle", {
 			global.pause = 8;
 			iFrames = 20;
 	
-			instance_create_layer(x, y, layer, obj_bulletDestroyer).targetSize = WIDTH;
+			var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+			test.targetSize = WIDTH;
+			test.sizeSpeed = 28;
+			
 			var test = render.shockwave_create(x, y)
 			test.mode = 1
 			test.scaleTarget = WIDTH * 4
-			test.scaleSpeed = 18
+			test.scaleSpeed = 32
 	
 			livesLeft--
 	
+			grazeComboQueue = 0;
 			grazeCombo = 0;
 			func_grazeFlavorText("0")
 			
 			state.change("respawn")
 		}
 
-
-
-		var _grazeBulletHit = collision_circle(x, y, grazeRadius, obj_bullet, 0, 1) //instance_place(x, y, obj_bullet)
-		if _grazeBulletHit && !_bulletHit {
-	
-			var _out = 0;
-			for (var i = 0; i < array_length(grazeBulletList); i++) {
-				if grazeBulletList[i][0] == _grazeBulletHit {
-					_out = 1;
+		var _grazedBulletsList = ds_list_create()
+		collision_circle_list(x, y, grazeRadius, obj_bullet, 0, 1, _grazedBulletsList, false)
+		if ds_list_size(_grazedBulletsList) > 0 && !_bulletHit {
+			
+			for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
+				var _out = 0;
+				for (var j = 0; j < array_length(grazeBulletList); j++) {
+					if grazeBulletList[j][0] == _grazedBulletsList[| i] {
+						_grazedBulletsList[| i].highlight = true
+						_out = 1;
+						//break;
+					}
+				}
+				if _out == 0 {
+					array_push(grazeBulletList, [_grazedBulletsList[| i], grazeBulletListClearTime])
+					grazeCombo += 1;
+					grazeComboQueue += 1;
+					grazeComboTimer = tGrazeComboTimer;
+		
+					global.score += 100;
+		
+					grazeHitboxGraphicShow = 1;
+		
+					//func_grazeFlavorText(string(grazeCombo))
 				}
 			}
-			if _out == 0 {
-				array_push(grazeBulletList, [_grazeBulletHit, grazeBulletListClearTime])
-				grazeCombo += 1;
-				grazeComboTimer = tGrazeComboTimer;
-		
-				global.score += 100;
-		
-				grazeHitboxGraphicShow = 1;
-		
-				func_grazeFlavorText(string(grazeCombo))
+			
+			
+			ignore {
+			var _parryBullets = ds_list_create()
+			collision_circle_list(x, y, parryRadius, obj_bullet, false, true, _parryBullets, false)
+			if ds_list_size(_parryBullets) > 0 && inputSystem.check("parry", INPUT_PRESSED) {
+				for (var i = 0; i < ds_list_size(_parryBullets); i++) {
+					with _parryBullets[| i] {
+						instance_change(obj_bullet_player, true)
+						dir = 90;
+						spd = other.bulletSpeed;
+					}
+				}
 			}
-	
-	
+			ds_list_destroy(_parryBullets)
+			}
+			
+		}
+		ds_list_destroy(_grazedBulletsList)
+		
+		grazeComboQueueTimer -= global.delta_multi
+		if grazeComboQueue != 0 && grazeComboQueueTimer <= 0{
+			grazeComboQueueTimer = tGrazeComboQueueTimer
+			grazeComboQueue = max(grazeComboQueue - ceil(lerp(grazeCombo - grazeComboQueue, grazeCombo, 0.5) - (grazeCombo - grazeComboQueue)), 0)
+			func_grazeFlavorText(string(grazeCombo - grazeComboQueue))
+			
 		}
 
 
-		x += lengthdir_x(spd, keydir) * global.delta_multi;
-		y += lengthdir_y(spd, keydir) * global.delta_multi;
-
-		x = clamp(x, 0, WIDTH)
-		y = clamp(y, 0, HEIGHT)
-
-
+		// TODO: rebalance bulletcharge
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0) * global.delta_multi, 
 					(vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
-		var newReloadTime = max( ( tReloadTime - (sqrt(grazeCombo) / 4) ), 3) - bulletCharge
+		var _newReloadTime = max( ( tReloadTime - (sqrt(grazeCombo) / 4) ), 3) - bulletCharge
 
 		if inputSystem.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 {
-			reloadTime = newReloadTime
-			var spreadTemp = inputSystem.check("sneak") ? bulletSpreadSlow : bulletSpread
-			var spreadAngleTemp = inputSystem.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
+			reloadTime = _newReloadTime
+			var _spreadTemp = inputSystem.check("sneak") ? bulletSpreadSlow : bulletSpread
+			var _spreadAngleTemp = inputSystem.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
 	
 			for (var i = 0; i < bulletAmount; i+= 1) {
-				var inormalize = i/bulletAmount;
-				var dir = (90 + -spreadAngleTemp/2) - (-spreadAngleTemp/(bulletAmount-1) * i)
-				var offset = spreadTemp * (bulletAmount - 1 - (i * 2))
+				var _dir = (90 + -_spreadAngleTemp/2) - (-_spreadAngleTemp/(bulletAmount-1) * i)
+				var _offset = _spreadTemp * (bulletAmount - 1 - (i * 2))
 		
-				var _inst = instance_create_depth(x + offset, y, depth, obj_bullet_player)
+				var _inst = instance_create_depth(x + _offset, y, depth, obj_bullet_player)
 		
 				with _inst {
-					_inst.x_vel = lengthdir_x(other.bulletSpeed, dir);
-					_inst.y_vel = lengthdir_y(other.bulletSpeed, dir);
+					_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
+					_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
 				}
 			}
 	
@@ -248,10 +315,23 @@ state.add("respawn", {
 
 respawnAnim = new AnimCurve("back");
 
+tailLength = 20
+tail = new RopeManager()
+tail.createRope(x, y, tailLength) // 28
+tail.points_applyFunc(function(p){
+	p.x_drag = 0.5//0.2
+	p.y_drag = 0.5//0.2
+	p.elastic = 2
+})
+tail.sticks_applyFunc(function(p){
+	p.length = 3
+})
+tail.iterations = 50
+tail.points[0].locked = true
 
 
-slowHitboxAnim = 0;
-slowHitboxAnimSpeed = 0.3;
+hitboxAnim = new TweenManager()
+hitboxSize = 0;
 
 iFrames = 0;
 

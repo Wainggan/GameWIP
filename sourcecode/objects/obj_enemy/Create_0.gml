@@ -1,5 +1,7 @@
 bulletList = [];
 
+active = false
+
 x_vel = 0;
 y_vel = 0;
 
@@ -47,26 +49,29 @@ func_addBullets = function(_b){
 	}
 }
 
-// [function, time until next]
-defaultPattern = [
-	[-1, 999]
-]
-bulletPattern = defaultPattern;
-bulletPatternTimeline = 0;
-bulletPatternBuffer = 0;
+func_addTimeline = function(_t) {
+	array_push(bulletPatterns, _t)
+}
 
+// [function, time until next]
+bulletPatterns = [];
+
+var defaultPattern = new Timeline();
+defaultPattern.add(-1, 999)
+func_addTimeline(defaultPattern)
 
 // movement
 
-// [deltaX, deltaY, speed, optional function call]
-defaultMPattern = [
-	[0, 0, 1]
-]
-targetX = 0;
-targetY = 0;
+movePattern = new TweenManager()
 
-movePattern = defaultMPattern;
-movePatternTimeline = -1;
+//
 
 // check
 frameFunc = function(){}
+
+movementLoad = function(){
+	movePattern.add(new Tween(3, [deltaX, deltaY], [x, y], TWEEN_XY))
+	x = deltaX;
+	y = deltaY;
+}
+onLoad = function(){}

@@ -1,3 +1,5 @@
+// TODO: get the bullet glow drawn as metaballs :3
+
 if !surface_exists(surf_bullet) {
 	surf_bullet = surface_create(WIDTH, HEIGHT)
 }
@@ -8,7 +10,7 @@ if !surface_exists(surf_playerBullet) {
 surface_set_target(surf_playerBullet)
 	draw_clear_alpha(c_black, 0)
 		with obj_bullet_player {
-			draw_sprite_ext(sprite_index, 0, round(x), round(y), image_xscale, image_yscale, 0, c_white, 1);
+			draw_sprite_ext(sprite_index, 0, round(x), round(y), image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 	
 		}
 surface_reset_target()
@@ -21,7 +23,7 @@ surface_set_target(surf_bullet)
 		
 	gpu_set_blendmode(bm_add)
 		with obj_bullet {
-			draw_sprite_ext(sprite_index, 1, round(x), round(y), image_xscale, image_yscale, 0, c_white, 1);
+			draw_sprite_ext(sprite_index, 1, round(x), round(y), image_xscale, image_yscale, image_angle, merge_color(glow, c_white, (highlight ? ((global.time % 8) >= 4 ? 0 : 0.3 ) : 0)), image_alpha);
 	
 		}
 	gpu_set_blendmode(bm_normal)

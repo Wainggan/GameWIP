@@ -22,24 +22,22 @@ for (var i = 0; i < array_length(bulletList); i++) {
 }
 
 // shooting bullets
-bulletPatternBuffer += global.delta_multi;
-if bulletPatternBuffer >= bulletPattern[bulletPatternTimeline][1] {
-	
-	bulletPatternBuffer = 0;
-	
-	bulletPatternTimeline = (bulletPatternTimeline + 1) % (array_length(bulletPattern));
-	
-	var a = bulletPattern[bulletPatternTimeline][0];
-	if a != -1 {
-		
-		var _b = script_execute_deep(a);
-		func_addBullets(_b);
-
+for (var i = 0; i < array_length(bulletPatterns); i++) {
+	bulletPatterns[i].update(global.delta_multi);
+	var _currentBulletPattern = bulletPatterns[i].evaluate()
+	if bulletPatterns[i].changed {
+		if _currentBulletPattern != -1 {
+			func_addBullets(script_execute_deep(_currentBulletPattern));
+		}
 	}
 	
 }
 
 // movement
+
+movePattern.update(global.delta_multi)
+
+/*
 if movePatternTimeline = -1 {
 	movePatternTimeline = 0;
 	
@@ -73,6 +71,6 @@ if (x == targetX && y == targetY) || round(dir) != round(point_direction(x, y, t
 	
 	targetX = x + movePattern[movePatternTimeline][0]
 	targetY = y + movePattern[movePatternTimeline][1]
-}
+}*/
 
 frameFunc()

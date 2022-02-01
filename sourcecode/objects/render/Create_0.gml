@@ -8,7 +8,7 @@ draw_set_font(ft_debug)
 surf_bullet = -1
 surf_playerBullet = -1
 
-{ // shockwave shader
+#region Shockwave shader
 
 shockwave_sprite = spr_shockwaves;
 
@@ -41,7 +41,16 @@ shockwave_create = function(inx = WIDTH/2, iny = HEIGHT/2, inlife=120){
 	return newWave
 }
 
-}
+#endregion
+
+#region Title Metaball Shader
+
+tMeta_shader = shd_metaballTitle;
+
+tMeta_u_iRes = shader_get_uniform(tMeta_shader, "iResolution")
+tMeta_u_iTime = shader_get_uniform(tMeta_shader, "iGlobalTime")
+
+#endregion
 
 scoreAnim = 0
 lastScore = 0;

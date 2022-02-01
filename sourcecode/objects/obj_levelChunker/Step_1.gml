@@ -20,7 +20,6 @@ if active {
 		var inst = enemyList[i]
 		if !instance_exists(inst) {
 			
-			
 			array_delete(enemyList, i, 1)
 			
 		}

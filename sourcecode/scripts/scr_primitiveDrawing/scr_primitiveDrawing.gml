@@ -36,3 +36,9 @@ function draw_circle_sprite(_x, _y, _r, _outline = false, _color = draw_get_colo
 		draw_sprite_ext(spr_circleoutline, 0, _x, _y, _r, _r, 0, _color, _alpha)
 	}
 }
+
+function draw_text_outline(_x, _y, _string, _amount = 1, _res = 9) {
+	for (var i = 0; i < 1; i+= _res / 360) {
+		draw_text(_x + lengthdir_x(_amount, 360 * i), _y + lengthdir_y(_amount, 360 * i), _string)
+	}
+}

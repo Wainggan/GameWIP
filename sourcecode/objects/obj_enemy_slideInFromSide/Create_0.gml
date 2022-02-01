@@ -3,26 +3,12 @@ event_inherited();
 
 hp = 2
 
+var _bPattern = new Timeline()
+_bPattern.add(bP_shootDownNormal, 32)
+array_push(bulletPatterns, _bPattern)
 
 
-pattern_shoot = [
-	[bP_shootDownNormal, 32]
-]
-mPattern_move = [
-	[directionToMove * WIDTH, 0, 6]
-]
-
-frameFunc = function(){
-	if sign(directionToMove) == 1 {
-		if WIDTH + 64 < x {
-			instance_destroy()
-		}
-	} else {
-		if -64 > x {
-			instance_destroy()
-		}
-	}
+movementLoad = function(){
+	movePattern.add(new Tween(6, x, (WIDTH / 2) + directionToMove * WIDTH, TWEEN_X, "linear",function(){ instance_destroy() }))
 }
 
-bulletPattern = pattern_shoot
-movePattern = mPattern_move

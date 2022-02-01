@@ -3,7 +3,7 @@ scene = [
 ]
 start = false
 
-activateFunc = function(){
+onLoad = function(){
 	show_debug_message("aaaaaaaaaaaa")
 	textbox_scene_create(scene)
 }

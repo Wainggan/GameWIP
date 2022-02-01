@@ -17,8 +17,8 @@ ui_Menu = function() constructor {
 	destroyMe = false;
 	cantBeDestroyed = false;
 	
-	x = 96;
-	y = 64;
+	x = 64;
+	y = 48;
 
 	func_addOption = function(_name, _func) {
 		array_push(menuOptions, [_name, _func])
@@ -34,7 +34,11 @@ ui_Menu = function() constructor {
 	func_drawOptions = function(){
 		draw_set_font(ft_ui);
 		for (var i = 0; i < array_length(menuOptions); i++) {
+			draw_set_color(c_black)
+			draw_set_alpha(0.1)
+				draw_text_outline(x, y + i * 32, menuOptions[i][0], 2)
 			draw_set_color(selectedOption == i ? c_red : c_white)
+			draw_set_alpha(1)
 				draw_text(x, y + i * 32, menuOptions[i][0])
 		
 		}
