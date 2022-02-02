@@ -8,7 +8,7 @@
   "option_steam_app_id": "0",
   "option_sci_usesci": false,
   "option_author": "",
-  "option_lastchanged": "26 January 2022 15:51:44",
+  "option_lastchanged": "01 February 2022 19:45:00",
   "option_spine_licence": false,
   "option_template_image": "${base_options_dir}/main/template_image.png",
   "option_template_icon": "${base_options_dir}/main/template_icon.png",

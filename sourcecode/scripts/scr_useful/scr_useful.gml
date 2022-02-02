@@ -61,6 +61,22 @@ function script_execute_deep(_in, _plainFunction = true) {
 	return script_execute_ext(fix, newIn);
 }
 
+function array_foreach(_array, _func) {
+	if !is_array(_array) return;
+	for (var i = 0; i < array_length(_array); i++) {
+		_array[@ i] = _func(_array[@ i], i) ?? _array[@ i];
+	}
+}
+function struct_foreach(_struct, _func) {
+	if !is_struct(_struct) return;
+	var _a = variable_struct_get_names(_struct);
+	for (var i = 0; i < array_length(_a); i++) {
+		_struct[$ _a[i]] = _func(_struct[$ _a[i]], _a[i]) ?? _struct[$ _a[i]]
+	}
+}
+
+
+
 
 ///@func array_append(array, array)
 function array_append(array1, array2) {

@@ -28,11 +28,11 @@ parryRadius = 20;
 
 
 bulletCharge = 0;
-bulletChargeSpeed = 0.08;
-bulletChargeSpeedSlow = 0.02;
-bulletChargeTarget = 2;
+bulletChargeSpeed = 0.1;
+bulletChargeSpeedSlow = 0.01;
+bulletChargeTarget = 1.5;
 
-tReloadTime = 8;
+tReloadTime = 9;
 reloadTime = tReloadTime;
 
 bulletSpread = 2;
@@ -44,7 +44,7 @@ bulletSpeed = 12;
 
 livesLeft = 3;
 
-
+#region input
 horzMovementPriority = [];
 vertMovementPriority = [];
 
@@ -144,7 +144,7 @@ inputSystem.create_input("sneak")
 	.add_gamepad_button(gp_face4)
 	.add_gamepad_shoulder(gp_shoulderlb)
 	.add_gamepad_shoulder(gp_shoulderrb)
-
+#endregion
 
 func_grazeFlavorText = function(_text) {
 	var _inst = instance_create_depth(x+16, y-16, depth, obj_flavorText)
@@ -158,6 +158,8 @@ func_grazeFlavorText = function(_text) {
 		_inst.text = string(_text)
 	}
 }
+
+#region states
 
 state = new State("idle");
 state.add("idle", {
@@ -273,9 +275,8 @@ state.add("idle", {
 
 
 		// TODO: rebalance bulletcharge
-		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0) * global.delta_multi, 
-					(vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
-		var _newReloadTime = max( ( tReloadTime - (sqrt(grazeCombo) / 4) ), 3) - bulletCharge
+		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
+		var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo + 1, 100), 0.2) ) - bulletCharge
 
 		if inputSystem.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 {
 			reloadTime = _newReloadTime
@@ -313,21 +314,28 @@ state.add("respawn", {
 	}
 })
 
+#endregion
+
 respawnAnim = new AnimCurve("back");
 
-tailLength = 20
-tail = new RopeManager()
-tail.createRope(x, y, tailLength) // 28
-tail.points_applyFunc(function(p){
-	p.x_drag = 0.5//0.2
-	p.y_drag = 0.5//0.2
-	p.elastic = 2
-})
-tail.sticks_applyFunc(function(p){
-	p.length = 3
-})
-tail.iterations = 50
-tail.points[0].locked = true
+tailLength = 20;
+tails = [];
+for (var i = 0; i < 3; i++) {
+	var tail = new RopeManager()
+	tail.createRope(x, y, tailLength) // 28
+	tail.points_applyFunc(function(p){
+		p.x_drag = 0.5//0.2
+		p.y_drag = 0.5//0.2
+		p.elastic = 1.5
+	})
+	tail.sticks_applyFunc(function(p){
+		p.length = 3
+	})
+	tail.iterations = 30
+	tail.points[0].locked = true
+	
+	array_push(tails, tail)
+}
 
 
 hitboxAnim = new TweenManager()

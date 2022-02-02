@@ -50,6 +50,9 @@ tMeta_shader = shd_metaballTitle;
 tMeta_u_iRes = shader_get_uniform(tMeta_shader, "iResolution")
 tMeta_u_iTime = shader_get_uniform(tMeta_shader, "iGlobalTime")
 
+tMeta_lagFlag = false
+tMeta_lagAve = 60
+
 #endregion
 
 scoreAnim = 0
