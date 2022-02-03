@@ -30,11 +30,11 @@ array_foreach(tails, function(tail, tailNumb){
 	//tail.points[0].y = round(y) + 7
 	tail.points[0].x = round(x) - 1 + cos(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails), 0.7)
     tail.points[0].y = round(y) + 7 + sin(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails), 0.7)
-	tail.points_applyFunc(method({tailNumb : tailNumb}, function(p, i, l){
+	var tailOffset = power(tailNumb * 1.5 + 1.432, 3.751);
+	tail.points_applyFunc(method({tailNumb : tailNumb, tailOffset : tailOffset}, function(p, i, l){
 		var tailfreq = 0.8//0.5
 		var tailspeed = 0.2//0.1
 		var tailstrength = 0.04//0.02
-		var tailOffset = power(tailNumb * 1.5 + 1.432, 3.751);
 
 		var pVecX = p.x - l.x;
 		var pVecY = p.y - l.y;
@@ -44,8 +44,9 @@ array_foreach(tails, function(tail, tailNumb){
 		tanVecX /= tanMag;
 		tanVecY /= tanMag;
       
-		var e = ( sin((global.time/60-(i + tailOffset)/tailfreq + power(tailOffset, 2))*tailspeed) +
-				sin((global.time/60-(i + tailOffset * 0.14)/tailfreq + power(tailOffset, 2))*tailspeed * 1.7124) / 2) * (tailstrength)
+		
+		var e = ( sin((global.time/60-(i + tailOffset)/tailfreq + tailOffset * tailOffset)*tailspeed) +
+				sin((global.time/60-(i + tailOffset * 0.14)/tailfreq + tailOffset * tailOffset)*tailspeed * 1.7124) / 2) * (tailstrength)
       
 		tanVecX *= e;
 		tanVecY *= e;
@@ -53,10 +54,11 @@ array_foreach(tails, function(tail, tailNumb){
 		p.x_accel = tanVecX;
 		p.y_accel = tanVecY;
 		
+		var po = power((i+1), 0.35)
 		var wa = (sin(global.time/60 / 100 + tailOffset) + sin(global.time/60 / 100 + 9.13 + tailOffset)) / 2
-        p.x_accel += cos(global.time/60 * wa + (tailNumb / array_length(other.tails) * 3.1415 * 2)) * 0.02 / power((i+1), 0.35);
-        p.y_accel += sin(global.time/60 * wa + (tailNumb / array_length(other.tails) * 3.1415 * 2)) * 0.02 / power((i+1), 0.35)
-			 + (0.03 / power(i, 0.4))
+        p.x_accel += cos(global.time/60 * wa + (tailNumb / (array_length(other.tails)+1) * 3.1415 * 2)) * 0.02 / po;
+        p.y_accel += sin(global.time/60 * wa + (tailNumb / (array_length(other.tails)+1) * 3.1415 * 2)) * 0.02 / po
+			 + (0.03 / po)
 	}))
 	tail.update(global.delta_multi)
 })

@@ -8,14 +8,28 @@ function Timeline(_item = undefined, _time = 10) constructor {
 		array_push(list, [_item, _time]);
 		return self;
 	}
+	addReset = function() {
+		array_push(list, undefined)
+		return self;
+	}
 	update = function(_time) {
 		if !active return;
 		time += _time;
-		if (time >= list[index][1]) {
+		if (array_length(list) > 0 && time >= list[index][1]) {
 			index = (index + 1) % array_length(list);
 			time = 0;
 			changed = true;
+			if list[index] == undefined {
+				reset()
+			}
 		} else changed = false;
+		return changed
+	}
+	reset = function() {
+		list = [];
+		index = 0;
+		time = 0;
+		changed = false;
 	}
 	evaluate = function() {
 		return list[index][0];

@@ -4,6 +4,17 @@ function TweenManager() constructor {
 		array_push(tweens, _tween);
 		return self;
 	}
+	pause = function(_time, _onEnd = function(){}) {
+		array_push(tweens, {
+			time : _time, 
+			update : function(_mult){
+				time -= _mult;
+				return (time <= 0)
+			}, 
+			onEnd : _onEnd
+		})
+		return self;
+	}
 	update = function(_mult = undefined) {
 		if (array_length(tweens) > 0 && tweens[0].update(_mult)) {
 			tweens[0].onEnd()

@@ -39,6 +39,40 @@ function RopeManager() constructor {
 	}
 }
 
+enum ROPEP {
+	x, y, x_prev, y_prev, x_accel, y_accel, x_drag, y_drag, locked, soft
+}
+
+function rope_point_create(_x, _y) {
+	var p = []
+	p[ROPEP.x] = _x;
+	p[ROPEP.y] = _y;
+	p[ROPEP.x_prev] = _x;
+	p[ROPEP.y_prev] = _y;
+	p[ROPEP.x_accel] = 0;
+	p[ROPEP.y_accel] = 0;
+	p[ROPEP.x_drag] = 1;
+	p[ROPEP.y_drag] = 1;
+	p[ROPEP.locked] = false;
+	p[ROPEP.soft] = false;
+	return p;
+}
+function rope_point_update(p, _mult) {
+	if (!p[@ ROPEP.locked]) {
+		var _prevX = p[@ ROPEP.x];
+		var _prevY = p[@ ROPEP.y];
+			
+		p[@ ROPEP.x] += (p[@ ROPEP.x] - p[@ ROPEP.x_prev]) * p[@ ROPEP.x_drag] * _mult;
+		p[@ ROPEP.y] += (p[@ ROPEP.y] - p[@ ROPEP.y_prev]) * p[@ ROPEP.y_drag] * _mult;
+			
+		p[@ ROPEP.x] += p[@ ROPEP.x_accel] * _mult;
+		p[@ ROPEP.y] += p[@ ROPEP.y_accel] * _mult;
+			
+		p[@ ROPEP.x_prev] = _prevX;
+		p[@ ROPEP.y_prev] = _prevY;
+	}
+}
+
 function RopePoint(_x, _y) constructor {
 	x = _x;
 	y = _y;
@@ -49,47 +83,42 @@ function RopePoint(_x, _y) constructor {
 	x_accel = 0;
 	y_accel = 0;
 	
-	x_drag = 0;
-	y_drag = 0;
-	
-	elastic = 1;
+	x_drag = 1;
+	y_drag = 1;
 	
 	locked = false;
 	soft = true;
 	
-	update = function(_mult) {
+	static update = function(_mult) {
 		if (!locked) {
 			var _prevX = x;
 			var _prevY = y;
 			
-			x += (x - x_prev) * _mult;
-			y += (y - y_prev) * _mult;
+			x += (x - x_prev) * x_drag * _mult;
+			y += (y - y_prev) * y_drag * _mult;
 			
 			x += x_accel * _mult;
 			y += y_accel * _mult;
 			
-			_prevX = lerp(_prevX, x, clamp(x_drag * _mult, 0, 1))
-			_prevY = lerp(_prevY, y, clamp(y_drag * _mult, 0, 1))
 			x_prev = _prevX;
 			y_prev = _prevY;
 		}
 	}
-	get_x_vel = function() {
-		return x - x_prev;
-	}
-	get_y_vel = function() {
-		return y - y_prev;
-	}
-	set_x_vel = function(_v) {
-		x_prev = x - _v;
-		return self;
-	}
-	set_y_vel = function(_v) {
-		y_prev = x - _v;
-		return self;
-	}
+	//get_x_vel = function() {
+	//	return x - x_prev;
+	//}
+	//get_y_vel = function() {
+	//	return y - y_prev;
+	//}
+	//set_x_vel = function(_v) {
+	//	x_prev = x - _v;
+	//	return self;
+	//}
+	//set_y_vel = function(_v) {
+	//	y_prev = x - _v;
+	//	return self;
+	//}
 }
-
 
 function RopeStick(_pA, _pB) constructor {
 	pointA = _pA;
@@ -97,7 +126,7 @@ function RopeStick(_pA, _pB) constructor {
     
 	length = 3;
   
-	update = function() {
+	static update = function() {
 		if ((pointA.soft || pointB.soft) && (point_distance(pointA.x, pointA.y, pointB.x, pointB.y) < length)) {
 		    return;
 		}
@@ -111,12 +140,12 @@ function RopeStick(_pA, _pB) constructor {
 		stickDirY /= stickDirD;
     
 		if (!pointA.locked) {
-		    pointA.x = lerp(pointA.x, centerX + stickDirX * length / 2, pointA.elastic);
-		    pointA.y = lerp(pointA.y, centerY + stickDirY * length / 2, pointA.elastic);
+		    pointA.x = centerX + stickDirX * length / 2;
+		    pointA.y = centerY + stickDirY * length / 2;
 		}
 		if (!pointB.locked) {
-		    pointB.x = lerp(pointB.x, centerX - stickDirX * length / 2, pointB.elastic);
-		    pointB.y = lerp(pointB.y, centerY - stickDirY * length / 2, pointB.elastic);
+		    pointB.x = centerX - stickDirX * length / 2;
+		    pointB.y = centerY - stickDirY * length / 2;
 		}
 	}
 }

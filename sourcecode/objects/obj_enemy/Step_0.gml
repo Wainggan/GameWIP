@@ -24,8 +24,8 @@ for (var i = 0; i < array_length(bulletList); i++) {
 // shooting bullets
 for (var i = 0; i < array_length(bulletPatterns); i++) {
 	bulletPatterns[i].update(global.delta_multi);
-	var _currentBulletPattern = bulletPatterns[i].evaluate()
 	if bulletPatterns[i].changed {
+		var _currentBulletPattern = bulletPatterns[i].evaluate()
 		if _currentBulletPattern != -1 {
 			func_addBullets(script_execute_deep(_currentBulletPattern));
 		}

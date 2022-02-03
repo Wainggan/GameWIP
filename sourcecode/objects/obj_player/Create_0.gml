@@ -185,8 +185,10 @@ state.add("idle", {
 	    var targetTopSpeed = (inputSystem.check("sneak") ? slowMoveSpeed : moveSpeed)
 	    var targetAccel = (inputSystem.check("sneak") ? slowAccel : accel)
     
-	    x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
-	    y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
+	    //x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
+	    //y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
+	    x_vel = (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix);
+	    y_vel = (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix);
 
 		x += x_vel * global.delta_multi;
 		y += y_vel * global.delta_multi;
@@ -196,71 +198,63 @@ state.add("idle", {
 		y = clamp(y, 10, HEIGHT-2)
 
 
-		var _bulletHit = place_meeting(x, y, obj_bullet)
-		if iFrames <= 0 && _bulletHit {
-			global.pause = 8;
-			iFrames = 20;
-	
-			var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
-			test.targetSize = WIDTH;
-			test.sizeSpeed = 28;
-			
-			var test = render.shockwave_create(x, y)
-			test.mode = 1
-			test.scaleTarget = WIDTH * 4
-			test.scaleSpeed = 32
-	
-			livesLeft--
-	
-			grazeComboQueue = 0;
-			grazeCombo = 0;
-			func_grazeFlavorText("0")
-			
-			state.change("respawn")
-		}
+		
 
 		var _grazedBulletsList = ds_list_create()
-		collision_circle_list(x, y, grazeRadius, obj_bullet, 0, 1, _grazedBulletsList, false)
-		if ds_list_size(_grazedBulletsList) > 0 && !_bulletHit {
-			
+		collision_circle_list(x, y, grazeRadius, obj_bullet, 0, 1, _grazedBulletsList, true)
+		if ds_list_size(_grazedBulletsList) > 0 {
+			var _out = 0;
 			for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
-				var _out = 0;
-				for (var j = 0; j < array_length(grazeBulletList); j++) {
-					if grazeBulletList[j][0] == _grazedBulletsList[| i] {
-						_grazedBulletsList[| i].highlight = true
-						_out = 1;
-						//break;
-					}
+				if place_meeting(x, y, _grazedBulletsList[| i]) {
+					_out = 1;
+					break;
 				}
-				if _out == 0 {
-					array_push(grazeBulletList, [_grazedBulletsList[| i], grazeBulletListClearTime])
-					grazeCombo += 1;
-					grazeComboQueue += 1;
-					grazeComboTimer = tGrazeComboTimer;
+			}
+			if iFrames <= 0 && _out {
+				global.pause = 8;
+				iFrames = 20;
+	
+				var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+				test.targetSize = WIDTH;
+				test.sizeSpeed = 28;
+			
+				var test = render.shockwave_create(x, y)
+				test.mode = 1
+				test.scaleTarget = WIDTH * 4
+				test.scaleSpeed = 32
+	
+				livesLeft--
+	
+				grazeComboQueue = 0;
+				grazeCombo = 0;
+				func_grazeFlavorText("0")
+			
+				state.change("respawn")
+			} else {
+				for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
+					var _out = 0;
+					for (var j = 0; j < array_length(grazeBulletList); j++) {
+						if grazeBulletList[j][0] == _grazedBulletsList[| i] {
+							_grazedBulletsList[| i].highlight = true
+							_out = 1;
+							//break;
+						}
+					}
+					if _out == 0 {
+						array_push(grazeBulletList, [_grazedBulletsList[| i], grazeBulletListClearTime])
+						grazeCombo += 1;
+						grazeComboQueue += 1;
+						grazeComboTimer = tGrazeComboTimer;
 		
-					global.score += 100;
+						global.score += 100;
 		
-					grazeHitboxGraphicShow = 1;
+						grazeHitboxGraphicShow = 1;
 		
-					//func_grazeFlavorText(string(grazeCombo))
+						//func_grazeFlavorText(string(grazeCombo))
+					}
 				}
 			}
 			
-			
-			ignore {
-			var _parryBullets = ds_list_create()
-			collision_circle_list(x, y, parryRadius, obj_bullet, false, true, _parryBullets, false)
-			if ds_list_size(_parryBullets) > 0 && inputSystem.check("parry", INPUT_PRESSED) {
-				for (var i = 0; i < ds_list_size(_parryBullets); i++) {
-					with _parryBullets[| i] {
-						instance_change(obj_bullet_player, true)
-						dir = 90;
-						spd = other.bulletSpeed;
-					}
-				}
-			}
-			ds_list_destroy(_parryBullets)
-			}
 			
 		}
 		ds_list_destroy(_grazedBulletsList)
@@ -318,20 +312,20 @@ state.add("respawn", {
 
 respawnAnim = new AnimCurve("back");
 
-tailLength = 20;
+tailLength = 16;
 tails = [];
 for (var i = 0; i < 3; i++) {
 	var tail = new RopeManager()
 	tail.createRope(x, y, tailLength) // 28
 	tail.points_applyFunc(function(p){
-		p.x_drag = 0.5//0.2
-		p.y_drag = 0.5//0.2
-		p.elastic = 1.5
+		p.x_drag = 0.7//0.2
+		p.y_drag = 0.7//0.2
+		p.soft = false
 	})
-	tail.sticks_applyFunc(function(p){
-		p.length = 3
+	tail.sticks_applyFunc(function(p, j){
+		p.length = power(j , 0.4) + 2
 	})
-	tail.iterations = 30
+	tail.iterations = 6
 	tail.points[0].locked = true
 	
 	array_push(tails, tail)

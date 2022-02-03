@@ -35,7 +35,7 @@ func_activateChunk = function() {
 		var offset = inst.y - bbox_bottom;
 		inst.y = HEIGHT + offset;
 		
-		if variable_instance_exists(inst, "onLoad") inst.alarm[0] = 1
+		if variable_instance_exists(inst, "onLoad") inst.alarm[11] = 1
 		inst.active = true
 		
 	}
