@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_maxsucks","path":"sprites/spr_maxsucks/spr_maxsucks.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_maxsucks",
     "tags": [],
     "resourceType": "GMSequence",

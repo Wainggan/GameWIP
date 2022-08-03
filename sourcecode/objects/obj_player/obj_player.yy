@@ -1,10 +1,11 @@
 {
   "spriteId": {
-    "name": "spr_playerTest_sprite",
-    "path": "sprites/spr_playerTest_sprite/spr_playerTest_sprite.yy",
+    "name": "spr_playerTest",
+    "path": "sprites/spr_playerTest/spr_playerTest.yy",
   },
   "solid": false,
   "visible": true,
+  "managed": true,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {

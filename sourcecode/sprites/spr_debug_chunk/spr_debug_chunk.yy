@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_debug_chunk","path":"sprites/spr_debug_chunk/spr_debug_chunk.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_debug_chunk",
     "tags": [],
     "resourceType": "GMSequence",

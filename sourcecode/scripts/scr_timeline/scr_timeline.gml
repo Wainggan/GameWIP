@@ -1,4 +1,4 @@
-function Timeline(_item = undefined, _time = 10) constructor {
+function Timeline(_item = undefined, _time = undefined) constructor {
 	list = [];
 	time = 0;
 	index = 0;
@@ -12,17 +12,26 @@ function Timeline(_item = undefined, _time = 10) constructor {
 		array_push(list, undefined)
 		return self;
 	}
-	update = function(_time) {
-		if !active return;
+	pause = function(_time){
+		list[array_length(list)-1][1] += _time
+		return self
+	}
+	setPause = function(_time){
+		list[array_length(list)-1][1] = _time
+		return self
+	}
+	update = function(_time = 1) {
+		if !active || array_length(list) == 0 return;
+		changed = false;
+		if (time == 0) changed = true;
 		time += _time;
-		if (array_length(list) > 0 && time >= list[index][1]) {
+		if (time > list[index][1]+_time) {
 			index = (index + 1) % array_length(list);
 			time = 0;
-			changed = true;
 			if list[index] == undefined {
 				reset()
 			}
-		} else changed = false;
+		}
 		return changed
 	}
 	reset = function() {

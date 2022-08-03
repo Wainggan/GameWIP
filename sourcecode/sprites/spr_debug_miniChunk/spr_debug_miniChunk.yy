@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_debug_miniChunk","path":"sprites/spr_debug_miniChunk/spr_debug_miniChunk.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_debug_miniChunk",
     "tags": [],
     "resourceType": "GMSequence",

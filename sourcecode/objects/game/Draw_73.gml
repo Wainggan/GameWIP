@@ -1,5 +1,7 @@
 global.showHitboxes = keyboard_check_pressed(ord("O")) ? !global.showHitboxes : global.showHitboxes;
 
+
+
 if global.showHitboxes {
 	draw_set_color(c_red)
 	with all {

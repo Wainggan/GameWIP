@@ -17,27 +17,21 @@ draw_sprite_ext(sprite_index, 0, round(x), round(y), 1, 1, 0, c_white, 1)
 
 
 draw_set_alpha(grazeHitboxGraphicShow)
-	draw_circle(round(x)-1, round(y)-1, /*grazeRadius*/32, 1)
+	draw_circle(round(x)-1, round(y)-1, grazeRadius - 6, 1)
 draw_set_alpha(1)
 
 if sprite_index != spr_playerTest_sprite exit
 array_foreach(tails, function(tail){
 	tail.points_applyFunc(function(s, i){
-		var tailSize = 4 * 2
-		var tailFall = 10
-		draw_sprite_ext(spr_player_tail, 0, s.x, s.y, (tailSize-i/tailFall) / 64, (tailSize-i/tailFall) / 64, 0, 0x281140, 1)
-		//draw_circle(p.x, p.y, tailSize-i/tailFall, false)
+		var tailSize = max(parabola(-7, 14, 7, i) + 3, 4)
+		//draw_sprite_ext(spr_player_tail, 0, s.x, s.y, tailSize / 64, tailSize / 64, 0, 0x281140, 1)
 	})
 
 })
 array_foreach(tails, function(tail){
-
 	tail.points_applyFunc(function(s, i){
-		var tailSize = 4 * 2
-		var tailFall = 10 // 16
-
-		draw_sprite_ext(spr_player_tail, 0, s.x, s.y, (tailSize-i/tailFall - 2) / 64, (tailSize-i/tailFall - 2) / 64, 0, 0x7a53d7, 1)
+		var tailSize = max(parabola(-7, 14, 7, i) + 3, 4)
+		//if !s.soft
+		//draw_sprite_ext(spr_player_tail, 0, s.x, s.y, (tailSize - 2)/64, (tailSize - 2)/64, 0, 0x7a53d7, 1);
 	})
 })
-
-draw_set_color(c_white)

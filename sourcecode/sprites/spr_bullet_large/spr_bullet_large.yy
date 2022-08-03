@@ -65,7 +65,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_bullet_large","path":"sprites/spr_bullet_large/spr_bullet_large.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_bullet_large",
     "tags": [],
     "resourceType": "GMSequence",

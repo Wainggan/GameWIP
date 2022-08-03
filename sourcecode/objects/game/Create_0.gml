@@ -136,6 +136,9 @@ global.gameActive = false;
 instance_create_layer(0,0, "Instances", render)
 instance_create_layer(0,0, "Instances", levelLoader)
 instance_create_layer(0,0, "Instances", menu)
+instance_create_layer(0,0, "Instances", particle)
 
+part_system_automatic_update(particle.particleSystem, false);
+particleUpdateBuffer = 0;
 
 room_goto(rm_mainmenu)

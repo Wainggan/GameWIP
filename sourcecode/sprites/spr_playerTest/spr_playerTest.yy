@@ -65,7 +65,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_playerTest","path":"sprites/spr_playerTest/spr_playerTest.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_playerTest",
     "tags": [],
     "resourceType": "GMSequence",

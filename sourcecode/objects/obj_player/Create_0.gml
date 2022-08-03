@@ -211,7 +211,7 @@ state.add("idle", {
 				}
 			}
 			if iFrames <= 0 && _out {
-				global.pause = 8;
+				global.pause = 12;
 				iFrames = 20;
 	
 				var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
@@ -222,6 +222,8 @@ state.add("idle", {
 				test.mode = 1
 				test.scaleTarget = WIDTH * 4
 				test.scaleSpeed = 32
+				
+				particle.burst(x, y, "playerDeath")
 	
 				livesLeft--
 	
@@ -246,7 +248,7 @@ state.add("idle", {
 						grazeComboQueue += 1;
 						grazeComboTimer = tGrazeComboTimer;
 		
-						global.score += 100;
+						global.score += round(power(grazeCombo + 1, 0.463)-1)*10+10;
 		
 						grazeHitboxGraphicShow = 1;
 		
@@ -312,18 +314,24 @@ state.add("respawn", {
 
 respawnAnim = new AnimCurve("back");
 
-tailLength = 16;
+tailLength = 14;
 tails = [];
 for (var i = 0; i < 3; i++) {
 	var tail = new RopeManager()
 	tail.createRope(x, y, tailLength) // 28
-	tail.points_applyFunc(function(p){
-		p.x_drag = 0.7//0.2
-		p.y_drag = 0.7//0.2
+	tail.points_applyFunc(function(p, j){
+		// 0.75
+		var d = min(power(j + 1, 0.1) - 1 + 0.53, 1)
+		p.x_drag = d
+		p.y_drag = d
 		p.soft = false
 	})
 	tail.sticks_applyFunc(function(p, j){
-		p.length = power(j , 0.4) + 2
+		p.length = min(power(max(j - 6, 0) , 1.12) + 3, 9)
+		
+		if p.length > 7 {
+			p.pointB.soft = true
+		}
 	})
 	tail.iterations = 6
 	tail.points[0].locked = true

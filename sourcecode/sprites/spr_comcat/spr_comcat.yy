@@ -80,7 +80,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_comcat","path":"sprites/spr_comcat/spr_comcat.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_comcat",
     "tags": [],
     "resourceType": "GMSequence",

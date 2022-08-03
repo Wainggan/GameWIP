@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_playericon","path":"sprites/spr_playericon/spr_playericon.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_playericon",
     "tags": [],
     "resourceType": "GMSequence",

@@ -38,6 +38,9 @@ function chance(_percent) {
 	return argument0 > random(1);
 }
 
+function parabola(p1, p2, y, x) {
+  return -(y / power((p1 - p2) / 2, 2)) * (x - p1) * (x - p2)
+}
 
 ///@func script_execute_deep(array, [runPlainFunctionFirst = true])
 function script_execute_deep(_in, _plainFunction = true) {

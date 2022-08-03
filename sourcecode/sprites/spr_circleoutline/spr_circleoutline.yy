@@ -59,7 +59,7 @@
     "eventToFunction": {},
     "eventStubScript": null,
     "parent": {"name":"spr_circleoutline","path":"sprites/spr_circleoutline/spr_circleoutline.yy",},
-    "resourceVersion": "1.3",
+    "resourceVersion": "1.4",
     "name": "spr_circleoutline",
     "tags": [],
     "resourceType": "GMSequence",

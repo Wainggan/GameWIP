@@ -24,7 +24,7 @@ var bP_test = new Timeline()
 		}
 	], 0)
 	.add([bP_shootDirection,
-		[function(){return instvar_direction}],
+		[function(){return -instvar_direction}],
 		1, 3, function() {
 			sprite_index = spr_bullet_point
 			y_accel = 0.002
