@@ -1,4 +1,5 @@
-moveSpeed = 4;
+moveSpeed = 5;
+fastMoveSpeed = 8;
 slowMoveSpeed = 2;
 
 x_vel = 0;
@@ -32,15 +33,15 @@ bulletChargeSpeed = 0.1;
 bulletChargeSpeedSlow = 0.01;
 bulletChargeTarget = 1.5;
 
-tReloadTime = 9;
+tReloadTime = 6;
 reloadTime = tReloadTime;
 
-bulletSpread = 2;
-bulletSpreadAngle = 28
-bulletSpreadSlow = 5
+bulletSpread = 4;
+bulletSpreadAngle = 32
+bulletSpreadSlow = 6
 bulletSpreadAngleSlow = 2
 bulletAmount = 3;
-bulletSpeed = 12;
+bulletSpeed = 14;
 
 livesLeft = 3;
 
@@ -182,7 +183,7 @@ state.add("idle", {
 		
 		var directionFix = (hkey != 0 && vkey != 0 ? 0.71 : 1)
     
-	    var targetTopSpeed = (inputSystem.check("sneak") ? slowMoveSpeed : moveSpeed)
+	    var targetTopSpeed = (inputSystem.check("sneak") ? slowMoveSpeed : (inputSystem.check("shoot") ? moveSpeed : fastMoveSpeed))
 	    var targetAccel = (inputSystem.check("sneak") ? slowAccel : accel)
     
 	    //x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);

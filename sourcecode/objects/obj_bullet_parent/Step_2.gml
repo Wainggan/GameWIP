@@ -1,5 +1,3 @@
-var deathBuffer = 64;
-
-if (x < -deathBuffer || WIDTH+deathBuffer < x) || (y < -deathBuffer || HEIGHT+deathBuffer < y) {
-	instance_destroy()
-}
+var dB = 64;
+if x < -dB || 640 + dB < x || y < -dB || 480 + dB < y 
+	instance_destroy();

@@ -1,4 +1,4 @@
-hitAnim = approach(hitAnim, 0, hitAnimSpeed * global.delta_multi)
+hitAnim = approach(hitAnim, 0, 0.2 * global.delta_multi)
 
 if (ceil(hp) <= 1) {
 	//draw_circle(x, y, deathRadius, 1)
