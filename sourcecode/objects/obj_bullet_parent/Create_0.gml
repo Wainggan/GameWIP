@@ -22,7 +22,7 @@ showDirection = false;
 
 life = undefined
 
-step = function(){}
+step = undefined
 death = function(){}
 
 glow = c_red

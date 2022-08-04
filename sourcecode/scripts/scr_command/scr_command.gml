@@ -7,9 +7,17 @@ function command_set(_array, _loop = false, _obj = self) {
 	_obj.commandIndex = 0;
 	_obj.commandTimer = 0;
 }
+function command_reset(_obj = self) {
+	_obj.commandList = undefined;
+}
 
 function command_frame(_func, _obj = self) {
 	_obj.commandFrame = method(_obj, _func);
+}
+
+function command_timer(_time, _func) {
+	if !variable_instance_exists(self, "commandStops") commandStops = [];
+	array_push(commandStops, [_time, _func]);
 }
 
 function command_update() {
@@ -29,4 +37,12 @@ function command_update() {
 		commandTimer--;
 	}
 	if variable_instance_exists(self, "commandFrame") commandFrame();
+	if variable_instance_exists(self, "commandStops") {
+		for (var i = 0; i < array_length(commandStops); i++) {
+			if commandStops[i][0]-- <= 0 {
+				commandStops[i][1]();
+				array_delete(commandStops, i--, 1);
+			}
+		}
+	}
 }

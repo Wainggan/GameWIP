@@ -22,17 +22,23 @@ enemies = {
 		command_set([
 			function(){
 				movement_start(x, startY, 1 / 20);
+				command_timer(60 * 6, function(){
+					command_reset()
+				})
+				command_timer(60 * 7, function(){
+					movement_start(x, HEIGHT + 128, 1 / abs(y - HEIGHT + 128) * 0.6, "smoothStart");
+				})
 			},
 			16,
 			function(){
 				var dir = random_range(0, 359);
-				for (var i = 0; i < 56; i++) {
-					bullet_shoot_dir2(x, y, 6, 0.2, 3.5, dir + random_range(-2, 2));
-					dir += 360 / 56
+				for (var i = 0; i < 64; i++) {
+					bullet_shoot_dir2(x, y, 6, 0.2, 4, dir + random_range(-1, 1));
+					dir += 360 / 64
 				}
 				commandIndex--;
 			}
-		])
+		]);
 	},
 }
 enemy = function(_type, _x, _y){

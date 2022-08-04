@@ -15,7 +15,7 @@ y += y_vel + lengthdir_y(spd, dir);
 
 
 
-step()
+if step != undefined step()
 
 if showDirection image_angle = point_direction(0, 0, lengthdir_x(spd, dir) + x_vel, lengthdir_y(spd, dir) + y_vel)
 

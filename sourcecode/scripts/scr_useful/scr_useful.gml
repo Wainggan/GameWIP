@@ -69,7 +69,6 @@ function struct_foreach(_struct, _func) {
 	}
 }
 
-
 ///@func array_append(array, array)
 function array_append(array1, array2) {
 	for(var i = 0; i < array_length(array2); i++) {
