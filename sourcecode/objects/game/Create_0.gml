@@ -5,6 +5,8 @@ global.pause = 0;
 
 global.time = 0;
 
+game.textboxes_onEnd = function(){};
+
 global.showHitboxes = false;
 
 testSlowDown = 0
@@ -134,7 +136,6 @@ global.gameActive = false;
 
 
 instance_create_layer(0,0, "Instances", render)
-instance_create_layer(0,0, "Instances", levelLoader)
 instance_create_layer(0,0, "Instances", menu)
 instance_create_layer(0,0, "Instances", particle)
 

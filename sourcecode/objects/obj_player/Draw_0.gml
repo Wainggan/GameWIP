@@ -23,15 +23,15 @@ draw_set_alpha(1)
 if sprite_index != spr_playerTest_sprite exit
 array_foreach(tails, function(tail){
 	tail.points_applyFunc(function(s, i){
-		var tailSize = max(parabola(-7, 14, 7, i) + 3, 4)
-		//draw_sprite_ext(spr_player_tail, 0, s.x, s.y, tailSize / 64, tailSize / 64, 0, 0x281140, 1)
+		var tailSize = max(parabola(-7, 10, 7, i) + 3, 4)
+		draw_sprite_ext(spr_player_tail, 0, s.x, s.y, tailSize / 64, tailSize / 64, 0, 0x281140, 1)
 	})
 
 })
 array_foreach(tails, function(tail){
 	tail.points_applyFunc(function(s, i){
-		var tailSize = max(parabola(-7, 14, 7, i) + 3, 4)
+		var tailSize = max(parabola(-7, 10, 7, i) + 3, 4)
 		//if !s.soft
-		//draw_sprite_ext(spr_player_tail, 0, s.x, s.y, (tailSize - 2)/64, (tailSize - 2)/64, 0, 0x7a53d7, 1);
+		draw_sprite_ext(spr_player_tail, 0, s.x, s.y, (tailSize - 2)/64, (tailSize - 2)/64, 0, 0x7a53d7, 1);
 	})
 })

@@ -36,10 +36,10 @@ bulletChargeTarget = 1.5;
 tReloadTime = 6;
 reloadTime = tReloadTime;
 
-bulletSpread = 4;
-bulletSpreadAngle = 32
-bulletSpreadSlow = 6
-bulletSpreadAngleSlow = 2
+bulletSpread = 6;
+bulletSpreadAngle = 24
+bulletSpreadSlow = 8
+bulletSpreadAngleSlow = 1
 bulletAmount = 3;
 bulletSpeed = 14;
 
@@ -279,7 +279,7 @@ state.add("idle", {
 			reloadTime = _newReloadTime
 			var _spreadTemp = inputSystem.check("sneak") ? bulletSpreadSlow : bulletSpread
 			var _spreadAngleTemp = inputSystem.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
-	
+		
 			for (var i = 0; i < bulletAmount; i+= 1) {
 				var _dir = (90 + -_spreadAngleTemp/2) - (-_spreadAngleTemp/(bulletAmount-1) * i)
 				var _offset = _spreadTemp * (bulletAmount - 1 - (i * 2))
@@ -315,9 +315,9 @@ state.add("respawn", {
 
 respawnAnim = new AnimCurve("back");
 
-tailLength = 14;
+tailLength = 10;
 tails = [];
-for (var i = 0; i < 3; i++) {
+for (var i = 0; i < (sprite_index != spr_playerTest_sprite ? 0 : 2); i++) {
 	var tail = new RopeManager()
 	tail.createRope(x, y, tailLength) // 28
 	tail.points_applyFunc(function(p, j){
@@ -328,13 +328,13 @@ for (var i = 0; i < 3; i++) {
 		p.soft = false
 	})
 	tail.sticks_applyFunc(function(p, j){
-		p.length = min(power(max(j - 6, 0) , 1.12) + 3, 9)
+		p.length = min(power(max(j - 4, 0) , 1.13) + 4, 9)
 		
-		if p.length > 7 {
+		if p.length > 5 {
 			p.pointB.soft = true
 		}
 	})
-	tail.iterations = 6
+	tail.iterations = i == 0 ? 9 : 4
 	tail.points[0].locked = true
 	
 	array_push(tails, tail)

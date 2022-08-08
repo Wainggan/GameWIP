@@ -1,3 +1,3 @@
 event_inherited();
 
-image_alpha += 0.12 * global.delta_multi
+image_alpha += 0.14 * global.delta_multi

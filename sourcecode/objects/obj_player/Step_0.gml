@@ -28,8 +28,8 @@ grazeHitboxGraphicShow = max(grazeHitboxGraphicShow-grazeHitboxGraphicShowSpeed 
 array_foreach(tails, function(tail, tailNumb){
 	//tail.points[0].x = round(x) - 1
 	//tail.points[0].y = round(y) + 7
-	tail.points[0].x = round(x) - 1 + cos(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails)-1, 0.4)
-    tail.points[0].y = round(y) + 7 + sin(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails)-1, 0.4)
+	tail.points[0].x = round(x) - 1// + cos(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails)-1, 0.4)
+    tail.points[0].y = round(y) + 7// + sin(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails)-1, 0.4)
 	var tailOffset = power(tailNumb * 1.5 + 1.432, 3.751);
 	tail.points_applyFunc(method({tailNumb : tailNumb, tailOffset : tailOffset}, function(p, i, l){
 		var tailfreq = 1//0.5

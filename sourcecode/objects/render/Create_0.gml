@@ -5,8 +5,7 @@ display_set_gui_maximize()
 
 draw_set_font(ft_debug)
 
-surf_bullet = -1
-surf_playerBullet = -1
+
 
 #region Shockwave shader
 
@@ -52,6 +51,13 @@ tMeta_u_iTime = shader_get_uniform(tMeta_shader, "iGlobalTime")
 
 tMeta_lagFlag = false
 tMeta_lagAve = 60
+
+#endregion
+
+#region Bullets
+
+bullet_surf = -1
+bullet_playerSurf = -1
 
 #endregion
 

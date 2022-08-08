@@ -23,6 +23,8 @@ showDirection = false;
 life = undefined
 
 step = undefined
-death = function(){}
+death = undefined;
 
 glow = c_red
+
+mask_index = spr_nothing

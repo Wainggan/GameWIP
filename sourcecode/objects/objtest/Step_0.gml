@@ -1,1 +1,0 @@
-moveCont.update()

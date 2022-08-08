@@ -2,7 +2,7 @@ delay -= global.delta_multi
 if keyboard_check_pressed(ord("Z")) {
 	if textProgress >= string_length(text) {
 		with obj_textboxQueued { ticket--; event_user(0) }
-		instance_destroy()
+		instance_destroy();
 	} else {
 		textProgress = string_length(text)
 		delay = 0

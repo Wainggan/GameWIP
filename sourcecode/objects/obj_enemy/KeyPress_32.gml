@@ -1,2 +1,2 @@
 //func_destroyBullets()
-instance_destroy()
+hp = 0;

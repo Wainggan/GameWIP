@@ -3,20 +3,25 @@ active = false
 x_vel = 0;
 y_vel = 0;
 
-hp = var_hp;
+hp = 2;
 maxhp = hp
-scoreGive = var_scoreGive;
+scoreGive = 1000;
 
 hitAnim = 0;
 
 invinsible = false;
-important = 0;
+important = false;
+canDie = true;
 
-deathRadius = 64
+deathRadius = 16
+
+xOff = 0;
+yOff = 0;
 
 parent = noone;
 lastParent = noone
 
-directionToMove = sign(WIDTH/2 - x)
+directionToMove = sign(WIDTH/2 - x);
 
 onLoad = function(){}
+onDeath = function(){}
