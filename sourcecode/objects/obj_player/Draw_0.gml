@@ -1,17 +1,20 @@
 
 
 if inputSystem.check_pressed("sneak") {
-	hitboxAnim.add(new Tween(0.2, 0, 1, function(_e){ hitboxSize = _e }, "backBig"))
+	hitboxAnim.add(new Tween(0.25, 0, 1, function(_e){ hitboxSize = _e }, "backBig"))
 } else if inputSystem.check_released("sneak") {
-	hitboxAnim.add(new Tween(0.18, 1, 0, function(_e){ hitboxSize = _e }, "ease"))
+	hitboxAnim.add(new Tween(0.25, 1, 0, function(_e){ hitboxSize = _e }, "ease"))
 }
 hitboxAnim.update(global.delta_multi)
 
-show_debug_message(dir_graphic)
-
 var _img = 0;
-if dir_graphic < 0 _img = 2;
-else if dir_graphic > 0 _img = 1;
+if abs(dir_graphic) <= slowMoveSpeed + 0.1 {
+	if dir_graphic < 0 _img = 1;
+	else if dir_graphic > 0 _img = 2;
+} else {
+	if dir_graphic < 0 _img = 3;
+	else if dir_graphic > 0 _img = 4;
+}
 
 draw_sprite_ext(sprite_index, _img, round(x), round(y), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), 1, 0, c_white, 1)
 
@@ -40,7 +43,7 @@ for (var i = 0; i < array_length(tails); i++) {
 	for (var j = 0; j < array_length(tails[i]); j++) {
 		var p = tails[i][j];
 		var tailSize = max(parabola(-6, 12, 8, j) + 3, 4)
-		draw_sprite_ext(spr_player_tail, 0, p.x, p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, #b8617c, 1)
+		draw_sprite_ext(spr_player_tail, 0, p.x, p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
 	}
 }
 

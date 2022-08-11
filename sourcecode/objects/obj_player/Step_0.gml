@@ -25,10 +25,11 @@ for (var i = 0; i < array_length(grazeBulletList); i++) {
 	}
 }
 
-dir_graphic = (x - _lastX) / global.delta_multi;
+if !global.pause dir_graphic = (x - _lastX) / global.delta_multi;
 
 grazeHitboxGraphicShow = max(grazeHitboxGraphicShow-grazeHitboxGraphicShowSpeed * global.delta_multi, 0)
 
+if !global.pause
 for (var i = 0; i < array_length(tails); i++) {
 	tails[i][0].x = round(x) - 1;
 	tails[i][0].y = round(y) + 7;
@@ -40,12 +41,12 @@ for (var i = 0; i < array_length(tails); i++) {
 	for (var j = 1; j < array_length(tails[i]); j++) {
 		var p = tails[i][j];
 		
-		var _dir = sin(current_time / 1000 / 16 + j * 0.04 + i) * 2;
-		var _tailDir = current_time / 1000 * 4 + (360 / array_length(tails)) * i;
+		var _dir = sin(global.time / 60 / 16 + j * 0.04 + i) * 2;
+		var _tailDir = global.time / 60 * 4 + (360 / array_length(tails)) * i;
 		p.x_vel = lengthdir_x(1, p.dir + _dir) + lengthdir_x(0.1, _tailDir);
 		p.y_vel = lengthdir_y(1, p.dir + _dir) + lengthdir_y(0.1, _tailDir) + 0.08;
 	
-		var _angle = point_direction(p.x + p.x_vel, p.y + p.y_vel, _lastX, _lastY);
+		var _angle = point_direction(p.x + p.x_vel * global.delta_multi, p.y + p.y_vel * global.delta_multi, _lastX, _lastY);
 		if _lastDir == undefined _lastDir = _angle;
 	
 		var _diff = (((_angle - _lastDir) + 180) % 360 + 360) % 360 - 180;

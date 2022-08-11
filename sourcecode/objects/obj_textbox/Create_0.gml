@@ -2,12 +2,12 @@
 //text = "[color:0xBFFFFF][wavy:]Cool passwords[/][/]:{pause:60} MONKEY MOnkOnkoaS MONKET MKE MONKEY MOnok MONKEY MKnONEY MoknEY MOnkey Moneyd MOENKE6t MOPkey MOnmkey Moenkey NMoNEkey MOEnkey KMobney Moenkey";
 //textParsed = ["Err"]
 
-textProgress = 0;
+textProgress = -1;
 lastTextProgress = 0
 textProgressPause = 0
 textSpeed = 1.4
 
 anim = new AnimCurve("ease")
 
-x = 16
-y = 336+24
+x = 0
+y = HEIGHT - 100

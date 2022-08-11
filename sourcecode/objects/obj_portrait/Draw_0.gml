@@ -1,0 +1,1 @@
+draw_sprite_ext(sprite, subsprite, WIDTH / 2 + (WIDTH / 2 - 64 - active * 16) * side, HEIGHT - 100, -side, 1, 0, c_white, 0.5 + active * 0.5)

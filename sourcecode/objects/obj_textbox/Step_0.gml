@@ -40,9 +40,9 @@ lastTextProgress = textProgress
 textProgressPause -= global.delta_multi
 
 
-if textProgressPause <= 0 textProgress += textSpeed * global.delta_multi
+if textProgressPause <= 0 && anim.percent > 0.8 textProgress += textSpeed * global.delta_multi
 
-anim.percent = min(anim.percent + 0.06 * global.delta_multi, 1)
+anim.percent = min(anim.percent + 0.1 * global.delta_multi, 1)
 
 if instance_exists(obj_player) {
 	obj_player.reloadTime = obj_player.tReloadTime

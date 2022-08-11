@@ -382,11 +382,11 @@ enemies = {
 		
 		movement_start(WIDTH / 2, 100, 1/80, , function(){
 			textbox_scene_create([
-				["Hi! :D {pause:32}  \nDo you know the way to the convinience store by any chance?", [spr_playerTest, 0, -1]],
+				["Hi! :D {pause:32}  \nDo you know the way to the convinience store by any chance?", [spr_portraitTest, 0, -1]],
 				["[shake:]VROOM VROOOM VROOM", [spr_car, 0, 1]],
 				["[shake:]VROOOOM VROOOM"],
 				["[shake:]VROOOOOOOOOOOOOOOOOOOOOM \nVRUM VRUM VRUM VRUM"],
-				["what", [spr_playerTest, 0, -1], func_nextAttack],
+				["what", [spr_portraitTest, 0, -1], func_nextAttack],
 			]);
 		});
 	},
