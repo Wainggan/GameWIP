@@ -1,8 +1,10 @@
-function textbox_create(_message, _onEnd = function(){}, _delay = 0) {
+
+function textbox_create(_message, _portrait = undefined, _onEnd = function(){}, _delay = 0) {
 	var obj = instance_exists(obj_textbox) ? obj_textboxQueued : obj_textbox
 	with instance_create_layer(0, 0, "GUI", obj) {
 		text = _message
-		textParsed = string_parse(text)
+		textParsed = string_parse(text);
+		portrait = _portrait;
 		delay = _delay
 		onEnd = _onEnd;
 		originInst = instance_exists(other) ? other.id : originInst = noone

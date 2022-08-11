@@ -195,12 +195,13 @@ enemies = {
 		important = true;
 		canDie = false;
 		
-		sprite_index = spr_enemy_testBoss;
+		sprite_index = spr_car;
 		
 		x = -10;
 		y = -90;
 		movement_frame(function(){
-			yOff = wave(-2, 2, 1);
+			xOff = irandom_range(-1, 1);
+			yOff = irandom_range(-1, 1);
 		})
 		
 		func_nextAttack = function(){
@@ -228,21 +229,23 @@ enemies = {
 		currentAttack = 0;
 		attacks = [
 			function(){
-				hp = 120;
+				hp = 140;
+				scoreGive = 50000;
 				movement_start(WIDTH / 2, 50, 1/20)
 				command_set([
 					8,
 					8,
 					function(){
-						bullet_preset_ring(x, y, 48, 8, irandom_range(0, 359), function(_x, _y, _dir){
-							bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1))
+						bullet_preset_ring(x, y, 54, 8, irandom_range(0, 359), function(_x, _y, _dir){
+							bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1));
 						})
 						commandIndex--;
 					}
 				]);
 			},
 			function(){
-				hp = 140;
+				hp = 220;
+				scoreGive = 100000;
 				angle = 0;
 				count = 0;
 				dir = 1;
@@ -261,8 +264,8 @@ enemies = {
 								sprite_index = spr_bullet_small;
 							}
 						});
-						angle += 3 * dir * global.delta_multi;
-						count += global.delta_multi;
+						angle += 4 * dir;
+						count += 1;
 						if count < 40
 							commandIndex--;
 						else {
@@ -271,18 +274,18 @@ enemies = {
 							angle = irandom_range(0, 180)
 							dir *= -1;
 							bullet_preset_plate(x, y, 9, 8, 16, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
-								bullet_shoot_dir(_x, _y, 1, _dir);
+								bullet_shoot_dir2(_x, _y, 4, 0.1, 1, _dir).glow = cb_green;
 							})
 						}
 					}
 				])
 			},
 			function(){
-				hp = 160;
-				
+				hp = 190;
+				scoreGive = 200000;
 				movement_start(WIDTH / 2, HEIGHT / 4, 1 / 20);
 				command_set([
-					7, 
+					9, 
 					function(){
 						bullet_shoot_dir2(irandom_range(16, WIDTH-16), -32, 12, 0.2, 4, 270, 1).sprite_index = spr_bullet_large;
 						commandIndex--;
@@ -301,8 +304,8 @@ enemies = {
 					},
 					11,
 					function(){
-						bullet_preset_plate(x, y, 5, 0, 11, 12, angle, function(_x, _y, _dir){
-							bullet_shoot_dir(_x, _y, 5, _dir);
+						bullet_preset_plate(x, y, 3, 0, 16, 12, angle, function(_x, _y, _dir){
+							bullet_shoot_dir(_x, _y, 4.5, _dir);
 						})
 						if count++ > 4 {
 							count = 0;
@@ -312,21 +315,78 @@ enemies = {
 				]);
 				
 				command_add([
-					5,
+					4,
 					function(){
 						bullet_preset_ring(choose(-32, WIDTH + 32), irandom_range(60, HEIGHT / 2), 9, 0, random_range(0, 360), function(_x, _y, _dir){
-							bullet_shoot_dir(_x, _y, 2, _dir).sprite_index = spr_bullet_small;
+							with bullet_shoot_dir(_x, _y, 2, _dir) {
+								sprite_index = spr_bullet_small;
+								glow = cb_blue;
+							}
 						});
 						commandIndex--;
 					}
 				])
 			},
+			function(){
+				hp = 320;
+				scoreGive = 200000;
+				movement_start(WIDTH / 2, 110, 1/40);
+				
+				angle = 0;
+				angle2 = 0;
+				angle2_vel = 0;
+				
+				command_set([
+					50,
+					17,
+					function(){
+						bullet_preset_ring(x, y, 16, 0, angle + angle2, function(_x, _y, _dir){
+							bullet_shoot_dir(_x, _y, 2, _dir).sprite_index = spr_bullet_small;
+						});
+						bullet_preset_ring(x, y, 16, 0, -angle + angle2, function(_x, _y, _dir){
+							bullet_shoot_dir(_x, _y, 2, _dir).sprite_index = spr_bullet_small;
+						});
+						angle += global.delta_multi * 3;
+						angle2 += global.delta_multi * angle2_vel;
+						angle2_vel = min(angle2_vel + 0.01 * global.delta_multi, 1)
+						commandIndex--;
+					}
+				]);
+				count = 0;
+				command_timer(120, function(){
+					command_add([
+						70,
+						function(){
+							count = irandom_range(0, 1);
+							bullet_preset_plate(x, y, 25, 6, 32, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
+								var inst = bullet_shoot_dir2(_x, _y, 11, 0.14, 0.5, _dir);
+								inst.sprite_index = spr_bullet_point;
+								if count++ % 2 == 1 inst.step = method(inst, function(){
+									if y > HEIGHT {
+										dir += 180;
+										y_accel = 0.004;
+										spd += random_range(-0.4, 0.4)
+										step = undefined;
+									}
+								});
+							})
+							commandIndex--;
+						}
+					])
+				})
+			},
+			function(){
+				
+			},
 		]
 		
 		movement_start(WIDTH / 2, 100, 1/80, , function(){
 			textbox_scene_create([
-				["[wave:]Clearly[/],{pause:18} you are not a gamer."],
-				["What", func_nextAttack],
+				["Hi! :D {pause:32}  \nDo you know the way to the convinience store by any chance?", [spr_playerTest, 0, -1]],
+				["[shake:]VROOM VROOOM VROOM", [spr_car, 0, 1]],
+				["[shake:]VROOOOM VROOOM"],
+				["[shake:]VROOOOOOOOOOOOOOOOOOOOOM \nVRUM VRUM VRUM VRUM"],
+				["what", [spr_playerTest, 0, -1], func_nextAttack],
 			]);
 		});
 	},
@@ -357,7 +417,6 @@ stageIndex = -1;
 stage = [
 	
 ]
-
 
 stage = [
 	function(){

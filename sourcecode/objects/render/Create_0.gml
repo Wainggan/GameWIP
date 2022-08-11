@@ -34,7 +34,7 @@ shockwave_create = function(inx = WIDTH/2, iny = HEIGHT/2, inlife=120){
 		scaleSpeed : 12,
 		scaleTarget : 120,
 		alpha : 1,
-		image : 5
+		image : 3
 	}
 	array_push(shockwave_waves, newWave)
 	return newWave

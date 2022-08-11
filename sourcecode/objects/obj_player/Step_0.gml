@@ -5,6 +5,8 @@ func_inputUpdate(inputSystem.check("left"),
 				inputSystem.check("up"),
 				inputSystem.check("down"))
 
+var _lastX = x;
+var _lastY = y;
 
 state.run()
 
@@ -23,44 +25,39 @@ for (var i = 0; i < array_length(grazeBulletList); i++) {
 	}
 }
 
+dir_graphic = (x - _lastX) / global.delta_multi;
+
 grazeHitboxGraphicShow = max(grazeHitboxGraphicShow-grazeHitboxGraphicShowSpeed * global.delta_multi, 0)
 
-array_foreach(tails, function(tail, tailNumb){
-	//tail.points[0].x = round(x) - 1
-	//tail.points[0].y = round(y) + 7
-	tail.points[0].x = round(x) - 1// + cos(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails)-1, 0.4)
-    tail.points[0].y = round(y) + 7// + sin(tailNumb / array_length(tails) * 3.1415 * 2) * power(array_length(tails)-1, 0.4)
-	var tailOffset = power(tailNumb * 1.5 + 1.432, 3.751);
-	tail.points_applyFunc(method({tailNumb : tailNumb, tailOffset : tailOffset}, function(p, i, l){
-		var tailfreq = 1//0.5
-		var tailspeed = 0.2//0.1
-		var tailstrength = 0.02//0.02
-
-		var pVecX = p.x - l.x;
-		var pVecY = p.y - l.y;
-		var tanVecX = -pVecY
-		var tanVecY = pVecX
-		var tanMag = point_distance(0, 0, tanVecX, tanVecY)
-		tanVecX /= tanMag;
-		tanVecY /= tanMag;
-      
+for (var i = 0; i < array_length(tails); i++) {
+	tails[i][0].x = round(x) - 1;
+	tails[i][0].y = round(y) + 7;
+	
+	var _lastX = tails[i][0].x;
+	var _lastY = tails[i][0].y;
+	var _lastDir = undefined;
+	
+	for (var j = 1; j < array_length(tails[i]); j++) {
+		var p = tails[i][j];
 		
-		var e = ( sin((global.time/60-(i + tailOffset)/tailfreq + power(tailOffset, 2))*tailspeed) +
-				sin((global.time/60-(i + tailOffset * 0.14)/tailfreq + power(tailOffset, 2))*tailspeed * 1.7124) / 2) * (tailstrength)
-      
-		tanVecX *= e;
-		tanVecY *= e;
-      
-		p.x_accel = tanVecX;
-		p.y_accel = tanVecY;
-		
-		var po = power((i+1), 0.35)
-		var de = tailNumb / ((array_length(other.tails)+1) * 3.1415 * 2) // 360 ???
-		var wa = (sin(global.time/60 / 30 + tailOffset) + sin(global.time/60 / 17 + 9.13 + tailOffset)) / 20
-        p.x_accel += cos(global.time/60 * wa + de) * 0.01 / po;
-        p.y_accel += sin(global.time/60 * wa + de) * 0.01 / po
-			 + (0.01 / po)
-		//p.y_accel += 0.002
-	}))
-	tail.update(global.delta_multi)
-})
+		var _dir = sin(current_time / 1000 / 16 + j * 0.04 + i) * 2;
+		var _tailDir = current_time / 1000 * 4 + (360 / array_length(tails)) * i;
+		p.x_vel = lengthdir_x(1, p.dir + _dir) + lengthdir_x(0.1, _tailDir);
+		p.y_vel = lengthdir_y(1, p.dir + _dir) + lengthdir_y(0.1, _tailDir) + 0.08;
+	
+		var _angle = point_direction(p.x + p.x_vel, p.y + p.y_vel, _lastX, _lastY);
+		if _lastDir == undefined _lastDir = _angle;
+	
+		var _diff = (((_angle - _lastDir) + 180) % 360 + 360) % 360 - 180;
+		_diff *= p.damp;
+	
+		p.dir = _lastDir + _diff;
+		p.x = _lastX - lengthdir_x(p.len, p.dir);
+		p.y = _lastY - lengthdir_y(p.len, p.dir);
+	
+		_lastX = p.x;
+		_lastY = p.y;
+		_lastDir = p.dir;
+	}
+	
+}

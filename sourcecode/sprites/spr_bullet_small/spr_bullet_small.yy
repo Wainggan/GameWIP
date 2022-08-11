@@ -64,7 +64,7 @@
     "yorigin": 16,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_bullet_normal","path":"sprites/spr_bullet_normal/spr_bullet_normal.yy",},
+    "parent": {"name":"spr_bullet_small","path":"sprites/spr_bullet_small/spr_bullet_small.yy",},
     "resourceVersion": "1.4",
     "name": "spr_bullet_small",
     "tags": [],

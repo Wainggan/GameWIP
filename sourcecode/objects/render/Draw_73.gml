@@ -7,4 +7,4 @@ with obj_laser {
 		draw_line(positions[i][0], positions[i][1], positions[i+1][0], positions[i+1][1]);
 }
 
-with obj_player draw_sprite_ext(sprite_index, 1, round(x), round(y), hitboxSize, hitboxSize, 0, c_white, 1)
+with obj_player draw_sprite_ext(sprite_index, 3, round(x), round(y), hitboxSize, hitboxSize, 0, c_white, 1)

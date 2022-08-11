@@ -186,20 +186,21 @@ state.add("idle", {
 	    var targetTopSpeed = (inputSystem.check("sneak") ? slowMoveSpeed : (inputSystem.check("shoot") ? moveSpeed : fastMoveSpeed))
 	    var targetAccel = (inputSystem.check("sneak") ? slowAccel : accel)
     
-	    //x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
-	    //y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), targetAccel * global.delta_multi);
-	    x_vel = (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix);
+	    //x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
+	    //y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
+		
+		x_vel = (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix);
 	    y_vel = (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix);
-
+		
+		var _lastX = x;
+		
 		x += x_vel * global.delta_multi;
 		y += y_vel * global.delta_multi;
-
+		
 
 		x = clamp(x, 4, WIDTH-4)
 		y = clamp(y, 10, HEIGHT-2)
 
-
-		
 
 		var _grazedBulletsList = ds_list_create()
 		collision_circle_list(x, y, grazeRadius, obj_bullet, 0, 1, _grazedBulletsList, true)
@@ -315,34 +316,37 @@ state.add("respawn", {
 
 respawnAnim = new AnimCurve("back");
 
-tailLength = 10;
-tails = [];
-for (var i = 0; i < (sprite_index != spr_playerTest_sprite ? 0 : 2); i++) {
-	var tail = new RopeManager()
-	tail.createRope(x, y, tailLength) // 28
-	tail.points_applyFunc(function(p, j){
-		// 0.75
-		var d = min(power(j + 1, 0.1) - 1 + 0.53, 1)
-		p.x_drag = d
-		p.y_drag = d
-		p.soft = false
-	})
-	tail.sticks_applyFunc(function(p, j){
-		p.length = min(power(max(j - 4, 0) , 1.13) + 4, 9)
-		
-		if p.length > 5 {
-			p.pointB.soft = true
-		}
-	})
-	tail.iterations = i == 0 ? 9 : 4
-	tail.points[0].locked = true
-	
-	array_push(tails, tail)
+var _Point = function() constructor {
+	x = 0;
+	y = 0;
+	x_vel = 0;
+	y_vel = 0;
+	damp = 1;
+	dir = 0;
+	len = 12;
 }
+
+tails = [];
+for (var i = 0; i < 2; i++) {
+	var tail = [];
+	for (var j = 0; j < 11; j++) {
+		var p = new _Point();
+	
+		p.len = min(power(max(j - 4, 0) , 1.14) + 5, 11)
+		p.damp = min(0.97 + j * 0.002, 0.98);
+	
+		array_push(tail, p);
+	}
+	array_push(tails, tail);
+}
+
 
 
 hitboxAnim = new TweenManager()
 hitboxSize = 0;
+
+dir_graphic = 1;
+dir_anim = 0;
 
 iFrames = 0;
 
