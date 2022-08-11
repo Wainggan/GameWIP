@@ -329,11 +329,11 @@ var _Point = function() constructor {
 tails = [];
 for (var i = 0; i < 2; i++) {
 	var tail = [];
-	for (var j = 0; j < 11; j++) {
+	for (var j = 0; j < 10; j++) {
 		var p = new _Point();
 	
-		p.len = min(power(max(j - 4, 0) , 1.14) + 5, 11)
-		p.damp = min(0.97 + j * 0.002, 0.98);
+		p.len = min(power(max(j - 4, 0) , 1.16) + 5, 11)
+		p.damp = 0.98
 	
 		array_push(tail, p);
 	}

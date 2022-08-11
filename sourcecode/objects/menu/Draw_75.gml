@@ -11,6 +11,6 @@ for (var i = 0; i < array_length(menuList); i++) {
 		draw_set_color(c_white)
 	}
 
-	menuList[i].func_drawOptions()
+	menuList[i].draw(64, 64)
 	
 }

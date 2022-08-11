@@ -19,7 +19,9 @@ xOff = 0;
 yOff = 0;
 
 parent = noone;
-lastParent = noone
+lastParent = noone;
+
+test = random_range(0, 1000)
 
 directionToMove = sign(WIDTH/2 - x);
 

@@ -38,13 +38,15 @@ for (var i = 0; i < array_length(tails); i++) {
 	var _lastY = tails[i][0].y;
 	var _lastDir = undefined;
 	
+	
 	for (var j = 1; j < array_length(tails[i]); j++) {
 		var p = tails[i][j];
 		
-		var _dir = sin(global.time / 60 / 16 + j * 0.04 + i) * 2;
-		var _tailDir = global.time / 60 * 4 + (360 / array_length(tails)) * i;
-		p.x_vel = lengthdir_x(1, p.dir + _dir) + lengthdir_x(0.1, _tailDir);
-		p.y_vel = lengthdir_y(1, p.dir + _dir) + lengthdir_y(0.1, _tailDir) + 0.08;
+		var _dir = sin(global.time / 60 / 16 + j * 0.08 + i * 2) * 1;
+		var _spreadAngle = 60;
+		var _tailDir = (wave(-10, 10, 20) - 90 + -_spreadAngle/2) - (-_spreadAngle/(array_length(tails)-1) * i);
+		p.x_vel = lengthdir_x(2, p.dir + _dir) + lengthdir_x(0.04, _tailDir);
+		p.y_vel = lengthdir_y(2, p.dir + _dir) + lengthdir_y(0.04, _tailDir) + 0.04;
 	
 		var _angle = point_direction(p.x + p.x_vel * global.delta_multi, p.y + p.y_vel * global.delta_multi, _lastX, _lastY);
 		if _lastDir == undefined _lastDir = _angle;

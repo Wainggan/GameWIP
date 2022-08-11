@@ -216,7 +216,6 @@ enemies = {
 					maxhp = hp;
 					currentAttack++;	
 				});
-
 			} else {
 				canDie = true;
 			}
@@ -376,21 +375,45 @@ enemies = {
 				})
 			},
 			function(){
-				
+				hp = 100;
+				dir = -1;
+				movement_start(WIDTH / 2, 110, 1/40);
+				command_set([
+					50,
+					40,
+					function(){
+						bullet_group_start(x, y);
+							bullet_preset_poly(x, y, 4, 16, 100, function(_x, _y, _dir) {
+								bullet_shoot(_x, _y);
+							})
+						with bullet_group_end() {
+							dir = other.dir;
+							step = function(){
+								rotate(dir * 0.5 * global.delta_multi)
+								scale(1 + 0.02 * global.delta_multi)
+							}
+						}
+						dir = -dir;
+						commandIndex--;
+					}
+				])
 			},
 		]
 		
 		movement_start(WIDTH / 2, 100, 1/80, , function(){
 			textbox_scene_create([
-				["Hi! :D {pause:32}  \nDo you know the way to the convinience store by any chance?", [spr_portraitTest, 0, -1]],
+				["Hi! :D {pause:32}  \nDo you know the way to the convinience store by any chance?", [spr_playerTest, 0, -1]],
 				["[shake:]VROOM VROOOM VROOM", [spr_car, 0, 1]],
 				["[shake:]VROOOOM VROOOM"],
 				["[shake:]VROOOOOOOOOOOOOOOOOOOOOM \nVRUM VRUM VRUM VRUM"],
-				["what", [spr_portraitTest, 0, -1], func_nextAttack],
+				["what", [spr_playerTest, 0, -1], func_nextAttack],
 			]);
 		});
 	},
 }
+
+
+
 enemy = function(_type, _x = 0, _y = 0, _args = []){
 	show_debug_message(_type)
 	show_debug_message(_args)
@@ -425,7 +448,7 @@ stage = [
 	}
 ]
 
-/*
+
 stage = [
 	function(){
 		for (var i = 0; i < 8; i++)

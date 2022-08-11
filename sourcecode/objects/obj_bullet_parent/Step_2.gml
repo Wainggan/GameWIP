@@ -1,3 +1,3 @@
-var dB = 64;
-if x < -dB || 640 + dB < x || y < -dB || 480 + dB < y 
+var dB = 72;
+if x < -dB || WIDTH + dB < x || y < -dB || HEIGHT + dB < y 
 	instance_destroy();

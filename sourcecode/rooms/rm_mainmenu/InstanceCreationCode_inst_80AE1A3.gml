@@ -1,1 +1,1 @@
-menu.func_createMainMenu()
+with menu func_open(menu_main)
