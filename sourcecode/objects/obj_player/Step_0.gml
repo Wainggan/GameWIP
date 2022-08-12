@@ -21,7 +21,7 @@ var _grazeArray = variable_struct_get_names(grazeBulletList);
 for (var i = 0; i < array_length(_grazeArray); i++) {
 	grazeBulletList[$ _grazeArray[i]] -= global.delta_multi;
 	if grazeBulletList[$ _grazeArray[i]] <= 0 {
-		variable_struct_remove(grazeBulletList, _grazeArray[i])
+		variable_struct_remove(grazeBulletList, _grazeArray[i]);
 	}
 }
 
