@@ -20,6 +20,8 @@ if (particleUpdateBuffer >= 1) {
 	}
 }
 
+global.screenShake = approach(global.screenShake, 0, global.screenShakeDamp)
+
 global.pause = max(global.pause - h, 0)
 
 

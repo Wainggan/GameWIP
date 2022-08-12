@@ -20,15 +20,15 @@ function Menu() constructor {
 		elements[position].onClick();
 	}
 	
-	add_button = function(_text, _onClick) {
+	add_button = function(_text, _onClick = function(){}) {
 		array_push(elements, new MenuButton(_text, _onClick));
 		return self;
 	}
-	add_slider = function(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _start = _minimum, _width = 100, _onValueChange) {
+	add_slider = function(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _start = _minimum, _width = 100, _onValueChange = function(){}) {
 		array_push(elements, new MenuSlider(_text, _minimum, _maximum, _interval, _start, _width, _onValueChange));
 		return self;
 	}
-	add_radio = function(_text = "", _options = [], _start = 0, _onValueChange) {
+	add_radio = function(_text = "", _options = [], _start = 0, _onValueChange = function(){}) {
 		array_push(elements, new MenuRadio(_text, _options, _start, _onValueChange));
 		return self;
 	}
@@ -59,8 +59,8 @@ function MenuButton(_text = "", _onClick) : MenuElement(_onClick) constructor {
 	text = _text;
 	
 	draw = function(_x, _y, _selected) {
-		draw_set_color(_selected ? c_red : c_white)
-		draw_text(_x, _y, text)
+		draw_set_color(_selected ? #fc7484 : c_white)
+		draw_text_outline(_x, _y, text)
 	}
 }
 
@@ -73,7 +73,7 @@ function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _sta
 	
 	value = _start;
 	
-	width = 200;
+	width = 120;
 	
 	change = function(_amount) {
 		value = clamp(value + _amount * interval, minimum, maximum);
@@ -83,8 +83,8 @@ function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _sta
 	draw = function(_x, _y, _selected) {
 		static padding = 10;
 		
-		draw_set_color(_selected ? c_red : c_white);
-		draw_text(_x, _y, text);
+		draw_set_color(_selected ? #fc7484 : c_white);
+		draw_text_outline(_x, _y, text);
 		
 		_x += string_width(text) + padding;
 		
@@ -93,7 +93,7 @@ function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _sta
 		draw_set_color(c_white);
 		draw_roundrect(_x, _y - 4, _x + width, _y + 4, true)
 		
-		draw_text(_x + width + 14, _y, value)
+		draw_text_outline(_x + width + 14, _y, value)
 		
 		//draw_line(_x, _y, _x + width, _y);
 		
@@ -118,18 +118,18 @@ function MenuRadio(_text = "", _options = [], _start = 0, _onChange) : MenuEleme
 	onChange = _onChange;
 	
 	draw = function(_x, _y, _selected) {
-		static padding = 20;
+		static padding = 24;
 		
-		draw_set_color(_selected ? c_red : c_white);
-		draw_text(_x, _y, text);
+		draw_set_color(_selected ? #fc7484 : c_white);
+		draw_text_outline(_x, _y, text);
 		
 		_x += string_width(text) + padding;
 		
 		for (var i = 0; i < array_length(options); i++) {
 			var str = options[i];
-			draw_text(_x, _y, str);
+			draw_text_outline(_x, _y, str);
 			
-			if (i == value) draw_text(_x - 10, _y, ">");
+			if (i == value) draw_text_outline(_x - 10, _y, ">");
 			
 			_x += string_width(str) + padding;
 		}

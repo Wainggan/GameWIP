@@ -17,11 +17,11 @@ if grazeComboTimer <= 0 {
 	grazeCombo = 0;
 }
 
-for (var i = 0; i < array_length(grazeBulletList); i++) {
-	grazeBulletList[i][1] -= global.delta_multi;
-	if grazeBulletList[i][1] <= 0 {
-		array_delete(grazeBulletList, i, 1);
-		i--
+var _grazeArray = variable_struct_get_names(grazeBulletList);
+for (var i = 0; i < array_length(_grazeArray); i++) {
+	grazeBulletList[$ _grazeArray[i]] -= global.delta_multi;
+	if grazeBulletList[$ _grazeArray[i]] <= 0 {
+		variable_struct_remove(grazeBulletList, _grazeArray[i])
 	}
 }
 

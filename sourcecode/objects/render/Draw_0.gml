@@ -1,4 +1,11 @@
-// TODO: get the bullet glow drawn as metaballs :3
+var winWidth = window_get_width();
+var winHeight = window_get_height();
+
+x = (winWidth/2-WIDTH/2)+WIDTH/8;
+y = 16
+show_debug_message(global.file.settings.screenShake)
+x += irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
+y += irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
 
 if !surface_exists(bullet_surf) {
 	bullet_surf = surface_create(WIDTH, HEIGHT)

@@ -18,7 +18,7 @@ grazeComboQueue = 0;
 grazeComboQueueTimer = 0;
 tGrazeComboQueueTimer = 4;
 
-grazeBulletList = [];
+grazeBulletList = {};
 grazeBulletListClearTime = 60 * 4;
 
 grazeHitboxGraphicShow = 0;
@@ -205,16 +205,10 @@ state.add("idle", {
 		var _grazedBulletsList = ds_list_create()
 		collision_circle_list(x, y, grazeRadius, obj_bullet, 0, 1, _grazedBulletsList, true)
 		if ds_list_size(_grazedBulletsList) > 0 {
-			var _out = 0;
-			for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
-				if place_meeting(x, y, _grazedBulletsList[| i]) {
-					_out = 1;
-					break;
-				}
-			}
-			if iFrames <= 0 && _out {
+			if iFrames <= 0 && place_meeting(x, y, obj_bullet) {
 				global.pause = 12;
-				iFrames = 20;
+				global.screenShake = 4;
+				iFrames = 40;
 	
 				var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
 				test.targetSize = WIDTH;
@@ -237,15 +231,12 @@ state.add("idle", {
 			} else {
 				for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
 					var _out = 0;
-					for (var j = 0; j < array_length(grazeBulletList); j++) {
-						if grazeBulletList[j][0] == _grazedBulletsList[| i] {
-							_grazedBulletsList[| i].highlight = true
-							_out = 1;
-							//break;
-						}
+					if grazeBulletList[$ _grazedBulletsList[| i]] != undefined {
+						_grazedBulletsList[| i].highlight = true
+						_out = 1;
 					}
 					if _out == 0 {
-						array_push(grazeBulletList, [_grazedBulletsList[| i], grazeBulletListClearTime])
+						grazeBulletList[$ _grazedBulletsList[| i]] = grazeBulletListClearTime;
 						grazeCombo += 1;
 						grazeComboQueue += 1;
 						grazeComboTimer = tGrazeComboTimer;

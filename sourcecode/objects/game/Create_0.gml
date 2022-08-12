@@ -8,6 +8,8 @@ global.time = 0;
 game.textboxes_onEnd = function(){};
 
 global.showHitboxes = false;
+global.screenShake = 0;
+global.screenShakeDamp = 0.2;
 
 testSlowDown = 0
 
@@ -35,7 +37,7 @@ global.file = undefined;
 				"recordLevel" : 0
 			},
 			"settings" : {
-			
+				
 			}
 		}
 		*/
@@ -58,8 +60,7 @@ global.file = undefined;
 				recordLevel : 0
 			},
 			settings : {
-				allowScreenShake : false,
-				fastBulletGlow : false
+				allowScreenShake : 1,
 			}
 		}
 	}
@@ -86,10 +87,6 @@ global.file = undefined;
 	}
 	
 	if global.file = undefined { // first time creating a file
-		
-		
-		
-		
 		json_writeFrom(FILENAME, global.file_default);
 		
 		global.file = global.file_default;

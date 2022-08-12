@@ -37,8 +37,18 @@ function draw_circle_sprite(_x, _y, _r, _outline = false, _color = draw_get_colo
 	}
 }
 
-function draw_text_outline(_x, _y, _string, _amount = 1, _res = 9) {
+function draw_outline(_x, _y, _func = function(_x, _y){}, _thickness = 1, _res = 9) {
 	for (var i = 0; i < 1; i+= _res / 360) {
-		draw_text(_x + lengthdir_x(_amount, 360 * i), _y + lengthdir_y(_amount, 360 * i), _string)
+		_func(_x + lengthdir_x(_thickness, 360 * i), _y + lengthdir_y(_thickness, 360 * i))
 	}
+}
+
+function draw_text_outline(_x, _y, _string) {
+	var _e = draw_get_color();
+	draw_set_color(c_black);
+	draw_outline(_x, _y, method({s:_string}, function(_x, _y){
+		draw_text(_x, _y, s);
+	}))
+	draw_set_color(_e);
+	draw_text(_x, _y, _string);
 }

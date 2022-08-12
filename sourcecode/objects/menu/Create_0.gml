@@ -21,9 +21,30 @@ menu_main = new Menu()
 		func_close();
 	})
 	.add_button("Settings", function(){
+		func_open(menu_settings);
 	})
 	.add_button("Debug", function(){
+		func_open(menu_debug);
 	})
 	.add_button("Exit", function(){
 		game_end();
+	})
+
+menu_settings = new Menu()
+	.add_radio("Screenshake", ["None", "50%", "100%"], global.file.settings.screenShake, function(_e){
+		global.file.settings.screenShake = _e;
+	})
+
+menu_debug = new Menu()
+	.add_button("Delete File", function(){
+		global.file = global.file_default;
+		json_writeFrom(FILENAME, global.file);
+	})
+
+menu_pause = new Menu()
+	.add_button("Continue", function(){
+		func_close();
+	})
+	.add_button("Settings", function(){
+		func_open(menu_settings);
 	})

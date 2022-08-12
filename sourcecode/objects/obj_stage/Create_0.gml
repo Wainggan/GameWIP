@@ -402,21 +402,20 @@ enemies = {
 		
 		movement_start(WIDTH / 2, 100, 1/80, , function(){
 			textbox_scene_create([
-				["Hi! :D {pause:32}  \nDo you know the way to the convinience store by any chance?", [spr_playerTest, 0, -1]],
+				["Hi! :D {pause:32}  \nDo you know the way to the convinience store by any chance?", [spr_playericon, 0, -1]],
 				["[shake:]VROOM VROOOM VROOM", [spr_car, 0, 1]],
 				["[shake:]VROOOOM VROOOM"],
 				["[shake:]VROOOOOOOOOOOOOOOOOOOOOM \nVRUM VRUM VRUM VRUM"],
-				["what", [spr_playerTest, 0, -1], func_nextAttack],
+				["what", [spr_playericon, 0, -1], func_nextAttack],
 			]);
 		});
 	},
 }
 
+//enemies = {};
 
 
 enemy = function(_type, _x = 0, _y = 0, _args = []){
-	show_debug_message(_type)
-	show_debug_message(_args)
 	var inst = instance_create_layer(_x, _y, "Instances", obj_enemy);
 	var func = method_get_index(method(inst, enemies[$ _type]));
 	with inst {
@@ -440,6 +439,7 @@ stageIndex = -1;
 stage = [
 	
 ]
+
 
 stage = [
 	function(){

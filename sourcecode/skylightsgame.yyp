@@ -31,6 +31,7 @@
     {"id":{"name":"obj_textboxQueued","path":"objects/obj_textboxQueued/obj_textboxQueued.yy",},"order":1,},
     {"id":{"name":"shd_addNormals","path":"shaders/shd_addNormals/shd_addNormals.yy",},"order":0,},
     {"id":{"name":"scr_state","path":"scripts/scr_state/scr_state.yy",},"order":7,},
+    {"id":{"name":"spr_bullet_arrow","path":"sprites/spr_bullet_arrow/spr_bullet_arrow.yy",},"order":6,},
     {"id":{"name":"obj_entity","path":"objects/obj_entity/obj_entity.yy",},"order":15,},
     {"id":{"name":"obj_laser","path":"objects/obj_laser/obj_laser.yy",},"order":6,},
     {"id":{"name":"spr_player_vee","path":"sprites/spr_player_vee/spr_player_vee.yy",},"order":5,},

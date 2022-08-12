@@ -1,12 +1,14 @@
 var winWidth = window_get_width();
 var winHeight = window_get_height();
 
-var gameSurfaceX = (winWidth/2-WIDTH/2)+WIDTH/8;
-var gameSurfaceY = 16
+var gameSurfaceX = x;
+var gameSurfaceY = y;
 
 // game ui
 
 if global.gameActive {
+	
+	draw_set_color(c_white)
 
 	draw_rectangle(gameSurfaceX-1, gameSurfaceY-1, gameSurfaceX+WIDTH, gameSurfaceY+HEIGHT, 1)
 

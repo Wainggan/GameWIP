@@ -6,7 +6,6 @@ display_set_gui_maximize()
 draw_set_font(ft_debug)
 
 
-
 #region Shockwave shader
 
 shockwave_sprite = spr_shockwaves;
