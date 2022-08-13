@@ -84,6 +84,10 @@ function bullet_preset_ring(_x, _y, _amount, _rad, _dir, _func = function(_x, _y
 	}
 }
 function bullet_preset_plate(_x, _y, _amount, _spreadDist, _spreadAngle, _len, _dir, _func = function(_x, _y, _dir){}) {
+	if _amount <= 1 {
+		_func(_x + lengthdir_x(_len, _dir), _y + lengthdir_y(_len, _dir), _dir);
+		return;
+	}
 	for (var i = 0; i < _amount; i++) {
 		var _newDir = (_dir + -_spreadAngle/2) - (-_spreadAngle/(_amount-1) * i)
 		var _offset = _spreadDist * (_amount - 1 - (i * 2))

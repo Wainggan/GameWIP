@@ -412,7 +412,7 @@ enemies = {
 	},
 }
 
-//enemies = {};
+enemies = {};
 
 
 enemy = function(_type, _x = 0, _y = 0, _args = []){
@@ -440,7 +440,7 @@ stage = [
 	
 ]
 
-
+/*
 stage = [
 	function(){
 		enemy("stage1-boss");

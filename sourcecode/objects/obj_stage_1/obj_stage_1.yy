@@ -1,14 +1,14 @@
 {
-  "spriteId": {
-    "name": "spr_enemy_test",
-    "path": "sprites/spr_enemy_test/spr_enemy_test.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_stage",
+    "path": "objects/obj_stage/obj_stage.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -23,17 +23,15 @@
   "physicsShapePoints": [],
   "eventList": [
     {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-    {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-    {"isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "effects",
-    "path": "folders/Objects/effects.yy",
+    "name": "Stages",
+    "path": "folders/Objects/Stages.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_effect_hitpop",
+  "name": "obj_stage_1",
   "tags": [],
   "resourceType": "GMObject",
 }

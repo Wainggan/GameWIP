@@ -24,10 +24,6 @@ grazeBulletListClearTime = 60 * 4;
 grazeHitboxGraphicShow = 0;
 grazeHitboxGraphicShowSpeed = 0.05;
 
-
-parryRadius = 20;
-
-
 bulletCharge = 0;
 bulletChargeSpeed = 0.1;
 bulletChargeSpeedSlow = 0.01;
@@ -271,19 +267,15 @@ state.add("idle", {
 			reloadTime = _newReloadTime
 			var _spreadTemp = inputSystem.check("sneak") ? bulletSpreadSlow : bulletSpread
 			var _spreadAngleTemp = inputSystem.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
-		
-			for (var i = 0; i < bulletAmount; i+= 1) {
-				var _dir = (90 + -_spreadAngleTemp/2) - (-_spreadAngleTemp/(bulletAmount-1) * i)
-				var _offset = _spreadTemp * (bulletAmount - 1 - (i * 2))
-		
-				var _inst = instance_create_depth(x + _offset, y, depth, obj_bullet_player)
+			
+			bullet_preset_plate(x, y, bulletAmount, _spreadTemp, _spreadAngleTemp, 2, 90, function(_x, _y, _dir){
+				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
 		
 				with _inst {
 					_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
 					_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
 				}
-			}
-	
+			})
 		}
 	}
 })
