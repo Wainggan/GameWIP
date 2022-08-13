@@ -2,6 +2,8 @@ function Menu() constructor {
 	position = 0;
 	elements = [];
 	
+	camY = 0;
+	
 	scroll = function(_direction, _wrap = true) {
 		position += _direction;
 		if _wrap {

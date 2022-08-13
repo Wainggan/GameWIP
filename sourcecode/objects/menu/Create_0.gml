@@ -1,7 +1,9 @@
 menuList = [];
+camX = 0;
 
 func_open = function(_menu) {
 	_menu.position = 0;
+	_menu.camY = 0;
 	array_push(menuList, _menu);
 }
 func_pop = function() {
@@ -34,6 +36,8 @@ menu_settings = new Menu()
 	.add_radio("Screenshake", ["None", "50%", "100%"], global.file.settings.screenShake, function(_e){
 		global.file.settings.screenShake = _e;
 	})
+
+for (var i = 0; i < 20; i++) menu_settings.add_button(string(i))
 
 menu_debug = new Menu()
 	.add_button("Delete File", function(){
