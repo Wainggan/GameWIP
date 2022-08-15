@@ -1,5 +1,6 @@
 global.delta_target = 1/60;
-global.delta_multi = global.delta_target
+global.delta_multi = 1;
+global.delta_milli = global.delta_target
 
 global.pause = 0;
 
@@ -132,6 +133,7 @@ global.highscore = 0;
 global.gameActive = false;
 
 
+instance_create_layer(0,0, "Instances", input)
 instance_create_layer(0,0, "Instances", render)
 instance_create_layer(0,0, "Instances", menu)
 instance_create_layer(0,0, "Instances", particle)

@@ -3,7 +3,6 @@ var winHeight = window_get_height();
 
 x = (winWidth/2-WIDTH/2)+WIDTH/8;
 y = 16
-show_debug_message(global.file.settings.screenShake)
 x += irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
 y += irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
 
@@ -14,11 +13,11 @@ if !surface_exists(bullet_playerSurf) {
 	bullet_playerSurf = surface_create(WIDTH, HEIGHT)
 }
 
+
 surface_set_target(bullet_playerSurf)
 	draw_clear_alpha(c_black, 0)
 		with obj_bullet_player {
 			draw_sprite_ext(sprite_index, 0, round(x), round(y), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, image_blend, image_alpha-fade/fadeTime);
-	
 		}
 surface_reset_target()
 

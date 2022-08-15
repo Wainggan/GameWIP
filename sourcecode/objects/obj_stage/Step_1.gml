@@ -5,7 +5,7 @@ if array_length(stage) > 0
 			if stageIndex >= array_length(stage) {
 				instance_destroy();
 			} else {
-				time = 60 * 4;
+				time = 60 * 1;
 				stage[stageIndex]();
 			}
 			exit;
@@ -26,8 +26,10 @@ if array_length(stage) > 0
 for (var i = 0; i < array_length(enemyBuffer); i++) {
 	enemyBuffer[i][3] -= global.delta_multi;
 	if enemyBuffer[i][3] <= 0 {
+		var _func = array_pop(enemyBuffer[i])
 		array_delete(enemyBuffer[i], 3, 1);
-		script_execute_ext(method_get_index(enemy), enemyBuffer[i]);
+		var inst = script_execute_ext(method_get_index(enemy), enemyBuffer[i]);
+		method(inst, _func)();
 		array_delete(enemyBuffer, i, 1);
 	}
 }

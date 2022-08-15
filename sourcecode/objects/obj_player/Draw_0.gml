@@ -1,8 +1,8 @@
 
 
-if inputSystem.check_pressed("sneak") {
+if input.check_pressed("sneak") {
 	hitboxAnim.add(new Tween(0.25, 0, 1, function(_e){ hitboxSize = _e }, "backBig"))
-} else if inputSystem.check_released("sneak") {
+} else if input.check_released("sneak") {
 	hitboxAnim.add(new Tween(0.25, 1, 0, function(_e){ hitboxSize = _e }, "ease"))
 }
 hitboxAnim.update(global.delta_multi)

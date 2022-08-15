@@ -19,7 +19,26 @@ xOff = 0;
 yOff = 0;
 
 parent = noone;
-lastParent = noone;
+
+func_nextAttack = function(){
+	onDeath = func_nextAttack;
+	command_reset();
+	movement_stop();
+	if currentAttack < array_length(attacks) {
+		hp = 1;
+		invinsible = true;
+		command_timer(30, function(){
+			invinsible = false;
+			attacks[currentAttack]();
+			maxhp = hp;
+			currentAttack++;	
+		});
+	} else {
+		canDie = true;
+	}
+}
+currentAttack = 0;
+attacks = []
 
 test = random_range(0, 1000)
 

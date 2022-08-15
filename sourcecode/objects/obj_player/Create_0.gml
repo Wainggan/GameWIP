@@ -1,5 +1,5 @@
 moveSpeed = 5;
-fastMoveSpeed = 8;
+fastMoveSpeed = 5;
 slowMoveSpeed = 2;
 
 x_vel = 0;
@@ -106,41 +106,7 @@ func_inputUpdate = function(kleft = 0, kright = 0, kup = 0, kdown = 0) {
 	}
 }
 
-inputSystem = new InputManager(); // vk_up, ord("W")
-inputSystem.create_input("up")
-	.add_keyboard_key(vk_up)
-	.add_keyboard_key(ord("W"))
-	.add_gamepad_stick(gp_axislv, -1)
-	.add_gamepad_button(gp_padu)
-inputSystem.create_input("down")
-	.add_keyboard_key(vk_down)
-	.add_keyboard_key(ord("S"))
-	.add_gamepad_stick(gp_axislv, 1)
-	.add_gamepad_button(gp_padd)
-inputSystem.create_input("left")
-	.add_keyboard_key(vk_left)
-	.add_keyboard_key(ord("A"))
-	.add_gamepad_stick(gp_axislh, -1)
-	.add_gamepad_button(gp_padl)
-inputSystem.create_input("right")
-	.add_keyboard_key(vk_right)
-	.add_keyboard_key(ord("D"))
-	.add_gamepad_stick(gp_axislh, 1)
-	.add_gamepad_button(gp_padr)
 
-inputSystem.create_input("shoot")
-	.add_keyboard_key(ord("Z"))
-	.add_keyboard_key(ord("J"))
-	.add_gamepad_button(gp_face3)
-	.add_gamepad_button(gp_face2)
-	.add_gamepad_button(gp_face1)
-inputSystem.create_input("sneak")
-	.add_keyboard_key(vk_shift)
-	.add_keyboard_key(ord("K"))
-	.add_gamepad_button(gp_face2)
-	.add_gamepad_button(gp_face4)
-	.add_gamepad_shoulder(gp_shoulderlb)
-	.add_gamepad_shoulder(gp_shoulderrb)
 #endregion
 
 func_grazeFlavorText = function(_text) {
@@ -179,8 +145,8 @@ state.add("idle", {
 		
 		var directionFix = (hkey != 0 && vkey != 0 ? 0.71 : 1)
     
-	    var targetTopSpeed = (inputSystem.check("sneak") ? slowMoveSpeed : (inputSystem.check("shoot") ? moveSpeed : fastMoveSpeed))
-	    var targetAccel = (inputSystem.check("sneak") ? slowAccel : accel)
+	    var targetTopSpeed = (input.check("sneak") ? slowMoveSpeed : (input.check("shoot") ? moveSpeed : fastMoveSpeed))
+	    var targetAccel = (input.check("sneak") ? slowAccel : accel)
     
 	    //x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
 	    //y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
@@ -195,7 +161,7 @@ state.add("idle", {
 		
 
 		x = clamp(x, 4, WIDTH-4)
-		y = clamp(y, 10, HEIGHT-2)
+		y = clamp(y, 10, HEIGHT-4)
 
 
 		var _grazedBulletsList = ds_list_create()
@@ -263,10 +229,10 @@ state.add("idle", {
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
 		var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo + 1, 100), 0.2) ) - bulletCharge
 
-		if inputSystem.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 {
+		if input.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 {
 			reloadTime = _newReloadTime
-			var _spreadTemp = inputSystem.check("sneak") ? bulletSpreadSlow : bulletSpread
-			var _spreadAngleTemp = inputSystem.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
+			var _spreadTemp = input.check("sneak") ? bulletSpreadSlow : bulletSpread
+			var _spreadAngleTemp = input.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
 			
 			bullet_preset_plate(x, y, bulletAmount, _spreadTemp, _spreadAngleTemp, 2, 90, function(_x, _y, _dir){
 				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)

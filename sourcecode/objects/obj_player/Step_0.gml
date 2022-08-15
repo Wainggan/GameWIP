@@ -1,9 +1,7 @@
-inputSystem.update()
-
-func_inputUpdate(inputSystem.check("left"),
-				inputSystem.check("right"),
-				inputSystem.check("up"),
-				inputSystem.check("down"))
+func_inputUpdate(input.check("left"),
+				input.check("right"),
+				input.check("up"),
+				input.check("down"))
 
 var _lastX = x;
 var _lastY = y;

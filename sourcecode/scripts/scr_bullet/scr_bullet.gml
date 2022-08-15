@@ -1,7 +1,12 @@
 #macro cb_red make_color_rgb(238, 10, 91)
 #macro cb_blue make_color_rgb(10, 91, 238)
 #macro cb_green make_color_rgb(10, 238, 91)
+
 #macro cb_yellow make_color_rgb(245, 209, 81)
+#macro cb_pink make_color_rgb(209, 81, 245)
+#macro cb_teal make_color_rgb(81, 245, 209)
+
+#macro cb_grey make_color_rgb(92, 92, 92)
 
 global.bullet_currentGroup = undefined;
 

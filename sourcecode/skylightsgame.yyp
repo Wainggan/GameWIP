@@ -52,6 +52,7 @@
     {"id":{"name":"obj_bullet_player","path":"objects/obj_bullet_player/obj_bullet_player.yy",},"order":3,},
     {"id":{"name":"scr_movement","path":"scripts/scr_movement/scr_movement.yy",},"order":1,},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},"order":0,},
+    {"id":{"name":"input","path":"objects/input/input.yy",},"order":4,},
     {"id":{"name":"obj_enemy","path":"objects/obj_enemy/obj_enemy.yy",},"order":0,},
     {"id":{"name":"ft_score","path":"fonts/ft_score/ft_score.yy",},"order":1,},
     {"id":{"name":"obj_flag_create","path":"objects/obj_flag_create/obj_flag_create.yy",},"order":0,},

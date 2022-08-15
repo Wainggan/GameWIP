@@ -2,9 +2,11 @@ hitAnim = approach(hitAnim, 0, 0.2 * global.delta_multi)
 
 switch sprite_index {
 	case spr_enemy_flower:
-		image_angle = wave(-20, 20, 2, test);
+		image_angle = wave(-360, 360, 6, test);
+		break;
 	case spr_enemy_crystal:
 		image_angle = wave(-10, 10, 4, test);
+		break;
 	case spr_enemy_thing:
 		image_index = 0
 		test += global.delta_multi;
@@ -14,8 +16,10 @@ switch sprite_index {
 		for (var i = 0; i < 3; i++) {
 			draw_sprite(sprite_index, 1, x + lengthdir_x(32, -test + 360 / 3 * i), y + lengthdir_y(28, -test + 360 / 3 * i))
 		}
+		break;
 	case spr_enemy_cat:
-		yOff = wave(-2, 2, 3, test)
+		yOff = wave(-2, 2, 3, test);
+		break;
 }
 
 if hitAnim != 0 {
