@@ -7,8 +7,6 @@ var actualDelta = 1/60//delta_time / 1000000
 global.delta_multi = actualDelta / global.delta_target
 global.delta_milli = global.delta_multi / 60;
 
-show_debug_message(global.delta_milli)
-
 global.time += global.delta_multi;
 
 var h = global.delta_multi

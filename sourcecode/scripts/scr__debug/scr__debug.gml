@@ -1,4 +1,4 @@
-#macro DEBUG_THINGS true
+#macro DEBUG_THINGS false
 global.debug = true;
 #macro DEBUG_LOG_FILE "log.txt"
 #macro LOG_WARNING 1

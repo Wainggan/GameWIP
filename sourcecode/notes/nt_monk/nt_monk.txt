@@ -181,3 +181,69 @@ movement_start(WIDTH / 2, 100, 1/80, , function(){
 		["what", [spr_playericon, 0, -1], func_nextAttack],
 	]);
 });
+
+
+function(){
+				hp = 400;
+				
+				lastX = obj_player.x;
+				lastY = obj_player.y;
+				
+				angle = 0
+				
+				command_set([
+					2,
+					function(){
+						bullet_preset_ring(lastX, lastY, 48, 128, angle, function(_x, _y, _dir){
+							with bullet_shoot_dir2(_x, _y, 2, 1, 16, _dir, 3) {
+								glow = cb_grey
+								sprite_index = spr_bullet_large
+							}
+						});
+						lastX = lerp(lastX, obj_player.x, 1 - power(1 - 0.6, global.delta_milli));
+						lastY = lerp(lastY, obj_player.y - 8, 1 - power(1 - 0.6, global.delta_milli));
+						angle += 360 / 48 / 2;
+						commandIndex--;
+					}
+				]);
+				
+				targetAngle = 0;
+				count = 0;
+				
+				command_add([
+					12,
+					function(){
+						targetAngle = irandom_range(0, 360);
+					},
+					4,
+					function(){
+						bullet_preset_ring(x, y, 32, 0, targetAngle, function(_x, _y, _dir){
+							with bullet_shoot_dir(_x, _y, 4, _dir) {
+								glow = cb_yellow;
+							}
+						})
+						if count++ > 8 {
+							count = 0;
+						} else {
+							commandIndex--;
+						}
+					},
+					function(){
+						movement_start(clamp(obj_player.x + irandom_range(-32, 32), 96, WIDTH - 96), irandom_range(50, 100), 1/12);
+						commandIndex = 0;
+					},
+				]);
+				
+				command_add([
+					12,
+					function(){
+						bullet_preset_ring(x, y, 64, 0, irandom_range(0, 360), function(_x, _y, _dir){
+							with bullet_shoot_dir(_x, _y, 3, _dir) {
+								glow = cb_green;
+								sprite_index = spr_bullet_small
+							}
+						})
+						commandIndex--;
+					}
+				])
+			}

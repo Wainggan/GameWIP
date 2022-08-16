@@ -17,8 +17,12 @@ spd_target = undefined;
 fade = 0;
 fadeTime = 1;
 
+deathBorder = 64;
+
 highlight = false
 showDirection = false;
+
+flag = 0;
 
 life = undefined
 

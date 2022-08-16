@@ -12,7 +12,7 @@ slowAccel = 1;
 grazeRadius = 38;
 
 grazeCombo = 0;
-tGrazeComboTimer = 60 * 5;
+tGrazeComboTimer = 60 * 8;
 grazeComboTimer = 0;
 grazeComboQueue = 0;
 grazeComboQueueTimer = 0;
@@ -38,6 +38,15 @@ bulletSpreadSlow = 8
 bulletSpreadAngleSlow = 1
 bulletAmount = 3;
 bulletSpeed = 14;
+
+ignore {
+	bulletSpread = 6;
+	bulletSpreadAngle = 32
+	bulletSpreadSlow = 2
+	bulletSpreadAngleSlow = 1
+	bulletAmount = 32;
+	bulletSpeed = 14;
+}
 
 livesLeft = 3;
 
@@ -249,7 +258,7 @@ state.add("respawn", {
 	enter : function(){
 		respawnAnim.percent = 0
 		respawnAnim.add("x", x, 256)
-		respawnAnim.add("y", y, 400)
+		respawnAnim.add("y", y, HEIGHT - 32)
 	},
 	step : function(){
 		x = respawnAnim.evaluate("x")

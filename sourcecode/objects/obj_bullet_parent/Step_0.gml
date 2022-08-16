@@ -19,5 +19,11 @@ if step != undefined step()
 
 if showDirection image_angle = point_direction(0, 0, lengthdir_x(spd, dir) + x_vel, lengthdir_y(spd, dir) + y_vel)
 
-if life != undefined life -= global.delta_multi
-if life <= 0 { instance_destroy(); if death != undefined death(); particle.burst(x, y, "bulletExplosion", (x_vel + lengthdir_x(spd, dir)), (y_vel + lengthdir_y(spd, dir)))}
+if life != undefined {
+	life -= global.delta_multi
+	if life <= 0 { 
+		instance_destroy(); 
+		if death != undefined death(); 
+		particle.burst(x, y, "bulletExplosion", (x_vel + lengthdir_x(spd, dir)), (y_vel + lengthdir_y(spd, dir)))
+	}
+}

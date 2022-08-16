@@ -67,7 +67,8 @@ function command_update() {
 	if variable_instance_exists(self, "commandFrame") commandFrame();
 	if variable_instance_exists(self, "commandStops") {
 		for (var i = 0; i < array_length(commandStops); i++) {
-			if commandStops[i][0]-- <= 0 {
+			commandStops[i][0] -= global.delta_multi;
+			if commandStops[i][0] <= 0 {
 				commandStops[i][1]();
 				array_delete(commandStops, i--, 1);
 			}
