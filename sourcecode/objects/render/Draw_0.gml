@@ -25,8 +25,8 @@ surface_reset_target()
 surface_set_target(bullet_surf)
 	draw_clear_alpha(c_black, 0)
 	
-	draw_surface_ext(bullet_playerSurf, 0, 0, 1, 1, 0, c_white, 0.9)
-		
+	draw_surface_ext(bullet_playerSurf, 0, 0, 1, 1, 0, c_white, 1)
+	
 	gpu_set_blendmode(bm_add)
 		with obj_bullet {
 			draw_sprite_ext(sprite_index, 1, round(x), round(y), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, merge_color(glow, c_white, (highlight ? ((global.time % 8) >= 4 ? 0 : 0.3 ) : 0)), image_alpha-fade/fadeTime);

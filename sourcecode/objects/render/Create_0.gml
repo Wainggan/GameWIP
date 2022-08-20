@@ -5,7 +5,6 @@ display_set_gui_maximize()
 
 draw_set_font(ft_debug)
 
-
 #region Shockwave shader
 
 shockwave_sprite = spr_shockwaves;
@@ -53,12 +52,30 @@ tMeta_lagAve = 60
 
 #endregion
 
+#region Blur Shader
+
+blur_shader = shd_blur;
+blur_u_blurAmount = shader_get_uniform(blur_shader, "blurAmount");
+blur_u_sigma = shader_get_uniform(blur_shader, "sigma");
+blur_u_texelSize = shader_get_uniform(blur_shader, "texelSize");
+blur_u_blurVector = shader_get_uniform(blur_shader, "blurVector");
+
+blur_surface = -1;
+
+blur_surf_ping = -1;
+
+#endregion
+
 #region Bullets
 
 bullet_surf = -1
 bullet_playerSurf = -1
 
 #endregion
+
+focusAnimCurve = new AnimCurve( , 1, 0);
+game_focus_set(false);
+focusAnimCurve.percent = 1;
 
 scoreAnim = 0
 lastScore = 0;

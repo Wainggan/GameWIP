@@ -1,6 +1,7 @@
 menuList = [];
 camX = 0;
 
+
 func_open = function(_menu) {
 	_menu.position = 0;
 	_menu.camY = 0;

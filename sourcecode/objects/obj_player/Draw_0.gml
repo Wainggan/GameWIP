@@ -16,14 +16,7 @@ if abs(dir_graphic) <= slowMoveSpeed + 0.1 {
 	else if dir_graphic > 0 _img = 4;
 }
 
-
 draw_sprite_ext(sprite_index, _img, round(x), round(y), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), 1, 0, c_white, 1)
-
-//draw_text(x + 10, y + 10, ( tReloadTime + 1 - power(min(grazeCombo + 1, 100), 0.2) ) - bulletCharge + 0)
-
-//slowHitboxAnim = approach(slowHitboxAnim, inputSystem.check("sneak") ? 1 : 0, slowHitboxAnimSpeed * global.delta_multi)
-
-//draw_sprite_ext(sprite_index, 1, round(x), round(y), 1, 1, 0, c_white, slowHitboxAnim)
 
 
 draw_set_alpha(grazeHitboxGraphicShow)
@@ -48,19 +41,3 @@ for (var i = 0; i < array_length(tails); i++) {
 	}
 }
 
-
-/*
-array_foreach(tails, function(tail){
-	tail.points_applyFunc(function(s, i){
-		var tailSize = max(parabola(-7, 10, 7, i) + 3, 4)
-		draw_sprite_ext(spr_player_tail, 0, s.x, s.y, tailSize / 64, tailSize / 64, 0, 0x281140, 1)
-	})
-
-})
-array_foreach(tails, function(tail){
-	tail.points_applyFunc(function(s, i){
-		var tailSize = max(parabola(-7, 10, 7, i) + 3, 4)
-		//if !s.soft
-		draw_sprite_ext(spr_player_tail, 0, s.x, s.y, (tailSize - 2)/64, (tailSize - 2)/64, 0, 0x7a53d7, 1);
-	})
-})

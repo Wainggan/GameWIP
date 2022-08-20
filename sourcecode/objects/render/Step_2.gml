@@ -14,6 +14,8 @@ for (var i = 0; i < array_length(shockwave_waves); i++) {
 	}
 }
 
+focusAnimCurve.percent = approach(focusAnimCurve.percent, 1, 0.02 * global.delta_multi);
+
 if global.score != lastScore {
 	scoreAnimCurve.percent = 0;
 	scoreAnimCurve.get().start = scoreAnim

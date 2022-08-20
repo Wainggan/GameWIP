@@ -1,6 +1,7 @@
 var winWidth = window_get_width();
 var winHeight = window_get_height();
 
+
 for (var i = 0; i < array_length(menuList); i++) {
 	
 	if i = array_length(menuList)-1 {

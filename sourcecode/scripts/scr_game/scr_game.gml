@@ -28,3 +28,17 @@ function game_stop() {
 	
 	room_goto(rm_mainmenu);
 }
+
+function screenShake_set(_amount, _damp = 0.2) {
+	global.screenShake = _amount;
+	global.screenShakeDamp = _damp;
+}
+
+function game_focus_set(_a = true) {
+	if _a != global.focus with render {
+		focusAnimCurve.percent = 0;
+		focusAnimCurve.get().start = +!_a;
+		focusAnimCurve.get().target = +_a;
+	}
+	global.focus = _a;
+}

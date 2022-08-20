@@ -4,7 +4,7 @@ if global.gameActive && input.check_pressed("pause") {
 	else
 		func_close();
 }
-if keyboard_check_pressed(ord("X"))
+if input.check_pressed("bomb") && array_length(menuList) > 0
 	&& !(!global.gameActive && array_length(menuList) == 1)
 	func_pop();
 

@@ -12,17 +12,21 @@ slowAccel = 1;
 grazeRadius = 38;
 
 grazeCombo = 0;
-tGrazeComboTimer = 60 * 8;
+tGrazeComboTimer = 60 * 10;
 grazeComboTimer = 0;
+
 grazeComboQueue = 0;
 grazeComboQueueTimer = 0;
-tGrazeComboQueueTimer = 4;
+tGrazeComboQueueTimer = 2;
+grazeComboQueueLastX = 0;
+grazeComboQueueLastY = 0;
 
 grazeBulletList = {};
 grazeBulletListClearTime = 60 * 4;
 
 grazeHitboxGraphicShow = 0;
 grazeHitboxGraphicShowSpeed = 0.05;
+
 
 bulletCharge = 0;
 bulletChargeSpeed = 0.1;
@@ -49,6 +53,7 @@ ignore {
 }
 
 livesLeft = 3;
+bombsLeft = 3;
 
 #region input
 horzMovementPriority = [];
@@ -118,11 +123,19 @@ func_inputUpdate = function(kleft = 0, kright = 0, kup = 0, kdown = 0) {
 
 #endregion
 
-func_grazeFlavorText = function(_text) {
-	var _inst = instance_create_depth(x+16, y-16, depth, obj_flavorText)
+func_grazeFlavorText = function(_text, _x = x, _y = y) {
+	var _dist = point_distance(x, y, _x, _y);
+	
+	var _nX = ((_x - x) / _dist) * 32;
+	var _nY = ((_y - y) / _dist) * 32;
+	
+	_x = clamp(x + _nX, 16, WIDTH - 16);
+	_y = clamp(y + _nY, 16, HEIGHT - 16);
+	
+	var _inst = instance_create_depth(_x, _y, depth, obj_flavorText)
 	with _inst {
 		_inst.accel_y = 0.1;
-		_inst.x_vel = 0.3;
+		_inst.x_vel = sign(_nX) * 0.4;
 		_inst.y_vel = -1.3;
 			
 		_inst.life = 15;
@@ -178,12 +191,12 @@ state.add("idle", {
 		if ds_list_size(_grazedBulletsList) > 0 {
 			if iFrames <= 0 && place_meeting(x, y, obj_bullet) {
 				global.pause = 12;
-				global.screenShake = 4;
+				screenShake_set(4);
 				iFrames = 40;
 	
 				var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
-				test.targetSize = WIDTH;
-				test.sizeSpeed = 28;
+				test.targetSize = WIDTH * 2;
+				test.sizeSpeed = 40;
 			
 				var test = render.shockwave_create(x, y)
 				test.mode = 1
@@ -211,6 +224,9 @@ state.add("idle", {
 						grazeCombo += 1;
 						grazeComboQueue += 1;
 						grazeComboTimer = tGrazeComboTimer;
+						
+						grazeComboQueueLastX = _grazedBulletsList[| i].x;
+						grazeComboQueueLastY = _grazedBulletsList[| i].y;
 		
 						global.score += round(power(grazeCombo + 1, 0.463)-1)*10+10;
 		
@@ -221,6 +237,11 @@ state.add("idle", {
 				}
 			}
 			
+			if input.check_pressed("bomb") && true {
+				//var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+				//test.targetSize = 128;
+				//test.sizeSpeed = 64;
+			}
 			
 		}
 		ds_list_destroy(_grazedBulletsList)
@@ -229,7 +250,7 @@ state.add("idle", {
 		if grazeComboQueue != 0 && grazeComboQueueTimer <= 0{
 			grazeComboQueueTimer = tGrazeComboQueueTimer
 			grazeComboQueue = max(grazeComboQueue - ceil(lerp(grazeCombo - grazeComboQueue, grazeCombo, 0.5) - (grazeCombo - grazeComboQueue)), 0)
-			func_grazeFlavorText(string(grazeCombo - grazeComboQueue))
+			func_grazeFlavorText(string(grazeCombo - grazeComboQueue), grazeComboQueueLastX, grazeComboQueueLastY)
 			
 		}
 
@@ -287,11 +308,11 @@ var _Point = function() constructor {
 tails = [];
 for (var i = 0; i < 2; i++) {
 	var tail = [];
-	for (var j = 0; j < 10; j++) {
+	for (var j = 0; j < 10; j++) { // 10
 		var p = new _Point();
 	
 		p.len = min(power(max(j - 4, 0) , 1.16) + 5, 11)
-		p.damp = 0.98
+		p.damp = 0.9
 	
 		array_push(tail, p);
 	}
