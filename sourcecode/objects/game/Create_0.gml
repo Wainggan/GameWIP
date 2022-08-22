@@ -48,7 +48,7 @@ global.file = undefined;
 		
 		global.file_default = { // latest version of the file
 			gameVersion : "0.1.0",
-			fileVersion : "0.2.0",
+			fileVersion : "0.1.0",
 			save : {
 				leaderboard : [
 					{
@@ -63,7 +63,7 @@ global.file = undefined;
 				recordLevel : 0
 			},
 			settings : {
-				allowScreenShake : 1,
+				screenShake : 2,
 			}
 		}
 	}
@@ -72,7 +72,6 @@ global.file = undefined;
 		
 		changeOrder = [
 			"0.1.0",
-			"0.2.0"
 		]
 		
 	}
@@ -112,12 +111,6 @@ global.file = undefined;
 		log("New file version detected, " + checkNewVersion + ", updating...")
 		
 		switch checkNewVersion {
-			case "0.2.0":
-				//variable_struct_remove(global.file.save, "highscore");
-				//func_checkKeyExist(global.file.settings, "allowScreenShake", false)
-				//func_checkKeyExist(global.file.settings, "fastBulletGlow", false)
-				global.file = global.file_default; // reset the file
-			break;
 			default:
 				log("Attempted to update to file version " + checkNewVersion + ", but it does not exist.", LOG_ERROR)
 			break
@@ -133,7 +126,6 @@ global.file = undefined;
 global.score = 0;
 global.highscore = 0;
 global.gameActive = false;
-
 
 instance_create_layer(0,0, "Instances", input)
 instance_create_layer(0,0, "Instances", render)
