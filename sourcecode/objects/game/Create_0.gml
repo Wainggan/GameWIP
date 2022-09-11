@@ -13,6 +13,8 @@ global.screenShake = 0;
 global.screenShakeDamp = 0.2;
 
 global.focus = false;
+global.currentBackground = 0;
+global.currentBackgroundSpeed = 2;
 
 testSlowDown = 0
 

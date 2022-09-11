@@ -24,6 +24,6 @@ if life != undefined {
 	if life <= 0 { 
 		instance_destroy(); 
 		if death != undefined death(); 
-		particle.burst(x, y, "bulletExplosion", (x_vel + lengthdir_x(spd, dir)), (y_vel + lengthdir_y(spd, dir)))
+		if object_index != obj_laser particle.burst(x, y, "bulletExplosion", (x_vel + lengthdir_x(spd, dir)), (y_vel + lengthdir_y(spd, dir)))
 	}
 }

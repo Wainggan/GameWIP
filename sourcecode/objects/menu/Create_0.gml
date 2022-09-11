@@ -20,7 +20,7 @@ func_close = function() {
 
 menu_main = new Menu()
 	.add_button("Test", function(){
-		game_start();
+		game_start(rm_stage1);
 		func_close();
 	})
 	.add_button("Settings", function(){

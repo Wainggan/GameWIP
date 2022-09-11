@@ -82,6 +82,35 @@ function bullet_shoot_vel2(_x, _y, _xvel, _yvel, _xaccel, _yaccel, _xtarget, _yt
 	return _inst;
 }
 
+function bullet_laser(_x, _y, _dir, _life = undefined, _chargeUp = 16) {
+	var _inst = instance_create_layer(_x, _y, "Instances", obj_laser);
+	with _inst {
+		self.angle = _dir;
+		
+		
+		startTime = 8;
+		fade = _chargeUp + startTime;
+		fadeTime = _chargeUp + startTime;
+		life = _life != undefined ? _life + (fadeTime + endTime) : _life;
+	}
+	if global.bullet_currentGroup != undefined
+		global.bullet_currentGroup.add(_inst);
+	return _inst;
+}
+function bullet_laser2(_x, _y, _dir, _dirAccel, _dirTarget, _life = undefined) {
+	var _inst = instance_create_layer(_x, _y, "Instances", obj_laser);
+	with _inst {
+		self.angle = _dir;
+		self.angle_accel = _dir;
+		self.angle_target = _dir;
+		
+		life = _life;
+	}
+	if global.bullet_currentGroup != undefined
+		global.bullet_currentGroup.add(_inst);
+	return _inst;
+}
+
 function bullet_preset_ring(_x, _y, _amount, _rad, _dir, _func = function(_x, _y, _dir){}) {
 	for (var i = 0; i < _amount; i++) {
 		_func(_x + lengthdir_x(_rad, _dir), _y + lengthdir_y(_rad, _dir), _dir);

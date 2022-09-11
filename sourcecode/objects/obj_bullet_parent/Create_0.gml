@@ -19,7 +19,6 @@ fadeTime = 1;
 
 deathBorder = 64;
 
-highlight = false
 showDirection = false;
 
 flag = 0;

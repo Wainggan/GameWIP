@@ -6,6 +6,7 @@ y_vel = 0;
 hp = 2;
 maxhp = hp
 scoreGive = 1000;
+pointGive = 1;
 
 hitAnim = 0;
 
@@ -21,14 +22,22 @@ yOff = 0;
 parent = noone;
 
 func_nextAttack = function(){
-	onDeath = function() {
+	static _func = function() {
 		func_nextAttack();
-		if !canDie 
+		if !canDie {
 			screenShake_set(5, 0.2);
-		else
+			global.pause = 4;
+		} else {
 			screenShake_set(6, 0.1);
+			//instance_create_layer(0, 0, "Instances", obj_koSplash);
+			global.pause = 26;
+			__onDeath();
+		}
 		game_focus_set(false);
 	};
+	if onDeath != undefined && onDeath != _func __onDeath = onDeath;
+	else __onDeath = function(){};
+	onDeath = _func;
 	command_reset();
 	movement_stop();
 	if currentAttack < array_length(attacks) {

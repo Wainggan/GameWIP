@@ -5,7 +5,12 @@ function game_start(_rm = rm_stage1) {
 	global.gameActive = 1;
 	global.highscore = global.file.save.leaderboard[0].score
 }
-
+function game_nextRoom(_rm) {
+	global.logger.log("Next room: " + room_get_name(_rm))
+	
+	instance_create_layer(0, 0, "Instances", obj_roomTransition).roomTarget = _rm;
+	
+}
 function game_stop() {
 	global.logger.log("Game end")
 	
@@ -21,8 +26,6 @@ function game_stop() {
 	}
 	
 	global.score = 0;
-	
-	
 	
 	json_writeFrom(FILENAME, global.file);
 	
@@ -41,4 +44,9 @@ function game_focus_set(_a = true) {
 		focusAnimCurve.get().target = +_a;
 	}
 	global.focus = _a;
+}
+function game_background(_back = global.currentBackground, _speed = global.currentBackgroundSpeed, _accel = 0.03) {
+	global.currentBackground = _back;
+	global.currentBackgroundSpeed = _speed;
+	render.backgroundSpeedAccel = _accel;
 }

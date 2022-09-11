@@ -3,6 +3,8 @@ surface_resize(application_surface, WIDTH, HEIGHT)
 //display_set_gui_size(960, 540)
 display_set_gui_maximize()
 
+depth = -1000
+
 draw_set_font(ft_debug)
 
 #region Shockwave shader
@@ -66,6 +68,12 @@ blur_surf_ping = -1;
 
 #endregion
 
+#region Water Shader
+
+water_surf = -1;
+
+#endregion
+
 #region Bullets
 
 bullet_surf = -1
@@ -77,6 +85,16 @@ focusAnimCurve = new AnimCurve( , 1, 0);
 game_focus_set(false);
 focusAnimCurve.percent = 1;
 
+backgroundOrder = [];
+currentBackground = 0;
+newBackground = 0;
+backgroundY = 0;
+backgroundLastY = 0;
+newBackgroundSpeed = 2;
+backgroundSpeed = 2;
+backgroundSpeedAccel = 0.02;
+
+screenShakeX = 0;
+screenShakeY = 0;
+
 scoreAnim = 0
-lastScore = 0;
-scoreAnimCurve = new AnimCurve("ease");

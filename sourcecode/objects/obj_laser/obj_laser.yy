@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_bullet_normal",
-    "path": "sprites/spr_bullet_normal/spr_bullet_normal.yy",
+    "name": "spr_laser",
+    "path": "sprites/spr_laser/spr_laser.yy",
   },
   "solid": false,
   "visible": true,
@@ -9,8 +9,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_bullet_parent",
-    "path": "objects/obj_bullet_parent/obj_bullet_parent.yy",
+    "name": "obj_bullet",
+    "path": "objects/obj_bullet/obj_bullet.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,

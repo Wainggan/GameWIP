@@ -1,6 +1,13 @@
 event_inherited();
 
-length = 30;
-positions = [];
+deathBorder = 96
 
-glow = make_color_rgb(238, 10, 91)
+angle = 0;
+angle_vel = 0;
+angle_accel = 0;
+angle_target = undefined;
+
+fade = 24;
+fadeTime = 24;
+startTime = 8;
+endTime = 8;

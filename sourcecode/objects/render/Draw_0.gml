@@ -3,15 +3,10 @@ var winHeight = window_get_height();
 
 x = (winWidth/2-WIDTH/2)+WIDTH/8;
 y = 16
-x += irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
-y += irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
+x += screenShakeX;
+y += screenShakeY;
 
-if !surface_exists(bullet_surf) {
-	bullet_surf = surface_create(WIDTH, HEIGHT)
-}
-if !surface_exists(bullet_playerSurf) {
-	bullet_playerSurf = surface_create(WIDTH, HEIGHT)
-}
+
 
 
 surface_set_target(bullet_playerSurf)
@@ -29,8 +24,13 @@ surface_set_target(bullet_surf)
 	
 	gpu_set_blendmode(bm_add)
 		with obj_bullet {
-			draw_sprite_ext(sprite_index, 1, round(x), round(y), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, merge_color(glow, c_white, (highlight ? ((global.time % 8) >= 4 ? 0 : 0.3 ) : 0)), image_alpha-fade/fadeTime);
-	
+			var _glow = merge_color(glow, c_white, pop * 0.5);
+			if object_index == obj_bullet
+				draw_sprite_ext(sprite_index, 1, round(x), round(y), image_xscale + fade/fadeTime + pop * 0.2, image_yscale + fade/fadeTime + pop * 0.2, image_angle, _glow, image_alpha-fade/fadeTime);
+			else {
+				draw_sprite_ext(spr_laser_head, 1, round(x), round(y), 1, image_yscale + pop * 0.2, image_angle, _glow, image_alpha);
+				draw_sprite_ext(spr_laser, 1, round(x + lengthdir_x(30, image_angle)), round(y + lengthdir_y(30, image_angle)), image_xscale, image_yscale + pop * 0.2, image_angle, _glow, image_alpha);
+			}
 		}
 	gpu_set_blendmode(bm_normal)
 surface_reset_target()

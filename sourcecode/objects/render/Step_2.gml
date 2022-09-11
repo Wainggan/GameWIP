@@ -16,16 +16,10 @@ for (var i = 0; i < array_length(shockwave_waves); i++) {
 
 focusAnimCurve.percent = approach(focusAnimCurve.percent, 1, 0.02 * global.delta_multi);
 
-if global.score != lastScore {
-	scoreAnimCurve.percent = 0;
-	scoreAnimCurve.get().start = scoreAnim
-	scoreAnimCurve.get().target = global.score
+if !global.pause {
+	screenShakeX = irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
+	screenShakeY = irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.screenShake / 2);
 }
-if global.score != scoreAnim {
-	scoreAnim = scoreAnimCurve.evaluate()
-	scoreAnimCurve.percent += 0.03 * global.delta_multi;
-	if scoreAnimCurve.percent >= 1 {
-		scoreAnim = global.score
-	}
-}
-lastScore = global.score;
+
+if !global.pause
+	scoreAnim = lerp(scoreAnim, global.score, 1 - power(0.01, global.delta_milli * 2));

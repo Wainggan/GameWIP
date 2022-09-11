@@ -1,0 +1,1 @@
+//draw_tilemap(tileMID, 0, 0)

@@ -1,3 +1,8 @@
+if instance_number(obj_player) > 1 {
+	instance_destroy();
+	exit;
+}
+
 moveSpeed = 5;
 fastMoveSpeed = 5;
 slowMoveSpeed = 2;
@@ -23,6 +28,7 @@ grazeComboQueueLastY = 0;
 
 grazeBulletList = {};
 grazeBulletListClearTime = 60 * 4;
+grazeBulletListClearTimeLaser = 8;
 
 grazeHitboxGraphicShow = 0;
 grazeHitboxGraphicShowSpeed = 0.05;
@@ -213,28 +219,48 @@ state.add("idle", {
 			
 				state.change("respawn")
 			} else {
+				var _grazeTotal = 0;
 				for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
 					var _out = 0;
 					if grazeBulletList[$ _grazedBulletsList[| i]] != undefined {
-						_grazedBulletsList[| i].highlight = true
+						//_grazedBulletsList[| i].highlight = true
 						_out = 1;
 					}
 					if _out == 0 {
-						grazeBulletList[$ _grazedBulletsList[| i]] = grazeBulletListClearTime;
+						grazeBulletList[$ _grazedBulletsList[| i]] = _grazedBulletsList[| i].object_index == obj_bullet ? grazeBulletListClearTime : grazeBulletListClearTimeLaser ;
+						_grazedBulletsList[| i].pop = 1;
+						
 						grazeCombo += 1;
 						grazeComboQueue += 1;
 						grazeComboTimer = tGrazeComboTimer;
 						
+						_grazeTotal++;
+						
 						grazeComboQueueLastX = _grazedBulletsList[| i].x;
 						grazeComboQueueLastY = _grazedBulletsList[| i].y;
 		
-						global.score += round(power(grazeCombo + 1, 0.463)-1)*10+10;
+						ignore global.score += round(power(grazeCombo + 1, 0.463)-1)*10+10;
+						
 		
 						grazeHitboxGraphicShow = 1;
 		
 						//func_grazeFlavorText(string(grazeCombo))
 					}
 				}
+				if _grazeTotal
+					with instance_create_layer(x, y, "Instances", obj_collectable) {
+						sprite_index = spr_collectable_graze;
+						var _scale = random_range(0.4, 1);
+						image_xscale = _scale;
+						image_yscale = _scale;
+						image_alpha = 0.6;
+						
+						scoreGive = _grazeTotal * 10;
+						x_vel = random_range(-2, 2);
+						y_vel = random_range(-3, 2);
+						latchTimer = 30;
+						accel = 0.4;
+					}
 			}
 			
 			if input.check_pressed("bomb") && true {
@@ -259,7 +285,7 @@ state.add("idle", {
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
 		var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo + 1, 100), 0.2) ) - bulletCharge
 
-		if input.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 {
+		if input.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0 {
 			reloadTime = _newReloadTime
 			var _spreadTemp = input.check("sneak") ? bulletSpreadSlow : bulletSpread
 			var _spreadAngleTemp = input.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
@@ -292,6 +318,8 @@ state.add("respawn", {
 })
 
 #endregion
+
+
 
 respawnAnim = new AnimCurve("back");
 
@@ -326,6 +354,8 @@ hitboxSize = 0;
 
 dir_graphic = 1;
 dir_anim = 0;
+
+surf = -1;
 
 iFrames = 0;
 

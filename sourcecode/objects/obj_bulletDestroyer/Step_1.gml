@@ -7,7 +7,8 @@ collision_circle_list(x, y, currentSize, obj_bullet, 0, 1, list, 0)
 for (var i = 0; i < ds_list_size(list); i++) {
 	var b = list[| i]
 	var d = point_direction(x, y, b.x, b.y)
-	particle.burst(b.x, b.y, "bulletExplosion", lengthdir_x(2, d), lengthdir_y(2, d))
+	if b.object_index != obj_laser particle.burst(b.x, b.y, "bulletExplosion", lengthdir_x(2, d), lengthdir_y(2, d))
+	if bulletBonus with instance_create_layer(b.x, b.y, "Instances", obj_collectable) y_vel = -2
 	instance_destroy(b)
 }
 ds_list_destroy(list)

@@ -139,7 +139,7 @@ enemies = {
 			40,
 			function(){
 				bullet_group_start(x, y);
-					bullet_preset_poly(x, y, 4, 3, 2, function(_x, _y, _dir){
+					bullet_preset_poly(x, y, 4, 2, 2, function(_x, _y, _dir){
 						with bullet_shoot(_x, _y) {
 							glow = cb_pink
 							sprite_index = spr_bullet_small
@@ -585,7 +585,7 @@ enemies = {
 				
 				command_set([
 					40,
-					80,
+					70,
 					function(){
 						bullet_preset_ring(x, y, 40, 8, random_range(0, 100), function(_x, _y, _dir){
 							bullet_shoot_dir2(_x, _y, 11, 0.5 - max(parabola(180, 360, 0.2, _dir), 0), -1.5, _dir)
@@ -624,6 +624,13 @@ enemies = {
 }
 
 stage = [
+function(){
+	enemy("boss", 0, 0)
+	time = -1;
+},
+	function(){
+		time = 60
+	},
 	function(){
 		for (var i = 0; i < 8; i++)
 			enemy("basic", WIDTH + 64 + i * 44, 60, [undefined, 6]);
@@ -654,12 +661,12 @@ stage = [
 	function(){
 		enemy("big1", WIDTH / 2, 60)
 		
-		time = 60 * 12;
+		time = 60 * 8;
 	},
 	function(){
 		enemy("basic2", WIDTH / 2, 60, [64])
 		
-		time = 60 * 6;
+		time = 60 * 5;
 	},
 	function(){
 		enemy("basic2", 110, 60)

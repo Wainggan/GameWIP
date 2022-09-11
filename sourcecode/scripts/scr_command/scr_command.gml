@@ -21,6 +21,9 @@ function command_add(_array) {
 function command_reset() {
 	commandList = [];
 	commandFrame = function(){};
+	//commandStops = [];
+}
+function command_timer_reset() {
 	commandStops = [];
 }
 

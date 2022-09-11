@@ -4,6 +4,7 @@ enemies = {
 	"basic": function(_spd = 6, _intensity = 0){
 		hp = 3;
 		scoreGive = 1000;
+		pointGive = 1;
 		sprite_index = spr_enemy_flower;
 		
 		spd = _spd;
@@ -36,6 +37,7 @@ enemies = {
 		hp = 180;
 		maxhp = 120;
 		scoreGive = 10000
+		pointGive = 8;
 		
 		startY = y;
 		y = -50;
@@ -86,6 +88,7 @@ enemies = {
 		hp = _hp;
 		
 		scoreGive = 4000;
+		pointGive = 4;
 		sprite_index = spr_enemy_thing;
 		
 		startY = y;
@@ -115,6 +118,7 @@ enemies = {
 		hp = 120;
 		maxhp = 120;
 		scoreGive = 10000
+		pointGive = 6;
 		
 		density = _density;
 		reload = _reload;
@@ -151,6 +155,7 @@ enemies = {
 	"basic3" : function(){
 		hp = 6;
 		scoreGive = 1000;
+		pointGive = 2;
 		
 		startY = y;
 		y = -50;
@@ -198,6 +203,7 @@ enemies = {
 	"big2": function(){
 		hp = 160;
 		scoreGive = 5000;
+		pointGive = 8;
 		
 		scoreGive = 10000;
 		sprite_index = spr_enemy_crystal;
@@ -248,6 +254,7 @@ enemies = {
 			function(){
 				hp = 120;
 				scoreGive = 10000;
+				pointGive = 8;
 				
 				command_set([
 					14,
@@ -270,6 +277,7 @@ enemies = {
 			function(){
 				hp = 340;
 				scoreGive = 50000;
+				pointGive = 12;
 				
 				game_focus_set(true);
 				
@@ -313,6 +321,7 @@ enemies = {
 	"basic4": function(){
 		hp = 30;
 		scoreGive = 10000;
+		pointGive = 3;
 		
 		sprite_index = spr_enemy_crystal;
 		
@@ -352,6 +361,8 @@ enemies = {
 		x = -90;
 		y = -20;
 		
+		game_background( , 1);
+		
 		bulletColors = [
 			cb_red,
 			cb_yellow,
@@ -362,9 +373,14 @@ enemies = {
 		]
 		currentColor = 0;
 		
+		onDeath = function(){
+			show_debug_message(":3")
+			game_background([7, 8], 4)
+		}
+		
 		movement_start(WIDTH / 2, 128, 1/80, , function(){
 			textbox_scene_create([
-				["Oi!"],
+				["Oi!", undefined],
 				["gaming", [spr_comcat, 0, 1]],
 				["gaminmg! !?", [spr_portraitTest, 0, -1]],
 				["gami gngn ! !", [spr_comcat, 0, 1], func_nextAttack]
@@ -376,6 +392,9 @@ enemies = {
 				hp = 360;
 				
 				scoreGive = 10000;
+				pointGive = 6;
+				
+				game_background( , 8);
 				
 				movement_start(WIDTH / 2, 80, 1 / 20);
 				
@@ -395,6 +414,7 @@ enemies = {
 			function(){
 				hp = 400
 				scoreGive = 50000;
+				pointGive = 9;
 				
 				count = 0;
 				currentColor = 0;
@@ -463,6 +483,7 @@ enemies = {
 			function(){
 				hp = 240;
 				scoreGive = 10000;
+				pointGive = 6;
 				
 				currentColor = 0
 				
@@ -488,6 +509,7 @@ enemies = {
 			function(){
 				hp = 340;
 				scoreGive = 80000;
+				pointGive = 12;
 				
 				game_focus_set(true);
 				
@@ -551,6 +573,7 @@ enemies = {
 			function(){
 				hp = 200;
 				scoreGive = 10000;
+				pointGive = 6;
 				
 				currentColor = 0;
 				
@@ -577,6 +600,7 @@ enemies = {
 			function(){
 				hp = 360;
 				scoreGive = 20000;
+				pointGive = 12;
 				
 				game_focus_set(true);
 				
@@ -600,6 +624,7 @@ enemies = {
 			function(){
 				hp = 440;
 				scoreGive = 100000;
+				pointGive = 16;
 				
 				game_focus_set(true);
 				
@@ -662,6 +687,10 @@ enemies = {
 
 stage = [
 	function(){
+		game_background(0, 4);
+		time = 30;
+	},
+	function(){
 		for (var i = 0; i < 8; i++)
 			enemy("basic", WIDTH + 64 + i * 44, 60, [undefined, 6]);
 			
@@ -691,12 +720,13 @@ stage = [
 	function(){
 		enemy("big1", WIDTH / 2, 60)
 		
-		time = 60 * 12;
+		game_background([1, 2], 2);
+		time = 60 * 8;
 	},
 	function(){
 		enemy("basic2", WIDTH / 2, 60, [64])
 		
-		time = 60 * 6;
+		time = 60 * 5;
 	},
 	function(){
 		enemy("basic2", 110, 60)
@@ -726,9 +756,9 @@ stage = [
 		time = 60 * 12 + 60 * 7;
 	},
 	function(){
-		
 		enemy("big2", WIDTH / 2, 50);
 		
+		game_background([3, 4], 2)
 		time = 60 * 8;
 	},
 	function(){
@@ -780,7 +810,7 @@ stage = [
 		enemy("basic4", WIDTH / 2-64, 60);
 		enemy("basic4", WIDTH / 2+64, 60);
 		
-		
+		game_background([5, 6], 3)
 		time = 60 * 6;
 	},
 	function(){
@@ -808,7 +838,9 @@ stage = [
 		time = -1; 
 	},
 	function(){
-		time = 60 * 6
+		time = 60 * 4
 	},
-	function(){ game_stop(); }
+	function(){
+		game_nextRoom(rm_stage2);
+	},
 ]
