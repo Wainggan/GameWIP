@@ -10,7 +10,7 @@ if global.gameActive {
 	
 	draw_set_color(c_white)
 
-	draw_rectangle(gameSurfaceX-1, gameSurfaceY-1, gameSurfaceX+WIDTH, gameSurfaceY+HEIGHT, 1)
+	draw_rectangle(gameSurfaceX-1, gameSurfaceY-1, gameSurfaceX+WIDTH + 2, gameSurfaceY+HEIGHT + 2, 1)
 
 	draw_set_halign(fa_right)
 	

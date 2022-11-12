@@ -1,5 +1,8 @@
 layer_set_visible(layer_get_id("Background"), false);
 
+currentBackground = 0;
+newBackground = 0;
+
 backgroundOrder = [];
 with obj_backgroundGrouper array_push(other.backgroundOrder, self);
 array_sort(backgroundOrder, function(_a, _b) {

@@ -16,6 +16,8 @@ global.focus = false;
 global.currentBackground = 0;
 global.currentBackgroundSpeed = 2;
 
+global.shotSound = false;
+
 testSlowDown = 0
 
 var gameSurfaceX = (window_get_width()/2-WIDTH/2)+WIDTH/8;

@@ -153,6 +153,29 @@ function bullet_preset_poly(_x, _y, _sides, _amount, _length, _func = function(_
 		}
 	}
 }
+function bullet_preset_line(_x, _y, _x2, _y2, _res, _start = 0, _off = 0, _func = function(_x, _y, _dir){}) {
+	var _dist = point_distance(_x, _y, _x2, _y2);
+	var _dir = point_direction(_x, _y, _x2, _y2)
+	for (var i = _start; i < _res - _off; i++) {
+		_func(_x + (_x2 - _x) * (i / _res), _y + (_y2 - _y) * (i / _res), _dir);
+	}
+}
+function bullet_preset_line2(_x, _y, _dir, _len, _amount, _func = function(_x, _y, _dir){}) {
+	for (var i = 0; i < _amount; i++) {
+		_func(_x, _y, _dir);
+		_x += lengthdir_x(_len, _dir);
+		_y += lengthdir_y(_len, _dir);
+	}
+}
+function bullet_preset_golden(_x, _y, _len, _amount, _iteration, _func = function(_x, _y, _dir){}) {
+	static ratio = 1.6180339;
+	var dir = _iteration * ratio * (pi*2);
+	for (var i = 0; i < _amount; i++) {
+		_func(lengthdir_x(_len, dir), lengthdir_y(_len, dir), dir);
+		dir += (pi*2) / ratio;
+	}
+	return _iteration + _amount;
+}
 
 function bullet_group_start(_x, _y) {
 	var inst = instance_create_layer(_x, _y, "Instances", obj_bulletGroup);

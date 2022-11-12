@@ -30,4 +30,5 @@ if global.score > global.highscore {
 	global.highscore = global.score;
 }
 
+global.shotSound = false;
 //show_debug_message(global.delta_multi)

@@ -13,11 +13,13 @@ if latch && !latchTimer {
 
 	image_angle = point_direction(0, 0, x_vel, y_vel) + 90;
 	
-	if place_meeting(x, y, obj_player) || y > HEIGHT + 64 {
+	if place_meeting(x, y, obj_player) {
 		global.score += scoreGive;
 		if func != undefined func();
 		instance_destroy();
 	}
+	if y > HEIGHT + 64
+		instance_destroy()
 } else {
 	x_vel = approach(x_vel, 0, 0.02 * global.delta_multi)
 	y_vel = min(y_vel + 0.04 * global.delta_multi, 3);

@@ -1,8 +1,8 @@
 var winWidth = window_get_width();
 var winHeight = window_get_height();
 
-var gameSurfaceX = x;
-var gameSurfaceY = y;
+var gameSurfaceX = round(x);
+var gameSurfaceY = round(y);
 
 
 if (array_length(shockwave_waves) > 0) {

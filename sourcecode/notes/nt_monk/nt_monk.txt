@@ -247,3 +247,65 @@ function(){
 					}
 				])
 			}
+
+
+function(){
+				hp = 100
+				scoreGive = 100
+				pointGive = 2
+				
+				b_color = true
+				
+				command_set([
+					50,
+					function(){
+						b_color = !b_color
+						bullet_preset_ring(x, y, 18, 0, wave(-720, 720, 12), function(_x, _y, _dir){
+							bullet_group_start(_x, _y);
+							bullet_preset_ring(_x, _y, 6, 48, irandom_range(0, 360), function(_x, _y, _dir){
+								bullet_shoot(_x, _y).glow = b_color ? cb_blue : cb_yellow;
+							})
+							with bullet_group_end() {
+								dir = _dir;
+								spd = 6;
+								spd_accel = 0.1
+								spd_target = 2
+								b_rotateVel = choose(-1, 1) * random_range(0.5, 1.5)
+								step = function(){
+									rotate(global.delta_multi * b_rotateVel)
+								}
+							}
+						})
+						commandIndex--
+					}
+				])
+			},
+
+
+function(){
+	hp = 60;
+	scoreGive = 10000
+	pointGive = 8
+				
+	b_amount = 9;
+	b_dir = 0;
+	b_turn = 1;
+				
+	command_set([
+		6,
+		function(){
+			bullet_preset_ring(x, y, b_amount, 0, b_dir, function(_x, _y, _dir){
+				with bullet_shoot_dir2(x, y, 10, 0.5, 4, _dir, 4) {
+					glow = cb_blue;
+					dir_target = dir + 90
+					dir_accel = other.b_turn / 5 * 2;
+				}
+			})
+			var _d = wave(-5, 5, 15);
+			b_turn = _d;
+			b_dir += _d;
+						
+			commandIndex--;
+		}
+	])
+},

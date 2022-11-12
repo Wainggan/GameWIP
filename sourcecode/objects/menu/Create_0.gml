@@ -37,7 +37,7 @@ menu_settings = new Menu()
 	.add_radio("Screenshake", ["None", "50%", "100%"], global.file.settings.screenShake, function(_e){
 		global.file.settings.screenShake = _e;
 	})
-for(var i = 0;i < 30; i++)  menu_settings.add_button(string(i));
+for(var i = 0; i < 30; i++)  menu_settings.add_button(string(i));
 
 menu_debug = new Menu()
 	.add_button("Delete File", function(){

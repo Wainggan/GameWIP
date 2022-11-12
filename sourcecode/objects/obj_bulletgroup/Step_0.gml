@@ -12,7 +12,7 @@ y_vel = y_target != undefined ? approach(y_vel, y_target, y_accel * global.delta
 
 spd = spd_target != undefined ? approach(spd, spd_target, spd_accel * global.delta_multi) : spd + spd_accel * global.delta_multi;
 
-dir += dir_vel * global.delta_multi;
+dir = dir_target != undefined ? approach(dir, dir_target, dir_accel * global.delta_multi) : dir + dir_accel * global.delta_multi;
 
 translate(
 	x_vel * global.delta_multi + lengthdir_x(spd, dir) * global.delta_multi,

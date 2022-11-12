@@ -1,209 +1,104 @@
-event_inherited();
+// STAGE 1
+
+event_inherited()
 
 enemies = {
-	"basic": function(_spd = 6, _intensity = 0){
-		hp = 3;
-		scoreGive = 1000;
+	"basic1": function(){
+		hp = 4;
+		scoreGive = 100;
+		pointGive = 2;
+		
 		sprite_index = spr_enemy_flower;
 		
-		spd = _spd;
-		intensity = _intensity // doesnt work
+		startX = x;
+		startY = y;
 		
-		polarity = sign(x - WIDTH / 2);
+		x += irandom_range(-32, 32);
+		y = -64;
 		
-		movement_start(WIDTH / 2 + (WIDTH / 2 + 64) * -polarity, y, 1 / abs(x - (WIDTH / 2 + (WIDTH / 2 + 64) * -polarity)) * spd, "linear",function(){instance_destroy()});
+		movement_start(startX, startY, 1 / 20);
+		
+		command_timer(60 * 4, function(){
+			command_reset();
+			movement_start(x + irandom_range(-64, 64), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
+		})
 		
 		command_set([
-			14,
+			20,
+			7,
 			function(){
-				count = 0;
-				bullet_shoot_dir2(x, y, 4, 0.1, 8, point_direction(x, y, obj_player.x, obj_player.y));
+				bullet_shoot_dir2(x, y, 2, 0.3, 4.5, point_direction(x, y, obj_player.x, obj_player.y));
 				commandIndex--;
-			},
-		])
+			}
+		]);
+	},
+	"basic2": function(){
+		hp = 12;
+		scoreGive = 200;
+		pointGive = 2;
+		
+		sprite_index = spr_enemy_crystal;
+		
+		onGround = true;
+		
+		step = function(){
+			if y > HEIGHT - HEIGHT / 3
+				command_reset()
+			if y > HEIGHT + 32 {
+				instance_destroy()
+			}
+		}
+		
+		command_set([
+			30,
+			32,
+			function(){
+				bullet_preset_ring(x, y, 32, 8, wave(-360, 360, 10), function(_x, _y, _dir){
+					with bullet_shoot_dir2(_x, _y, 2, 0.2, 3, _dir) {
+						sprite_index = spr_bullet_point
+						glow = cb_grey;
+					}
+				})
+				commandIndex--;
+			}
+		]);
 	},
 	"big1": function(){
-		hp = 140;
-		scoreGive = 10000
-		
-		startY = y;
-		y = -50;
-		
-		sprite_index = spr_enemy_cat;
-		
-		command_set([
-			function(){
-				movement_start(x, startY, 1 / 20);
-				command_timer(60 * 10, function(){
-					command_reset()
-				})
-				command_timer(60 * 11, function(){
-					movement_start(x, HEIGHT + 128, 1 / abs(y - HEIGHT + 128) * 0.6, "smoothStart");
-				})
-			},
-			80,
-			function(){
-				bullet_preset_ring(x, y, 80, 8, irandom_range(0, 360), function(_x, _y, _dir){
-					with bullet_shoot_dir2(_x, _y, 10, 0.2, 0.5, _dir) {
-						glow = cb_blue;
-						sprite_index = spr_bullet_arrow;
-					}
-				})
-				commandIndex--;
-			},
-		]);
-	},
-	"basic2": function(_hp = 64){
-		hp = _hp;
-		
-		scoreGive = 4000;
-		sprite_index = spr_enemy_thing;
-		
-		startY = y;
-		y = -50;
-		
-		movement_start(x, startY, 1/20,,function(){
-			command_timer(60*8, function(){
-				command_reset()
-				movement_start(x, -64, 1/80, "smoothStart", function(){ instance_destroy() });
-			})
-			command_set([
-				48,
-				function(){
-					bullet_preset_plate(x, y, 11, 0, 270, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
-						for (var i = 1; i <= 2; i++) 
-							with bullet_shoot_dir(_x, _y, i * 1, _dir) {
-								glow = cb_green;
-							}
-						
-					});
-					commandIndex--;
-				}
-			])
-		})
-	},
-	"big1_2": function(_density = 56, _reload = 86){
-		hp = 120;
-		maxhp = 120;
-		scoreGive = 10000
-		
-		density = _density;
-		reload = _reload;
-		
-		startY = y;
-		y = -50;
-		
-		sprite_index = spr_enemy_cat;
-		
-		movement_start(x, startY, 1 / 40);
-		command_timer(60 * 10, function(){
-			idk = true;
-		})
-		command_timer(60 * 12, function(){
-			movement_start(x, HEIGHT + 128, 1 / abs(y - HEIGHT + 128) * 0.6, "smoothStart");
-		})
-		
-		idk = false;
-		
-		command_set([
-			50,
-			reload,
-			function(){
-				bullet_preset_ring(x, y, density, 8, irandom_range(0, 360), function(_x, _y, _dir){
-					with bullet_shoot_dir2(_x, _y, 8, 0.2, 0.8, _dir) {
-						glow = cb_blue;
-						sprite_index = spr_bullet_arrow;
-					}
-				})
-				if !idk commandIndex--;
-			},
-		]);
-	},
-	"basic3" : function(){
-		hp = 6;
+		hp = 50;
 		scoreGive = 1000;
+		pointGive = 3;
+		
+		sprite_index = spr_enemy_cat;
 		
 		startY = y;
-		y = -50;
 		
-		sprite_index = spr_enemy_flower
+		y = -64;
 		
 		movement_start(x, startY, 1/20);
 		
-		command_timer(60 * 4, function(){
-			movement_start(irandom_range(-32, WIDTH + 32), HEIGHT + 64, 1/300, "smoothStart", function(){ instance_destroy() });
-		})
-		
-		command_set([
-			0,
-			40,
-			function(){
-				bullet_group_start(x, y);
-					bullet_preset_poly(x, y, 4, 2, 2, function(_x, _y, _dir){
-						with bullet_shoot(_x, _y) {
-							glow = cb_pink
-							sprite_index = spr_bullet_small
-						}
-					});
-				lastGroup = bullet_group_end();
-				with lastGroup {
-					growVel = 0.3;
-					growAccel = 0.016;
-					rotate(irandom_range(0, 360))
-					step = function(){
-						scale(1 + growVel);
-						growVel = max(0, growVel - growAccel);
-					}
-					command_timer(30, function(){
-						for (var i = 0; i < array_length(bullets); i++) {
-							bullets[i].dir = point_direction(bullets[i].x, bullets[i].y, obj_player.x, obj_player.y) + random_range(-1, 1);
-							bullets[i].spd = 2;
-						}
-					})
-				}
-				
-				commandIndex--;
-			},
-		])
-	},
-	"big2": function(){
-		hp = 160;
-		scoreGive = 5000;
-		
-		scoreGive = 10000;
-		sprite_index = spr_enemy_crystal;
-		
-		startY = y;
-		y = -64;
-		
-		movement_start(x, startY, 1/30);
 		
 		command_timer(60 * 6, function(){
-			command_reset()
-			movement_start(irandom_range(-32, WIDTH + 32), -64, 1/100, "smoothStart", function(){ instance_destroy() });
+			command_reset();
+		})
+		command_timer(60 * 8, function(){
+			movement_start(x + irandom_range(-256, 256), -64, 1/360, , function(){ instance_destroy() })
 		})
 		
-		rad = 96;
-		angle = 0;
-		
 		command_set([
-			40,
-			2,
+			30, 
+			16,
 			function(){
-				bullet_preset_ring(x, y, 5, rad, angle, function(_x, _y, _dir){
-					with bullet_shoot_dir(_x, _y, 3, _dir) {
-						sprite_index = spr_bullet_point;
-						glow = cb_teal;
+				bullet_preset_ring(x, y, 32, 8, wave(-360, 360, 10), function(_x, _y, _dir){
+					with bullet_shoot_dir2(_x, _y, 6, 0.2, -3, _dir) {
+						sprite_index = spr_bullet_inverted
+						glow = cb_blue;
 					}
 				})
-				rad = max(rad - 1, 0);
-				angle += 7;
-				
 				commandIndex--;
 			}
 		])
 	},
-	"miniboss1": function(){
+	"miniboss": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
 		important = true;
@@ -219,14 +114,17 @@ enemies = {
 		
 		attacks = [
 			function(){
-				hp = 120;
+				hp = 40
 				scoreGive = 10000;
+				pointGive = 8;
+				
+				b_density = 56;
 				
 				command_set([
-					24,
+					18,
 					function(){
-						bullet_preset_ring(x, y, 50, 8, irandom_range(0, 360), function(_x, _y, _dir){
-							bullet_shoot_dir2(_x, _y, 8, 0.4, 2, _dir).glow = cb_green
+						bullet_preset_ring(x, y, b_density, 8, irandom_range(0, 360), function(_x, _y, _dir){
+							bullet_shoot_dir2(_x, _y, 8, 0.4, 2.4, _dir).glow = cb_green
 						});
 						commandIndex--;
 					}
@@ -239,26 +137,44 @@ enemies = {
 						commandIndex--;
 					}
 				]);
+				
+				hpMod = [
+					function(){
+						hp = 40;
+						
+						b_density = 60
+						command_get(0)[0] = 16
+					},
+					function(){
+						hp = 40;
+						
+						b_density = 64
+						command_get(0)[0] = 14;
+					},
+				]
 			},
 			function(){
-				hp = 340;
+				hp = 80;
 				scoreGive = 50000;
+				pointGive = 12;
 				
 				game_focus_set(true);
 				
+				b_density = 7;
+				
 				command_set([
-					24,
+					20,
 					function(){
 						bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + irandom_range(-8, 8), function(_x, _y, _dir){
 							with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
 								y_target = 5;
 								y_accel = 0.1;
 								
-								glow = cb_teal;
+								glow = cb_green;
 								sprite_index = spr_bullet_large;
 								
 								command_timer(irandom_range(60, 80), function(){
-									bullet_preset_ring(x, y, 7, 4, irandom_range(0, 360), function(_x, _y, _dir){
+									bullet_preset_ring(x, y, 10, 4, irandom_range(0, 360), function(_x, _y, _dir){
 										with bullet_shoot_dir(_x, _y, 1, _dir) {
 											glow = cb_pink;
 											sprite_index = spr_bullet_arrow;
@@ -278,40 +194,23 @@ enemies = {
 						commandIndex--
 					}
 				])
-			},
-			
-		]
-		
-	},
-	"basic4": function(){
-		hp = 24;
-		scoreGive = 10000;
-		
-		sprite_index = spr_enemy_crystal;
-		
-		startY = y;
-		y = -64;
-		
-		movement_start(x, startY, 1/40);
-		
-		count = 0;
-		command_set([
-			60,
-			6,
-			function(){
-				bullet_preset_ring(x, y, 6, 8, irandom_range(0, 360), function(_x, _y, _dir){
-					with bullet_shoot_dir2(_x, _y, 0, 0.1, 3, _dir) {
-						glow = cb_pink;
+				
+				hpMod = [
+					function(){
+						hp = 100;
+						
+						b_density = 10;
+						command_get(0)[0] = 16
+					},
+					function(){
+						hp = 160;
+						
+						b_density = 14;
+						command_get(0)[0] = 14
 					}
-				});
-				if count++ < 16
-					commandIndex--;
-				else
-					command_timer(60, function(){
-						movement_start(x + irandom_range(-16, 16), -64, 1/120, , function(){ instance_destroy() });
-					})
-			}
-		])
+				]
+			},
+		]
 	},
 	"boss": function(){
 		hp = 69;
@@ -322,462 +221,403 @@ enemies = {
 		
 		sprite_index = spr_enemy_testBoss
 		
-		x = -90;
-		y = -20;
+		x = -120;
+		y = -60;
 		
-		bulletColors = [
-			cb_red,
-			cb_yellow,
-			cb_green,
-			cb_teal,
-			cb_blue,
-			cb_pink,
-		]
-		currentColor = 0;
-		
-		
-		movement_start(WIDTH / 2, 128, 1/80, , function(){
+		movement_start(WIDTH / 2, 90, 1/50, , function(){
 			textbox_scene_create([
-				["Oi!"],
-				["gaming", [spr_comcat, 0, 1]],
-				["gaminmg! !?", [spr_portraitTest, 0, -1]],
-				["gami gngn ! !", [spr_comcat, 0, 1], func_nextAttack]
+				["hi!"],
+				["go away", undefined, function(){
+					audio_stop_sound(music.bgm);
+					func_nextAttack();
+				}]
 			])
 		});
 		
+		//currentAttack = 1
+		
 		attacks = [
 			function(){
-				hp = 340;
-				
+				hp = 240
 				scoreGive = 10000;
+				pointGive = 8;
 				
-				movement_start(WIDTH / 2, 80, 1 / 20);
+				b_1_density = 24
+				b_1_speed = 2.5
+				b_1_reload = 24;
 				
-				command_set([
-					20,
-					28,
+				b_2_angle = 0;
+				b_2_speed = 2.5
+				b_2_reload = 8
+				
+				command_switch([
 					function(){
-						bullet_preset_ring(x, y, 56, 8, random_range(0, 100), function(_x, _y, _dir){
-							bullet_shoot_dir2(_x, _y, 11, 0.5 - max(parabola(180, 360, 0.28, _dir), 0), -2, _dir)
-								.glow = bulletColors[currentColor % 6];
-						})
-						currentColor++
-						commandIndex--;
-					}
-				])
+						movement_start(clamp(x, WIDTH / 2 - 48, WIDTH / 2 + 48), 90, 1/20)
+						command_set([
+							20,
+							b_1_reload,
+							function(){
+								bullet_preset_plate(x, y, 25, b_1_density, 4, -16, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
+									bullet_shoot_dir2(_x, _y, 8, 0.2, b_1_speed, _dir).glow = cb_blue;
+								})
+								commandIndex--;
+							}
+						]);
+				
+						command_add([
+							60, 
+							function(){
+								movement_start(clamp(obj_player.x + irandom_range(-32, 32), 128, WIDTH - 128), irandom_range(40, 60), 1/60);
+								commandIndex--;
+							}
+						]);
+					}, 180,
+					function(){
+						command_set([
+							20,
+							b_2_reload,
+							function(){
+								var _dir = irandom_range(0, 360);
+								bullet_preset_ring(x, y, 2, 0, _dir, function(_x, _y, _dir){
+									bullet_preset_plate(_x, _y, 4, 3, 4, 0, _dir, function(_x, _y, _dir){
+										bullet_shoot_dir(_x, _y, b_2_speed, _dir).glow = cb_yellow;
+									})
+								})
+								bullet_preset_ring(x, y, 8, 0, _dir + 360 / 8 / 2, function(_x, _y, _dir){
+									bullet_preset_plate(_x, _y, 2, 3, 4, 0, _dir, function(_x, _y, _dir){
+										bullet_shoot_dir(_x, _y, b_2_speed, _dir).glow = cb_yellow;
+									})
+								})
+								b_2_angle += 26.7;
+								commandIndex--;
+							}
+						]);
+					}, 360
+				])				
+				
+				hpMod = [
+					function(){
+						hp = 240;
+						
+						b_1_density = 20
+						b_1_reload = 16
+						
+						b_2_speed = 3;
+						b_2_reload = 7;
+					},
+					function(){
+						hp = 360;
+						
+						b_1_density = 18
+						b_1_reload = 15;
+						b_1_speed = 4
+						
+						b_2_reload = 8;
+						
+						command_switch_add(0, function(){
+							command_add([
+								10,
+								48,
+								function(){
+									var _h = irandom_range(-24, 24);
+									bullet_preset_plate(0, HEIGHT / 2 + _h, 56, 28, 4, -16 - irandom_range(0, 32), 0, function(_x, _y, _dir) {
+										bullet_shoot_dir2(_x, _y, 6, 0.2, 2, _dir).glow = cb_yellow;
+									})
+									bullet_preset_plate(WIDTH, HEIGHT / 2 + _h, 56, 28, 4, -16 - irandom_range(0, 32), 180, function(_x, _y, _dir) {
+										bullet_shoot_dir2(_x, _y, 6, 0.2, 2, _dir).glow = cb_yellow;
+									})
+									commandIndex--;
+								}
+							]);
+						}, true);
+						command_switch_set_time(0, 80);
+						command_switch_add(1, function(){
+							command_add([
+								30,
+								24,
+								function(){
+									with bullet_shoot_dir2(x, y, 12, 0.3, 3.5, point_direction(x, y, obj_player.x, obj_player.y)) {
+										sprite_index = spr_bullet_large
+										glow = cb_blue;
+									}
+									commandIndex--;
+								}
+							]);
+						}, true)
+					},
+				]
 			},
 			function(){
-				hp = 400
-				scoreGive = 50000;
+				hp = 200
+				scoreGive = 10000
+				pointGive = 8
 				
-				count = 0;
-				currentColor = 0;
+				b_1_accel = 0.1
+				b_1_target = 0
+				b_1_density = 32
+				b_1_reload = 40
 				
-				game_focus_set(true);
+				b_2_amount = 12;
+				b_2_speed = 4;
+				b_2_dir = 0;
+				b_2_turn = 1;
+				b_2_reload = 12;
+				
+				command_switch([
+					function(){ // Rain
+						command_set([
+							b_1_reload,
+							function(){
+								bullet_preset_ring(x, y, b_1_density, -64, random_range(0, 360), function(_x, _y, _dir){
+									with bullet_shoot_vel(_x, _y, lengthdir_x(12, _dir), lengthdir_y(4, _dir)) {
+										sprite_index = spr_bullet_point;
+										glow = cb_blue;
+										x_accel = other.b_1_accel
+										x_target = other.b_1_target * x_vel;
+										y_accel = 0.01
+										y_target = 2
+										step = function(){
+											if x < 0 {
+												x_vel *= -1
+												x = 0
+											}
+											if x > WIDTH {
+												x_vel *= -1
+												x = WIDTH
+											}
+										}
+									}
+								})
+						
+								commandIndex--
+							}
+						]);
+						
+						command_add([
+							120,
+							function(){
+								movement_start(clamp(obj_player.x + irandom_range(-8, 8), 96, WIDTH - 96), irandom_range(80, 90), 1/60);
+								commandIndex--;
+							}
+						]);
+					}, 240,
+					function(){ // Speed
+						command_set([
+							b_2_reload,
+							function(){
+								var _d = wave(-5, 5, 15);
+								b_2_turn = _d;
+								bullet_preset_ring(x, y, b_2_amount, 0, b_2_dir, function(_x, _y, _dir){
+									with bullet_shoot_dir2(x, y, 10, 0.5, b_2_speed, _dir, 4) {
+										glow = cb_yellow;
+										dir_target = dir + 90 * other.b_2_turn / 5;
+										dir_accel = 3;
+									}
+								})
+								b_2_dir += _d;
+						
+								commandIndex--;
+							}
+						]);
+						
+						command_add([
+							120,
+							function(){
+								movement_start(clamp(obj_player.x + irandom_range(-8, 8), 96, WIDTH - 96), irandom_range(80, 90), 1/60);
+								commandIndex--;
+							}
+						])
+					}, 360
+				])
+				
+				
+				
+				hpMod = [
+					function(){
+						hp = 240;
+						
+						b_1_reload = 32;
+						b_1_accel = 0.07;
+						b_1_density = 38
+												
+						b_2_reload = 10;
+						b_2_speed = 4.5
+						b_2_amount = 14;
+					},
+					function(){
+						hp = 240;
+						
+						b_1_reload = 24;
+						b_1_density = 42
+						
+						b_2_reload = 8;
+						b_2_speed = 5
+						b_2_amount = 15;
+					}
+				];
+				
+			},
+			function(){
+				hp = 150
+				scoreGive = 60000
+				pointGive = 12
+				
+				b_dir = -1
+				b_density = 50;
+				b_angleDensity = 6
+				b_rotateSpeed = 0.1
+				b_speed = 1
+				
+				movement_start(WIDTH / 2, 90, 1/30);
 				
 				command_set([
-					60 * 2,
+					60,
 					function(){
-						if count + 1 < 3
-							movement_start(irandom_range(64, WIDTH - 64), irandom_range(40, 90), 1/20);
-						else
-							movement_start(clamp(obj_player.x + irandom_range(-32, 32), 96, WIDTH - 96), irandom_range(50, 110), 1 / 40);
-					},
-					20,
-					function(){
-						bullet_preset_ring(x, y, 15, 0, random_range(0, 360), function(_x, _y, _dir){
-							with bullet_shoot_dir(_x, _y, 3, _dir) {
-								sprite_index = spr_bullet_arrow;
-								glow = cb_grey;
-								flag = 1;
-							}
+						bullet_group_start(x, y)
+						bullet_preset_ring(x, y, b_angleDensity, 32, point_direction(x, y, obj_player.x, obj_player.y) + 360 / b_angleDensity / 2, function(_x, _y, _dir){
+							bullet_preset_line2(_x, _y, _dir, b_density, 16, function(_x, _y) {
+								with bullet_shoot(_x, _y) {
+									deathBorder = -1;
+									glow = cb_blue
+									step = function(){
+										if y > HEIGHT + 64 instance_destroy()
+									}
+								}
+							})
 						})
-						if count++ < 3
-							commandIndex -= 2;
-					},
-					30,
-					function(){
-						screenShake_set(4);
-						with obj_bullet {
-							if flag != 1 continue;
-							dir = point_direction(x, y, obj_player.x, obj_player.y);
-							spd = 0.2;
-							spd_accel = 0.1;
-							spd_target = 4;
-							flag = 0;
+						with bullet_shoot(x, y) {
+							sprite_index = spr_bullet_large
+							glow = cb_blue
 						}
-						
-						
-						bullet_preset_ring(x, y, 60, 8, random_range(0, 100), function(_x, _y, _dir){
-							bullet_shoot_dir2(_x, _y, 11, 0.5, 1, _dir).glow = cb_grey;
-						})
-						
-						count = 0;
-					},
-					61,
-					function(){
-						
-						commandIndex = 1;
-					}
-				]);
-				
-				command_add([
-					100,
-					function(){
-						bullet_preset_ring(WIDTH / 2, 20, 60, 8, random_range(0, 360), function(_x, _y, _dir){
-							with bullet_shoot_dir2(_x, _y, 11, 0.3, 0.4, _dir) {
-								glow = other.bulletColors[other.currentColor % 6]
-								sprite_index = spr_bullet_small;
+						with bullet_group_end() {
+							b_dir = other.b_dir;
+							b_rotateSpeed = other.b_rotateSpeed;
+							b_speed = other.b_speed;
+							dir = point_direction(x, y, obj_player.x, obj_player.y);
+							spd = 0;
+							spd_accel = 0.01;
+							spd_target = b_speed;
+							step = function(){
+								rotate(b_dir * b_rotateSpeed * global.delta_multi)
 							}
-						});
-						currentColor++
-						commandIndex--;
-					}
-				])
-				
-			},
-			function(){
-				hp = 240;
-				scoreGive = 10000;
-				
-				currentColor = 0
-				
-				command_set([
-					function(){
-						movement_start(clamp(obj_player.x + irandom_range(-64, 64), 96, WIDTH - 96), irandom_range(40, 80), 1 / 30);
+						}
+						b_dir *= -1;
 					},
-					40,
-					function(){
-						bullet_preset_ring(x, y, 54, 0, random_range(0, 360), function(_x, _y, _dir){
-							with bullet_shoot_dir2(_x, _y, 11, 0.75 - max(parabola(180, 360, 0.5, _dir), 0), -2, _dir) {
-								glow = other.bulletColors[other.currentColor % 6]
-							}
-						})
-						currentColor++
-					},
-					20,
+					180,
 					function(){
 						commandIndex = 0;
 					}
 				]);
-			},
-			function(){
-				hp = 340;
-				scoreGive = 80000;
 				
-				game_focus_set(true);
-				
-				count = 0;
-				currentColor = 0;
-				
-				rand = 0;
-				
-				command_set([
+				hpMod = [
 					function(){
-						movement_start(WIDTH / 2, 90, 1 / 40);
-					},
-					60,
-					function(){
-						screenShake_set(4);
-						with obj_bullet {
-							if flag != 1 continue;
-							dir = random_range(0, 360);
-							spd = 0;
-							spd_target = 2;
-							spd_accel = 0.005;
-							flag = 0;
-							deathBorder = 32;
-							sprite_index = spr_bullet_arrow;
-						}
-					},
-					80,
-					function(){
-						rand = random_range(0, 1);
-						bullet_preset_ring(x, y, 20, 0, random_range(0, 360), function(_x, _y, _dir){
-							for (var i = 0; i < 10; i++)
-								with bullet_shoot_dir2(_x, _y, 8 - i / 2 - rand, 0.1, 0, _dir) {
-									glow = other.bulletColors[other.currentColor % 6];
-									flag = 1;
-								}
-							currentColor++
-						});
+						hp = 300;
 						
-						currentColor++
-						count = 0;
+						b_density = 44
+						b_angleDensity = 12
+						b_speed = 1.2
+						command_get(0)[0] = 40
 					},
-					20,
 					function(){
-						movement_start(clamp(obj_player.x + irandom_range(-128, 128), 96, WIDTH - 96), irandom_range(40, 80), 1 / 30);
-					},
-					30,
-					function(){
-						bullet_preset_ring(x, y, 50, 0, random_range(0, 360), function(_x, _y, _dir){
-							with bullet_shoot_dir2(_x, _y, 6, 0.1, 2, _dir) {
-								glow = cb_grey;
-								sprite_index = spr_bullet_small
-							}
-						});
-						if count++ < 3
-							commandIndex -= 3;
-						else
-							commandIndex = 0;
-					}
-				])
-			},
-			function(){
-				hp = 200;
-				scoreGive = 10000;
-				
-				currentColor = 0;
-				
-				command_set([
-					30,
-					function(){
-						bullet_preset_ring(x, y, 66, 8, random_range(0, 360), function(_x, _y, _dir){
-							bullet_shoot_dir2(_x, _y, 11, 0.5 - max(parabola(180, 360, 0.2, _dir), 0), -2.5, _dir)
-								.glow = bulletColors[currentColor % 6];
-						})
-						currentColor++
-						commandIndex--;
-					}
-				]);
-				command_add([
-					40,
-					function(){
-						movement_start(clamp(obj_player.x + irandom_range(-96, 96), 96, WIDTH - 96), 70, 1 / 40);
-						commandIndex--;
-					}
-				])
-				
-			},
-			function(){
-				hp = 360;
-				scoreGive = 20000;
-				
-				game_focus_set(true);
-				
-				movement_start(WIDTH / 2, 80, 1 / 20);
-				
-				command_set([
-					20,
-					32,
-					function(){
-						bullet_preset_ring(x, y, 40, 8, random_range(-45, 45), function(_x, _y, _dir){
-							with bullet_shoot_dir2(_x, _y, 5, 0.2 - max(parabola(180, 360, 0.175, _dir), 0), -1, _dir) {
-								if 0 < dir && dir < 180 sprite_index = spr_bullet_small
-								glow = other.bulletColors[other.currentColor % 6];
-							}
-						})
-						currentColor++
-						commandIndex--;
-					}
-				]);
-			},
-			function(){
-				hp = 440;
-				scoreGive = 100000;
-				
-				game_focus_set(true);
-				
-				currentColor = 0;
-				
-				movement_start(WIDTH / 2, 110, 1 / 40);
-				
-				command_set([
-					40,
-					70,
-					function(){
-						bullet_preset_ring(x, y, 40, 8, random_range(0, 100), function(_x, _y, _dir){
-							bullet_shoot_dir2(_x, _y, 11, 0.5 - max(parabola(180, 360, 0.2, _dir), 0), -1.5, _dir)
-								.glow = bulletColors[currentColor % 6];
-						})
-						currentColor++
-						commandIndex--;
-					}
-				]);
-				command_add([
-					32,
-					function(){
-						bullet_preset_plate(x, y, 2, 0, 120, 0, 270 + irandom_range(-16, 16), function(_x, _y, _dir){
-							with bullet_shoot_dir(_x, _y, 3, _dir) {
-								sprite_index = spr_bullet_large;
-								glow = cb_grey;
-								command_timer(irandom_range(50, 60), function(){
-									instance_destroy();
-									bullet_preset_ring(x, y, 12, 0, irandom(360), function(_x, _y, _dir){
-										with bullet_shoot_dir(_x, _y, 1.5, _dir) {
-											sprite_index = spr_bullet_arrow;
-											glow = cb_grey;
-										}
-									})
+						hp = 400;
+						
+						b_density = 42
+						b_angleDensity = 15
+						b_speed = 1.4
+						b_rotateSpeed = 0.12
+						command_get(0)[0] = 30;
+						
+						command_add([
+							96,
+							function(){
+								bullet_preset_plate(0, HEIGHT / 2 + irandom_range(-48, 48), 56, 48, 4, -16 - irandom_range(0, 32), 0, function(_x, _y, _dir) {
+									bullet_shoot_dir2(_x, _y, 6, 0.2, 2, _dir).glow = cb_yellow;
 								})
+								bullet_preset_plate(WIDTH, HEIGHT / 2 + irandom_range(-48, 48), 56, 48, 4, -16 - irandom_range(0, 32), 180, function(_x, _y, _dir) {
+									bullet_shoot_dir2(_x, _y, 6, 0.2, 2, _dir).glow = cb_yellow;
+								})
+								commandIndex--;
 							}
-						})
-						commandIndex--
-					}
-				]);
-				angle = 0;
-				
-			}
-		];
+						]);
+					},
+				]
+			},
+		]
 	}
-}
+};
+
+//stageIndex = 6;
 
 stage = [
-function(){
-	enemy("boss", 0, 0)
-	time = -1;
-},
 	function(){
-		time = 60
+		time = 60 * 0.76 - 20;
 	},
 	function(){
-		for (var i = 0; i < 8; i++)
-			enemy("basic", WIDTH + 64 + i * 44, 60, [undefined, 6]);
-			
-		for (var i = 0; i < 8; i++)
-			enemy("basic", -64 - i * 44, 90, [undefined, 6]);
-		
-		time = 180;
-	},
-	function(){
-		for (var i = 0; i < 8; i++)
-			enemy("basic", WIDTH + 64 + i * 44, 40, [3]);
-			
-		for (var i = 0; i < 8; i++)
-			enemy("basic", -64 - i * 44, 70, [3]);
-			
-		time = 60;
-	},
-	function(){
-		for (var i = 0; i < 6; i++)
-			enemy("basic", WIDTH + 64 + i * 44, 80, [2]);
-			
-		for (var i = 0; i < 6; i++)
-			enemy("basic", -64 - i * 44, 100, [2]);
-			
-		time = 220;
-	},
-	function(){
-		enemy("big1", WIDTH / 2, 60)
-		
-		time = 60 * 8;
-	},
-	function(){
-		enemy("basic2", WIDTH / 2, 60, [64])
-		
-		time = 60 * 5;
-	},
-	function(){
-		enemy("basic2", 110, 60)
-		enemy("basic2", WIDTH - 110, 60)
-		
-		enemy_delay("big1_2", WIDTH / 2, 100, 120)
-		
-		time = 60 * 12;
-	},
-	function(){
-		for (var i = 0; i < 8; i++)
-			enemy_delay("basic3", irandom_range(110, WIDTH - 110), irandom_range(80, 120), i * 80);
-		
-		enemy_delay("basic2", WIDTH / 2, 60, 80 * 3 + 30)
-		
-		time = 60 * 8 + 80 * 4;
-	},
-	function(){
-		for (var i = 0; i < 12; i++)
-			enemy_delay("basic3", irandom_range(110, WIDTH - 110), irandom_range(80, 120), i * 60 + 20);
-		
-		enemy("basic2", 110, 80)
-		enemy("basic2", WIDTH - 110, 80)
-		
-		enemy_delay("big1_2", WIDTH / 2, 100, 60 * 8 - 30, [60])
-		
-		time = 60 * 12 + 60 * 7;
-	},
-	function(){
-		
-		enemy("big2", WIDTH / 2, 50);
-		
-		time = 60 * 8;
-	},
-	function(){
-		enemy("miniboss1", WIDTH / 2, 0);
-		
-		time = -1;
-	},
-	function(){
-		for (var i = 0; i < 8; i++)
-			enemy("basic", WIDTH + 64 + i * 44, irandom_range(40, 80), [undefined, 8]);
-			
-		for (var i = 0; i < 8; i++)
-			enemy("basic", -64 - i * 44, irandom_range(40, 80), [undefined, 8]);
-		
-		time = 200;
-	},
-	function(){
+		game_background( , 1);
 		for (var i = 0; i < 16; i++)
-			enemy("basic", WIDTH + 64 + i * 44, irandom_range(40, 110), [2]);
-			
-		for (var i = 0; i < 16; i++)
-			enemy("basic", -64 - i * 44, irandom_range(40, 110), [2]);
-		
-		time = 60 * 8;
+			enemy_delay("basic1", WIDTH / 2 + irandom_range(-196, 196), irandom_range(32, 96), i * (60 * 0.76));
+		time = 16 * (60 * 0.76) + 60;
 	},
 	function(){
-		enemy("basic4", WIDTH / 2, 90);
+		game_background( , 4);
 		
-		time = 240;
-	},
-	function(){
-		enemy("basic4", 64, 40);
-		enemy("basic4", WIDTH - 64, 40);
-		
-		time = 280;
-	},
-	function(){
-		enemy("basic4", 64, 90);
-		enemy("basic4", WIDTH - 64, 90);
-		enemy("basic4", WIDTH / 2, 60);
-		
-		enemy_delay("big1_2", WIDTH / 2, 100, 80, [40, 96]);
-		
-		time = 280;
-	},
-	function(){
-		enemy("basic4", 64, 90);
-		enemy("basic4", WIDTH - 64, 90);
-		enemy("basic4", WIDTH / 2, 60);
-		
+		enemy_delay("big1", WIDTH / 2, 90, 60);
 		
 		time = 60 * 6;
 	},
 	function(){
-		enemy("basic2", 120, 60)
-		enemy("basic2", WIDTH - 120, 60)
+		for (var i = 0; i < 16; i++)
+			enemy_delay("basic1", WIDTH / 2 + irandom_range(-128, 128), irandom_range(32, 120), i * (60 * 1));
 		
-		enemy_delay("basic2", 64, 90, 60 * 8)
-		enemy_delay("basic2", WIDTH - 64, 90, 60 * 8)
-		
-		enemy_delay("big1_2", WIDTH / 2, 100, 120, [40]);
-		
-		for (var i = 0; i < 12; i++)
-			enemy_delay("basic3", irandom_range(128, WIDTH - 128), irandom_range(80, 120), 120 + i * 80);
-		
-		time = 120 + 80 * 12 + 60 * 4;
+		enemy_delay("big1", WIDTH / 2, 90, 60 * 2);
+		enemy_delay("big1", WIDTH / 2, 90, 60 * 8);
+			
+		time = 16 * (60 * 1) + 60 * 2;
 	},
 	function(){
-		for (var i = 0; i < 3; i++)
-			enemy_delay("big2", WIDTH / 2, 50 + i * 60, i * 60 * 6);
+		game_background([1, 2] , 1);
 		
-		time = 60 * 6 * 3 + 60 * 2;
+		for (var i = 0; i < 8; i += 2) {
+			enemy_delay("basic2", WIDTH / 2 + -190, -32, i * (60 * 1));
+			enemy_delay("basic2", WIDTH / 2 +  190, -32, (i + 1) * (60 * 1));
+		}
+		
+		time = 8 * (60 * 1) + 60 * 3;
 	},
 	function(){
-		enemy("boss", 0, 0)
-		time = -1; 
+		game_background([3, 4], 4);
+		
+		enemy_delay("miniboss", 0, 0, 60 * 1);
+		
+		time = -1;
 	},
 	function(){
-		time = 60 * 6
+		game_background([5, 6], 2)
+		
+		for (var i = 0; i < 25; i++)
+			enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(32, 96), i * (60 * 1));
+			
+		for (var i = 0; i < 8; i += 2) {
+			enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 4 + i * (60 * 2));
+			enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 4 + (i + 1) * (60 * 2));
+		}
+		
+		enemy_delay("big1", WIDTH / 2, 90, 60 * 10);
+		enemy_delay("big1", WIDTH / 2, 90, 60 * 17);
+		
+		time = 60 * 27;
 	},
-	function(){ game_stop(); }
-]
+	function(){
+		game_background(, 1);
+		
+		enemy_delay("boss", 0, 0, 60)
+		
+		time = -1;
+	}, 
+	function(){
+		time = 120
+	},
+	function(){
+		game_nextRoom(rm_stage2);
+	}
+];

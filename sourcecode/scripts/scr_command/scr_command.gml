@@ -18,9 +18,18 @@ function command_add(_array) {
 	commandIndex = 0;
 	commandTimer = 0;
 }
+function command_get(_index) {
+	return commandList[_index].list;
+}
 function command_reset() {
 	commandList = [];
 	commandFrame = function(){};
+	commandSwitches = {
+		index: 0,
+		timer: 0,
+		list: [],
+		timerList: []
+	};
 	//commandStops = [];
 }
 function command_timer_reset() {
@@ -36,7 +45,47 @@ function command_timer(_time, _func) {
 	array_push(commandStops, [_time, _func]);
 }
 
+function command_switch(_array) {
+	commandSwitches = {
+		index: 0,
+		timer: 0,
+		list: [],
+		timerList: []
+	};
+	for (var i = 0; i < array_length(_array); i += 2) {
+		array_push(commandSwitches.list, _array[i]);
+		array_push(commandSwitches.timerList, _array[i + 1]);
+	}
+}
+function command_switch_add(_index, _func, _runNow = false) {
+	if is_array(commandSwitches.list[_index]) {
+		array_push(commandSwitches.list[_index], _func);
+	} else {
+		commandSwitches.list[_index] = [commandSwitches.list[_index], _func];
+	}
+	if _runNow _func()
+}
+function command_switch_set_time(_index, _time) {
+	commandSwitches.timerList[_index] = _time;
+}
+function command_switch_get_time(_index) {
+	return commandSwitches.timerList[_index];
+}
+
 function command_update() {
+	if variable_instance_exists(self, "commandSwitches") && array_length(commandSwitches.list) > 0 {
+		commandSwitches.timer -= global.delta_multi;
+		if commandSwitches.timer <= 0 {
+			if is_array(commandSwitches.list[commandSwitches.index]) 
+				for (var i = 0; i < array_length(commandSwitches.list[commandSwitches.index]); i++)
+					commandSwitches.list[commandSwitches.index][i]();
+			else commandSwitches.list[commandSwitches.index]();
+			commandSwitches.timer = commandSwitches.timerList[commandSwitches.index]
+			commandSwitches.index++
+			if commandSwitches.index >= array_length(commandSwitches.list)
+				commandSwitches.index = 0
+		}
+	}
 	if variable_instance_exists(self, "commandList") {
 		for (var i = 0; i < array_length(commandList); i++) {
 			var cL = commandList[i].list;

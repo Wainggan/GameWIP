@@ -8,7 +8,8 @@ x_target = undefined;
 y_target = undefined;
 
 dir = 0;
-dir_vel = 0;
+dir_accel = 0;
+dir_target = undefined;
 
 spd = 0;
 spd_accel = 0;

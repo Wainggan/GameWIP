@@ -188,8 +188,8 @@ state.add("idle", {
 		y += y_vel * global.delta_multi;
 		
 
-		x = clamp(x, 4, WIDTH-4)
-		y = clamp(y, 10, HEIGHT-4)
+		x = clamp(x, 4, WIDTH-4);
+		y = clamp(y, 4, HEIGHT-4);
 
 
 		var _grazedBulletsList = ds_list_create()
