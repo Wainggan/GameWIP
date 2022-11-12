@@ -3,7 +3,7 @@
   "resourceVersion": "1.1",
   "name": "nt_monk",
   "parent": {
-    "name": "Notes",
-    "path": "folders/Notes.yy",
+    "name": "skylightsgame",
+    "path": "skylightsgame.yyp",
   },
 }
