@@ -9,6 +9,8 @@ draw_set_alpha(grazeHitboxGraphicShow)
 	draw_circle(round(x)-1, round(y)-1, grazeRadius - 6, 1)
 draw_set_alpha(1)
 
+
+
 //surface_set_target(surf);
 	//draw_clear_alpha(c_black, 0)
 
@@ -42,7 +44,33 @@ draw_set_alpha(1)
 				draw_sprite_ext(spr_player_tail, 0, p.x, p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
 			}
 		}
-
+	
+	lifeChargeGraphicX = 
+		lerp(lifeChargeGraphicX, x, 1 - power(1 - 0.9999999, global.delta_milli * 2));
+	lifeChargeGraphicY = 
+		lerp(
+			lifeChargeGraphicY, 
+			y + 48 > HEIGHT ? y - 42 : y + 42, 
+	1 - power(1 - 0.9999999, global.delta_milli * 2)
+		);
+	var _amount = 16;
+	var _size = 6;
+	for (var i = 0; i < round(_amount * lifeCharge); i++) {
+		draw_line_sprite(
+			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * i - 90), 
+			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * i - 90),
+			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (i + 1) - 90), 
+			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (i + 1) - 90),
+			4, c_blue, 0.2
+		);
+		draw_line_sprite(
+			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * -i - 90), 
+			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * -i - 90),
+			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (-i - 1) - 90), 
+			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (-i - 1) - 90),
+			4, c_blue, 0.2
+		);
+	}
 //surface_reset_target()
 
 //draw_surface(surf, 0, 0);

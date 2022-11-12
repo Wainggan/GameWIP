@@ -61,6 +61,10 @@ ignore {
 livesLeft = 3;
 bombsLeft = 3;
 
+lifeCharge = 0.5;
+lifeChargeGraphicX = x;
+lifeChargeGraphicY = y;
+
 #region input
 horzMovementPriority = [];
 vertMovementPriority = [];
@@ -196,28 +200,57 @@ state.add("idle", {
 		collision_circle_list(x, y, grazeRadius, obj_bullet, 0, 1, _grazedBulletsList, true)
 		if ds_list_size(_grazedBulletsList) > 0 {
 			if iFrames <= 0 && place_meeting(x, y, obj_bullet) {
-				global.pause = 12;
-				screenShake_set(4);
-				iFrames = 40;
-	
-				var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
-				test.targetSize = WIDTH * 2;
-				test.sizeSpeed = 40;
-			
-				var test = render.shockwave_create(x, y)
-				test.mode = 1
-				test.scaleTarget = WIDTH * 4
-				test.scaleSpeed = 32
+				if lifeCharge < 1 {
+					lifeCharge = min(lifeCharge + 0.5, 1);
+					
+					global.pause = 12;
+					screenShake_set(4);
+					iFrames = 40;
+					
+					var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+					test.targetSize = WIDTH * 2;
+					test.sizeSpeed = 40;
 				
-				particle.burst(x, y, "playerDeath")
+					var test = render.shockwave_create(x, y)
+					test.mode = 1
+					test.scaleTarget = WIDTH * 4
+					test.scaleSpeed = 32
+					
+					particle.burst(x, y, "playerDeath")
 	
-				livesLeft--
-	
-				grazeComboQueue = 0;
-				grazeCombo = 0;
-				func_grazeFlavorText("0")
+					livesLeft--
+					
+					grazeComboQueue = 0;
+					grazeCombo = 0;
+					func_grazeFlavorText("0")
 			
-				state.change("respawn")
+					state.change("respawn")
+				} else {
+					lifeCharge = 0;
+					
+					global.pause = 6;
+					screenShake_set(4);
+					iFrames = 20;
+					
+					var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+					test.targetSize = 120;
+					test.sizeSpeed = 40;
+				
+					var test = render.shockwave_create(x, y)
+					test.mode = 1
+					test.scaleTarget = 256
+					test.scaleSpeed = 32
+					
+					//particle.burst(x, y, "playerDeath")
+	
+					//livesLeft--
+					
+					grazeComboQueue = 0;
+					grazeCombo = 0;
+					func_grazeFlavorText("0")
+			
+					//state.change("respawn")
+				}
 			} else {
 				var _grazeTotal = 0;
 				for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
@@ -233,6 +266,7 @@ state.add("idle", {
 						grazeCombo += 1;
 						grazeComboQueue += 1;
 						grazeComboTimer = tGrazeComboTimer;
+						lifeCharge = min(lifeCharge + 0.005, 1);
 						
 						_grazeTotal++;
 						
@@ -279,7 +313,8 @@ state.add("idle", {
 			func_grazeFlavorText(string(grazeCombo - grazeComboQueue), grazeComboQueueLastX, grazeComboQueueLastY)
 			
 		}
-
+		
+		lifeCharge = min(lifeCharge + 0.0005 * global.delta_multi, 1);
 
 		// TODO: rebalance bulletcharge
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
