@@ -71,6 +71,6 @@
   "nineSlice": null,
   "parent": {
     "name": "bullets",
-    "path": "folders/Sprites/gameplay/bullets.yy",
+    "path": "folders/Graphics/gameplay/bullets.yy",
   },
 }

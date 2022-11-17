@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMFont",
+  "resourceVersion": "1.0",
+  "name": "ft_score",
   "hinting": 0,
   "glyphOperations": 0,
   "interpreter": 0,
@@ -408,11 +411,7 @@
   "canGenerateBitmap": true,
   "maintainGms1Font": false,
   "parent": {
-    "name": "Fonts",
-    "path": "folders/Fonts.yy",
+    "name": "fonts",
+    "path": "folders/Graphics/fonts.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "ft_score",
-  "tags": [],
-  "resourceType": "GMFont",
 }

@@ -68,6 +68,6 @@
   "nineSlice": null,
   "parent": {
     "name": "text",
-    "path": "folders/Sprites/text.yy",
+    "path": "folders/Graphics/text.yy",
   },
 }

@@ -68,6 +68,6 @@
   "nineSlice": null,
   "parent": {
     "name": "ui",
-    "path": "folders/Sprites/gameplay/ui.yy",
+    "path": "folders/Graphics/gameplay/ui.yy",
   },
 }

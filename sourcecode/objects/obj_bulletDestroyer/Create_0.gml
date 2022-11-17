@@ -3,3 +3,4 @@ sizeSpeed = 12;
 targetSize = 128;
 bulletBonus = false;
 destroyAll = false;
+fix = false

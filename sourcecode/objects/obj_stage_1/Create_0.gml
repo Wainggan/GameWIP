@@ -16,6 +16,7 @@ enemies = {
 		x += irandom_range(-32, 32);
 		y = -64;
 		
+		invinsible = true;
 		movement_start(startX, startY, 1 / 20);
 		
 		command_timer(60 * 4, function(){
@@ -27,10 +28,12 @@ enemies = {
 			20,
 			7,
 			function(){
+				invinsible = false
 				bullet_shoot_dir2(x, y, 2, 0.3, 4.5, point_direction(x, y, obj_player.x, obj_player.y));
 				commandIndex--;
 			}
 		]);
+		
 	},
 	"basic2": function(){
 		hp = 12;

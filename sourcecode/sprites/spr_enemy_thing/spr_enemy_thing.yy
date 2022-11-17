@@ -94,6 +94,6 @@
   },
   "parent": {
     "name": "enemies",
-    "path": "folders/Sprites/gameplay/enemies.yy",
+    "path": "folders/Graphics/gameplay/enemies.yy",
   },
 }

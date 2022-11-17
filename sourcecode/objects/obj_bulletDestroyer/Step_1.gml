@@ -1,3 +1,10 @@
+if destroyAll && !fix {
+	with obj_bullet {
+		mask_index = spr_nothing
+	}
+	fix = true;
+}
+
 currentSize = min(currentSize + sizeSpeed * global.delta_multi, targetSize);
 if (currentSize >= targetSize) {
 	if destroyAll instance_destroy(obj_bullet);

@@ -169,10 +169,10 @@ function bullet_preset_line2(_x, _y, _dir, _len, _amount, _func = function(_x, _
 }
 function bullet_preset_golden(_x, _y, _len, _amount, _iteration, _func = function(_x, _y, _dir){}) {
 	static ratio = 1.6180339;
-	var dir = _iteration * ratio * (pi*2);
+	var dir = _iteration * ratio * 360;
 	for (var i = 0; i < _amount; i++) {
-		_func(lengthdir_x(_len, dir), lengthdir_y(_len, dir), dir);
-		dir += (pi*2) / ratio;
+		_func(_x + lengthdir_x(_len, dir), _y + lengthdir_y(_len, dir), dir);
+		dir += 360 / ratio;
 	}
 	return _iteration + _amount;
 }

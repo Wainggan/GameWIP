@@ -329,6 +329,8 @@ state.add("idle", {
 				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
 		
 				with _inst {
+					fade = 1
+					fadeTime = 1
 					_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
 					_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
 				}

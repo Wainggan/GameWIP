@@ -1,9 +1,11 @@
 command_update();
 movement_update();
 
-fade = max(fade - global.delta_multi, 0);
-if fade == 0 mask_index = sprite_index;
-else mask_index = spr_nothing;
+if fade != 0 {
+	fade = max(fade - global.delta_multi, 0);
+	if fade == 0 mask_index = sprite_index;
+	else mask_index = spr_nothing;
+}
 
 x_vel = x_target != undefined ? approach(x_vel, x_target, x_accel * global.delta_multi) : x_vel + x_accel * global.delta_multi;
 y_vel = y_target != undefined ? approach(y_vel, y_target, y_accel * global.delta_multi) : y_vel + y_accel * global.delta_multi;

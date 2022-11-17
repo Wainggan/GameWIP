@@ -68,6 +68,6 @@
   "nineSlice": null,
   "parent": {
     "name": "effects",
-    "path": "folders/Sprites/effects.yy",
+    "path": "folders/Graphics/effects.yy",
   },
 }

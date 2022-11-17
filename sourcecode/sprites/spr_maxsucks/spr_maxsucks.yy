@@ -67,7 +67,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "debug",
-    "path": "folders/Sprites/debug.yy",
+    "name": "Graphics",
+    "path": "folders/Graphics.yy",
   },
 }

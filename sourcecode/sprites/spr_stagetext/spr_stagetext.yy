@@ -73,7 +73,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "text",
-    "path": "folders/Sprites/text.yy",
+    "name": "ui",
+    "path": "folders/Graphics/gameplay/ui.yy",
   },
 }

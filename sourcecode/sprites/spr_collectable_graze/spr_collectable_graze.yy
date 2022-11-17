@@ -70,6 +70,6 @@
   "nineSlice": null,
   "parent": {
     "name": "collectables",
-    "path": "folders/Sprites/gameplay/collectables.yy",
+    "path": "folders/Graphics/gameplay/collectables.yy",
   },
 }
