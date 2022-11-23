@@ -33,6 +33,9 @@ function game_stop() {
 	
 	room_goto(rm_mainmenu);
 }
+function game_music(_s) {
+	music.playing = _s;
+}
 
 function screenShake_set(_amount, _damp = 0.2) {
 	global.screenShake = _amount;

@@ -24,7 +24,7 @@ surface_set_target(bullet_surf)
 	
 	gpu_set_blendmode(bm_add)
 		with obj_bullet {
-			var _glow = merge_color(glow, c_white, pop * 0.5);
+			var _glow = merge_color(glowTarget, c_white, pop * 0.5);
 			if object_index == obj_bullet
 				draw_sprite_ext(sprite_index, 1, round(x), round(y), image_xscale + fade/fadeTime + pop * 0.2, image_yscale + fade/fadeTime + pop * 0.2, image_angle, _glow, image_alpha-fade/fadeTime);
 			else {

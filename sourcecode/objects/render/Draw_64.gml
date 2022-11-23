@@ -44,18 +44,23 @@ if global.gameActive {
 				draw_sprite_ext(spr_warning, 0, gameSurfaceX+0, gameSurfaceY+y, 1, 1, 0, c_white, 1 - dist/96)
 			}
 			if x > WIDTH {
-				dist = WIDTH - x;
+				dist = x - WIDTH;
 				draw_sprite_ext(spr_warning, 0, gameSurfaceX+WIDTH, gameSurfaceY+y, 1, 1, 0, c_white, 1 - dist/96)
 			}
 		}
 		
-		if important > 0 {
+		if important == 1 {
 			if 0 < x && x < WIDTH {
 				if instance_exists(obj_player) {
 					draw_line(gameSurfaceX+obj_player.x, gameSurfaceY+HEIGHT + 16, gameSurfaceX+x, gameSurfaceY+HEIGHT + 16)
 				}
 				draw_sprite_ext(spr_enemyIndicator, 0, round(gameSurfaceX+x), gameSurfaceY+HEIGHT + 16, 1, 1, 0, c_white, 1)
 				draw_sprite_ext(spr_enemyIndicator, 0, round(gameSurfaceX+x), gameSurfaceY+HEIGHT + 16, 1-hp/maxhp, 1-hp / maxhp, 0, merge_color(c_black, c_fuchsia, 0.2), 0.7)
+			}
+		} else if important == 2 {
+			if 0 < x && x < WIDTH {
+				draw_sprite_ext(spr_importantIndicator, 0, round(gameSurfaceX+x), gameSurfaceY+HEIGHT + 16, 1, 1, 0, c_white, 1)
+				draw_sprite_ext(spr_importantIndicator, 0, round(gameSurfaceX+x), gameSurfaceY+HEIGHT + 16, 1-hp/maxhp, 1-hp / maxhp, 0, merge_color(c_black, c_fuchsia, 0.2), 0.7)
 			}
 		}
 	}

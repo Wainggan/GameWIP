@@ -1,6 +1,6 @@
 //if !active exit
 
-step();
+if step != undefined step();
 
 command_update();
 movement_update();

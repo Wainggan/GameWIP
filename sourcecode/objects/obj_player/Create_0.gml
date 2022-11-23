@@ -266,7 +266,7 @@ state.add("idle", {
 						grazeCombo += 1;
 						grazeComboQueue += 1;
 						grazeComboTimer = tGrazeComboTimer;
-						lifeCharge = min(lifeCharge + 0.005, 1);
+						lifeCharge = min(lifeCharge + 0.0001, 1);
 						
 						_grazeTotal++;
 						

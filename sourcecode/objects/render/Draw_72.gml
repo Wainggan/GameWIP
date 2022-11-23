@@ -11,6 +11,7 @@ if !surface_exists(blur_surf_ping)
 //if !surface_exists(water_surf)
 //	water_surf = surface_create(WIDTH, HEIGHT);
 
+if !global.gameActive exit
 
 var _currentB = backgroundOrder[currentBackground];
 var _newB = backgroundOrder[newBackground];

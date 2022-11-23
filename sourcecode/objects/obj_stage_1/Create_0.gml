@@ -2,6 +2,8 @@
 
 event_inherited()
 
+game_music(mus_stage1test)
+
 enemies = {
 	"basic1": function(){
 		hp = 4;
@@ -19,9 +21,12 @@ enemies = {
 		invinsible = true;
 		movement_start(startX, startY, 1 / 20);
 		
+		command_timer(60 * 1, function(){
+			movement_start(clamp(x + irandom_range(-64, 64), 96, WIDTH - 96), y + irandom_range(-16, 64), 1/180)
+		})
 		command_timer(60 * 4, function(){
 			command_reset();
-			movement_start(x + irandom_range(-64, 64), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
+			movement_start(x + irandom_range(-96, 96), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
 		})
 		
 		command_set([
