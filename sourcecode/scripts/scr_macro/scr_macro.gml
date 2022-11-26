@@ -8,7 +8,7 @@
 
 // syntax extensions lmao
 
-#macro ignore if (true) {} else
+#macro ignore if true {} else
 
 #macro defer for (;; {
 #macro after ; break; })

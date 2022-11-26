@@ -3,6 +3,8 @@ bgm = -1
 lastPause = 0;
 lastPlaying = playing
 
+volume = 0;
+
 introLength = 4;
 loopLength = (60 + 4) - introLength;
 totalLength = introLength + loopLength;
@@ -20,6 +22,28 @@ meta = {
 	})
 }
 
+news_subscribe("music_change", function(_s) {
+	playing = _s;
+	
+	audio_stop_sound(bgm);
+	bgm = -1;
+	if playing != -1 {
+		bgm = audio_play_sound(playing, 0, false, volume);
+		meta[$ audio_get_name(playing)]()
+	}
+});
+
+news_subscribe("volume_change", function(_v) {
+	volume = _v
+	show_debug_message(_v)
+	if bgm != -1
+		audio_sound_gain(bgm, volume, 10)
+});
+
+news_push("volume_change", [ // TODO: clean
+	global.file.settings.sound.globalVolume * 
+	global.file.settings.sound.musicVolume
+]);
 
 /*
 // stage 3

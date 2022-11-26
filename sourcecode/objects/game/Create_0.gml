@@ -67,7 +67,15 @@ global.file = undefined;
 				recordLevel : 0
 			},
 			settings : {
-				screenShake : 2,
+				sound : {
+					globalVolume : 1,
+					musicVolume : 0,
+					sfxVolume : 1,
+				},
+				graphics : {
+					screenShake : 2,
+					warping : 1
+				}
 			}
 		}
 	}
@@ -88,9 +96,11 @@ global.file = undefined;
 	
 	global.file = json_readFrom(FILENAME);
 	
-	if global.file != undefined && !variable_struct_exists(global.file, "fileVersion") {
+	if true || global.file != undefined && !variable_struct_exists(global.file, "fileVersion") {
 		global.file = undefined
 	}
+	
+	
 	
 	if global.file = undefined { // first time creating a file
 		json_writeFrom(FILENAME, global.file_default);

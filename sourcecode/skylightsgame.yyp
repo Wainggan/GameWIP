@@ -65,6 +65,7 @@
     {"id":{"name":"scr_textbox","path":"scripts/scr_textbox/scr_textbox.yy",},"order":11,},
     {"id":{"name":"spr_portraitTest","path":"sprites/spr_portraitTest/spr_portraitTest.yy",},"order":0,},
     {"id":{"name":"obj_bullet_player","path":"objects/obj_bullet_player/obj_bullet_player.yy",},"order":3,},
+    {"id":{"name":"scr_event","path":"scripts/scr_event/scr_event.yy",},"order":18,},
     {"id":{"name":"scr_movement","path":"scripts/scr_movement/scr_movement.yy",},"order":1,},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},"order":0,},
     {"id":{"name":"obj_koSplash","path":"objects/obj_koSplash/obj_koSplash.yy",},"order":3,},

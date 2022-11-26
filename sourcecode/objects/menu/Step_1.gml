@@ -14,7 +14,7 @@ if array_length(menuList) {
 	global.pause = 2;
 	var _cM = menuList[array_length(menuList) - 1];
 	_cM.scroll(input.check_stutter("down", 12, 4) - input.check_stutter("up", 12, 4))
-	_cM.change(input.check_stutter("right", 16, 6) - input.check_stutter("left", 16, 6))
+	_cM.change(input.check_stutter("right", 12, 3) - input.check_stutter("left", 12, 3))
 	if input.check_pressed("shoot") {
 		_cM.click()
 	}

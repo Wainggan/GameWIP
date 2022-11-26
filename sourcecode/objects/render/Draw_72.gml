@@ -67,6 +67,8 @@ surface_set_target(blur_surface);
 	//draw_surface(water_surf, 0, 0);
 	
 	// draw background
+	
+	draw_set_color(c_white)
 		
 	_currentB.draw(_lastBY);
 	_newB.draw(_lastBY - (_newB.height * 16));

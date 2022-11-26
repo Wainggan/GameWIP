@@ -12,12 +12,6 @@ if bgm != -1 {
 }
 
 if playing != lastPlaying {
-	audio_stop_sound(bgm);
-	bgm = -1;
-	if playing != -1 {
-		bgm = audio_play_sound(playing, 0, false);
-		meta[$ audio_get_name(playing)]()
-	}
 	lastPlaying = playing
 }
 

@@ -545,7 +545,7 @@ stage = [
 		enemy("basic4", WIDTH / 2, 80)
 		
 		time = 60 * 13
-	//time = -1
+		//time = -1
 	},
 	function(){
 		enemy("basic1", WIDTH/2, 90)

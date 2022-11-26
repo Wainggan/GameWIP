@@ -34,8 +34,28 @@ menu_main = new Menu()
 	})
 
 menu_settings = new Menu()
-	.add_radio("Screenshake", ["None", "50%", "100%"], global.file.settings.screenShake, function(_e){
-		global.file.settings.screenShake = _e;
+	.add_radio("Screenshake", ["None", "50%", "100%"], global.file.settings.graphics.screenShake, function(_e){
+		global.file.settings.graphics.screenShake = _e;
+	})
+	.add_slider("Global Volume", 0, 10, 1, global.file.settings.sound.globalVolume * 10, , function(_e){
+		show_debug_message(_e * 0.1)
+		global.file.settings.sound.globalVolume = _e * 0.1;
+		news_push("volume_change", [
+			global.file.settings.sound.globalVolume * 
+			global.file.settings.sound.musicVolume
+		])
+	})
+	.add_slider("Music Volume", 0, 10, 1, global.file.settings.sound.musicVolume * 10, , function(_e){
+		show_debug_message(_e * 0.1)
+		global.file.settings.sound.musicVolume = _e * 0.1;
+		news_push("volume_change", [
+			global.file.settings.sound.globalVolume * 
+			global.file.settings.sound.musicVolume
+		])
+	})
+	.add_slider("SFX Volume", 0, 10, 1, global.file.settings.sound.sfxVolume * 10, , function(_e){
+		show_debug_message(_e * 0.1)
+		global.file.settings.sound.sfxVolume = _e * 0.1;
 	})
 for(var i = 0; i < 30; i++)  menu_settings.add_button(string(i));
 
