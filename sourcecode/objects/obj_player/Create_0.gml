@@ -36,11 +36,28 @@ grazeHitboxGraphicShowSpeed = 0.05;
 
 bulletCharge = 0;
 bulletChargeSpeed = 0.1;
+bulletChargeSpeedSlow = 0.005;
+bulletChargeTarget = 1.6;
+
+grazeComboBulletMult = 1
+grazeComboBulletExp = 0.15
+
+tReloadTime = 7;
+reloadTime = tReloadTime;
+
+/*
+bulletCharge = 0;
+bulletChargeSpeed = 0.1;
 bulletChargeSpeedSlow = 0.01;
 bulletChargeTarget = 1.5;
 
+grazeComboBulletMult = 1
+grazeComboBulletExp = 0.2
+
 tReloadTime = 6;
 reloadTime = tReloadTime;
+*/
+
 
 bulletSpread = 6;
 bulletSpreadAngle = 24
@@ -321,7 +338,7 @@ state.add("idle", {
 
 		// TODO: rebalance bulletcharge
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
-		var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo + 1, 100), 0.2) ) - bulletCharge
+		var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
 
 		if input.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0 {
 			reloadTime = _newReloadTime

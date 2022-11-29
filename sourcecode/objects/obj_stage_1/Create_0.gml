@@ -633,6 +633,9 @@ stage = [
 		time = -1
 	},
 	function(){
+		time = 120
+	},
+	function(){
 		game_nextRoom(rm_stage2);
 	}
 ];

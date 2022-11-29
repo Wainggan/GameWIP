@@ -33,7 +33,10 @@ if hp <= 0 {
 				bulletDamage += 0.2;
 				break;
 			case 2:
-				tReloadTime = max(tReloadTime - 1, 4);
+				tReloadTime = max(tReloadTime - 1, 4); // TODO: balance
+				grazeComboBulletMult *= 0.75;
+				grazeComboBulletExp *= 0.98;
+				bulletChargeTarget = max(bulletChargeTarget - 0.2, 1);
 				break;
 			case 3:
 				moveSpeed += 0.5
