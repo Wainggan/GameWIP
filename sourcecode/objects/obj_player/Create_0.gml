@@ -48,6 +48,7 @@ bulletSpreadSlow = 8
 bulletSpreadAngleSlow = 1
 bulletAmount = 3;
 bulletSpeed = 14;
+bulletDamage = 1;
 
 ignore {
 	bulletSpread = 6;
@@ -62,6 +63,8 @@ livesLeft = 3;
 bombsLeft = 3;
 
 lifeCharge = 0.5;
+lifeChargeSpeed = 0.0001;
+lifeChargeGraze = 0.0001;
 lifeChargeGraphicX = x;
 lifeChargeGraphicY = y;
 
@@ -266,7 +269,7 @@ state.add("idle", {
 						grazeCombo += 1;
 						grazeComboQueue += 1;
 						grazeComboTimer = tGrazeComboTimer;
-						lifeCharge = min(lifeCharge + 0.0001, 1);
+						lifeCharge = min(lifeCharge + lifeChargeGraze, 1);
 						
 						_grazeTotal++;
 						
@@ -314,7 +317,7 @@ state.add("idle", {
 			
 		}
 		
-		lifeCharge = min(lifeCharge + 0.0005 * global.delta_multi, 1);
+		lifeCharge = min(lifeCharge + lifeChargeSpeed * global.delta_multi, 1);
 
 		// TODO: rebalance bulletcharge
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
@@ -333,6 +336,7 @@ state.add("idle", {
 					fadeTime = 1
 					_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
 					_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
+					damage = other.bulletDamage
 				}
 			})
 		}

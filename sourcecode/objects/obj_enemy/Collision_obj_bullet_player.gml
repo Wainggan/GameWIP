@@ -1,5 +1,5 @@
 if !invinsible {
-	hp--
+	hp -= other.damage
 	hitAnim = 1
 	
 	

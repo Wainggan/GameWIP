@@ -601,6 +601,11 @@ stage = [
 	},
 	function(){
 		game_background([5, 6], 2)
+		spawnUpgrade()
+		
+		time = 30
+	},
+	function(){
 		
 		for (var i = 0; i < 25; i++)
 			enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(32, 96), i * (60 * 1));
@@ -623,7 +628,9 @@ stage = [
 		time = -1;
 	}, 
 	function(){
-		time = 120
+		spawnUpgrade()
+		
+		time = -1
 	},
 	function(){
 		game_nextRoom(rm_stage2);

@@ -569,7 +569,9 @@ stage = [
 		
 		time = -1
 	},
+	
 	function(){
+		spawnUpgrade()
 		time = 120
 	},
 	function(){
@@ -630,8 +632,18 @@ stage = [
 		time = -1
 	},
 	function(){
+		spawnUpgrade()
+		
+		time = 120
+	},
+	function(){
 		enemy("boss", 0, 0);
 		
 		time = -1
-	}
+	},
+	function(){
+		spawnUpgrade()
+		
+		time = -1
+	},
 ];

@@ -99,6 +99,7 @@
     {"id":{"name":"scr_bullet","path":"scripts/scr_bullet/scr_bullet.yy",},"order":0,},
     {"id":{"name":"spr_player_test","path":"sprites/spr_player_test/spr_player_test.yy",},"order":0,},
     {"id":{"name":"rm_stage2","path":"rooms/rm_stage2/rm_stage2.yy",},"order":5,},
+    {"id":{"name":"obj_collectable_upgrade","path":"objects/obj_collectable_upgrade/obj_collectable_upgrade.yy",},"order":23,},
     {"id":{"name":"spr_stageText","path":"sprites/spr_stageText/spr_stageText.yy",},"order":1,},
     {"id":{"name":"spr_collectable_graze","path":"sprites/spr_collectable_graze/spr_collectable_graze.yy",},"order":1,},
     {"id":{"name":"mus_stage1test","path":"sounds/mus_stage1test/mus_stage1test.yy",},"order":1,},

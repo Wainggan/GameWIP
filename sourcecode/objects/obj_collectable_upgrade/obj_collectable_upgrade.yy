@@ -1,10 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_bullet_player",
+  "name": "obj_collectable_upgrade",
   "spriteId": {
-    "name": "spr_bullet_playerTest",
-    "path": "sprites/spr_bullet_playerTest/spr_bullet_playerTest.yy",
+    "name": "spr_collectable_upgrade",
+    "path": "sprites/spr_collectable_upgrade/spr_collectable_upgrade.yy",
   },
   "solid": false,
   "visible": true,
@@ -12,8 +12,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_bullet_parent",
-    "path": "objects/obj_bullet_parent/obj_bullet_parent.yy",
+    "name": "obj_collectable",
+    "path": "objects/obj_collectable/obj_collectable.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -30,12 +30,14 @@
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":4,"collisionObjectId":{"name":"obj_bullet_player","path":"objects/obj_bullet_player/obj_bullet_player.yy",},},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":1,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "bullet",
-    "path": "folders/Objects/bullet.yy",
+    "name": "Objects",
+    "path": "folders/Objects.yy",
   },
 }
