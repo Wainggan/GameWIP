@@ -647,6 +647,7 @@ stage = [
 		time = -1
 	},
 	function(){
-		game_nextRoom(rm_stage3);
+		game_music(-1)
+		//game_nextRoom(rm_stage3);
 	}
 ];

@@ -20,20 +20,23 @@ if hp <= 0 {
 	screenShake_set(4, 0.2);
 	global.pause = 4;
 	
-	#macro UPGRADE_AMOUNT 5
+	#macro UPGRADE_AMOUNT 9
 	
 	with obj_player
 		switch other.type {
 			case 0:
 				bulletDamage *= bulletAmount / (bulletAmount + 1);
 				bulletAmount++;
-				bulletSpreadAngle += 3;
+				bulletSpreadAngle += 4;
+				bulletSpreadSlow -= 0.5;
 				break;
 			case 1:
-				bulletDamage += 0.2;
+				bulletDamage += 0.25;
+				bulletHomingDamage += 0.2;
 				break;
 			case 2:
 				tReloadTime = max(tReloadTime - 1, 4); // TODO: balance
+				tReloadHomingTime = max(tReloadHomingTime - 1, 7);
 				grazeComboBulletMult *= 0.75;
 				grazeComboBulletExp *= 0.98;
 				bulletChargeTarget = max(bulletChargeTarget - 0.2, 1);
@@ -52,6 +55,20 @@ if hp <= 0 {
 				lifeCharge += 0.2;
 				break;
 			case 6:
+				if bulletHomingAmount == 0 {
+					bulletHomingAmount = 2;
+				} else {
+					bulletHomingDamage *= bulletHomingAmount / ((bulletHomingAmount * 2 + 1) / 2);
+					bulletHomingAmount++;
+				}
+				break;
+			case 7:
+				break;
+			case 8:
+				collectDist += 16;
+				break;
+			case 9:
+				collectPoint += 96;
 				break;
 		}
 	

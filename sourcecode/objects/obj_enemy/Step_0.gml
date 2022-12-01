@@ -22,6 +22,8 @@ if hp <= 0 {
 		inst.sizeSpeed = 32;
 		inst.bulletBonus = true;
 		inst.destroyAll = destroyAll;
+		
+		instance_create_depth(x, y, depth+100, obj_effect_hitpop).sprite_index = sprite_index;
 	
 		repeat pointGive {
 			var _spread = min(power(pointGive, 0.5), 3)

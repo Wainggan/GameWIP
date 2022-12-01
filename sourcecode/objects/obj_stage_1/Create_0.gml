@@ -127,6 +127,7 @@ enemies = {
 				pointGive = 8;
 				
 				b_density = 56;
+				b_range = 96;
 				
 				command_set([
 					18,
@@ -141,7 +142,7 @@ enemies = {
 				command_add([
 					60, 
 					function(){
-						movement_start(clamp(obj_player.x + irandom_range(-96, 96), 96, WIDTH - 96), irandom_range(60, 80), 1/60);
+						movement_start(clamp(obj_player.x + irandom_range(-b_range, b_range), 96, WIDTH - 96), irandom_range(60, 80), 1/60);
 						commandIndex--;
 					}
 				]);
@@ -151,12 +152,16 @@ enemies = {
 						hp = 40;
 						
 						b_density = 60
+						b_range = 64;
+						
 						command_get(0)[0] = 16
 					},
 					function(){
 						hp = 40;
 						
 						b_density = 64
+						b_range = 24;
+						
 						command_get(0)[0] = 14;
 					},
 				]
@@ -183,7 +188,7 @@ enemies = {
 								
 								command_timer(irandom_range(60, 80), function(){
 									bullet_preset_ring(x, y, 10, 4, irandom_range(0, 360), function(_x, _y, _dir){
-										with bullet_shoot_dir(_x, _y, 1, _dir) {
+										with bullet_shoot_dir2(_x, _y, 3, 0.1, 1, _dir) {
 											glow = cb_pink;
 											sprite_index = spr_bullet_arrow;
 										}
@@ -211,7 +216,7 @@ enemies = {
 						command_get(0)[0] = 16
 					},
 					function(){
-						hp = 160;
+						hp = 140;
 						
 						b_density = 14;
 						command_get(0)[0] = 14
@@ -236,7 +241,7 @@ enemies = {
 			textbox_scene_create([
 				["hi!"],
 				["go away", undefined, function(){
-					audio_stop_sound(music.bgm);
+					game_music(-1)
 					func_nextAttack();
 				}]
 			])
@@ -636,6 +641,7 @@ stage = [
 		time = 120
 	},
 	function(){
+		game_music(-1)
 		game_nextRoom(rm_stage2);
 	}
 ];

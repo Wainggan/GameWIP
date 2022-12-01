@@ -8,8 +8,16 @@ var _lastY = y;
 
 state.run()
 
+for (var i = 0; i < array_length(bulletLaserList); i++) {
+	var _bl = bulletLaserList[i];
+	_bl.x = x + _bl.xOff
+	_bl.y = y + _bl.yOff
+	_bl.active = isShooting;
+}
+
 iFrames -= global.delta_multi
 reloadTime -= global.delta_multi
+reloadHomingTime -= global.delta_multi
 grazeComboTimer -= instance_number(obj_bullet) ? global.delta_multi : 0
 if grazeComboTimer <= 0 {
 	grazeCombo = 0;

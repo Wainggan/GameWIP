@@ -13,4 +13,5 @@ if life != undefined {
 
 image_angle = angle;
 image_xscale = 25
-image_yscale = 1 - (fade < startTime ? fade/startTime : 1 - 1 / 16) - (life != undefined && life < endTime ? 1 - life / endTime : 0)
+image_yscale = 1 - (fade < startTime ? fade/startTime : 1 - 1 / 16) - (life != undefined && life < endTime ? 1 - life / endTime : 0);
+

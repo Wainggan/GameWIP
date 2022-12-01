@@ -14,6 +14,12 @@ surface_set_target(bullet_playerSurf)
 		with obj_bullet_player {
 			draw_sprite_ext(sprite_index, 0, round(x), round(y), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, image_blend, image_alpha-fade/fadeTime);
 		}
+		with obj_laser_player {
+			if active == true {
+				draw_sprite_ext(spr_player_laser_head, 0, round(x), round(y), 1, image_yscale, image_angle, image_blend, image_alpha);
+				draw_sprite_ext(spr_player_laser, 0, round(x + lengthdir_x(30, image_angle)), round(y + lengthdir_y(30, image_angle)), image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+			}
+		}
 surface_reset_target()
 
 

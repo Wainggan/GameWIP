@@ -29,7 +29,7 @@ spawnUpgrade = function(){
 	var t1 = irandom_range(0, UPGRADE_AMOUNT);
 	var t2 = irandom_range(0, UPGRADE_AMOUNT);
 	while t2 == t1 {
-		irandom_range(0, UPGRADE_AMOUNT);
+		t2 = irandom_range(0, UPGRADE_AMOUNT);
 	}
 	with instance_create_layer(WIDTH / 2 - 128, -32, "Instances", obj_collectable_upgrade)
 		type = t1;

@@ -687,7 +687,9 @@ enemies = {
 
 stage = [
 	function(){
-		game_background(0, 4);
+		//game_background(0, 4);
+		audio_play_sound(mus_stage3test, 0, false)
+		
 		time = 30;
 	},
 	function(){
@@ -720,7 +722,7 @@ stage = [
 	function(){
 		enemy("big1", WIDTH / 2, 60)
 		
-		game_background([1, 2], 2);
+		//game_background([1, 2], 2);
 		time = 60 * 8;
 	},
 	function(){
@@ -758,7 +760,7 @@ stage = [
 	function(){
 		enemy("big2", WIDTH / 2, 50);
 		
-		game_background([3, 4], 2)
+		//game_background([3, 4], 2)
 		time = 60 * 8;
 	},
 	function(){
@@ -810,7 +812,7 @@ stage = [
 		enemy("basic4", WIDTH / 2-64, 60);
 		enemy("basic4", WIDTH / 2+64, 60);
 		
-		game_background([5, 6], 3)
+		//game_background([5, 6], 3)
 		time = 60 * 6;
 	},
 	function(){

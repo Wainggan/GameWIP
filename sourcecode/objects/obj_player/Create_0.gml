@@ -14,6 +14,13 @@ accel = 2.5;
 slowAccel = 1;
 
 
+isShooting = false;
+
+
+collectDist = 64;
+collectPoint = 0;
+
+
 grazeRadius = 38;
 
 grazeCombo = 0;
@@ -45,27 +52,49 @@ grazeComboBulletExp = 0.15
 tReloadTime = 7;
 reloadTime = tReloadTime;
 
-/*
-bulletCharge = 0;
-bulletChargeSpeed = 0.1;
-bulletChargeSpeedSlow = 0.01;
-bulletChargeTarget = 1.5;
-
-grazeComboBulletMult = 1
-grazeComboBulletExp = 0.2
-
-tReloadTime = 6;
-reloadTime = tReloadTime;
-*/
+tReloadHomingTime = 12;
+reloadHomingTime = tReloadHomingTime;
 
 
 bulletSpread = 6;
-bulletSpreadAngle = 24
+bulletSpreadAngle = 20;
 bulletSpreadSlow = 8
 bulletSpreadAngleSlow = 1
 bulletAmount = 3;
 bulletSpeed = 14;
 bulletDamage = 1;
+
+bulletHomingSpreadAngle = 90;
+bulletHomingSpreadAngleSlow = 45;
+bulletHomingAmount = 0;
+bulletHomingSpeed = 8;
+bulletHomingDamage = 0.4;
+
+bulletLaserList = [];
+bulletLaserDamage = 0.02;
+
+func_addLaser = function(){ // TODO: make them react to sneaking somehow(dont make it *too* stupid)
+	with instance_create_layer(x, y, "Instances", obj_laser_player) {
+		xOff = 0;
+		yOff = 0;
+		angle = 90;
+		angle_target = 90;
+		angle_accel = 2;
+		damage = other.bulletLaserDamage
+		array_push(other.bulletLaserList, self);
+	}
+	bullet_preset_plate(0, 0 - 16, array_length(bulletLaserList), 16, 16, 8, 90, function(_x, _y, _dir, _i) {
+		bulletLaserList[_i].xOff = _x;
+		bulletLaserList[_i].yOff = _y;
+		bulletLaserList[_i].angle_target = _dir;
+		bulletLaserList[_i].damage = bulletLaserDamage;
+	})
+}
+
+func_addLaser()
+func_addLaser()
+func_addLaser()
+
 
 ignore {
 	bulletSpread = 6;
@@ -214,6 +243,12 @@ state.add("idle", {
 
 		x = clamp(x, 4, WIDTH-4);
 		y = clamp(y, 4, HEIGHT-4);
+		
+		if y < collectPoint {
+			with obj_collectable {
+				latch = true;
+			}
+		}
 
 
 		var _grazedBulletsList = ds_list_create()
@@ -339,23 +374,59 @@ state.add("idle", {
 		// TODO: rebalance bulletcharge
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
 		var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
-
-		if input.check("shoot") && reloadTime <= 0 && instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0 {
-			reloadTime = _newReloadTime
-			var _spreadTemp = input.check("sneak") ? bulletSpreadSlow : bulletSpread
-			var _spreadAngleTemp = input.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
-			
-			bullet_preset_plate(x, y, bulletAmount, _spreadTemp, _spreadAngleTemp, 2, 90, function(_x, _y, _dir){
-				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
+		var _newReloadHomingTime = ( tReloadHomingTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
 		
-				with _inst {
-					fade = 1
-					fadeTime = 1
-					_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
-					_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
-					damage = other.bulletDamage
-				}
-			})
+		isShooting = input.check("shoot") && instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
+		
+		if isShooting {
+			if reloadTime <= 0 {
+				reloadTime = _newReloadTime
+				var _spreadTemp = input.check("sneak") ? bulletSpreadSlow : bulletSpread
+				var _spreadAngleTemp = input.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
+			
+				bullet_preset_plate(x, y, bulletAmount, _spreadTemp, _spreadAngleTemp, 2, 90, function(_x, _y, _dir){
+					var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
+		
+					with _inst {
+						fade = 1
+						fadeTime = 1
+						_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
+						_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
+						damage = other.bulletDamage
+					}
+				})
+			}
+			if reloadHomingTime <= 0 {
+				reloadHomingTime = _newReloadHomingTime
+				var _spreadAngleTemp = input.check("sneak") ? bulletHomingSpreadAngleSlow : bulletHomingSpreadAngle
+			
+				bullet_preset_plate(x, y, bulletHomingAmount, 4, _spreadAngleTemp, 1, 90, function(_x, _y, _dir){
+					var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
+		
+					with _inst {
+						fade = 1
+						fadeTime = 1
+						dir = _dir;
+						spd = other.bulletHomingSpeed;
+						
+						step = function(){
+							var _target = instance_nearest(x, y, obj_enemy);
+							if _target != noone
+								dir_target = point_direction(x, y, _target.x, _target.y);
+						}
+						dir_target = dir;
+						dir_accel = input.check("sneak") ? 1 : 2;
+						
+						damage = other.bulletHomingDamage
+						
+						sprite_index = spr_bullet_homingplayerTest
+						
+						command_timer(60, function(){
+							step = undefined;
+						})
+					}
+				})
+			}
 		}
 	}
 })

@@ -117,16 +117,18 @@ function bullet_preset_ring(_x, _y, _amount, _rad, _dir, _func = function(_x, _y
 		_dir += 360 / _amount;
 	}
 }
-function bullet_preset_plate(_x, _y, _amount, _spreadDist, _spreadAngle, _len, _dir, _func = function(_x, _y, _dir){}) {
-	if _amount <= 1 {
-		_func(_x + lengthdir_x(_len, _dir), _y + lengthdir_y(_len, _dir), _dir);
+function bullet_preset_plate(_x, _y, _amount, _spreadDist, _spreadAngle, _len, _dir, _func = function(_x, _y, _dir, _index){}) {
+	if _amount == 0
+		return;
+	if _amount == 1 {
+		_func(_x + lengthdir_x(_len, _dir), _y + lengthdir_y(_len, _dir), _dir, 0);
 		return;
 	}
 	for (var i = 0; i < _amount; i++) {
 		var _newDir = (_dir + -_spreadAngle/2) - (-_spreadAngle/(_amount-1) * i)
 		var _offset = _spreadDist * (_amount - 1 - (i * 2))
 		_func(_x + lengthdir_x(_offset, _newDir - 90) + lengthdir_x(_len, _newDir), 
-			_y + lengthdir_y(_offset, _newDir - 90) + lengthdir_y(_len, _newDir), _newDir);
+			_y + lengthdir_y(_offset, _newDir - 90) + lengthdir_y(_len, _newDir), _newDir, i);
 	}
 }
 function bullet_preset_poly(_x, _y, _sides, _amount, _length, _func = function(_x, _y, _dir){}) {
