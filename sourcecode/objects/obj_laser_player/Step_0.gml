@@ -9,4 +9,7 @@ mask_index = active ? spr_player_laser : spr_nothing;
 
 image_angle = angle;
 image_xscale = 25
-image_yscale = 1;
+
+activeAnim = approach(activeAnim, active ? 1 : 0, 0.2);
+
+image_yscale = activeAnim;

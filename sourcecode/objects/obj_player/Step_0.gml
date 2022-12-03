@@ -16,8 +16,7 @@ for (var i = 0; i < array_length(bulletLaserList); i++) {
 }
 
 iFrames -= global.delta_multi
-reloadTime -= global.delta_multi
-reloadHomingTime -= global.delta_multi
+
 grazeComboTimer -= instance_number(obj_bullet) ? global.delta_multi : 0
 if grazeComboTimer <= 0 {
 	grazeCombo = 0;

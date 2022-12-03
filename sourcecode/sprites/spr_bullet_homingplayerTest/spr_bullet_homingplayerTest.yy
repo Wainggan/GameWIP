@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "player",
-    "path": "folders/Graphics/gameplay/player.yy",
+    "name": "bullets",
+    "path": "folders/Graphics/gameplay/player/bullets.yy",
   },
 }

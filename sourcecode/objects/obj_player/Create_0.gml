@@ -19,6 +19,7 @@ isShooting = false;
 
 collectDist = 64;
 collectPoint = 0;
+collectAllBullets = true;
 
 
 grazeRadius = 38;
@@ -37,6 +38,8 @@ grazeBulletList = {};
 grazeBulletListClearTime = 60 * 4;
 grazeBulletListClearTimeLaser = 8;
 
+grazeReflectChance = 0;
+
 grazeHitboxGraphicShow = 0;
 grazeHitboxGraphicShowSpeed = 0.05;
 
@@ -49,51 +52,78 @@ bulletChargeTarget = 1.6;
 grazeComboBulletMult = 1
 grazeComboBulletExp = 0.15
 
+
 tReloadTime = 7;
 reloadTime = tReloadTime;
 
-tReloadHomingTime = 12;
-reloadHomingTime = tReloadHomingTime;
-
-
+bulletAmount = 3;
 bulletSpread = 6;
 bulletSpreadAngle = 20;
 bulletSpreadSlow = 8
 bulletSpreadAngleSlow = 1
-bulletAmount = 3;
 bulletSpeed = 14;
 bulletDamage = 1;
 
+tReloadHomingTime = 12;
+reloadHomingTime = tReloadHomingTime;
+
+bulletHomingAmount = 0;
 bulletHomingSpreadAngle = 90;
 bulletHomingSpreadAngleSlow = 45;
-bulletHomingAmount = 0;
 bulletHomingSpeed = 8;
 bulletHomingDamage = 0.4;
 
 bulletLaserList = [];
+bulletLaserSpreadAngle = 24
+bulletLaserSpreadAngleSlow = -18
+bulletLaserSpread = 16
+bulletLaserSpreadSlow = 32
 bulletLaserDamage = 0.02;
 
-func_addLaser = function(){ // TODO: make them react to sneaking somehow(dont make it *too* stupid)
+tReloadRoundTime = 4;
+reloadRoundTime = tReloadRoundTime;
+
+bulletRoundAmount = 0;
+bulletRoundSpeed = 12;
+bulletRoundDamage = 0.4;
+
+tReloadWavyTime = 36;
+reloadWavyTime = tReloadWavyTime;
+
+bulletWavyAmount = 0;
+bulletWavySplashAmount = 16;
+bulletWavySpread = 8;
+bulletWavySpreadAngle = 38;
+bulletWavySpreadSlow = 2
+bulletWavySpreadAngleSlow = 16
+bulletWavySpeed = 5;
+bulletWavySplashSpeed = 8;
+bulletWavyDamage = 4;
+bulletWavySplashDamage = 0.04;
+
+func_addLaser = function(){
+	bulletHomingDamage *= array_length(bulletLaserList) / ((array_length(bulletLaserList) * 2 + 1) / 2);
 	with instance_create_layer(x, y, "Instances", obj_laser_player) {
 		xOff = 0;
 		yOff = 0;
 		angle = 90;
 		angle_target = 90;
-		angle_accel = 2;
+		angle_accel = 5;
 		damage = other.bulletLaserDamage
 		array_push(other.bulletLaserList, self);
 	}
-	bullet_preset_plate(0, 0 - 16, array_length(bulletLaserList), 16, 16, 8, 90, function(_x, _y, _dir, _i) {
-		bulletLaserList[_i].xOff = _x;
-		bulletLaserList[_i].yOff = _y;
-		bulletLaserList[_i].angle_target = _dir;
-		bulletLaserList[_i].damage = bulletLaserDamage;
-	})
+	bulletLaserSpread *= 0.9;
+	bulletLaserSpreadSlow *= 0.9;
+	bulletLaserSpreadAngle *= 1.05;
+	bulletLaserSpreadAngleSlow *= 0.98;
+	/*
+	bulletLaserSpread *= 0.9;
+	bulletLaserSpreadSlow *= 0.96;
+	bulletLaserSpreadAngle *= 1.05;
+	bulletLaserSpreadAngleSlow *= 1.2;
+	*/
 }
 
-func_addLaser()
-func_addLaser()
-func_addLaser()
 
 
 ignore {
@@ -244,10 +274,10 @@ state.add("idle", {
 		x = clamp(x, 4, WIDTH-4);
 		y = clamp(y, 4, HEIGHT-4);
 		
-		if y < collectPoint {
-			with obj_collectable {
+		with obj_collectable {
+			if	other.y < other.collectPoint || 
+				(sprite_index == spr_collectable_bulletBonus && other.collectAllBullets) 
 				latch = true;
-			}
 		}
 
 
@@ -309,14 +339,31 @@ state.add("idle", {
 			} else {
 				var _grazeTotal = 0;
 				for (var i = 0; i < ds_list_size(_grazedBulletsList); i++) {
-					var _out = 0;
-					if grazeBulletList[$ _grazedBulletsList[| i]] != undefined {
-						//_grazedBulletsList[| i].highlight = true
-						_out = 1;
-					}
-					if _out == 0 {
-						grazeBulletList[$ _grazedBulletsList[| i]] = _grazedBulletsList[| i].object_index == obj_bullet ? grazeBulletListClearTime : grazeBulletListClearTimeLaser ;
-						_grazedBulletsList[| i].pop = 1;
+					var _b = _grazedBulletsList[| i]
+					if grazeBulletList[$ _b] == undefined {
+						grazeBulletList[$ _b] = _b.object_index == obj_bullet ? grazeBulletListClearTime : grazeBulletListClearTimeLaser ;
+						_b.pop = 1;
+						if random(1) < grazeReflectChance {
+							var _vdX = lengthdir_x(_b.spd, _b.dir) + _b.x_vel;
+							var _vdY = lengthdir_y(_b.spd, _b.dir) + _b.y_vel;
+							
+							var _dirCheck = point_direction(_b.x, _b.y, x, y);
+							
+							if angle_difference(_dirCheck, point_direction(0, 0, _vdX, _vdY)) < 80 {
+								var _dist = point_distance(x, y, _b.x, _b.y);
+								var _vnX = (_b.x - x) / _dist;
+								var _vnY = (_b.y - y) / _dist;
+							
+								var _vrX = _vdX - 2 * dot_product(_vdX, _vdY, _vnX, _vnY) * _vnX;
+								var _vrY = _vdY - 2 * dot_product(_vdX, _vdY, _vnX, _vnY) * _vnY;
+								
+								_b.spd = point_distance(0, 0, _vdX, _vdY);
+								if _b.spd_target _b.spd_target = abs(_b.spd_target)
+								_b.x_vel = 0;
+								_b.y_vel = 0;
+								_b.dir = point_direction(0, 0, _vrX, _vrY);
+							}
+						}
 						
 						grazeCombo += 1;
 						grazeComboQueue += 1;
@@ -325,8 +372,8 @@ state.add("idle", {
 						
 						_grazeTotal++;
 						
-						grazeComboQueueLastX = _grazedBulletsList[| i].x;
-						grazeComboQueueLastY = _grazedBulletsList[| i].y;
+						grazeComboQueueLastX = _b.x;
+						grazeComboQueueLastY = _b.y;
 		
 						ignore global.score += round(power(grazeCombo + 1, 0.463)-1)*10+10;
 						
@@ -375,6 +422,13 @@ state.add("idle", {
 		bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
 		var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
 		var _newReloadHomingTime = ( tReloadHomingTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
+		var _newReloadRoundTime = ( tReloadRoundTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
+		var _newReloadWavyTime = ( tReloadWavyTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge * 2
+		
+		reloadTime -= global.delta_multi
+		reloadHomingTime -= global.delta_multi
+		reloadRoundTime -= global.delta_multi
+		reloadWavyTime -= global.delta_multi
 		
 		isShooting = input.check("shoot") && instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
 		
@@ -427,6 +481,101 @@ state.add("idle", {
 					}
 				})
 			}
+			if reloadRoundTime <= 0 {
+				reloadRoundTime = _newReloadRoundTime
+			
+				bullet_preset_ring(x, y, bulletRoundAmount, 4, random_range(0, 360), function(_x, _y, _dir){
+					var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
+		
+					with _inst {
+						fade = 1
+						fadeTime = 1
+						dir = _dir;
+						spd = other.bulletRoundSpeed;
+						
+						dir_target = 90;
+						dir_accel = input.check("sneak") ? 9 : 6;
+						
+						damage = other.bulletRoundDamage
+						
+						sprite_index = spr_player_round;
+
+					}
+				})
+			}
+			if reloadWavyTime <= 0 {
+				reloadWavyTime = _newReloadWavyTime
+				var _spreadAngleTemp = input.check("sneak") ? bulletWavySpreadAngleSlow : bulletWavySpreadAngle;
+				var _spreadTemp = input.check("sneak") ? bulletWavySpreadSlow : bulletWavySpread;
+			
+				bullet_preset_plate(x, y + 32, bulletWavyAmount, _spreadTemp, _spreadAngleTemp, 0, 90, function(_x, _y, _dir){
+					var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
+		
+					with _inst {
+						fade = 1
+						fadeTime = 1
+						dir = _dir;
+						spd = other.bulletWavySpeed;
+						
+						b_off = random(4)
+						
+						step = function(){
+							x += wave(-2, 2, 1, b_off) * global.delta_multi;
+							mask_index = sprite_index;
+							if place_meeting(x, y, obj_enemy) {
+								b_kill = true
+								instance_destroy()
+							}
+								
+							mask_index = spr_nothing;
+						}
+						death = function(){
+							if b_kill
+							bullet_preset_ring(x, y, b_amount, 8, random(360), function(_x, _y, _dir){
+								var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
+								with _inst {
+									fade = 1
+									fadeTime = 1
+									dir = _dir;
+									spd = other.b_speed;
+						
+									damage = other.b_damage;
+							
+									image_alpha = 0.5;
+									sprite_index = spr_player_round;
+								}
+							});
+						}
+						
+						damage = other.bulletWavyDamage;
+						
+						b_damage = other.bulletWavySplashDamage
+						b_amount = other.bulletWavySplashAmount
+						b_speed = other.bulletWavySplashSpeed
+						b_kill = false;
+						
+						sprite_index = spr_player_wavy;
+						mask_index = spr_nothing;
+					}
+				})
+			}
+		}
+		if isShooting && input.check("sneak") {
+			bullet_preset_plate(0, 0 - 16, array_length(bulletLaserList), bulletLaserSpreadSlow, bulletLaserSpreadAngleSlow, 4, 90, function(_x, _y, _dir, _i) {
+				var _inst = bulletLaserList[_i];
+				_inst.xOff = lerp(_inst.xOff, _x, 1 - power(1 - 0.99999, global.delta_milli * 2));
+				_inst.yOff = lerp(_inst.yOff, _y, 1 - power(1 - 0.99999, global.delta_milli * 2));
+				_inst.angle_target = _dir;
+				_inst.damage = bulletLaserDamage;
+			})
+		} else {
+			bullet_preset_plate(0, 0 - 16, array_length(bulletLaserList), bulletLaserSpread, bulletLaserSpreadAngle, 16, 90, function(_x, _y, _dir, _i) {
+				var _inst = bulletLaserList[_i];
+				_inst.xOff = lerp(_inst.xOff, _x, 1 - power(1 - 0.99999, global.delta_milli * 2));
+				_inst.yOff = lerp(_inst.yOff, _y, 1 - power(1 - 0.99999, global.delta_milli * 2));
+				_inst.angle_target = _dir;
+				_inst.damage = bulletLaserDamage;
+			})
 		}
 	}
 })

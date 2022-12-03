@@ -14,5 +14,6 @@ endTime = 8;
 xOff = 0;
 yOff = 0;
 active = false;
+activeAnim = 0;
 
 damage = 1

@@ -20,7 +20,7 @@ if hp <= 0 {
 	screenShake_set(4, 0.2);
 	global.pause = 4;
 	
-	#macro UPGRADE_AMOUNT 9
+	#macro UPGRADE_AMOUNT 13
 	
 	with obj_player
 		switch other.type {
@@ -31,8 +31,9 @@ if hp <= 0 {
 				bulletSpreadSlow -= 0.5;
 				break;
 			case 1:
-				bulletDamage += 0.25;
+				bulletDamage += 0.2;
 				bulletHomingDamage += 0.2;
+				bulletLaserDamage += 0.0025;
 				break;
 			case 2:
 				tReloadTime = max(tReloadTime - 1, 4); // TODO: balance
@@ -56,13 +57,14 @@ if hp <= 0 {
 				break;
 			case 6:
 				if bulletHomingAmount == 0 {
-					bulletHomingAmount = 2;
+					bulletHomingAmount++;
 				} else {
 					bulletHomingDamage *= bulletHomingAmount / ((bulletHomingAmount * 2 + 1) / 2);
 					bulletHomingAmount++;
 				}
 				break;
 			case 7:
+				obj_player.func_addLaser();
 				break;
 			case 8:
 				collectDist += 16;
@@ -70,6 +72,27 @@ if hp <= 0 {
 			case 9:
 				collectPoint += 96;
 				break;
+			case 10:
+				collectAllBullets = true;
+				break;
+			case 11:
+				if bulletRoundAmount == 0 {
+					bulletRoundAmount++;
+				} else {
+					bulletRoundDamage *= bulletRoundAmount / ((bulletRoundAmount * 2 + 1) / 2);
+					bulletRoundAmount++;
+				}
+				break;
+			case 12:
+				if bulletWavyAmount == 0 {
+					bulletWavyAmount++;
+				} else {
+					bulletWavyDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 2) / 2);
+					bulletWavyAmount++;
+				}
+				break;
+			case 13:
+				grazeReflectChance = min(grazeReflectChance + 0.05, 0.3);
 		}
 	
 }

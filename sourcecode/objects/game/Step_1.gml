@@ -7,12 +7,12 @@ var actualDelta = 1/60//delta_time / 1000000
 global.delta_multi = actualDelta / global.delta_target
 global.delta_milli = global.delta_multi / 60;
 
-global.time += global.delta_multi;
-
 var h = global.delta_multi
 if global.pause {
 	global.delta_multi = 0;
 }
+global.time += global.delta_multi;
+
 particleUpdateBuffer += global.delta_multi
 if (particleUpdateBuffer >= 1) {
 	repeat floor(particleUpdateBuffer) {

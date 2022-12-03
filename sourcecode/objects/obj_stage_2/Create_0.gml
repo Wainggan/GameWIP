@@ -132,7 +132,7 @@ enemies = {
 		
 	},
 	"basic4": function() {
-		hp = 220
+		hp = 180
 		scoreGive = 1000
 		pointGive = 8
 		
@@ -144,6 +144,7 @@ enemies = {
 		
 		invinsible = true;
 		movement_start(startX, startY, 1/120, , function(){invinsible = false});
+		
 		
 		command_timer(60 * 10, function(){
 			command_reset()

@@ -8,12 +8,13 @@ if wait {
 	if !hasSwitched {
 		hasSwitched = true;
 		
-		obj_player.persistent = true;
+		with obj_player event_user(0)
+		
 		obj_player.alarm[0] = 1;
 		room_goto(roomTarget);
 	} else 
 		animCurve.percent -= 1/12 * global.delta_multi;
-	if animCurve.percent < 0 instance_destroy()
+	if animCurve.percent < 0 instance_destroy();
 }
 
 scoreAnimWait -= global.delta_multi
