@@ -20,7 +20,7 @@ if hp <= 0 {
 	screenShake_set(4, 0.2);
 	global.pause = 4;
 	
-	#macro UPGRADE_AMOUNT 15
+	#macro UPGRADE_AMOUNT 17
 	
 	with obj_player
 		switch other.type {

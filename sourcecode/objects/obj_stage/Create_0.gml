@@ -26,7 +26,7 @@ enemy_delay = function(_type, _x, _y, _time, _args = [], _func = function(){}){
 }
 
 spawnUpgrade = function(){
-	var t1 = irandom_range(0, UPGRADE_AMOUNT);
+	var t1 = 7//irandom_range(0, UPGRADE_AMOUNT);
 	var t2 = irandom_range(0, UPGRADE_AMOUNT);
 	while t2 == t1 {
 		t2 = irandom_range(0, UPGRADE_AMOUNT);

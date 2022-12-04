@@ -13,3 +13,4 @@ image_xscale = 25
 activeAnim = approach(activeAnim, active ? 1 : 0, 0.2);
 
 image_yscale = activeAnim;
+image_alpha = 0.8
