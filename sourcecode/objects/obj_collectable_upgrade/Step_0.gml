@@ -20,7 +20,7 @@ if hp <= 0 {
 	screenShake_set(4, 0.2);
 	global.pause = 4;
 	
-	#macro UPGRADE_AMOUNT 13
+	#macro UPGRADE_AMOUNT 15
 	
 	with obj_player
 		switch other.type {
@@ -64,7 +64,7 @@ if hp <= 0 {
 				}
 				break;
 			case 7:
-				obj_player.func_addLaser();
+				func_addLaser();
 				break;
 			case 8:
 				collectDist += 16;
@@ -87,12 +87,30 @@ if hp <= 0 {
 				if bulletWavyAmount == 0 {
 					bulletWavyAmount++;
 				} else {
-					bulletWavyDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 2) / 2);
+					bulletWavyDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 0.5) / 2);
 					bulletWavyAmount++;
 				}
 				break;
 			case 13:
 				grazeReflectChance = min(grazeReflectChance + 0.05, 0.3);
+				break;
+			case 14:
+				func_addHelper();
+				break;
+			case 15:
+				func_addHelper();
+				func_addHelper();
+				break;
+			case 16:
+				func_addEvil();
+				break;
+			case 17:
+				func_addEvil();
+				func_addEvil();
+				break;
+			case 18:
+				// time slow
+				break;
 		}
 	
 }

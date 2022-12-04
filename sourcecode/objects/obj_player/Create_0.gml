@@ -19,7 +19,7 @@ isShooting = false;
 
 collectDist = 64;
 collectPoint = 0;
-collectAllBullets = true;
+collectAllBullets = false;
 
 
 grazeRadius = 38;
@@ -80,27 +80,6 @@ bulletLaserSpread = 16
 bulletLaserSpreadSlow = 32
 bulletLaserDamage = 0.02;
 
-tReloadRoundTime = 4;
-reloadRoundTime = tReloadRoundTime;
-
-bulletRoundAmount = 0;
-bulletRoundSpeed = 12;
-bulletRoundDamage = 0.4;
-
-tReloadWavyTime = 36;
-reloadWavyTime = tReloadWavyTime;
-
-bulletWavyAmount = 0;
-bulletWavySplashAmount = 16;
-bulletWavySpread = 8;
-bulletWavySpreadAngle = 38;
-bulletWavySpreadSlow = 2
-bulletWavySpreadAngleSlow = 16
-bulletWavySpeed = 5;
-bulletWavySplashSpeed = 8;
-bulletWavyDamage = 4;
-bulletWavySplashDamage = 0.04;
-
 func_addLaser = function(){
 	bulletHomingDamage *= array_length(bulletLaserList) / ((array_length(bulletLaserList) * 2 + 1) / 2);
 	with instance_create_layer(x, y, "Instances", obj_laser_player) {
@@ -124,6 +103,50 @@ func_addLaser = function(){
 	*/
 }
 
+tReloadRoundTime = 4;
+reloadRoundTime = tReloadRoundTime;
+
+bulletRoundAmount = 0;
+bulletRoundSpeed = 12;
+bulletRoundDamage = 0.4;
+
+tReloadWavyTime = 36;
+reloadWavyTime = tReloadWavyTime;
+
+bulletWavyAmount = 0;
+bulletWavySplashAmount = 16;
+bulletWavySpread = 8;
+bulletWavySpreadAngle = 38;
+bulletWavySpreadSlow = 2
+bulletWavySpreadAngleSlow = 16
+bulletWavySpeed = 5;
+bulletWavySplashSpeed = 8;
+bulletWavyDamage = 4;
+bulletWavySplashDamage = 0.04;
+
+bulletHelperList = [];
+bulletHelperDamage = 0.8;
+bulletHelperReload = 6;
+
+func_addHelper = function(){
+	if array_length(bulletHelperList) > 0 bulletHelperDamage *= array_length(bulletHelperList) / ((array_length(bulletHelperList) * 2 + 0.5) / 2);
+	with instance_create_layer(x, y, "Instances", obj_helper) {
+		array_push(other.bulletHelperList, self);
+	}
+	bulletHelperReload++;
+}
+
+bulletEvilList = [];
+bulletEvilDamage = 1;
+bulletEvilReload = 8;
+
+func_addEvil = function(){
+	if array_length(bulletEvilList) > 0 bulletEvilDamage *= array_length(bulletEvilList) / ((array_length(bulletEvilList) * 2 + 0.25) / 2);
+	with instance_create_layer(x, y, "Instances", obj_helperButEvil) {
+		array_push(other.bulletEvilList, self);
+	}
+	bulletEvilReload++;
+}
 
 
 ignore {
@@ -430,7 +453,8 @@ state.add("idle", {
 		reloadRoundTime -= global.delta_multi
 		reloadWavyTime -= global.delta_multi
 		
-		isShooting = input.check("shoot") && instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
+		canShoot = instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
+		isShooting = input.check("shoot") && canShoot
 		
 		if isShooting {
 			if reloadTime <= 0 {
@@ -519,7 +543,7 @@ state.add("idle", {
 						
 						b_off = random(4)
 						
-						step = function(){
+						step = function(){ // TODO: redo
 							x += wave(-2, 2, 1, b_off) * global.delta_multi;
 							mask_index = sprite_index;
 							if place_meeting(x, y, obj_enemy) {
@@ -576,6 +600,51 @@ state.add("idle", {
 				_inst.angle_target = _dir;
 				_inst.damage = bulletLaserDamage;
 			})
+		}
+		if isShooting {
+			for (var i = 0; i < array_length(bulletHelperList); i++) {
+				var _damage = bulletHelperDamage;
+				with bulletHelperList[i] {
+					tReloadTime = other.bulletHelperReload - i;
+					
+					reloadTime -= global.delta_multi;
+					if reloadTime <= 0 {
+						reloadTime = tReloadTime;
+						var _inst = instance_create_depth(x, y, depth, obj_bullet_player)
+		
+						with _inst {
+							fade = 1
+							fadeTime = 1
+							dir = 90;
+							spd = 14;
+							damage = _damage;
+							sprite_index = spr_player_helper
+						}
+					}
+				}
+			}
+			for (var i = 0; i < array_length(bulletEvilList); i++) {
+				var _damage = bulletEvilDamage;
+				with bulletEvilList[i] {
+					tReloadTime = other.bulletEvilReload - i;
+					
+					reloadTime -= global.delta_multi;
+					if reloadTime <= 0 {
+						reloadTime = tReloadTime;
+						var _inst = instance_create_layer(x, y, "Instances", obj_bullet_player)
+		
+						with _inst {
+							fade = 1
+							fadeTime = 1
+							dir = 90;
+							spd = 14;
+							//show_debug_message(_damage)
+							damage = _damage;
+							sprite_index = spr_player_helper
+						}
+					}
+				}
+			}
 		}
 	}
 })

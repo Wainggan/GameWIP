@@ -15,6 +15,9 @@ spd = 0;
 spd_accel = 0;
 spd_target = undefined;
 
+x_delta = 0;
+y_delta = 0;
+
 fade = 0;
 fadeTime = 1;
 
