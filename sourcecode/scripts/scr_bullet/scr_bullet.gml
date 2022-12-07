@@ -50,6 +50,23 @@ function bullet_shoot_dir2(_x, _y, _speed, _accel, _targetSpd, _angle, _delay = 
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
 }
+function bullet_shoot_dir3(_x, _y, _speed, _accel, _targetSpd, _accel2, _targetSpd2, _angle, _delay = 8) {
+	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
+	with _inst {
+		self.spd = _speed;
+		self.spd_accel = _accel;
+		self.spd_target = _targetSpd;
+		self.spd_accel2 = _accel2;
+		self.spd_target2 = _targetSpd2;
+		self.dir = _angle;
+		
+		self.fade = _delay;
+		self.fadeTime = _delay;
+	}
+	if global.bullet_currentGroup != undefined
+		global.bullet_currentGroup.add(_inst);
+	return _inst;
+}
 
 function bullet_shoot_vel(_x, _y, _xvel, _yvel, _delay = 8) {
 	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
@@ -111,13 +128,13 @@ function bullet_laser2(_x, _y, _dir, _dirAccel, _dirTarget, _life = undefined) {
 	return _inst;
 }
 
-function bullet_preset_ring(_x, _y, _amount, _rad, _dir, _func = function(_x, _y, _dir){}) {
+function bullet_preset_ring(_x, _y, _amount, _rad, _dir, _func = function(_x, _y, _dir, i){}) {
 	for (var i = 0; i < _amount; i++) {
-		_func(_x + lengthdir_x(_rad, _dir), _y + lengthdir_y(_rad, _dir), _dir);
+		_func(_x + lengthdir_x(_rad, _dir), _y + lengthdir_y(_rad, _dir), _dir, i);
 		_dir += 360 / _amount;
 	}
 }
-function bullet_preset_plate(_x, _y, _amount, _spreadDist, _spreadAngle, _len, _dir, _func = function(_x, _y, _dir, _index){}) {
+function bullet_preset_plate(_x, _y, _amount, _spreadDist, _spreadAngle, _len, _dir, _func = function(_x, _y, _dir, i){}) {
 	if _amount == 0
 		return;
 	if _amount == 1 {
@@ -131,7 +148,7 @@ function bullet_preset_plate(_x, _y, _amount, _spreadDist, _spreadAngle, _len, _
 			_y + lengthdir_y(_offset, _newDir - 90) + lengthdir_y(_len, _newDir), _newDir, i);
 	}
 }
-function bullet_preset_poly(_x, _y, _sides, _amount, _length, _func = function(_x, _y, _dir){}) {
+function bullet_preset_poly(_x, _y, _sides, _amount, _length, _func = function(_x, _y, _dir, i){}) {
 	var _points = [];
 	for (var i = 0; i < _sides; i++) {
 		var p = {
@@ -150,30 +167,30 @@ function bullet_preset_poly(_x, _y, _sides, _amount, _length, _func = function(_
 			_func(
 				p.x + (_points[i + 1 < _sides ? i + 1 : 0].x - p.x) * (j / _amount) + _x,
 				p.y + (_points[i + 1 < _sides ? i + 1 : 0].y - p.y) * (j / _amount) + _y,
-				p.dir
+				p.dir, (i + 1) * j
 			);
 		}
 	}
 }
-function bullet_preset_line(_x, _y, _x2, _y2, _res, _start = 0, _off = 0, _func = function(_x, _y, _dir){}) {
+function bullet_preset_line(_x, _y, _x2, _y2, _res, _start = 0, _off = 0, _func = function(_x, _y, _dir, i){}) {
 	var _dist = point_distance(_x, _y, _x2, _y2);
 	var _dir = point_direction(_x, _y, _x2, _y2)
 	for (var i = _start; i < _res - _off; i++) {
-		_func(_x + (_x2 - _x) * (i / _res), _y + (_y2 - _y) * (i / _res), _dir);
+		_func(_x + (_x2 - _x) * (i / _res), _y + (_y2 - _y) * (i / _res), _dir, i);
 	}
 }
-function bullet_preset_line2(_x, _y, _dir, _len, _amount, _func = function(_x, _y, _dir){}) {
+function bullet_preset_line2(_x, _y, _dir, _len, _amount, _func = function(_x, _y, _dir, i){}) {
 	for (var i = 0; i < _amount; i++) {
-		_func(_x, _y, _dir);
+		_func(_x, _y, _dir, i);
 		_x += lengthdir_x(_len, _dir);
 		_y += lengthdir_y(_len, _dir);
 	}
 }
-function bullet_preset_golden(_x, _y, _len, _amount, _iteration, _func = function(_x, _y, _dir){}) {
+function bullet_preset_golden(_x, _y, _len, _amount, _iteration, _func = function(_x, _y, _dir, i){}) {
 	static ratio = 1.6180339;
 	var dir = _iteration * ratio * 360;
-	for (var i = 0; i < _amount; i++) {
-		_func(_x + lengthdir_x(_len, dir), _y + lengthdir_y(_len, dir), dir);
+	for (var i = 0; i < abs(_amount); i++) {
+		_func(_x + lengthdir_x(_len, dir), _y + lengthdir_y(_len, dir), dir, i);
 		dir += 360 / ratio;
 	}
 	return _iteration + _amount;

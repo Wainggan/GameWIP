@@ -31,9 +31,9 @@ if hp <= 0 {
 				bulletSpreadSlow -= 0.5;
 				break;
 			case 1:
-				bulletDamage += 0.2;
+				bulletDamage += 0.1;
 				bulletHomingDamage += 0.2;
-				bulletLaserDamage += 0.0025;
+				bulletLaserDamage += 0.002;
 				break;
 			case 2:
 				tReloadTime = max(tReloadTime - 1, 4); // TODO: balance
@@ -59,7 +59,7 @@ if hp <= 0 {
 				if bulletHomingAmount == 0 {
 					bulletHomingAmount++;
 				} else {
-					bulletHomingDamage *= bulletHomingAmount / ((bulletHomingAmount * 2 + 1) / 2);
+					bulletHomingDamage *= bulletHomingAmount / ((bulletHomingAmount * 2 + 0.3) / 2);
 					bulletHomingAmount++;
 				}
 				break;
@@ -79,7 +79,7 @@ if hp <= 0 {
 				if bulletRoundAmount == 0 {
 					bulletRoundAmount++;
 				} else {
-					bulletRoundDamage *= bulletRoundAmount / ((bulletRoundAmount * 2 + 1) / 2);
+					bulletRoundDamage *= bulletRoundAmount / ((bulletRoundAmount * 2 + 0.4) / 2);
 					bulletRoundAmount++;
 				}
 				break;
@@ -87,7 +87,7 @@ if hp <= 0 {
 				if bulletWavyAmount == 0 {
 					bulletWavyAmount++;
 				} else {
-					bulletWavyDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 0.5) / 2);
+					bulletWavyDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 0.2) / 2);
 					bulletWavyAmount++;
 				}
 				break;

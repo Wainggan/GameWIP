@@ -11,6 +11,10 @@ x_vel = x_target != undefined ? approach(x_vel, x_target, x_accel * global.delta
 y_vel = y_target != undefined ? approach(y_vel, y_target, y_accel * global.delta_multi) : y_vel + y_accel * global.delta_multi;
 
 spd = spd_target != undefined ? approach(spd, spd_target, spd_accel * global.delta_multi) : spd + spd_accel * global.delta_multi;
+if spd == spd_target && spd_target2 != undefined {
+	spd_target = spd_target2;
+	spd_accel = spd_accel2;
+}
 
 dir = dir_target != undefined ? dir + median(angle_difference(dir_target, dir), dir_accel * global.delta_multi, -dir_accel * global.delta_multi) : dir + dir_accel * global.delta_multi;
 //approach(dir, dir_target, dir_accel * global.delta_multi)

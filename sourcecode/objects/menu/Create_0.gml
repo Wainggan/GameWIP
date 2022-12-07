@@ -19,10 +19,15 @@ func_close = function() {
 }
 
 menu_main = new Menu()
-	.add_button("Test", function(){
+.add_button("Stage 2", function(){
+		game_start(rm_stage2);
+		func_close();
+	})
+	.add_button("Stage 1", function(){
 		game_start(rm_stage1);
 		func_close();
 	})
+	
 	.add_button("Settings", function(){
 		func_open(menu_settings);
 	})

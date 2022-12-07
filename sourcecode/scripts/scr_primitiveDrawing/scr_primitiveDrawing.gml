@@ -4,8 +4,7 @@
 #macro DEFAULT_DRAW_RECTANGLE draw_rectangle
 #macro draw_rectangle draw_rectangle_sprite
 
-log("gentle reminder that overloading the draw_x functions is a terrible idea, and you actually need to go through and update them to use draw_line_sprite instead", LOG_WARNING)
-log("Also note to self, do not use the log function 100 times every single frame lol")
+log("idiot energy")
 
 ///@func draw_line_sprite(x1, y1, x2, y2, [width = 1], [color], [alpha])
 function draw_line_sprite(_x1, _y1, _x2, _y2, _width = 1, _color = draw_get_color(), _alpha = draw_get_alpha()) {

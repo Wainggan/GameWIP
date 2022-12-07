@@ -123,11 +123,12 @@ enemies = {
 		attacks = [
 			function(){
 				hp = 40
+				time([60 * 4, 60 * 8, 60 * 12], 60 * 9);
 				scoreGive = 10000;
 				pointGive = 8;
 				
 				b_density = 56;
-				b_range = 96;
+				b_range = 64;
 				
 				command_set([
 					18,
@@ -147,27 +148,28 @@ enemies = {
 					}
 				]);
 				
-				hpMod = [
+				hpMod([
 					function(){
 						hp = 40;
 						
 						b_density = 60
-						b_range = 64;
+						b_range = 32;
 						
 						command_get(0)[0] = 16
 					},
 					function(){
-						hp = 40;
+						hp = 100;
 						
 						b_density = 64
-						b_range = 24;
+						b_range = 16;
 						
 						command_get(0)[0] = 14;
 					},
-				]
+				])
 			},
 			function(){
 				hp = 80;
+				time([60 * 4, 60 * 8, 60 * 12], 60 * 9);
 				scoreGive = 50000;
 				pointGive = 12;
 				
@@ -208,7 +210,7 @@ enemies = {
 					}
 				])
 				
-				hpMod = [
+				hpMod([
 					function(){
 						hp = 100;
 						
@@ -221,7 +223,7 @@ enemies = {
 						b_density = 14;
 						command_get(0)[0] = 14
 					}
-				]
+				])
 			},
 		]
 	},
@@ -308,7 +310,7 @@ enemies = {
 					}, 360
 				])				
 				
-				hpMod = [
+				hpMod([
 					function(){
 						hp = 240;
 						
@@ -342,8 +344,8 @@ enemies = {
 									commandIndex--;
 								}
 							]);
-						}, true);
-						command_switch_set_time(0, 80);
+						}, command_switch_current() == 0);
+						command_switch_set_time(0, 100);
 						command_switch_add(1, function(){
 							command_add([
 								30,
@@ -356,9 +358,9 @@ enemies = {
 									commandIndex--;
 								}
 							]);
-						}, true)
+						}, command_switch_current() == 1)
 					},
-				]
+				])
 			},
 			function(){
 				hp = 200
@@ -445,7 +447,7 @@ enemies = {
 				
 				
 				
-				hpMod = [
+				hpMod([
 					function(){
 						hp = 240;
 						
@@ -467,7 +469,7 @@ enemies = {
 						b_2_speed = 5
 						b_2_amount = 15;
 					}
-				];
+				]);
 				
 			},
 			function(){
@@ -522,7 +524,7 @@ enemies = {
 					}
 				]);
 				
-				hpMod = [
+				hpMod([
 					function(){
 						hp = 300;
 						
@@ -553,39 +555,39 @@ enemies = {
 							}
 						]);
 					},
-				]
+				])
 			},
 		]
 	}
 };
 
-//stageIndex = 6;
+//stageIndex = 7;
 
 stage = [
 	function(){
-		time = 60 * 0.76 - 20;
+		time(60 * 0.76 - 20);
 	},
 	function(){
 		game_background( , 1);
 		for (var i = 0; i < 16; i++)
 			enemy_delay("basic1", WIDTH / 2 + irandom_range(-196, 196), irandom_range(32, 96), i * (60 * 0.76));
-		time = 16 * (60 * 0.76) + 60;
+		time(16 * (60 * 0.76) + 60);
 	},
 	function(){
 		game_background( , 4);
 		
 		enemy_delay("big1", WIDTH / 2, 90, 60);
 		
-		time = 60 * 6;
+		time(60 * 6);
 	},
 	function(){
 		for (var i = 0; i < 16; i++)
-			enemy_delay("basic1", WIDTH / 2 + irandom_range(-128, 128), irandom_range(32, 120), i * (60 * 1));
+			enemy_delay("basic1", WIDTH / 2 + irandom_range(-128, 128), irandom_range(80, 128), i * (60 * 1));
 		
 		enemy_delay("big1", WIDTH / 2, 90, 60 * 2);
 		enemy_delay("big1", WIDTH / 2, 90, 60 * 8);
 			
-		time = 16 * (60 * 1) + 60 * 2;
+		time(16 * (60 * 1) + 60 * 2);
 	},
 	function(){
 		game_background([1, 2] , 1);
@@ -595,25 +597,25 @@ stage = [
 			enemy_delay("basic2", WIDTH / 2 +  190, -32, (i + 1) * (60 * 1));
 		}
 		
-		time = 8 * (60 * 1) + 60 * 3;
+		time(8 * (60 * 1) + 60 * 3);
 	},
 	function(){
 		game_background([3, 4], 4);
 		
 		enemy_delay("miniboss", 0, 0, 60 * 1);
 		
-		time = -1;
+		time(, true, 60 * 23);
 	},
 	function(){
 		game_background([5, 6], 2)
 		spawnUpgrade()
 		
-		time = 30
+		time(30)
 	},
 	function(){
 		
 		for (var i = 0; i < 25; i++)
-			enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(32, 96), i * (60 * 1));
+			enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(80, 128), i * (60 * 1));
 			
 		for (var i = 0; i < 8; i += 2) {
 			enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 4 + i * (60 * 2));
@@ -623,22 +625,19 @@ stage = [
 		enemy_delay("big1", WIDTH / 2, 90, 60 * 10);
 		enemy_delay("big1", WIDTH / 2, 90, 60 * 17);
 		
-		time = 60 * 27;
+		time(60 * 27);
 	},
 	function(){
 		game_background(, 1);
 		
 		enemy_delay("boss", 0, 0, 60)
 		
-		time = -1;
+		time(, true);
 	}, 
 	function(){
 		spawnUpgrade()
 		
-		time = -1
-	},
-	function(){
-		time = 120
+		time(120, true, 60)
 	},
 	function(){
 		game_music(-1)

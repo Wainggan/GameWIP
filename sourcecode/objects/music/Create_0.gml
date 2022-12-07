@@ -29,7 +29,8 @@ news_subscribe("music_change", function(_s) {
 	bgm = -1;
 	if playing != -1 {
 		bgm = audio_play_sound(playing, 0, false, volume);
-		meta[$ audio_get_name(playing)]()
+		if meta[$ audio_get_name(playing)]
+			meta[$ audio_get_name(playing)]()
 	}
 });
 

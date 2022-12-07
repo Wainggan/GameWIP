@@ -6,7 +6,7 @@ game_music(mus_stage2test)
 
 enemies = {
 	"basic1": function(){
-		hp = 7
+		hp = 5
 		scoreGive = 100;
 		pointGive = 1;
 		
@@ -96,7 +96,7 @@ enemies = {
 		]);
 		
 	},
-	"basic3": function(_dir, _spd, _off = 0, _r = 4){
+	"basic3": function(_dir, _spd, _off = 0, _r = 5){
 		hp = 120;
 		scoreGive = 2000;
 		pointGive = 6;
@@ -261,7 +261,8 @@ enemies = {
 		
 		attacks = [
 			function(){
-				hp = 140;
+				hp = 130;
+				time(60 * 6, 60 * 5)
 				scoreGive = 50000;
 				pointGive = 6;
 				
@@ -291,7 +292,8 @@ enemies = {
 				])
 			},
 			function(){
-				hp = 220;
+				hp = 180;
+				time(60 * 11, 60 * 8)
 				scoreGive = 100000;
 				pointGive = 10;
 				
@@ -330,7 +332,8 @@ enemies = {
 				])
 			},
 			function(){
-				hp = 280;
+				hp = 180;
+				time(60 * 11, 60 * 9)
 				scoreGive = 200000;
 				pointGive = 12;
 				
@@ -355,7 +358,7 @@ enemies = {
 					},
 					16,
 					function(){
-						bullet_preset_plate(x, y, 3, 0, 16, 12, angle, function(_x, _y, _dir){
+						bullet_preset_plate(x, y, 2, 0, 16, 12, angle, function(_x, _y, _dir){
 							bullet_shoot_dir(_x, _y, 4.5, _dir);
 						})
 						if count++ > 3 {
@@ -407,7 +410,8 @@ enemies = {
 		
 		attacks = [
 			function(){
-				hp = 140;
+				hp = 130;
+				time(60 * 6, 60 * 5)
 				scoreGive = 50000;
 				pointGive = 6;
 				
@@ -437,7 +441,8 @@ enemies = {
 				])
 			},
 			function(){
-				hp = 220;
+				hp = 180;
+				time(60 * 11, 60 * 8)
 				scoreGive = 100000;
 				pointGive = 10;
 				
@@ -476,7 +481,8 @@ enemies = {
 				])
 			},
 			function(){
-				hp = 280;
+				hp = 180;
+				time(60 * 11, 60 * 9)
 				scoreGive = 200000;
 				pointGive = 12;
 				
@@ -501,7 +507,7 @@ enemies = {
 					},
 					14,
 					function(){
-						bullet_preset_plate(x, y, 4, 0, 24, 12, angle, function(_x, _y, _dir){
+						bullet_preset_plate(x, y, 6, 0, 38, 12, angle, function(_x, _y, _dir){
 							bullet_shoot_dir(_x, _y, 5, _dir);
 						})
 						if count++ > 4 {
@@ -529,23 +535,221 @@ enemies = {
 		
 	},
 	"boss": function(){
+		hp = 69;
+		deathRadius = WIDTH * 2;
+		important = true;
+		invinsible = true;
+		canDie = false;
 		
+		sprite_index = spr_car
+		
+		x = -74;
+		y = -60;
+		
+		movement_start(WIDTH / 2, 100, 1/120, , function(){
+			textbox_scene_create([
+				["a", [spr_portraitTest, 0, -1]],
+				["b", [spr_car, 0, 1]],
+				["c", [spr_portraitTest, 0, -1]],
+				["e", [spr_car, 0, 1]],
+				["what", [spr_portraitTest, 0, -1], function() {
+					game_music(-1)
+					audio_play_sound(mus_boss2, 0, false)
+					func_nextAttack()
+				}],
+			]);
+		});
+		
+		attacks = [
+			function(){
+				hp = 200;
+				//time(60 * 6, 60 * 5)
+				scoreGive = 50000;
+				pointGive = 6;
+				
+				b_golden = 0
+				b_1_speed = 1;
+				b_2_speed = 3;
+				b_2_density = 2;
+				
+				command_switch([
+					function(){
+						command_set([
+							2, 
+							function(){
+								b_golden = bullet_preset_golden(x, y, 0, 6, b_golden + 2, function(_x, _y, _dir, i) {
+									with bullet_shoot_dir3(_x, _y, 8, 0.2, 1, 0.05, i % 2 == 0 ? b_1_speed * 2 : -b_1_speed, _dir) {
+										sprite_index = spr_bullet_small;
+									}
+								})
+								commandIndex--
+							}
+						]);
+						command_add([
+							120,
+							function(){
+								movement_start(approach(x, obj_player.x + irandom_range(-32, 32), 64), 96 + irandom_range(-8, 64), 1/60);
+								commandIndex--;
+							}
+						])
+					}, 60 * 5,
+					function(){
+						command_set([
+							1, 
+							function(){
+								b_golden = bullet_preset_golden(x, y, 0, b_2_density, b_golden, function(_x, _y, _dir, i) {
+									with bullet_shoot_dir3(_x, _y, 1, 0.2, 6, 0.1, b_2_speed, _dir) {
+										sprite_index = spr_bullet_arrow;
+										glow = cb_green
+										dir_target = dir + angle_difference(point_direction(x, y, obj_player.x, obj_player.y), dir) * 0.5;
+										dir_accel = 2;
+									}
+								});
+								commandIndex--
+							}
+						]);
+						command_add([
+							60 * 2,
+							function(){
+								movement_start(approach(x, obj_player.x + irandom_range(-32, 32), 64), 96 + irandom_range(-8, 64), 1/60);
+								commandIndex--;
+							}
+						]);
+					}, 60 * 2,
+				]);
+				
+				hpMod([
+					function(){
+						hp = 150;
+						
+						b_1_speed = 1.5;
+					},
+					function(){
+						hp = 270;
+						
+						command_switch_add(0, function(){
+							command_add([
+								4,
+								function(){
+									with bullet_shoot_dir(x, y, 10, point_direction(x, y, obj_player.x, obj_player.y) + choose(-90, 90)) {
+										dir_target = point_direction(x, y, obj_player.x, obj_player.y);
+										dir_accel = 8;
+										glow = cb_teal;
+										sprite_index = spr_bullet_point;
+									}
+									commandIndex--
+								}
+							])
+						})
+						
+					},
+				]);
+			},
+			function(){
+				hp = 320;
+				//time(60 * 6, 60 * 5)
+				scoreGive = 50000;
+				pointGive = 6
+				
+				b_1_amount = 11;
+				b_1_dir = 0;
+				b_1_turn = 1;
+				b_1_dir2 = 0;
+				b_1_count2 = 0;
+				
+				command_switch([
+					function(){
+						command_set([
+							12,
+							function(){
+								bullet_preset_ring(x, y, b_1_amount, 0, b_1_dir, function(_x, _y, _dir){
+									with bullet_shoot_dir2(x, y, 10, 0.5, 3, _dir, 4) {
+										glow = cb_green;
+										dir_target = dir + 90 * sign(other.b_1_turn);
+										dir_accel = other.b_1_turn / 5 * 2;
+									}
+								})
+								var _d = wave(-5, 5, 15);
+								b_1_turn = _d;
+								b_1_dir += _d;
+						
+								commandIndex--;
+							}
+						]);
+						command_add([
+							60 * 3,
+							function(){
+								b_1_dir2 = point_direction(x, y, obj_player.x, obj_player.y);
+								b_1_count2=  0
+							},
+							8,
+							function(){
+								b_1_dir2 += angle_difference(point_direction(x, y, obj_player.x, obj_player.y), b_1_dir2) * 0.2;
+								bullet_preset_ring(x, y, 15, 0, b_1_dir2, function(_x, _y, _dir){
+									with bullet_shoot_dir3(x, y, 0, 1, 10, 0.5, 4, _dir, 4) {
+										glow = cb_red;
+										sprite_index = spr_bullet_arrow;
+									}
+								})
+								if b_1_count2++ >= 7 commandIndex = 0;
+								else commandIndex--;
+							}
+						]);
+						command_add([
+							60 * 2,
+							function(){
+								movement_start(approach(x, obj_player.x + irandom_range(-32, 32), 96), 96 + irandom_range(-8, 64), 1/60);
+								commandIndex--;
+							}
+						]);
+					}, 60 * 4
+				]);
+				
+				hpMod([
+					function(){
+						hp = 320;
+						
+						command_switch_push([
+							function(){
+								command_set([
+									2,
+									function(){
+										bullet_preset_ring(x, y, 24, 9, random(360), function(_x, _y, _dir, i){
+											with bullet_shoot_dir2(_x, _y, 4, 0.4, i % 2 == 0 ? 1 : 2, _dir) {
+												sprite_index = spr_bullet_small;
+												glow = cb_yellow;
+											}
+										})
+										commandIndex--;
+									}
+								]);
+							}, 60
+						]);
+						command_switch_set(1);
+						
+					}
+					
+					
+					
+				])
+			}
+		]
 	},
 };
 
 
-//stageIndex = 8
+//stageIndex = 10
 
 stage = [
 	function(){
-		time = 60
+		time(60)
 	},
 	function(){
 		// 120 + 8 * 60 + 16 * 40)
 		
 		enemy("basic4", WIDTH / 2, 80)
 		
-		time = 60 * 13
+		time(60 * 13)
 		//time = -1
 	},
 	function(){
@@ -563,27 +767,27 @@ stage = [
 		for (var i = 1; i < 8; i++) {
 			enemy_delay("basic2", irandom_range(96, WIDTH - 96), irandom_range(100, 140), 12 * 60 + i * 120)
 		}
-		time = 60 * (48 - 12)
+		time(60 * (48 - 12))
 	},
 	function(){
 		enemy("miniboss1", 0, 0);
 		
-		time = -1
+		time(, true, 60 * 26)
 	},
 	
 	function(){
 		spawnUpgrade()
-		time = 120
+		time(120)
 	},
 	function(){
-		enemy("basic3", -128, 60, [1, 4, undefined, 8])
-		time = 240
+		enemy("basic3", -128, 60, [1, 4, undefined, 9])
+		time(240)
 	},
 	function(){
 		for (var i = 0; i < 4; i++)
-			enemy_delay("basic3", -16 - i * 64, 60, 1, [1, 0.5, i * 2])
+			enemy_delay("basic3", -16 - i * 64, 60, 1, [1, 0.55, i * 2])
 		for (var i = 0; i < 4; i++)
-			enemy_delay("basic3", WIDTH + + 16 + i * 64, 60, 1, [-1, 0.5, i * 2])
+			enemy_delay("basic3", WIDTH + + 16 + i * 64, 60, 1, [-1, 0.55, i * 2])
 		
 		for (var i = 1; i < 11; i++) {
 			var _c = i % 2 == 0 ? 1 : -1
@@ -594,14 +798,14 @@ stage = [
 			enemy_delay("basic2", WIDTH / 2, 120, 60 * 8 + i * 60 * 5, [6, 40, 6])
 		}
 		
-		time = 60 * 24
+		time(60 * 24)
 	},
 	function(){
 		// 120 + 8 * 60 + 16 * 40)
 		
 		enemy("basic4", WIDTH / 2, 80)
 		
-		time = 60 * 12
+		time(60 * 12)
 	//time = -1
 	},
 	function(){
@@ -617,35 +821,35 @@ stage = [
 		for (var i = 2; i < 8; i++) {
 			enemy_delay("basic2", irandom_range(96, WIDTH - 96), irandom_range(100, 140), i * 120)
 		}
-		for (var i = 2; i < 8; i++) {
+		for (var i = 2; i < 6; i++) {
 			enemy_delay("basic2", irandom_range(96, WIDTH - 96), irandom_range(100, 140), 8 * 120 + i * 160)
 		}
 		
-		for (var i = 0; i < 16; i++) {
+		for (var i = 0; i < 12; i++) {
 			enemy_delay("basic5", irandom_range(8, WIDTH - 8), HEIGHT + 32, 60 * 26 + i * 60) // buff
 		}
 		
-		time = 60 * 36 + 60 * 3 // too small
+		time(60 * 36 + 60 * 3) // too small
 	},
 	function(){
 		enemy("miniboss2", 0, 0);
 		
-		time = -1
+		time(, true, 60 * 26)
 	},
 	function(){
 		spawnUpgrade()
 		
-		time = 120
+		time(240)
 	},
 	function(){
 		enemy("boss", 0, 0);
 		
-		time = -1
+		time(, true)
 	},
 	function(){
 		spawnUpgrade()
 		
-		time = -1
+		time(, true)
 	},
 	function(){
 		game_music(-1)

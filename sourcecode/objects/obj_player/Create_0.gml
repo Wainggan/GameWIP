@@ -56,7 +56,7 @@ grazeComboBulletExp = 0.15
 tReloadTime = 7;
 reloadTime = tReloadTime;
 
-bulletAmount = 3;
+bulletAmount = 0;
 bulletSpread = 6;
 bulletSpreadAngle = 20;
 bulletSpreadSlow = 8
@@ -125,7 +125,7 @@ bulletWavyDamage = 4;
 bulletWavySplashDamage = 0.04;
 
 bulletHelperList = [];
-bulletHelperDamage = 0.8;
+bulletHelperDamage = 0.6;
 bulletHelperReload = 6;
 
 func_addHelper = function(){
@@ -137,7 +137,7 @@ func_addHelper = function(){
 }
 
 bulletEvilList = [];
-bulletEvilDamage = 1;
+bulletEvilDamage = 0.5;
 bulletEvilReload = 8;
 
 func_addEvil = function(){
@@ -147,7 +147,6 @@ func_addEvil = function(){
 	}
 	bulletEvilReload++;
 }
-
 
 ignore {
 	bulletSpread = 6;

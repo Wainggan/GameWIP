@@ -57,7 +57,7 @@ function command_switch(_array) {
 		array_push(commandSwitches.timerList, _array[i + 1]);
 	}
 }
-function command_switch_add(_index, _func, _runNow = false) {
+function command_switch_add(_index, _func, _runNow = _index == command_switch_current()) {
 	if is_array(commandSwitches.list[_index]) {
 		array_push(commandSwitches.list[_index], _func);
 	} else {
@@ -65,11 +65,25 @@ function command_switch_add(_index, _func, _runNow = false) {
 	}
 	if _runNow _func()
 }
+function command_switch_push(_array, _runNow = false) {
+	for (var i = 0; i < array_length(_array); i += 2) {
+		array_push(commandSwitches.list, _array[i]);
+		array_push(commandSwitches.timerList, _array[i + 1]);
+	}
+	if _runNow commandSwitches.index = array_length(commandSwitches.list) - 1;
+}
 function command_switch_set_time(_index, _time) {
 	commandSwitches.timerList[_index] = _time;
 }
 function command_switch_get_time(_index) {
 	return commandSwitches.timerList[_index];
+}
+function command_switch_current() {
+	return commandSwitches.index - 1 < 0 ? array_length(commandSwitches.list) - 1 : commandSwitches.index - 1;
+}
+function command_switch_set(_index) {
+	commandSwitches.index = _index - 1 < 0 ? array_length(commandSwitches.list) - 1 : _index;
+	commandSwitches.timer = 0;
 }
 
 function command_update() {

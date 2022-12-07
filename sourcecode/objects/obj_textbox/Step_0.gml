@@ -1,5 +1,5 @@
 delay -= global.delta_multi
-if keyboard_check_pressed(ord("Z")) {
+if input.check_stutter("shoot", 16, 3) {
 	if textProgress >= string_length(text) {
 		with obj_textboxQueued { ticket--; event_user(0) }
 		instance_destroy();

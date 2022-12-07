@@ -13,8 +13,26 @@ if hp > maxhp {
 	maxhp = hp
 }
 
+
+if timer != -1 || timerMod != undefined {
+	timer += global.delta_multi;
+	if timerMod != undefined {
+		if timerMod[currentTimerMod] < timer {
+			if currentTimerMod == currentHpMod hp = 0;
+			currentTimerMod++;
+		}
+	} else {
+		if timer > ftime {
+			hp = 0;
+			time()
+		}
+	}
+}
+if timerMin > 0 timerMin -= global.delta_multi
+
 if hp <= 0 {
-	if hpMod == undefined {
+	if timerMod == undefined time()
+	if hpModArray == undefined || currentHpMod >= array_length(hpModArray) {
 		global.score += scoreGive;
 		
 		var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)

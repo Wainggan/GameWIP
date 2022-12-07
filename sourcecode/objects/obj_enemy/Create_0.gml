@@ -10,7 +10,13 @@ maxhp = hp
 scoreGive = 1000;
 pointGive = 1;
 
-hpMod = undefined;
+hpModArray = undefined;
+currentHpMod = 0;
+hpMod = function(_arr){
+	hpModArray = _arr;
+	currentHpMod = 0;
+}
+
 
 hitAnim = 0;
 
@@ -18,6 +24,26 @@ invinsible = false;
 important = false;
 canDie = true;
 destroyAll = false
+
+time = function(_time = -1, _mt = timerMin){
+	if is_array(_time) {
+		timerMod = _time;
+		currentTimerMod = 0;
+		timer = -1;
+		ftime = -1;
+	} else {
+		timer = _time == -1 ? -1 : 0;
+		ftime = _time;
+		timerMod = undefined;
+	}
+	timerMin = _mt;
+}
+
+timer = -1; // TODO: implement boss timer
+ftime = -1;
+timerMod = undefined;
+currentTimerMod = 0;
+timerMin = 0;
 
 deathRadius = 16
 
@@ -29,10 +55,8 @@ parent = noone;
 func_nextAttack = function(){
 	
 	static _func = function() {
-		if hpMod != undefined {
-			hpMod[0]();
-			array_delete(hpMod, 0, 1);
-			if array_length(hpMod) == 0 hpMod = undefined;
+		if hpModArray != undefined && currentHpMod < array_length(hpModArray) {
+			hpModArray[currentHpMod++]();
 			screenShake_set(2, 0.2);
 			global.pause = 2;
 			return;
@@ -59,12 +83,13 @@ func_nextAttack = function(){
 		hp = 1;
 		invinsible = true;
 		destroyAll = true;
-		command_timer(50, function(){
+		command_timer(timerMin + 30, function(){
 			invinsible = false;
 			attacks[currentAttack]();
 			maxhp = hp;
 			currentAttack++;
 		});
+		time(, 0)
 	} else {
 		canDie = true;
 	}
