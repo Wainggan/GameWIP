@@ -25,11 +25,15 @@ enemy_delay = function(_type, _x, _y, _time, _args = [], _func = function(){}){
 	array_push(enemyBuffer, _arr);
 }
 
-spawnUpgrade = function(){
+spawnUpgrade = function(_t = undefined){
 	var t1 = irandom_range(0, UPGRADE_AMOUNT);
 	var t2 = irandom_range(0, UPGRADE_AMOUNT);
 	while t2 == t1 {
 		t2 = irandom_range(0, UPGRADE_AMOUNT);
+	}
+	if _t {
+		t1 = _t;
+		t2 = _t;
 	}
 	with instance_create_layer(WIDTH / 2 - 128, -32, "Instances", obj_collectable_upgrade)
 		type = t1;

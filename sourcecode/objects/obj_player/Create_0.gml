@@ -56,7 +56,7 @@ grazeComboBulletExp = 0.15
 tReloadTime = 7;
 reloadTime = tReloadTime;
 
-bulletAmount = 0;
+bulletAmount = 3;
 bulletSpread = 6;
 bulletSpreadAngle = 20;
 bulletSpreadSlow = 8
@@ -71,7 +71,7 @@ bulletHomingAmount = 0;
 bulletHomingSpreadAngle = 90;
 bulletHomingSpreadAngleSlow = 45;
 bulletHomingSpeed = 8;
-bulletHomingDamage = 0.4;
+bulletHomingDamage = 0.2;
 
 bulletLaserList = [];
 bulletLaserSpreadAngle = 24
@@ -108,7 +108,7 @@ reloadRoundTime = tReloadRoundTime;
 
 bulletRoundAmount = 0;
 bulletRoundSpeed = 12;
-bulletRoundDamage = 0.4;
+bulletRoundDamage = 0.2;
 
 tReloadWavyTime = 36;
 reloadWavyTime = tReloadWavyTime;
@@ -129,7 +129,7 @@ bulletHelperDamage = 0.6;
 bulletHelperReload = 6;
 
 func_addHelper = function(){
-	if array_length(bulletHelperList) > 0 bulletHelperDamage *= array_length(bulletHelperList) / ((array_length(bulletHelperList) * 2 + 0.5) / 2);
+	if array_length(bulletHelperList) > 0 bulletHelperDamage *= array_length(bulletHelperList) / ((array_length(bulletHelperList) * 2 + 0.75) / 2);
 	with instance_create_layer(x, y, "Instances", obj_helper) {
 		array_push(other.bulletHelperList, self);
 	}
@@ -141,7 +141,7 @@ bulletEvilDamage = 0.5;
 bulletEvilReload = 8;
 
 func_addEvil = function(){
-	if array_length(bulletEvilList) > 0 bulletEvilDamage *= array_length(bulletEvilList) / ((array_length(bulletEvilList) * 2 + 0.25) / 2);
+	if array_length(bulletEvilList) > 0 bulletEvilDamage *= array_length(bulletEvilList) / ((array_length(bulletEvilList) * 2 + 0.75) / 2);
 	with instance_create_layer(x, y, "Instances", obj_helperButEvil) {
 		array_push(other.bulletEvilList, self);
 	}

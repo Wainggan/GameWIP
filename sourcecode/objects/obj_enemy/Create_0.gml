@@ -104,4 +104,5 @@ directionToMove = sign(WIDTH/2 - x);
 step = function(){}
 
 onLoad = function(){}
+onHit = function(){}
 onDeath = function(){}

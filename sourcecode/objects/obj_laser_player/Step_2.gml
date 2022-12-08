@@ -4,6 +4,7 @@ var _num = instance_place_list(x, y, obj_enemy, _list, true);
 if _num != 0 && !_list[| 0].invinsible {
 	_list[| 0].hp -= damage * global.delta_multi
 	_list[| 0].hitAnim = 0.6;
+	_list[| 0].onHit(self);
 	image_xscale = point_distance(x, y, _list[| 0].x, _list[| 0].y) / 32 - 1;
 }
 

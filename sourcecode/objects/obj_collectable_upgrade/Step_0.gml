@@ -25,7 +25,7 @@ if hp <= 0 {
 	with obj_player
 		switch other.type {
 			case 0:
-				bulletDamage *= bulletAmount / (bulletAmount + 1);
+				bulletDamage *= bulletAmount / ((bulletAmount * 2 + 0.8) / 2);
 				bulletAmount++;
 				bulletSpreadAngle += 4;
 				bulletSpreadSlow -= 0.5;
@@ -59,7 +59,7 @@ if hp <= 0 {
 				if bulletHomingAmount == 0 {
 					bulletHomingAmount++;
 				} else {
-					bulletHomingDamage *= bulletHomingAmount / ((bulletHomingAmount * 2 + 0.3) / 2);
+					bulletHomingDamage *= bulletHomingAmount / ((bulletHomingAmount * 2 + 0.5) / 2);
 					bulletHomingAmount++;
 				}
 				break;
@@ -79,7 +79,7 @@ if hp <= 0 {
 				if bulletRoundAmount == 0 {
 					bulletRoundAmount++;
 				} else {
-					bulletRoundDamage *= bulletRoundAmount / ((bulletRoundAmount * 2 + 0.4) / 2);
+					bulletRoundDamage *= bulletRoundAmount / ((bulletRoundAmount * 2 + 0.65) / 2);
 					bulletRoundAmount++;
 				}
 				break;
@@ -87,12 +87,13 @@ if hp <= 0 {
 				if bulletWavyAmount == 0 {
 					bulletWavyAmount++;
 				} else {
-					bulletWavyDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 0.2) / 2);
+					bulletWavyDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 0.4) / 2);
+					bulletWavySplashDamage *= bulletWavyAmount / ((bulletWavyAmount * 2 + 0.6) / 2);
 					bulletWavyAmount++;
 				}
 				break;
 			case 13:
-				grazeReflectChance = min(grazeReflectChance + 0.05, 0.3);
+				grazeReflectChance = min(grazeReflectChance + 0.05, 0.8);
 				break;
 			case 14:
 				func_addHelper();
