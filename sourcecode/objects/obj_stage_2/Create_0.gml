@@ -457,7 +457,7 @@ enemies = {
 					function(){
 						movement_start(x + irandom_range(-48, 48), y + irandom_range(-32, 32), 1/50, "linear");
 					},
-					1,
+					2,
 					function(){
 						bullet_preset_ring(x, y, 25, 8, b_angle, function(_x, _y, _dir){
 							with bullet_shoot_dir2(_x, _y, 8, 0.12, 2, _dir) {
@@ -466,7 +466,7 @@ enemies = {
 						});
 						b_angle += (360 / 25) / 2 / 2 * b_dir;
 						b_count += 1;
-						if b_count < 50
+						if b_count < 25
 							commandIndex--;
 						else {
 							b_count = 0;
@@ -569,7 +569,7 @@ enemies = {
 				
 				b_golden = 0
 				b_1_speed = 1;
-				b_2_speed = 3;
+				b_2_speed = 2;
 				b_2_density = 2;
 				
 				command_switch([
@@ -595,7 +595,7 @@ enemies = {
 					}, 60 * 5,
 					function(){
 						command_set([
-							1, 
+							2, 
 							function(){
 								b_golden = bullet_preset_golden(x, y, 0, b_2_density, b_golden, function(_x, _y, _dir, i) {
 									with bullet_shoot_dir3(_x, _y, 1, 0.2, 6, 0.1, b_2_speed, _dir) {
@@ -611,11 +611,11 @@ enemies = {
 						command_add([
 							60 * 2,
 							function(){
-								movement_start(approach(x, obj_player.x + irandom_range(-32, 32), 64), 96 + irandom_range(-8, 64), 1/60);
+								movement_start(approach(x, obj_player.x + irandom_range(-32, 32), 64), 64 + irandom_range(-8, 16), 1/60);
 								commandIndex--;
 							}
 						]);
-					}, 60 * 2,
+					}, 60 * 5,
 				]);
 				
 				hpMod([
@@ -627,13 +627,11 @@ enemies = {
 					function(){
 						hp = 270;
 						
-						command_switch_add(0, function(){
+						command_switch_add(1, function(){
 							command_add([
-								4,
+								12,
 								function(){
-									with bullet_shoot_dir(x, y, 10, point_direction(x, y, obj_player.x, obj_player.y) + choose(-90, 90)) {
-										dir_target = point_direction(x, y, obj_player.x, obj_player.y);
-										dir_accel = 8;
+									with bullet_shoot_dir3(x, y, 10, 0.3, 1, 0.1, 4, point_direction(x, y, obj_player.x, obj_player.y)) {
 										glow = cb_teal;
 										sprite_index = spr_bullet_point;
 									}
@@ -651,7 +649,7 @@ enemies = {
 				scoreGive = 50000;
 				pointGive = 6
 				
-				b_1_amount = 11;
+				b_1_amount = 16;
 				b_1_dir = 0;
 				b_1_turn = 1;
 				b_1_dir2 = 0;
@@ -660,13 +658,13 @@ enemies = {
 				command_switch([
 					function(){
 						command_set([
-							12,
+							13,
 							function(){
 								bullet_preset_ring(x, y, b_1_amount, 0, b_1_dir, function(_x, _y, _dir){
 									with bullet_shoot_dir2(x, y, 10, 0.5, 3, _dir, 4) {
 										glow = cb_green;
 										dir_target = dir + 90 * sign(other.b_1_turn);
-										dir_accel = other.b_1_turn / 5 * 2;
+										dir_accel = other.b_1_turn / 5 * 4;
 									}
 								})
 								var _d = wave(-5, 5, 15);
@@ -684,8 +682,8 @@ enemies = {
 							},
 							8,
 							function(){
-								b_1_dir2 += angle_difference(point_direction(x, y, obj_player.x, obj_player.y), b_1_dir2) * 0.2;
-								bullet_preset_ring(x, y, 15, 0, b_1_dir2, function(_x, _y, _dir){
+								b_1_dir2 += angle_difference(point_direction(x, y, obj_player.x, obj_player.y), b_1_dir2) * 0.1;
+								bullet_preset_ring(x, y, 38, 0, b_1_dir2, function(_x, _y, _dir){
 									with bullet_shoot_dir3(x, y, 0, 1, 10, 0.5, 4, _dir, 4) {
 										glow = cb_red;
 										sprite_index = spr_bullet_arrow;
@@ -712,7 +710,7 @@ enemies = {
 						command_switch_push([
 							function(){
 								command_set([
-									2,
+									4,
 									function(){
 										bullet_preset_ring(x, y, 24, 9, random(360), function(_x, _y, _dir, i){
 											with bullet_shoot_dir2(_x, _y, 4, 0.4, i % 2 == 0 ? 1 : 2, _dir) {
@@ -732,13 +730,69 @@ enemies = {
 					
 					
 				])
-			}
+			},
+			function(){
+				hp = 350;
+				//time(60 * 11, 60 * 9)
+				scoreGive = 200000;
+				pointGive = 12;
+				
+				command_set([
+					10, 
+					function(){
+						bullet_preset_ring(x, y, 5, 32, wave(-360, 360, 16), function(_x, _y, _dir){
+							bullet_shoot_dir3(_x, _y, 1, 0.8, 12, 1, 2, _dir, 1).sprite_index = spr_bullet_large;
+						})
+						
+						commandIndex--;
+					}
+				]);
+				count = 0;
+				angle = 0;
+				command_add([
+					30,
+					function(){
+						movement_start(clamp(obj_player.x, 96, WIDTH - 96) + irandom_range(-64, 64), irandom_range(40, 100), 1/40);
+					},
+					40,
+					function(){
+						angle = point_direction(x, y, obj_player.x, obj_player.y);
+					},
+					24,
+					function(){
+						bullet_preset_plate(x, y, 8, 0, 72, 12, angle, function(_x, _y, _dir){
+							bullet_shoot_dir(_x, _y, 4, _dir);
+						})
+						if count++ > 4 {
+							count = 0;
+							commandIndex = 0;
+						} else commandIndex--;
+					}
+				]);
+				
+				command_add([
+					4,
+					function(){
+						bullet_preset_ring(choose(-32, WIDTH + 32), irandom_range(60, HEIGHT / 2), 9, 0, random_range(0, 360), function(_x, _y, _dir){
+							with bullet_shoot_dir(_x, _y, 2, _dir) {
+								sprite_index = spr_bullet_small;
+								glow = cb_green;
+							}
+						});
+						commandIndex--;
+					}
+				]);
+				
+				hpMod([
+					
+				])
+			},
 		]
 	},
 };
 
 
-//stageIndex = 10
+stageIndex = 10
 
 stage = [
 	function(){

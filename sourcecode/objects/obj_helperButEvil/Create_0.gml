@@ -18,7 +18,7 @@ command_set([
 			commandIndex--
 			return;
 		}
-		bullet_preset_ring(x, y, 5, 8, random(360), function(_x, _y, _dir) {
+		bullet_preset_ring(x, y, 7, 8, random(360), function(_x, _y, _dir) {
 			with bullet_shoot_dir(_x, _y, 2, _dir) {
 				glow = cb_grey;
 				sprite_index = spr_bullet_small

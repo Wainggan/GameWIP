@@ -88,7 +88,7 @@ func_addLaser = function(){
 		angle = 90;
 		angle_target = 90;
 		angle_accel = 5;
-		damage = other.bulletLaserDamage
+		damage = other.bulletLaserDamage;
 		array_push(other.bulletLaserList, self);
 	}
 	bulletLaserSpread *= 0.9;
@@ -125,7 +125,7 @@ bulletWavyDamage = 4;
 bulletWavySplashDamage = 0.04;
 
 bulletHelperList = [];
-bulletHelperDamage = 0.6;
+bulletHelperDamage = 0.5;
 bulletHelperReload = 6;
 
 func_addHelper = function(){
@@ -137,7 +137,7 @@ func_addHelper = function(){
 }
 
 bulletEvilList = [];
-bulletEvilDamage = 0.5;
+bulletEvilDamage = 0.4;
 bulletEvilReload = 8;
 
 func_addEvil = function(){
