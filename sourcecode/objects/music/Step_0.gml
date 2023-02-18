@@ -3,11 +3,12 @@ if bgm != -1 {
 	if _pos > totalLength {
 		audio_sound_set_track_position(bgm, _pos - loopLength);
 	}
-	if global.pause > lastPause {
-		//audio_pause_sound(bgm);
-	}
-	if global.pause <= 0 {
-		//audio_resume_sound(bgm);
+	if game.musicPause && game.musicPause != lastPause {
+		lastPausePos = _pos;
+		audio_sound_gain(bgm, 0, 10);
+	} else if !game.musicPause && game.musicPause != lastPause {
+		audio_sound_set_track_position(bgm, lastPausePos);
+		audio_sound_gain(bgm, volume, 10);
 	}
 }
 
@@ -15,4 +16,4 @@ if playing != lastPlaying {
 	lastPlaying = playing
 }
 
-lastPause = global.pause;
+lastPause = game.musicPause;

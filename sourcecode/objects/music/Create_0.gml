@@ -1,6 +1,7 @@
 playing = -1;
 bgm = -1
 lastPause = 0;
+lastPausePos = 0;
 lastPlaying = playing
 
 volume = 0;
@@ -19,7 +20,17 @@ meta = {
 		introLength = 19.45;
 		loopLength = (60 * 3 + 37.29) - introLength;
 		totalLength = introLength + loopLength;
-	})
+	}),
+	mus_boss2: method(self, function(){
+		introLength = 25.60;
+		loopLength = (60 * 3 + 10.01) - introLength;
+		totalLength = introLength + loopLength;
+	}),
+	mus_boss3: method(self, function(){
+		introLength = 33.41;
+		loopLength = (60 * 2 + 53.16) - introLength;
+		totalLength = introLength + loopLength;
+	}),
 }
 
 news_subscribe("music_change", function(_s) {

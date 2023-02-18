@@ -18,7 +18,7 @@ if hp <= 0 {
 	shockwave.scaleSpeed = 8
 	
 	screenShake_set(4, 0.2);
-	global.pause = 4;
+	game_pause(4)
 	
 	#macro UPGRADE_AMOUNT 17
 	

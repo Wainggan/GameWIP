@@ -24,18 +24,18 @@ if grazeComboTimer <= 0 {
 
 
 var _grazeArray = variable_struct_get_names(grazeBulletList);
-for (var i = 0; i < array_length(_grazeArray); i++) {
+for (var i = 0; i < min(array_length(_grazeArray), 200); i++) {
 	grazeBulletList[$ _grazeArray[i]] -= global.delta_multi;
 	if grazeBulletList[$ _grazeArray[i]] <= 0 {
 		variable_struct_remove(grazeBulletList, _grazeArray[i]);
 	}
 }
 
-if !global.pause dir_graphic = (x - _lastX) / global.delta_multi;
+if !game_pause() dir_graphic = (x - _lastX) / global.delta_multi;
 
 grazeHitboxGraphicShow = max(grazeHitboxGraphicShow-grazeHitboxGraphicShowSpeed * global.delta_multi, 0)
 
-if !global.pause
+if !game_pause()
 for (var i = 0; i < array_length(tails); i++) {
 	tails[i][0].x = round(x) - 1;
 	tails[i][0].y = round(y) + 7;

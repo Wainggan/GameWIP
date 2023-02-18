@@ -22,10 +22,13 @@ hitAnim = 0;
 
 invinsible = false;
 important = false;
+importantAnim = new Sod(3, 1, -1);
+ignoreSlap = false;
+alarm[0] = 1;
 canDie = true;
 destroyAll = false
 
-time = function(_time = -1, _mt = timerMin){
+time = function(_time = -1, _mt = timerMin, _tma = undefined){
 	if is_array(_time) {
 		timerMod = _time;
 		currentTimerMod = 0;
@@ -36,7 +39,11 @@ time = function(_time = -1, _mt = timerMin){
 		ftime = _time;
 		timerMod = undefined;
 	}
+	if _mt > 0
+		_tma = true;
+	else _tma = false;
 	timerMin = _mt;
+	timerMinActive = _tma;
 }
 
 timer = -1; // TODO: implement boss timer
@@ -44,6 +51,7 @@ ftime = -1;
 timerMod = undefined;
 currentTimerMod = 0;
 timerMin = 0;
+timerMinActive = false;
 
 deathRadius = 16
 
@@ -58,17 +66,23 @@ func_nextAttack = function(){
 		if hpModArray != undefined && currentHpMod < array_length(hpModArray) {
 			hpModArray[currentHpMod++]();
 			screenShake_set(2, 0.2);
-			global.pause = 2;
+			game_pause(2)
 			return;
 		}
 		func_nextAttack();
+		with instance_create_layer(x, y, layer, obj_bulletDestroyer) { // bad idea
+			targetSize = 128
+			sizeSpeed = 32;
+			bulletBonus = false;
+			destroy = true;
+		}
 		if !canDie {
-			screenShake_set(5, 0.2);
-			global.pause = 4;
+			screenShake_set(4, 0.2);
+			game_pause(4)
 		} else {
-			screenShake_set(6, 0.1);
+			screenShake_set(5, 0.2);
 			//instance_create_layer(0, 0, "Instances", obj_koSplash);
-			global.pause = 26;
+			game_pause(26)
 			audio_play_sound(snd_explosion1, 20, false);
 			__onDeath();
 		}
@@ -83,13 +97,13 @@ func_nextAttack = function(){
 		hp = 1;
 		invinsible = true;
 		destroyAll = true;
-		command_timer(timerMin + 30, function(){
+		command_timer((timerMin ? timerMin : 0) + 30, function(){
 			invinsible = false;
 			attacks[currentAttack]();
 			maxhp = hp;
 			currentAttack++;
 		});
-		time(, 0)
+		time(, 0, false)
 	} else {
 		canDie = true;
 	}
@@ -106,3 +120,4 @@ step = function(){}
 onLoad = function(){}
 onHit = function(){}
 onDeath = function(){}
+

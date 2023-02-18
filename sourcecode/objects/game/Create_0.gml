@@ -3,6 +3,8 @@ global.delta_multi = 1;
 global.delta_milli = global.delta_target
 
 global.pause = 0;
+pause = 0;
+musicPause = false;
 
 global.time = 0;
 

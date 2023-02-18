@@ -1,9 +1,23 @@
 if input.check_pressed("sneak") {
-	hitboxAnim.add(new Tween(0.25, 0, 1, function(_e){ hitboxSize = _e }, "backBig"))
+	//hitboxAnim.add(new Tween(0.25, 0, 1, function(_e){ hitboxSize = _e }, "backBig"))
+	hitboxAnim.setWeights(8, 2, 2.5)
 } else if input.check_released("sneak") {
-	hitboxAnim.add(new Tween(0.25, 1, 0, function(_e){ hitboxSize = _e }, "ease"))
+	//hitboxAnim.add(new Tween(0.25, 1, 0, function(_e){ hitboxSize = _e }, "ease"))
+	hitboxAnim.setWeights(10, 1, 0)
 }
-hitboxAnim.update(global.delta_multi)
+hitboxAnim.update(global.delta_milli, input.check("sneak"));
+hitboxSize = hitboxAnim.value;
+
+hook_ind_xAnim.update(global.delta_milli, hook_x);
+hook_ind_yAnim.update(global.delta_milli, hook_y);
+hook_ind_showAnim.update(global.delta_milli, hook_maybeTarget);
+
+hook_line_showAnim.update(global.delta_milli, hook_ing);
+
+hook_icon_xAnim.update(global.delta_milli, hook_x);
+hook_icon_showAnim.update(global.delta_milli, hook_maybeTarget);
+hook_icon_rotate += 1 * global.delta_multi
+
 
 draw_set_alpha(grazeHitboxGraphicShow)
 	draw_circle(round(x)-1, round(y)-1, grazeRadius - 6, 1)
@@ -55,22 +69,28 @@ draw_set_alpha(1)
 		);
 	var _amount = 16;
 	var _size = 6;
-	for (var i = 0; i < round(_amount * lifeCharge); i++) {
+	for (var i = 0; i < round(_amount * hook_charge); i++) {
 		draw_line_sprite(
 			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * i - 90), 
 			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * i - 90),
 			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (i + 1) - 90), 
 			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (i + 1) - 90),
-			4, c_blue, 0.2
+			4, c_blue, 0.4
 		);
 		draw_line_sprite(
 			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * -i - 90), 
 			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * -i - 90),
 			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (-i - 1) - 90), 
 			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (-i - 1) - 90),
-			4, c_blue, 0.2
+			4, c_blue, 0.4
 		);
 	}
 //surface_reset_target()
+
+draw_line_sprite(x, y, hook_x, hook_y, hook_line_showAnim.value * 4, c_white, 1);
+
+if hook_ing {
+	//draw_sprite(spr_playerHookAim, 0, x, y - 16);
+}
 
 //draw_surface(surf, 0, 0);

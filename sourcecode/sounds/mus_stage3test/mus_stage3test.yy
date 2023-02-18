@@ -6,7 +6,7 @@
   "compression": 1,
   "volume": 1.0,
   "preload": false,
-  "bitRate": 320,
+  "bitRate": 192,
   "sampleRate": 44100,
   "type": 1,
   "bitDepth": 1,

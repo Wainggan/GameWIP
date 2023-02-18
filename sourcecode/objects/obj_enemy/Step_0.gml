@@ -28,7 +28,7 @@ if timer != -1 || timerMod != undefined {
 		}
 	}
 }
-if timerMin > 0 timerMin -= global.delta_multi
+if timerMinActive timerMin -= global.delta_multi
 
 if hp <= 0 {
 	if timerMod == undefined time()
@@ -39,6 +39,7 @@ if hp <= 0 {
 		inst.targetSize = deathRadius
 		inst.sizeSpeed = 32;
 		inst.bulletBonus = true;
+		inst.destroy = !destroyAll;
 		inst.destroyAll = destroyAll;
 		
 		instance_create_depth(x, y, depth+100, obj_effect_hitpop).sprite_index = sprite_index;
@@ -55,11 +56,13 @@ if hp <= 0 {
 	
 		var shockwave = render.shockwave_create(x, y)
 		shockwave.mode = 1
-		shockwave.scaleTarget = deathRadius * 4
-		shockwave.scaleSpeed = 18
+		shockwave.scaleTarget = deathRadius * 2
+		shockwave.scaleSpeed = 24
 	}
 	
 	onDeath();
 	if canDie instance_destroy();
 	//func_destroyBullets()
 }
+
+importantAnim.update(global.delta_milli, x);

@@ -32,6 +32,8 @@ translate = function(_xV, _yV) {
 		var b = bullets[i];
 		b.x += _xV;
 		b.y += _yV;
+		b.autoX += _xV;
+		b.autoY += _yV;
 	}
 }
 rotate = function(_amount) {
@@ -39,8 +41,12 @@ rotate = function(_amount) {
 		var b = bullets[i];
 		var _dir = point_direction(x, y, b.x, b.y);
 		var _dist = point_distance(x, y, b.x, b.y);
+		var _lx = b.x;
+		var _ly = b.y;
 		b.x = x + lengthdir_x(_dist, _dir + _amount);
 		b.y = y + lengthdir_y(_dist, _dir + _amount);
+		b.autoX += b.x - _lx;
+		b.autoY += b.y - _ly;
 	}
 }
 zoom = function(_amount) {
@@ -48,8 +54,12 @@ zoom = function(_amount) {
 		var b = bullets[i];
 		var _dir = point_direction(x, y, b.x, b.y);
 		var _dist = point_distance(x, y, b.x, b.y);
+		var _lx = b.x;
+		var _ly = b.y;
 		b.x = x + lengthdir_x(_dist + _amount, _dir);
 		b.y = y + lengthdir_y(_dist + _amount, _dir);
+		b.autoX += b.x - _lx;
+		b.autoY += b.y - _ly;
 	}
 }
 scale = function(_amount) {
@@ -57,7 +67,11 @@ scale = function(_amount) {
 		var b = bullets[i];
 		var _dir = point_direction(x, y, b.x, b.y);
 		var _dist = point_distance(x, y, b.x, b.y);
+		var _lx = b.x;
+		var _ly = b.y;
 		b.x = x + lengthdir_x(_dist * _amount, _dir);
 		b.y = y + lengthdir_y(_dist * _amount, _dir);
+		b.autoX += b.x - _lx;
+		b.autoY += b.y - _ly;
 	}
 }

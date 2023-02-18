@@ -1,5 +1,6 @@
 if !invinsible {
-	hp -= other.damage
+	if timerMinActive && timerMin <= 0 hp -= other.damage * 1.5;
+	else hp -= other.damage
 	hitAnim = 1
 	
 	onHit(other)

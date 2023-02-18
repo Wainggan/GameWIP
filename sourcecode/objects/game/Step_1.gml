@@ -8,22 +8,24 @@ global.delta_multi = actualDelta / global.delta_target
 global.delta_milli = global.delta_multi / 60;
 
 var h = global.delta_multi
-if global.pause {
+if global.pause || pause {
 	global.delta_multi = 0;
 }
 global.time += global.delta_multi;
 
-particleUpdateBuffer += global.delta_multi
+particleUpdateBuffer += global.delta_multi;
 if (particleUpdateBuffer >= 1) {
 	repeat floor(particleUpdateBuffer) {
-		part_system_update(particle.particleSystem)
-		particleUpdateBuffer -= 1
+		part_system_update(particle.particleSystem);
+		particleUpdateBuffer -= 1;
 	}
 }
 
 global.screenShake = approach(global.screenShake, 0, global.screenShakeDamp * global.delta_multi)
 
 global.pause = max(global.pause - h, 0)
+pause = max(pause - h, 0)
+if pause <= 0 musicPause = false;
 
 
 if global.score > global.highscore {

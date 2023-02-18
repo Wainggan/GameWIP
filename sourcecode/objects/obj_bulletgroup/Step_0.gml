@@ -1,6 +1,10 @@
 for (var i = 0; i < array_length(bullets); i++) {
 	if !instance_exists(bullets[i])
 		array_delete(bullets, i--, 1)
+	else {
+		bullets[i].autoX = 0;
+		bullets[i].autoY = 0;
+	}
 }
 if array_length(bullets) == 0 instance_destroy();
 
@@ -20,6 +24,16 @@ translate(
 );
 
 if step != undefined step()
+
+for (var i = 0; i < array_length(bullets); i++) {
+	if bullets[i].disconnect > 0 {
+		if bullets[i].disconnect == 2 {
+			bullets[i].x_vel += bullets[i].autoX;
+			bullets[i].y_vel += bullets[i].autoY;
+		}
+		array_delete(bullets, i--, 1);
+	}
+}
 
 if life != undefined life -= global.delta_multi
 if life <= 0 { instance_destroy(); if death != undefined death(); particle.burst(x, y, "bulletExplosion", (x_vel + lengthdir_x(spd, dir)), (y_vel + lengthdir_y(spd, dir)))}

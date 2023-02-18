@@ -16,10 +16,10 @@ for (var i = 0; i < array_length(shockwave_waves); i++) {
 
 focusAnimCurve.percent = approach(focusAnimCurve.percent, 1, 0.02 * global.delta_multi);
 
-if !global.pause {
+if !game_pause() {
 	screenShakeX = irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.graphics.screenShake / 2);
 	screenShakeY = irandom_range(-global.screenShake, global.screenShake) * (global.file.settings.graphics.screenShake / 2);
 }
 
-if !global.pause
+if !game_pause()
 	scoreAnim = lerp(scoreAnim, global.score, 1 - power(0.01, global.delta_milli * 2));

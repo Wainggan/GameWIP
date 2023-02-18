@@ -18,13 +18,13 @@ if latch && !latchTimer {
 		if func != undefined func();
 		instance_destroy();
 	}
-	if y > HEIGHT + 64
-		instance_destroy()
+	
 } else {
 	x_vel = approach(x_vel, 0, 0.02 * global.delta_multi)
 	y_vel = min(y_vel + 0.04 * global.delta_multi, 3);
-
 	image_angle = 0;
 }
 x += x_vel * global.delta_multi;
 y += y_vel * global.delta_multi;
+if y > HEIGHT + 64
+		instance_destroy()

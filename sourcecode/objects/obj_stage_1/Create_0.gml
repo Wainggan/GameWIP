@@ -111,6 +111,7 @@ enemies = {
 		deathRadius = WIDTH * 2;
 		important = true;
 		invinsible = true;
+		ignoreSlap = true;
 		canDie = false;
 		
 		sprite_index = spr_enemy_testBoss
@@ -232,6 +233,7 @@ enemies = {
 		deathRadius = WIDTH * 2;
 		important = true;
 		invinsible = true;
+		ignoreSlap = true;
 		canDie = false;
 		
 		sprite_index = spr_enemy_testBoss
@@ -490,9 +492,9 @@ enemies = {
 					function(){
 						bullet_group_start(x, y)
 						bullet_preset_ring(x, y, b_angleDensity, 32, point_direction(x, y, obj_player.x, obj_player.y) + 360 / b_angleDensity / 2, function(_x, _y, _dir){
-							bullet_preset_line2(_x, _y, _dir, b_density, 16, function(_x, _y) {
+							bullet_preset_line2(_x, _y, _dir, b_density, 14, function(_x, _y) {
 								with bullet_shoot(_x, _y) {
-									deathBorder = -1;
+									deathBorder = other.b_density * 14;
 									glow = cb_blue
 									step = function(){
 										if y > HEIGHT + 64 instance_destroy()
@@ -536,8 +538,8 @@ enemies = {
 					function(){
 						hp = 400;
 						
-						b_density = 42
-						b_angleDensity = 15
+						b_density = 46
+						b_angleDensity = 14
 						b_speed = 1.4
 						b_rotateSpeed = 0.12
 						command_get(0)[0] = 30;

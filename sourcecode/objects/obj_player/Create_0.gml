@@ -56,10 +56,11 @@ grazeComboBulletExp = 0.15
 tReloadTime = 7;
 reloadTime = tReloadTime;
 
+#region bullet upgrade defines
 bulletAmount = 3;
 bulletSpread = 6;
-bulletSpreadAngle = 20;
-bulletSpreadSlow = 8
+bulletSpreadAngle = 14;
+bulletSpreadSlow = 6
 bulletSpreadAngleSlow = 1
 bulletSpeed = 14;
 bulletDamage = 1;
@@ -157,14 +158,32 @@ ignore {
 	bulletSpeed = 14;
 }
 
+#endregion
+
 livesLeft = 3;
 bombsLeft = 3;
 
-lifeCharge = 0.5;
-lifeChargeSpeed = 0.0001;
-lifeChargeGraze = 0.0001;
+lifeCharge = 0.0;
+lifeChargeSpeed = 0.0000;
+lifeChargeGraze = 0.0000;
 lifeChargeGraphicX = x;
 lifeChargeGraphicY = y;
+
+hook_x = 0;
+hook_icon_xAnim = new Sod(4, 1, 0);
+hook_icon_showAnim = new Sod(2, 1, 0);
+hook_icon_rotate = 0;
+hook_ind_xAnim = new Sod(4, 0.7, 0);
+hook_ind_yAnim = new Sod(4, 0.7, 0);
+hook_ind_showAnim = new Sod(4, 1, 0);
+hook_line_showAnim = new Sod(5, 1, 0);
+hook_y = 0;
+hook_ing = false;
+hook_target = noone;
+hook_maybeTarget = false;
+hook_buffer = 0;
+hook_charge = 0;
+
 
 #region input
 horzMovementPriority = [];
@@ -289,9 +308,22 @@ state.add("idle", {
 		
 		var _lastX = x;
 		
-		x += x_vel * global.delta_multi;
-		y += y_vel * global.delta_multi;
-		
+		if hook_ing {
+			var _dir = point_direction(x, y, hook_x, hook_y);
+			x += lengthdir_x(14 * global.delta_multi, _dir);
+			y += lengthdir_y(14 * global.delta_multi, _dir);
+			if point_distance(x, y, hook_x, hook_y) < 64 {
+				hook_ing = false;
+				hook_target = noone
+			}
+			if hook_x < 0 || hook_x > WIDTH || hook_y < 0 || hook_y > HEIGHT {
+				hook_ing = false;
+				hook_target = noone
+			}
+		} else {
+			x += x_vel * global.delta_multi;
+			y += y_vel * global.delta_multi;
+		}
 
 		x = clamp(x, 4, WIDTH-4);
 		y = clamp(y, 4, HEIGHT-4);
@@ -302,15 +334,15 @@ state.add("idle", {
 				latch = true;
 		}
 
-
+		#region Bullet Collision
 		var _grazedBulletsList = ds_list_create()
-		collision_circle_list(x, y, grazeRadius, obj_bullet, 0, 1, _grazedBulletsList, true)
+		collision_circle_list(x, y, grazeRadius - (hook_ing ? 16 : 0), obj_bullet, 0, 1, _grazedBulletsList, true)
 		if ds_list_size(_grazedBulletsList) > 0 {
-			if iFrames <= 0 && place_meeting(x, y, obj_bullet) {
+			if iFrames <= 0 && !hook_ing && place_meeting(x, y, obj_bullet) {
 				if lifeCharge < 1 {
 					lifeCharge = min(lifeCharge + 0.5, 1);
 					
-					global.pause = 12;
+					game_pause(16, true);
 					screenShake_set(4);
 					iFrames = 40;
 					
@@ -327,6 +359,9 @@ state.add("idle", {
 	
 					livesLeft--
 					
+					hook_target = noone;
+					hook_ing = false;
+					
 					grazeComboQueue = 0;
 					grazeCombo = 0;
 					func_grazeFlavorText("0")
@@ -335,7 +370,7 @@ state.add("idle", {
 				} else {
 					lifeCharge = 0;
 					
-					global.pause = 6;
+					game_pause(6, false);
 					screenShake_set(4);
 					iFrames = 20;
 					
@@ -365,9 +400,9 @@ state.add("idle", {
 					if grazeBulletList[$ _b] == undefined {
 						grazeBulletList[$ _b] = _b.object_index == obj_bullet ? grazeBulletListClearTime : grazeBulletListClearTimeLaser ;
 						_b.pop = 1;
-						if random(1) < grazeReflectChance {
-							var _vdX = lengthdir_x(_b.spd, _b.dir) + _b.x_vel;
-							var _vdY = lengthdir_y(_b.spd, _b.dir) + _b.y_vel;
+						if grazeReflectChance > 0 && random(1) < grazeReflectChance {
+							var _vdX = lengthdir_x(_b.spd, _b.dir) + _b.x_vel + _b.autoX;
+							var _vdY = lengthdir_y(_b.spd, _b.dir) + _b.y_vel + _b.autoY;
 							
 							var _dirCheck = point_direction(_b.x, _b.y, x, y);
 							
@@ -384,8 +419,10 @@ state.add("idle", {
 								_b.x_vel = 0;
 								_b.y_vel = 0;
 								_b.dir = point_direction(0, 0, _vrX, _vrY);
+								_b.disconnect = 1;
 							}
 						}
+						
 						
 						grazeCombo += 1;
 						grazeComboQueue += 1;
@@ -401,6 +438,10 @@ state.add("idle", {
 						
 		
 						grazeHitboxGraphicShow = 1;
+						
+						if hook_ing /*&& random(1) < 1 - (point_distance(x, y, hook_x, hook_y)-64)/100*/ {
+							instance_destroy(_b);
+						}
 		
 						//func_grazeFlavorText(string(grazeCombo))
 					}
@@ -421,14 +462,9 @@ state.add("idle", {
 					}
 			}
 			
-			if input.check_pressed("bomb") && true {
-				//var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
-				//test.targetSize = 128;
-				//test.sizeSpeed = 64;
-			}
-			
 		}
 		ds_list_destroy(_grazedBulletsList)
+		#endregion
 		
 		grazeComboQueueTimer -= global.delta_multi
 		if grazeComboQueue != 0 && grazeComboQueueTimer <= 0{
@@ -438,6 +474,7 @@ state.add("idle", {
 			
 		}
 		
+
 		lifeCharge = min(lifeCharge + lifeChargeSpeed * global.delta_multi, 1);
 
 		// TODO: rebalance bulletcharge
@@ -453,8 +490,71 @@ state.add("idle", {
 		reloadWavyTime -= global.delta_multi
 		
 		canShoot = instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
+		
 		isShooting = input.check("shoot") && canShoot
 		
+		hook_charge = min(hook_charge + 0.004 * global.delta_multi, 1);
+		
+		hook_buffer--;
+		if hook_buffer > 0 && input.check_pressed("bomb") && canShoot {
+			var _inst = instance_nearest(x, y, obj_enemy)
+			if ((_inst != noone && point_distance(x, y, _inst.x, _inst.y) < 100) || point_distance(x, y, hook_x, hook_y) < 100) {
+				instance_create_layer(x, y, layer, obj_playerPop);
+				game_pause(8)
+				var test = render.shockwave_create(x, y)
+					test.mode = 1
+					test.scaleTarget = WIDTH * 4
+					test.scaleSpeed = 64
+				iFrames = 6;
+			} else {
+				//instance_create_layer(x, y, layer, obj_playerPop);
+			}
+		}
+		if !instance_exists(hook_target) && !hook_ing  && hook_charge == 1 && canShoot {
+			
+			var _enemyList = ds_list_create()
+			collision_rectangle_list(x-30, y, x+30, y - 10000, obj_enemy, false, true, _enemyList, true);
+			hook_testTarget = noone;
+			if ds_list_size(_enemyList) {
+				hook_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
+			}
+			ds_list_destroy(_enemyList);
+			
+			if hook_testTarget != noone && canShoot {
+				hook_maybeTarget = true;
+				hook_x = hook_testTarget.x;
+				hook_y = hook_testTarget.y;
+				if input.check_pressed("bomb") {
+					game_pause(4);
+					hook_ing = true;
+					hook_target = hook_testTarget;
+					hook_x = hook_target.x;
+					hook_y = hook_target.y;
+					
+					hook_charge = 0;
+					hook_maybeTarget = false;
+					iFrames = 10;
+				}
+				
+			} else {
+				hook_maybeTarget = false;
+			}
+			
+			
+		}
+		if hook_ing && instance_exists(hook_target) {
+			hook_x = hook_target.x;
+			hook_y = hook_target.y;
+		} else {
+			
+		}
+		if hook_ing {
+			hook_buffer = 12;
+		}
+
+		
+		
+		#region shoot
 		if isShooting {
 			if reloadTime <= 0 {
 				reloadTime = _newReloadTime
@@ -530,7 +630,7 @@ state.add("idle", {
 				reloadWavyTime = _newReloadWavyTime
 				var _spreadAngleTemp = input.check("sneak") ? bulletWavySpreadAngleSlow : bulletWavySpreadAngle;
 				var _spreadTemp = input.check("sneak") ? bulletWavySpreadSlow : bulletWavySpread;
-			
+				
 				bullet_preset_plate(x, y + 32, bulletWavyAmount, _spreadTemp, _spreadAngleTemp, 0, 90, function(_x, _y, _dir){
 					var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
 		
@@ -542,7 +642,7 @@ state.add("idle", {
 						
 						b_off = random(4)
 						
-						step = function(){ // TODO: redo
+						static _wavyStepFunction = function(){ // TODO: redo
 							x += wave(-2, 2, 1, b_off) * global.delta_multi;
 							mask_index = sprite_index;
 							if place_meeting(x, y, obj_enemy) {
@@ -552,7 +652,8 @@ state.add("idle", {
 								
 							mask_index = spr_nothing;
 						}
-						death = function(){
+						step = _wavyStepFunction;
+						static _wavyDeathFunction = function(){
 							if b_kill
 							bullet_preset_ring(x, y, b_amount, 8, random(360), function(_x, _y, _dir){
 								var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
@@ -569,6 +670,7 @@ state.add("idle", {
 								}
 							});
 						}
+						death = _wavyDeathFunction;
 						
 						damage = other.bulletWavyDamage;
 						
@@ -645,6 +747,7 @@ state.add("idle", {
 				}
 			}
 		}
+		#endregion
 	}
 })
 state.add("respawn", {
@@ -695,7 +798,7 @@ for (var i = 0; i < 2; i++) {
 
 
 
-hitboxAnim = new TweenManager()
+hitboxAnim = new Sod().setAccuracy();
 hitboxSize = 0;
 
 dir_graphic = 1;

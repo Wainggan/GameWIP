@@ -3,7 +3,7 @@ surface_resize(application_surface, WIDTH, HEIGHT)
 //display_set_gui_size(960, 540)
 display_set_gui_maximize()
 
-depth = -1000
+depth = 100
 
 draw_set_font(ft_debug)
 

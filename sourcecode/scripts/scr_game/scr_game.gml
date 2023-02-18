@@ -42,6 +42,13 @@ function screenShake_set(_amount, _damp = 0.2) {
 	global.screenShakeDamp = _damp;
 }
 
+function game_pause(_set = undefined, _music = false) {
+	if _set == undefined
+		return game.pause;
+	game.pause = max(game.pause, _set);
+	game.musicPause = _music * _set;
+}
+
 function game_focus_set(_a = true) {
 	if _a != global.focus with render {
 		focusAnimCurve.percent = 0;

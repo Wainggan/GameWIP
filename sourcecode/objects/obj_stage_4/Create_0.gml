@@ -35,7 +35,7 @@ enemies = {
 					}
 				]);
 				command_add([
-					80,
+					100,
 					function(){
 						rand = 60 + irandom_range(-10, 20);
 						bullet_preset_plate(x, y, 2, 0, 90, 0, 270 + irandom_range(-10, 10), function(_x, _y, _dir){
@@ -49,7 +49,7 @@ enemies = {
 								
 								command_timer(_rand, function(){
 									bullet_preset_ring(x, y, 32, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
-										with bullet_laser(_x, _y, _dir, 8, 24) {
+										with bullet_laser(_x, _y, _dir, 8, 32) {
 											glow = cb_yellow;
 										}
 									})
@@ -69,6 +69,6 @@ enemies = {
 stage = [
 	function(){
 		enemy("boss", 0, 0)
-		time = -1;
+		time(,true);
 	},
 ]

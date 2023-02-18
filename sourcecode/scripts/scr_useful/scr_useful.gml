@@ -26,7 +26,7 @@ function wrap(_value,_min,_max) {
 
 
 function chance(_percent) {
-	return argument0 > random(1);
+	return _percent > random(1);
 }
 
 function parabola(p1, p2, y, x) {
