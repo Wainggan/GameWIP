@@ -50,7 +50,7 @@ for (var i = 0; i < array_length(tails); i++) {
 		
 		var _dir = sin(global.time / 60 / 1 + j * 0.4 + i * 3.14) * 2;
 		var _spreadAngle = wave(30, 50, 24);
-		var _tailDir = (wave(-4, 4, 20) - 90 + -_spreadAngle/2) - (-_spreadAngle/(array_length(tails)-1) * i);
+		var _tailDir = (wave(-4, 4, 20) - 90 + -_spreadAngle/2) - (-_spreadAngle/max(array_length(tails)-1, 1) * i);
 		p.x_vel = lengthdir_x(1, p.dir + _dir) + lengthdir_x(0.01, _tailDir);
 		p.y_vel = lengthdir_y(1, p.dir + _dir) + lengthdir_y(0.01, _tailDir) + 0.04;
 	

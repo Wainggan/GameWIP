@@ -789,6 +789,7 @@ for (var i = 0; i < 2; i++) {
 		var p = new _Point();
 	
 		p.len = min(power(max(j - 4, 0) , 1.16) + 5, 11)
+		//p.len = min(power(max(j - 6, 0) , 0.7) + 5, 11)
 		p.damp = 0.9
 	
 		array_push(tail, p);

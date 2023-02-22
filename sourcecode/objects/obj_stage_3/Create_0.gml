@@ -70,7 +70,7 @@ enemies = {
 		])
 	},
 	"big1": function(){
-		hp = 300;
+		hp = 200;
 		ignoreSlap = true;
 		
 		sprite_index = spr_enemy_cat
@@ -81,6 +81,10 @@ enemies = {
 		y = -64
 		
 		movement_start(startX, startY, 1/60);
+		command_timer(60 * 28, function(){
+			command_reset()
+			movement_start(x, HEIGHT + 32, 1/360, , function() { instance_destroy() })
+		})
 		
 		
 		command_set([
@@ -94,7 +98,7 @@ enemies = {
 					b_off = global.time;
 					
 					step = function(){
-						dir = b_dir + wave(-124, 124, 1, 0.25, (global.time - b_off)/60)
+						dir = b_dir + wave(-110, 110, 1, 0.25, (global.time - b_off)/60)
 					}
 				}
 				with bullet_shoot_dir2(x, y, 5, 0.1, 4, _dir) {
@@ -103,7 +107,7 @@ enemies = {
 					b_off = global.time;
 					
 					step = function(){
-						dir = b_dir + wave(-124, 124, 1, 0.75, (global.time - b_off)/60)
+						dir = b_dir + wave(-110, 110, 1, 0.75, (global.time - b_off)/60)
 					}
 				}
 				commandIndex--
@@ -116,8 +120,8 @@ enemies = {
 			function(){
 				var _dir = point_direction(x, y, obj_player.x, obj_player.y) + 180;
 				bullet_preset_plate(x, y, 3, 0, 45, 0, _dir, function(_x, _y, _dir){
-					for (var i = 0; i < 12; i++)
-						bullet_shoot_dir(_x, _y, 0.5 + i * 0.25, _dir)
+					for (var i = 0; i < 8; i++)
+						bullet_shoot_dir(_x, _y, 0.5 + i * 0.5, _dir)
 				})
 				
 				commandIndex--
@@ -158,7 +162,7 @@ enemies = {
 		]);
 	},
 	"basic4": function(){
-		hp = 30;
+		hp = 60;
 		
 		sprite_index = spr_enemy_crystal
 		
@@ -171,17 +175,17 @@ enemies = {
 		y = irandom_range(-2, -64);
 		
 		movement_start(startX, startY, 1/120);
-		command_timer(60 * 10, function(){
+		command_timer(60 * 9, function(){
 			movement_start(x + choose(-1, 1) * WIDTH, y + choose(-1, 1) * HEIGHT, 1/360, "linear", function(){instance_destroy()})
 			command_get(0)[1] = 24;
 		})
 		
 		command_set([
 			100, 
-			18,
+			24,
 			function(){
 				bullet_preset_ring(x, y, 12, 0, random(360), function(_x, _y, _dir, _i){
-					with bullet_shoot_dir2(_x, _y, b_speed * 5, 0.5, b_speed, _dir) {
+					with bullet_shoot_dir2(_x, _y, b_speed * 3, 0.5, b_speed, _dir) {
 						glow = _i % 2 == 0 ? cb_teal : cb_pink;
 						sprite_index = spr_bullet_large;
 					}
@@ -201,7 +205,7 @@ enemies = {
 		])
 	},
 	"big2": function(){
-		hp = 40;
+		hp = 80;
 		
 		sprite_index = spr_enemy_cat;
 		
@@ -213,9 +217,10 @@ enemies = {
 		b_amount = 0;
 		
 		movement_start(startX, startY, 1/60);
-		command_timer(60 * 10, function(){
-			movement_start(x + choose(-1, 1) * WIDTH, y + choose(-1, 1) * HEIGHT, 1/360, "linear", function(){instance_destroy()})
-			command_get(0)[1] = 24;
+		command_timer(60 * 7, function(){
+			movement_start(x + choose(-1, 1) * WIDTH, y + HEIGHT, 1/360, , function(){instance_destroy()})
+			command_reset()
+			//command_get(0)[1] = 24;
 		})
 		
 		command_set([
@@ -248,17 +253,17 @@ enemies = {
 
 //stageIndex = 5
 
-audio_play_sound(mus_stage3test, 10, false)
+audio_play_sound(mus_stage3, 10, false)
 
 stage = [
 	function(){
-		time(120)
+		time(60)
 	},
 	function(){
-		for (var i = 0; i < 14; i++) {
+		for (var i = 0; i < 10; i++) {
 			enemy_delay("basic", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), irandom_range(50, 200), i * 60);
 		}
-		time(60 * 14 + 60 * 2)
+		time(60 * 10 + 60 * 3 + 60 * 3)
 	},
 	function(){
 		for (var i = 0; i < 4; i++) {
@@ -267,17 +272,15 @@ stage = [
 		time(60 * 4 + 60 * 6)
 	},
 	function(){
+		for (var i = 0; i < 12; i++) {
+			enemy_delay("basic", irandom_range(WIDTH/2 - 32, WIDTH/2 + 32), irandom_range(50, 200), i * 120);
+		}
 		for (var i = 0; i < 6; i++) {
 			enemy_delay("basic2", WIDTH/2 + (i % 2 == 0 ? -1 : 1) * 200 + irandom_range(-20, 20), HEIGHT - 32, i * 160);
 		}
-		time(160 * 6 + 60 * 8)
+		time(28*60)//160 * 6 + 60 * 8)
 	},
-	function(){
-		for (var i = 0; i < 2; i++) {
-			enemy_delay("basic4", WIDTH/2 + (i % 2 == 0 ? -1 : 1) * 200 + irandom_range(-10, 10), irandom_range(50, 80), 0);
-		}
-		time(60 * 4 + 60 * 4);
-	},
+	
 	function(){
 		enemy("big1", WIDTH/2, HEIGHT / 2);
 		for (var i = 0; i < 14; i++) {
@@ -286,10 +289,20 @@ stage = [
 		time(120 * 14)
 	},
 	function(){
-		enemy("big2", WIDTH/2, 60);
+		for (var i = 0; i < 2; i++) {
+			enemy_delay("basic4", WIDTH/2 + (i % 2 == 0 ? -1 : 1) * 200 + irandom_range(-10, 10), irandom_range(50, 80), 0);
+		}
+		time(60 * 14);
+	},
+	function(){
+		enemy("big2", WIDTH/2, 100);
+		enemy_delay("big2", WIDTH/2 - 128, 60, 60 * 4);
+		enemy_delay("big2", WIDTH/2 + 128, 60, 60 * 4);
 		
-		for (var i = 0; i < 14; i++) {
+		for (var i = 0; i < 4; i++) {
 			enemy_delay("basic3", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), HEIGHT/2 + choose(-1, 1) * 140 + irandom_range(-80, 80), i * 120);
 		}
+		
+		time(60 * 14);
 	}
 ]

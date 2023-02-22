@@ -20,7 +20,7 @@ for (var i = 0; i < ds_list_size(list); i++) {
 		if b.object_index != obj_laser {
 			particle.burst(b.x, b.y, "bulletExplosion", lengthdir_x(2, d), lengthdir_y(2, d))
 			instance_destroy(b)
-		} else {
+		} else if point_distance(x, y, b.x, b.y) > currentSize + 16 {
 			b.endTime = 8;
 			b.life = 8
 		}
