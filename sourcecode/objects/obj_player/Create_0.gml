@@ -182,6 +182,7 @@ hook_ing = false;
 hook_target = noone;
 hook_maybeTarget = false;
 hook_buffer = 0;
+hook_iframe = 0;
 hook_charge = 0;
 
 
@@ -439,12 +440,13 @@ state.add("idle", {
 		
 						grazeHitboxGraphicShow = 1;
 						
-						if hook_ing /*&& random(1) < 1 - (point_distance(x, y, hook_x, hook_y)-64)/100*/ {
-							instance_destroy(_b);
+						if hook_ing || hook_iframe /*&& random(1) < 1 - (point_distance(x, y, hook_x, hook_y)-64)/100*/ {
+							//instance_destroy(_b);
 						}
 		
 						//func_grazeFlavorText(string(grazeCombo))
 					}
+					if hook_ing || hook_iframe instance_destroy(_b)
 				}
 				if _grazeTotal
 					with instance_create_layer(x, y, "Instances", obj_collectable) {
@@ -495,7 +497,8 @@ state.add("idle", {
 		
 		hook_charge = min(hook_charge + 0.004 * global.delta_multi, 1);
 		
-		hook_buffer--;
+		hook_buffer -= global.delta_multi;
+		hook_iframe -= global.delta_multi;
 		if hook_buffer > 0 && input.check_pressed("bomb") && canShoot {
 			var _inst = instance_nearest(x, y, obj_enemy)
 			if ((_inst != noone && point_distance(x, y, _inst.x, _inst.y) < 100) || point_distance(x, y, hook_x, hook_y) < 100) {
@@ -505,7 +508,9 @@ state.add("idle", {
 					test.mode = 1
 					test.scaleTarget = WIDTH * 4
 					test.scaleSpeed = 64
-				iFrames = 6;
+				iFrames = 9;
+				hook_iframe = 6;
+				hook_buffer = 0;
 			} else {
 				//instance_create_layer(x, y, layer, obj_playerPop);
 			}

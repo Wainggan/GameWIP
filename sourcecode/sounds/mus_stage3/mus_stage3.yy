@@ -15,7 +15,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "mus_stage3.mp3",
-  "duration": 182.2302,
+  "duration": 189.231,
   "parent": {
     "name": "Music",
     "path": "folders/Sounds/Music.yy",

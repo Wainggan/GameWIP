@@ -97,8 +97,8 @@ enemies = {
 			16,
 			function(){
 				bullet_preset_ring(x, y, 32, 8, wave(-360, 360, 10), function(_x, _y, _dir){
-					with bullet_shoot_dir2(_x, _y, 6, 0.2, -3, _dir) {
-						sprite_index = spr_bullet_inverted
+					with bullet_shoot_dir2(_x, _y, 6, 0.2, 3, _dir) {
+						sprite_index = spr_bullet_large
 						glow = cb_blue;
 					}
 				})

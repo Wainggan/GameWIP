@@ -205,7 +205,7 @@ enemies = {
 		])
 	},
 	"big2": function(){
-		hp = 80;
+		hp = 100;
 		
 		sprite_index = spr_enemy_cat;
 		
@@ -248,10 +248,103 @@ enemies = {
 			}
 		]);
 		
-	}
+	},
+	"miniboss": function(){
+		hp = 69;
+		deathRadius = WIDTH * 2;
+		important = true;
+		invinsible = true;
+		ignoreSlap = true;
+		canDie = false;
+		
+		sprite_index = spr_car
+		
+		x = WIDTH + 74;
+		y = -60;
+		
+		movement_start(WIDTH / 2, 128, 1/120, , function(){
+			func_nextAttack()
+		});
+		
+		attacks = [
+			function(){
+				hp = 200;
+				
+				scoreGive = 6000;
+				pointGive = 6;
+				
+				b_dir = 0;
+				b_amount = 3;
+				b_speed = 3;
+				
+				command_set([
+					2,
+					function(){
+						b_dir = bullet_preset_golden(x, y, 4, b_amount, b_dir, function(_x, _y, _dir){
+							bullet_group_start(_x, _y);
+							bullet_preset_ring(_x, _y, 3, 6, _dir, function(_x, _y, _dir){
+								with bullet_shoot(_x, _y) {
+									sprite_index = spr_bullet_small;
+									glow = cb_green
+								}
+							})
+							with bullet_group_end() {
+								dir = _dir;
+								spd = 8;
+								spd_target = other.b_speed
+								spd_accel = 0.2
+								step = function(){
+									rotate(2 * global.delta_multi);
+								}
+							}
+						})
+						commandIndex--;
+					}
+				]);
+				
+				command_add([
+					90,
+					function(){
+						movement_start(approach(x, obj_player.x + irandom_range(-32, 32), 64), 96 + irandom_range(-8, 64), 1/60);
+						commandIndex--;
+					}
+				]);
+				
+				command_add([
+					20,
+					function(){
+						with bullet_shoot_vel2(irandom_range(0, WIDTH), -64, 0, 0, 0, 0.02, 0, 4) {
+							sprite_index = spr_bullet_huge;
+							deathBorder = 96;
+						}
+						commandIndex--;
+					}
+				]);
+				
+				hpMod([
+					function(){
+						hp = 150;
+						
+						b_amount = 4;
+						b_speed = 3.5
+						command_get(1)[0] = 2;
+						command_get(2)[0] = 18;
+						
+					},
+					function(){
+						hp = 270;
+						
+						b_speed = 4
+						command_get(2)[0] = 14;
+					},
+				]);
+				
+			},
+		];
+	},
 }
 
-//stageIndex = 5
+stageIndex = 6
 
 audio_play_sound(mus_stage3, 10, false)
 
@@ -304,5 +397,8 @@ stage = [
 		}
 		
 		time(60 * 14);
+	},
+	function(){
+		enemy("miniboss", WIDTH/2, 64);
 	}
 ]
