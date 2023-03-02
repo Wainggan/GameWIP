@@ -174,8 +174,6 @@ enemies = {
 				scoreGive = 50000;
 				pointGive = 12;
 				
-				game_focus_set(true);
-				
 				b_density = 7;
 				
 				command_set([

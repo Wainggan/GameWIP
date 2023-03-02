@@ -18,6 +18,8 @@ hook_icon_xAnim.update(global.delta_milli, hook_x);
 hook_icon_showAnim.update(global.delta_milli, hook_maybeTarget);
 hook_icon_rotate += 1 * global.delta_multi
 
+hook_focus_chargeAnim.update(global.delta_milli, hook_focus_charge);
+
 
 draw_set_alpha(grazeHitboxGraphicShow)
 	draw_circle(round(x)-1, round(y)-1, grazeRadius - 6, 1)

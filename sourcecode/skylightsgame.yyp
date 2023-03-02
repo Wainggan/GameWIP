@@ -34,6 +34,7 @@
     {"id":{"name":"scr_lib_wText","path":"scripts/scr_lib_wText/scr_lib_wText.yy",},"order":10,},
     {"id":{"name":"spr_bombicon","path":"sprites/spr_bombicon/spr_bombicon.yy",},"order":1,},
     {"id":{"name":"ft_debug","path":"fonts/ft_debug/ft_debug.yy",},"order":0,},
+    {"id":{"name":"spr_bullet_smaller","path":"sprites/spr_bullet_smaller/spr_bullet_smaller.yy",},"order":9,},
     {"id":{"name":"obj_showScore","path":"objects/obj_showScore/obj_showScore.yy",},"order":4,},
     {"id":{"name":"rm_mainmenu","path":"rooms/rm_mainmenu/rm_mainmenu.yy",},"order":2,},
     {"id":{"name":"shd_shockwave_distort","path":"shaders/shd_shockwave_distort/shd_shockwave_distort.yy",},"order":4,},

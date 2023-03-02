@@ -86,7 +86,6 @@ func_nextAttack = function(){
 			audio_play_sound(snd_explosion1, 20, false);
 			__onDeath();
 		}
-		game_focus_set(false);
 	};
 	if onDeath != undefined && onDeath != _func __onDeath = onDeath;
 	else __onDeath = function(){};

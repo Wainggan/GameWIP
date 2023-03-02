@@ -26,6 +26,11 @@ meta = {
 		loopLength = (60 * 3 + 10.01) - introLength;
 		totalLength = introLength + loopLength;
 	}),
+	mus_stage3: method(self, function(){
+		introLength = 14.01;
+		loopLength = (60 * 3 + 2.19) - introLength;
+		totalLength = introLength + loopLength;
+	}),
 	mus_boss3: method(self, function(){
 		introLength = 33.41;
 		loopLength = (60 * 2 + 53.16) - introLength;

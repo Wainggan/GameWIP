@@ -342,11 +342,34 @@ enemies = {
 			},
 		];
 	},
+	"basic5": function(_dir, _spd){
+		hp = 40;
+		scoreGive = 500;
+		pointGive = 2;
+		
+		sprite_index = spr_enemy_flower
+		
+		movement_start(WIDTH / 2 + (WIDTH / 2 + 64) * _dir, y, 1 / abs(x - (WIDTH / 2 + (WIDTH / 2 + 64) * _dir)) * _spd, "linear",function(){instance_destroy()});
+
+		command_set([
+			3,
+			function(){
+				with bullet_shoot_dir(x, y, 1, random_range(180, 360)) {
+					y_vel = -2
+					y_accel = 0.02;
+					y_target = 3;
+					
+					glow = choose(cb_teal, cb_pink);
+					sprite_index = spr_bullet_point
+				}
+				commandIndex--
+			}
+		]);
+	},
 }
 
-stageIndex = 6
-
-audio_play_sound(mus_stage3, 10, false)
+//stageIndex = 7
+game_music(mus_stage3)
 
 stage = [
 	function(){
@@ -377,7 +400,7 @@ stage = [
 	function(){
 		enemy("big1", WIDTH/2, HEIGHT / 2);
 		for (var i = 0; i < 14; i++) {
-			enemy_delay("basic3", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), HEIGHT/2 + choose(-1, 1) * 140 + irandom_range(-80, 80), i * 120);
+			enemy_delay("basic3", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), HEIGHT/2 + choose(-1, 1) * 60 + irandom_range(-80, 80) - 80, i * 120);
 		}
 		time(120 * 14)
 	},
@@ -393,12 +416,34 @@ stage = [
 		enemy_delay("big2", WIDTH/2 + 128, 60, 60 * 4);
 		
 		for (var i = 0; i < 4; i++) {
-			enemy_delay("basic3", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), HEIGHT/2 + choose(-1, 1) * 140 + irandom_range(-80, 80), i * 120);
+			enemy_delay("basic3", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), HEIGHT/2 + choose(-1, 1) * 60 + irandom_range(-80, 80) - 80, i * 120);
 		}
 		
 		time(60 * 14);
 	},
 	function(){
 		enemy("miniboss", WIDTH/2, 64);
-	}
+		time(, true);
+	},
+	function(){
+		show_debug_message("e")
+		spawnUpgrade();
+		time(60 * 4);
+	},
+	function(){
+		for (var i = 1; i < 11; i++) {
+			var _c = i % 2 == 0 ? 1 : -1
+			enemy_delay("basic5", WIDTH / 2 + ((WIDTH / 2) + 128) * _c, irandom_range(-8, 160), i * 120, [-_c, 1])
+		}
+		time(60 * 10 + 60*14);
+	},
+	function(){
+		for (var i = 0; i < 12; i++) {
+			enemy_delay("basic", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), irandom_range(50, 200), i * 60);
+		}
+		time(60 * 10 + 60 * 3 + 60 * 3 + 60 * 4)
+	},
+	function(){
+		
+	},
 ]

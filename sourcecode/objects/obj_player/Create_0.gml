@@ -185,6 +185,11 @@ hook_buffer = 0;
 hook_iframe = 0;
 hook_charge = 0;
 
+hook_focus_charge = 0;
+hook_focus_chargeAnim = new Sod(4, 0.6, 0);
+hook_focus_limit = 4;
+hook_focus_active = false;
+
 
 #region input
 horzMovementPriority = [];
@@ -440,8 +445,9 @@ state.add("idle", {
 		
 						grazeHitboxGraphicShow = 1;
 						
-						if hook_ing || hook_iframe /*&& random(1) < 1 - (point_distance(x, y, hook_x, hook_y)-64)/100*/ {
-							//instance_destroy(_b);
+						if hook_focus_active {
+							_b.image_xscale = 0.6;
+							_b.image_yscale = 0.6;
 						}
 		
 						//func_grazeFlavorText(string(grazeCombo))
@@ -449,6 +455,7 @@ state.add("idle", {
 					if hook_ing || hook_iframe instance_destroy(_b)
 				}
 				if _grazeTotal
+					repeat 1 + hook_focus_active * 1
 					with instance_create_layer(x, y, "Instances", obj_collectable) {
 						sprite_index = spr_collectable_graze;
 						var _scale = random_range(0.4, 1);
@@ -511,6 +518,14 @@ state.add("idle", {
 				iFrames = 9;
 				hook_iframe = 6;
 				hook_buffer = 0;
+				if hook_focus_active {
+					hook_focus_charge += 0.25;
+				} else {
+					hook_focus_charge += 1;
+				}
+				if hook_focus_charge == hook_focus_limit {
+					hook_focus_active = true;
+				}
 			} else {
 				//instance_create_layer(x, y, layer, obj_playerPop);
 			}
@@ -557,6 +572,16 @@ state.add("idle", {
 			hook_buffer = 12;
 		}
 
+
+		if hook_focus_active {
+			game_focus_set(true)
+			hook_focus_charge -= 0.006 * global.delta_multi;
+			if hook_focus_charge <= 0 {
+				hook_focus_charge = 0;
+				hook_focus_active = false;
+				game_focus_set(false)
+			}
+		}
 		
 		
 		#region shoot
