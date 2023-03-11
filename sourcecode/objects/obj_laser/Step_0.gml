@@ -2,7 +2,7 @@ angle_vel =
 	angle_target != undefined
 		? approach(angle_vel, angle_target, angle_accel * global.delta_multi)
 		: angle_vel + angle_accel * global.delta_multi;
-angle += angle_vel;
+angle += angle_vel * global.delta_multi;
 
 event_inherited();
 

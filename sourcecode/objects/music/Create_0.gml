@@ -10,6 +10,12 @@ introLength = 4;
 loopLength = (60 + 4) - introLength;
 totalLength = introLength + loopLength;
 
+bpm = 150;
+lastBeat = 0;
+beatTotal = 0;
+hasBeat = false;
+
+
 meta = {
 	mus_stage1test: method(self, function(){
 		introLength = 3.07;
@@ -33,8 +39,10 @@ meta = {
 	}),
 	mus_boss3: method(self, function(){
 		introLength = 33.41;
-		loopLength = (60 * 2 + 53.16) - introLength;
+		loopLength = (60 * 2 + 53.16);
 		totalLength = introLength + loopLength;
+		
+		bpm = 158;
 	}),
 }
 
@@ -44,9 +52,12 @@ news_subscribe("music_change", function(_s) {
 	audio_stop_sound(bgm);
 	bgm = -1;
 	if playing != -1 {
-		bgm = audio_play_sound(playing, 0, false, volume);
+		bgm = audio_play_sound(playing, 0, true, volume);
 		if meta[$ audio_get_name(playing)]
 			meta[$ audio_get_name(playing)]()
+		show_debug_message("{0}, {1}", introLength, loopLength)
+		audio_sound_loop_start(bgm, introLength)
+		audio_sound_loop_end(bgm, loopLength)
 	}
 });
 

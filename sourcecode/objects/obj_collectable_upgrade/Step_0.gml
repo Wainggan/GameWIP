@@ -17,6 +17,11 @@ if hp <= 0 {
 	shockwave.scaleTarget = 512
 	shockwave.scaleSpeed = 8
 	
+	repeat 10
+		text_splash_random(x, y, 1000, 32, 10)
+	global.score += 10000;
+	
+	
 	screenShake_set(4, 0.2);
 	game_pause(4)
 	

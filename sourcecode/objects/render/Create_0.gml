@@ -68,6 +68,12 @@ blur_surf_ping = -1;
 
 #endregion
 
+#region Text Color Shader 
+
+tColor_shader = shd_invertColor;
+
+#endregion
+
 #region Water Shader
 
 water_surf = -1;
@@ -84,6 +90,9 @@ bullet_playerSurf = -1
 focusAnimCurve = new AnimCurve( , 1, 0);
 game_focus_set(false);
 focusAnimCurve.percent = 1;
+
+background_surf = -1;
+shadowtemp_surf = -1;
 
 backgroundOrder = [];
 currentBackground = 0;

@@ -8,6 +8,12 @@ if !surface_exists(blur_surface)
 if !surface_exists(blur_surf_ping)
 	blur_surf_ping = surface_create(WIDTH, HEIGHT);
 	
+if !surface_exists(shadowtemp_surf)
+	shadowtemp_surf = surface_create(WIDTH, HEIGHT);
+	
+if !surface_exists(background_surf)
+	background_surf = surface_create(WIDTH, HEIGHT);
+	
 //if !surface_exists(water_surf)
 //	water_surf = surface_create(WIDTH, HEIGHT);
 
@@ -48,23 +54,15 @@ var _lastBY = backgroundY % (_currentB.height * 16) - (_currentB.height - 30) * 
 
 //surface_set_target(water_surf);
 //	draw_clear_alpha(c_black, 0);
-	
-#region blur
 
-//surface_reset_target()
+surface_set_target(background_surf)
 
-surface_set_target(blur_surface);
 	draw_clear(c_black)
 	
 	// draw background layer
 	
 	// draw emergency tile
-	
 	draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 1);
-	
-	// draw water
-	
-	//draw_surface(water_surf, 0, 0);
 	
 	// draw background
 	
@@ -72,8 +70,49 @@ surface_set_target(blur_surface);
 		
 	_currentB.draw(_lastBY);
 	_newB.draw(_lastBY - (_newB.height * 16));
+
+surface_reset_target()
+surface_set_target(shadowtemp_surf)
+	draw_clear_alpha(c_black, 0)
+	
+	var _angleX = -20;
+	var _angleY = 60;
 	
 	
+	
+	with obj_player {
+		show_debug_message(sprite_width)
+		draw_sprite_pos(
+			sprite_index, image_index, 
+			x-(sprite_width/2)+_angleX,
+			y+_angleY,
+			x+(sprite_width/2)+_angleX,
+			y+_angleY,
+			x+(sprite_width/2),
+			y,
+			x-(sprite_width/2),
+			y, 
+			1
+		)
+		draw_circle(x-(sprite_width/2), y, 2, false)
+		//draw_sprite_ext(sprite_index, image_index, round(x), round(y+32), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), -1, 0, c_black, 1)
+	}
+
+surface_reset_target()
+surface_set_target(background_surf)
+	
+	draw_surface(shadowtemp_surf, 0, 0)
+
+surface_reset_target()
+	
+#region blur
+
+//surface_reset_target()
+
+surface_set_target(blur_surface);
+
+	draw_surface(background_surf, 0, 0);
+
 	// draw dark filter
 	draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, c_black, 0.4 * focusAnimCurve.evaluate());
 surface_reset_target();

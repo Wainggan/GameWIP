@@ -366,9 +366,215 @@ enemies = {
 			}
 		]);
 	},
+	"boss": function(){
+		hp = 69;
+		deathRadius = WIDTH * 2;
+		important = true;
+		invinsible = true;
+		ignoreSlap = true;
+		canDie = false;
+		
+		sprite_index = spr_car;
+		
+		x = 200;
+		y = -60;
+		
+		movement_start(WIDTH / 2, 100, 1/120, , function(){
+			game_music(mus_boss3)
+			//game_music(mus_boss3)
+			//func_nextAttack()
+			//ignore
+			textbox_scene_create([
+				["what", [spr_portraitTest, 0, -1], function() {
+					
+					//audio_play_sound(mus_boss2, 0, false)
+					func_nextAttack()
+				}],
+			]);
+		});
+		
+		//news_subscribe("8th", function(){
+			//bullet_shoot_dir(x, y, 4, 0)
+		//})
+		
+		//currentAttack = 3;
+		attacks = [
+			
+			function(){
+				hp = 140;
+				scoreGive = 50000;
+				pointGive = 6;
+				
+				command_set([
+					new CommandBeat(8),
+					function(){
+						var _dir = point_direction(x, y, obj_player.x, obj_player.y)
+						for (var i = 0; i < 7; i++) {
+							bullet_shoot_dir(x, y, 0.5 + i * 0.6, _dir);
+						}
+						commandIndex--;
+					}
+				]);
+				command_timer(60 * 14, function(){
+					command_add([
+						new CommandBeat(8),
+						function(){
+							bullet_preset_ring(x, y, 15, 0, point_direction(x, y, obj_player.x, obj_player.y) + random_range(-14, 14), function(_x, _y, _dir, _i){
+								with bullet_laser(_x, _y, _dir + 8, 8, 32) {
+									glow = cb_yellow;
+								}
+							})
+							commandIndex--
+						}
+					])
+				})
+				
+				command_add([
+					120,
+					90,
+					function(){
+						movement_start(approach(x, obj_player.x + irandom_range(-16, 16), 32), 96 + irandom_range(-8, 64), 1/60);
+						commandIndex--;
+					}
+				]);
+				
+			},
+			function(){
+				hp = 200;
+				scoreGive = 50000;
+				pointGive = 6;
+				
+				b_ldir = 1;
+				
+				command_set([
+					24,
+					function(){
+						bullet_preset_plate(irandom_range(0, WIDTH), 32, 7, 20, 16, 2, random_range(270-10, 270+10), function(_x, _y, _dir){
+							bullet_preset_line2(_x, _y, _dir, 12, 6, function(_x, _y, _dir){
+								with bullet_shoot_dir3(_x, _y, 1, 0.8, 8, 0.8, 2, _dir) {
+									sprite_index = spr_bullet_small
+								};
+							})
+						})
+
+						
+						commandIndex--;
+					}
+				]);
+				command_add([
+					60*12,
+					new CommandBeat(8 * 4),
+					function(){
+						bullet_preset_ring(x, y, 24, 0, irandom_range(0,360), function(_x, _y, _dir, _i){
+							with bullet_laser(_x, _y, _dir, 80, 48) {
+								glow = cb_yellow;
+								angle_vel = 0.06*other.b_ldir;
+							}
+						})
+						b_ldir = -b_ldir
+						commandIndex--
+					}
+				])
+				
+				command_add([
+					120,
+					new CommandBeat(8 * 4),
+					function(){
+						movement_start(approach(x, clamp(obj_player.x + irandom_range(-16, 16), WIDTH/2 - 64, WIDTH/2 + 64), 32), 96 + irandom_range(-8, 64), 1/60);
+						commandIndex--;
+					}
+				]);
+				
+			},
+			function(){
+				hp = 200;
+				
+				command_set([
+					new CommandBeat(8*2),
+					function(){
+						bullet_preset_ring(x+96 + irandom_range(-32, 32), y+irandom_range(-32, 64), 11, 0, random_range(0, 360), function(_x, _y, _dir, _i){
+							with bullet_laser(_x, _y, _dir, 4, 48) {
+								glow = cb_yellow;
+							}
+						})
+						
+						bullet_preset_ring(x-96 + irandom_range(-32, 32), y+irandom_range(-32, 64), 11, 0, random_range(0, 360), function(_x, _y, _dir, _i){
+							with bullet_laser(_x, _y, _dir, 4, 48) {
+								glow = cb_yellow;
+							}
+						})
+						commandIndex--;
+					}
+				]);
+				
+				command_add([
+					new CommandBeat(8),
+					function(){
+						var _p = choose(-1, 1);
+						with bullet_shoot_dir(WIDTH/2 + (WIDTH/2 + 32)*_p, irandom_range(-16, HEIGHT/2+64), 3, 270+45*-_p + random_range(-8, 8)) {
+							sprite_index = spr_bullet_large
+						}
+						commandIndex--
+					}
+				]);
+				command_add([
+					new CommandBeat(1),
+					function(){
+						bullet_preset_ring(x, y, 3, 16, wave(0, 720, 8), function(_x, _y, _dir){
+							with bullet_shoot_dir2(_x, _y, 6, 0.1, 2, _dir) {
+								sprite_index = spr_bullet_small
+							}
+						})
+						
+						
+						commandIndex--
+					}
+				]);
+				
+				command_add([
+					120,
+					new CommandBeat(8*2),
+					function(){
+						movement_start(WIDTH/2 + irandom_range(-64, 64), 96 + irandom_range(-8, 64), 1/32);
+						commandIndex--;
+					}
+				]);
+				
+			},
+			function(){
+				
+				hp = 200;
+				
+				movement_start(WIDTH/2, HEIGHT/2 - 32, 1/200)
+				
+				command_set([
+					100,
+					new CommandBeat(8),
+					function(){
+						bullet_preset_ring(irandom_range(32, WIDTH-32), irandom_range(32, HEIGHT-128), 11, 0, random_range(0, 360), function(_x, _y, _dir){
+							with bullet_laser(_x, _y, _dir, 4, 128) {
+								glow = cb_yellow;
+							}
+						})
+						commandIndex--
+					}
+					
+					
+				])
+				
+				command_add([
+						2,
+						function(){
+							
+						}
+					])
+				
+			}
+		]
+	}
 }
 
-//stageIndex = 7
+stageIndex = 10
 game_music(mus_stage3)
 
 stage = [
@@ -444,6 +650,6 @@ stage = [
 		time(60 * 10 + 60 * 3 + 60 * 3 + 60 * 4)
 	},
 	function(){
-		
+		enemy("boss", 0, 0);
 	},
 ]

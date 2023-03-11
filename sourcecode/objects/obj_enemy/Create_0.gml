@@ -17,6 +17,8 @@ hpMod = function(_arr){
 	currentHpMod = 0;
 }
 
+shakeAmount = 0;
+shakeFix = undefined;
 
 hitAnim = 0;
 
@@ -78,11 +80,13 @@ func_nextAttack = function(){
 		}
 		if !canDie {
 			screenShake_set(4, 0.2);
-			game_pause(4)
+			game_pause(8)
+			shakeAmount = 8;
 		} else {
 			screenShake_set(5, 0.2);
 			//instance_create_layer(0, 0, "Instances", obj_koSplash);
 			game_pause(26)
+			shakeAmount = 26
 			audio_play_sound(snd_explosion1, 20, false);
 			__onDeath();
 		}
@@ -90,6 +94,7 @@ func_nextAttack = function(){
 	if onDeath != undefined && onDeath != _func __onDeath = onDeath;
 	else __onDeath = function(){};
 	onDeath = _func;
+	command_timer_reset()
 	command_reset();
 	movement_stop();
 	if currentAttack < array_length(attacks) {

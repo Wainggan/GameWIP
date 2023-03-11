@@ -15,6 +15,8 @@ if latch && !latchTimer {
 	
 	if place_meeting(x, y, obj_player) {
 		global.score += scoreGive;
+		if scoreGive > 0
+			text_splash_random(x, y, scoreGive, 64, 6, 2)
 		if func != undefined func();
 		instance_destroy();
 	}

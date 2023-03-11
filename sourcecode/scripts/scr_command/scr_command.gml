@@ -1,3 +1,7 @@
+function CommandBeat(_beat = 1) constructor {
+	beat = _beat;
+}
+
 function command_set(_array) {
 	commandList = [];
 	command_add(_array);
@@ -13,7 +17,8 @@ function command_add(_array) {
 	array_push(commandList, {
 		list: _array,
 		index: 0,
-		timer: 0
+		timer: 0,
+		beat: 0
 	});
 	commandIndex = 0;
 	commandTimer = 0;
@@ -105,26 +110,53 @@ function command_update() {
 			var cL = commandList[i].list;
 			commandIndex = commandList[i].index;
 			commandTimer = commandList[i].timer;
+			commandBeat = commandList[i].beat;
 			
-			var _saftey = 1;
-			while commandTimer <= 0 && _saftey-- >= 0 {
-				if commandIndex < array_length(cL) 
-					&& commandTimer <= 0 
-					{
-						var lastC = commandIndex;
-						if typeof(cL[commandIndex]) == "method" {
-							cL[commandIndex]();
-						} else {
-							commandTimer = cL[commandIndex];
+			if commandBeat > 0 {
+				var _saftey = 1;
+				while commandBeat <= 0 && _saftey-- >= 0 {
+					if commandIndex < array_length(cL) 
+						&& commandBeat <= 0 
+						{
+							var lastC = commandIndex;
+							if typeof(cL[commandIndex]) == "method" {
+								cL[commandIndex]();
+							} else if is_struct(cL[commandIndex]) {
+								commandBeat = cL[commandIndex].beat;
+							} else {
+								commandTimer = cL[commandIndex];
+							}
+							if lastC == commandIndex commandIndex++;
 						}
-						if lastC == commandIndex commandIndex++;
-					}
-			}
+				}
+				
+				//show_debug_message("{0} {1}", commandBeat, +music.hasBeat)
+				commandBeat -= +music.hasBeat;
+			} else {
 			
-			commandTimer -= global.delta_multi;
+				var _saftey = 1;
+				while commandTimer <= 0 && _saftey-- >= 0 {
+					if commandIndex < array_length(cL) 
+						&& commandTimer <= 0 
+						{
+							var lastC = commandIndex;
+							if typeof(cL[commandIndex]) == "method" {
+								cL[commandIndex]();
+							} else if is_struct(cL[commandIndex]) {
+								commandBeat = cL[commandIndex].beat;
+							} else {
+								commandTimer = cL[commandIndex];
+							}
+							if lastC == commandIndex commandIndex++;
+						}
+				}
+			
+				commandTimer -= global.delta_multi;
+			}
 			
 			commandList[i].index = commandIndex;
 			commandList[i].timer = commandTimer;
+			commandList[i].beat = commandBeat;
 			
 			if commandList[i].index >= array_length(commandList[i].list)
 				array_delete(commandList, i--, 1);

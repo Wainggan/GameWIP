@@ -1,1 +1,1 @@
-particle.burst(x, y, "enemyDeath")
+particle_burst(x, y, ps_enemypop_1)

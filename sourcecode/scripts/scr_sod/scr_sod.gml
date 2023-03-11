@@ -45,6 +45,8 @@ function Sod(f = 1, z = 1, r = 0) constructor {
 		return self.value;
 	}
 	static update = function(time, x, x_vel = undefined) {
+		if time <= 0 return self.value;
+		
 		if (x_vel == undefined) {
 		    x_vel = (x - self._lastX) / time;
 		    self._lastX = x;

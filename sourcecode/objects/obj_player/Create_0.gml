@@ -50,7 +50,9 @@ bulletChargeSpeedSlow = 0.005;
 bulletChargeTarget = 1.6;
 
 grazeComboBulletMult = 1
-grazeComboBulletExp = 0.15
+grazeComboBulletExp = 0.15;
+
+shakeAmount = 0;
 
 
 tReloadTime = 7;
@@ -182,6 +184,7 @@ hook_ing = false;
 hook_target = noone;
 hook_maybeTarget = false;
 hook_buffer = 0;
+hook_extrabuffer = 0;
 hook_iframe = 0;
 hook_charge = 0;
 
@@ -350,6 +353,7 @@ state.add("idle", {
 					
 					game_pause(16, true);
 					screenShake_set(4);
+					shakeAmount = 15;
 					iFrames = 40;
 					
 					var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
@@ -361,7 +365,7 @@ state.add("idle", {
 					test.scaleTarget = WIDTH * 4
 					test.scaleSpeed = 32
 					
-					particle.burst(x, y, "playerDeath")
+					//particle.burst(x, y, "playerDeath")
 	
 					livesLeft--
 					
@@ -377,6 +381,7 @@ state.add("idle", {
 					lifeCharge = 0;
 					
 					game_pause(6, false);
+					shakeAmount = 6;
 					screenShake_set(4);
 					iFrames = 20;
 					
@@ -439,6 +444,8 @@ state.add("idle", {
 						
 						grazeComboQueueLastX = _b.x;
 						grazeComboQueueLastY = _b.y;
+						
+						//text_splash_random(x, y, string(max(grazeComboQueue - ceil(lerp(grazeCombo - grazeComboQueue, grazeCombo, 0.5) - (grazeCombo - grazeComboQueue)), 0) * 10), 32, 6)
 		
 						ignore global.score += round(power(grazeCombo + 1, 0.463)-1)*10+10;
 						
@@ -452,7 +459,11 @@ state.add("idle", {
 		
 						//func_grazeFlavorText(string(grazeCombo))
 					}
-					if hook_ing || hook_iframe instance_destroy(_b)
+					if hook_ing || hook_iframe {
+						instance_destroy(_b)
+						text_splash_random(x, y, "100", 32, 20);
+						global.score += 100;
+					}
 				}
 				if _grazeTotal
 					repeat 1 + hook_focus_active * 1
@@ -502,11 +513,12 @@ state.add("idle", {
 		
 		isShooting = input.check("shoot") && canShoot
 		
-		hook_charge = min(hook_charge + 0.004 * global.delta_multi, 1);
+		hook_charge = min(hook_charge + 0.0035 * global.delta_multi, 1);
 		
 		hook_buffer -= global.delta_multi;
+		hook_extrabuffer -= global.delta_multi;
 		hook_iframe -= global.delta_multi;
-		if hook_buffer > 0 && input.check_pressed("bomb") && canShoot {
+		if (hook_buffer > 0 || (hook_extrabuffer > 0 && hook_extrabuffer < 1.99)) && input.check_pressed("bomb") && canShoot {
 			var _inst = instance_nearest(x, y, obj_enemy)
 			if ((_inst != noone && point_distance(x, y, _inst.x, _inst.y) < 100) || point_distance(x, y, hook_x, hook_y) < 100) {
 				instance_create_layer(x, y, layer, obj_playerPop);
@@ -515,25 +527,40 @@ state.add("idle", {
 					test.mode = 1
 					test.scaleTarget = WIDTH * 4
 					test.scaleSpeed = 64
+				
+				repeat 25
+					text_splash_random(x, y, "1000", 128, 20);
+				global.score += 1000 * 25;
+				
 				iFrames = 9;
 				hook_iframe = 6;
 				hook_buffer = 0;
-				if hook_focus_active {
-					hook_focus_charge += 0.25;
-				} else {
-					hook_focus_charge += 1;
+				
+				hook_ing = false;
+				if hook_extrabuffer < 0 {
+					if hook_focus_active {
+						hook_focus_charge += 0.25;
+					} else {
+						hook_focus_charge += 1;
+					}
+					if hook_focus_charge == hook_focus_limit {
+						hook_focus_active = true;
+					}
 				}
-				if hook_focus_charge == hook_focus_limit {
-					hook_focus_active = true;
-				}
+				
+				if hook_extrabuffer < 0 
+					hook_extrabuffer = 2;
+				else
+					hook_extrabuffer = 0;
 			} else {
 				//instance_create_layer(x, y, layer, obj_playerPop);
 			}
 		}
+
 		if !instance_exists(hook_target) && !hook_ing  && hook_charge == 1 && canShoot {
 			
 			var _enemyList = ds_list_create()
-			collision_rectangle_list(x-30, y, x+30, y - 10000, obj_enemy, false, true, _enemyList, true);
+			collision_rectangle_list(x-30, y-32, x+30, y - 10000, obj_enemy, false, true, _enemyList, true);
 			hook_testTarget = noone;
 			if ds_list_size(_enemyList) {
 				hook_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
@@ -553,11 +580,13 @@ state.add("idle", {
 					
 					hook_charge = 0;
 					hook_maybeTarget = false;
+					hook_target = noone;
 					iFrames = 10;
 				}
 				
 			} else {
 				hook_maybeTarget = false;
+				hook_target = noone;
 			}
 			
 			
@@ -566,15 +595,18 @@ state.add("idle", {
 			hook_x = hook_target.x;
 			hook_y = hook_target.y;
 		} else {
-			
+			hook_target = noone;
 		}
 		if hook_ing {
 			hook_buffer = 12;
 		}
-
+		
+		
 
 		if hook_focus_active {
 			game_focus_set(true)
+			//if global.time % 2 <= 1 particle_burst(x, y + 16, ps_player_hookTrail)
+			
 			hook_focus_charge -= 0.006 * global.delta_multi;
 			if hook_focus_charge <= 0 {
 				hook_focus_charge = 0;
@@ -590,9 +622,12 @@ state.add("idle", {
 				reloadTime = _newReloadTime
 				var _spreadTemp = input.check("sneak") ? bulletSpreadSlow : bulletSpread
 				var _spreadAngleTemp = input.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
-			
+				
+				
 				bullet_preset_plate(x, y, bulletAmount, _spreadTemp, _spreadAngleTemp, 2, 90, function(_x, _y, _dir){
 					var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
+					
+					particle_burst(_x, _y - 24, ps_player_shoot)
 		
 					with _inst {
 						fade = 1

@@ -11,3 +11,4 @@ fade = 24;
 fadeTime = 24;
 startTime = 8;
 endTime = 8;
+destroyFlag = false;

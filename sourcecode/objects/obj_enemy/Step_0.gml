@@ -5,6 +5,8 @@ if step != undefined step();
 command_update();
 movement_update();
 
+shakeAmount -= global.delta_multiNP
+
 if onGround {
 	y += render.backgroundSpeed * global.delta_multi;
 }
@@ -30,10 +32,13 @@ if timer != -1 || timerMod != undefined {
 }
 if timerMinActive timerMin -= global.delta_multi
 
-if hp <= 0 {
+if hp <= 0 && shakeFix == undefined {
 	if timerMod == undefined time()
 	if hpModArray == undefined || currentHpMod >= array_length(hpModArray) {
 		global.score += scoreGive;
+		
+		repeat 20
+			text_splash_random(x, y, round(scoreGive/20), 96, 20, 20)
 		
 		var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)
 		inst.targetSize = deathRadius
@@ -58,11 +63,21 @@ if hp <= 0 {
 		shockwave.mode = 1
 		shockwave.scaleTarget = deathRadius * 2
 		shockwave.scaleSpeed = 24
+		
+		//game_pause(2)
+		screenShake_set(2, 0.25);
 	}
 	
 	onDeath();
-	if canDie instance_destroy();
+	if canDie shakeFix = 1
 	//func_destroyBullets()
 }
+if shakeFix != undefined {
+	particle_burst(x, y, ps_enemypop_1)
+
+	shakeFix -= global.delta_multi
+	if canDie && shakeFix < 0 instance_destroy();
+}
+
 
 importantAnim.update(global.delta_milli, x);

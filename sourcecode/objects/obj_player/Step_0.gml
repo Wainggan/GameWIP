@@ -15,7 +15,10 @@ for (var i = 0; i < array_length(bulletLaserList); i++) {
 	_bl.active = isShooting;
 }
 
+shakeAmount -= global.delta_multiNP
+
 iFrames -= global.delta_multi
+
 
 grazeComboTimer -= instance_number(obj_bullet) ? global.delta_multi : 0
 if grazeComboTimer <= 0 {

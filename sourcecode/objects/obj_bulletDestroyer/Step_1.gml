@@ -18,19 +18,27 @@ for (var i = 0; i < ds_list_size(list); i++) {
 	
 	if destroy {
 		if b.object_index != obj_laser {
-			particle.burst(b.x, b.y, "bulletExplosion", lengthdir_x(2, d), lengthdir_y(2, d))
+			//particle.burst(b.x, b.y, "bulletExplosion", lengthdir_x(2, d), lengthdir_y(2, d))
+			
 			instance_destroy(b)
-		} else if point_distance(x, y, b.x, b.y) > currentSize + 16 {
+			
+			
+		} else if !b.destroyFlag && point_distance(x, y, b.x, b.y) > currentSize + 16 {
 			b.endTime = 8;
 			b.life = 8
+			b.destroyFlag = true;
 		}
+		
 		
 	}
 	else {
 		if hasTouched[$ b] == undefined {
 			if bulletBonus 
-				if false || ((0 < b.x && b.x < WIDTH) && (0 < b.y && b.y < HEIGHT + 32))
+				if false || ((0 < b.x && b.x < WIDTH) && (0 < b.y && b.y < HEIGHT + 32)) {
 					with instance_create_layer(b.x, b.y, "Instances", obj_collectable) y_vel = -2
+					text_splash_random(b.x, b.y, "100", 16, 10, 30);
+					global.score += 100;
+				}
 			hasTouched[$ b] = 69;
 		}
 	}

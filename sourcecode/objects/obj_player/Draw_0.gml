@@ -5,20 +5,23 @@ if input.check_pressed("sneak") {
 	//hitboxAnim.add(new Tween(0.25, 1, 0, function(_e){ hitboxSize = _e }, "ease"))
 	hitboxAnim.setWeights(10, 1, 0)
 }
-hitboxAnim.update(global.delta_milli, input.check("sneak"));
+
+var _t = global.delta_milliP
+
+hitboxAnim.update(_t, input.check("sneak"));
 hitboxSize = hitboxAnim.value;
 
-hook_ind_xAnim.update(global.delta_milli, hook_x);
-hook_ind_yAnim.update(global.delta_milli, hook_y);
-hook_ind_showAnim.update(global.delta_milli, hook_maybeTarget);
+hook_ind_xAnim.update(_t, hook_x);
+hook_ind_yAnim.update(_t, hook_y);
+hook_ind_showAnim.update(_t, hook_maybeTarget);
 
-hook_line_showAnim.update(global.delta_milli, hook_ing);
+hook_line_showAnim.update(_t, hook_ing);
 
-hook_icon_xAnim.update(global.delta_milli, hook_x);
-hook_icon_showAnim.update(global.delta_milli, hook_maybeTarget);
+hook_icon_xAnim.update(_t, hook_x);
+hook_icon_showAnim.update(_t, hook_maybeTarget);
 hook_icon_rotate += 1 * global.delta_multi
 
-hook_focus_chargeAnim.update(global.delta_milli, hook_focus_charge);
+hook_focus_chargeAnim.update(_t, hook_focus_charge);
 
 
 draw_set_alpha(grazeHitboxGraphicShow)
@@ -26,7 +29,12 @@ draw_set_alpha(grazeHitboxGraphicShow)
 draw_set_alpha(1)
 
 
-
+var _offX = 0;
+var _offY = 0;
+if shakeAmount > 0 {
+	_offX += round(random_range(-shakeAmount, shakeAmount))
+	_offY += round(random_range(-shakeAmount/4, shakeAmount/4))
+}
 //surface_set_target(surf);
 	//draw_clear_alpha(c_black, 0)
 
@@ -46,18 +54,18 @@ draw_set_alpha(1)
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
 				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
-				draw_sprite_ext(spr_player_tail, 0, p.x, p.y, tailSize / 64, tailSize / 64, 0, #3e2b32, 1)
+				draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, tailSize / 64, tailSize / 64, 0, #3e2b32, 1)
 			}
 		}
 
-	draw_sprite_ext(sprite_index, _img, round(x), round(y), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), 1, 0, c_white, 1)
+	draw_sprite_ext(sprite_index, _img, round(_offX + x), round( _offY + y), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), 1, 0, c_white, 1)
 	
 	if sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
 				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
-				draw_sprite_ext(spr_player_tail, 0, p.x, p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
+				draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
 			}
 		}
 	
@@ -94,5 +102,10 @@ draw_line_sprite(x, y, hook_x, hook_y, hook_line_showAnim.value * 4, c_white, 1)
 if hook_ing {
 	//draw_sprite(spr_playerHookAim, 0, x, y - 16);
 }
+
+draw_set_color(c_white);
+var prog = hook_focus_chargeAnim.value / hook_focus_limit;
+draw_line_sprite(2, HEIGHT-3, prog*(WIDTH/2-2)+2, HEIGHT-3, 3);
+draw_line_sprite(WIDTH-2, HEIGHT-3, WIDTH-prog*(WIDTH/2-2)+2, HEIGHT-3, 3);
 
 //draw_surface(surf, 0, 0);
