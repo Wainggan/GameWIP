@@ -4,6 +4,8 @@ y_vel = 0;
 tReloadTime = 12;
 reloadTime = tReloadTime;
 
+command_setup()
+
 target = noone;
 
 off = random(200);

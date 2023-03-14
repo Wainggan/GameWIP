@@ -2,12 +2,18 @@ function CommandBeat(_beat = 1) constructor {
 	beat = _beat;
 }
 
+function command_setup() {
+	commandSwitches = undefined;
+	commandList = undefined;
+	commandFrame = undefined;
+	commandStops = undefined;
+}
 function command_set(_array) {
 	commandList = [];
 	command_add(_array);
 }
 function command_add(_array) {
-	if !variable_instance_exists(self, "commandList") commandList = [];
+	if commandList == undefined commandList = [];
 	
 	for (var i = 0; i < array_length(_array); i++) {
 		if typeof(_array[i]) == "method"
@@ -46,7 +52,7 @@ function command_frame(_func) {
 }
 
 function command_timer(_time, _func) {
-	if !variable_instance_exists(self, "commandStops") commandStops = [];
+	if commandStops == undefined commandStops = [];
 	array_push(commandStops, [_time, _func]);
 }
 
@@ -92,7 +98,7 @@ function command_switch_set(_index) {
 }
 
 function command_update() {
-	if variable_instance_exists(self, "commandSwitches") && array_length(commandSwitches.list) > 0 {
+	if commandSwitches != undefined && array_length(commandSwitches.list) > 0 {
 		commandSwitches.timer -= global.delta_multi;
 		if commandSwitches.timer <= 0 {
 			if is_array(commandSwitches.list[commandSwitches.index]) 
@@ -105,7 +111,7 @@ function command_update() {
 				commandSwitches.index = 0
 		}
 	}
-	if variable_instance_exists(self, "commandList") {
+	if commandList != undefined {
 		for (var i = 0; i < array_length(commandList); i++) {
 			var cL = commandList[i].list;
 			commandIndex = commandList[i].index;
@@ -162,8 +168,8 @@ function command_update() {
 				array_delete(commandList, i--, 1);
 		}
 	}
-	if variable_instance_exists(self, "commandFrame") commandFrame();
-	if variable_instance_exists(self, "commandStops") {
+	if commandFrame != undefined commandFrame();
+	if commandStops != undefined {
 		for (var i = 0; i < array_length(commandStops); i++) {
 			commandStops[i][0] -= global.delta_multi;
 			if commandStops[i][0] <= 0 {

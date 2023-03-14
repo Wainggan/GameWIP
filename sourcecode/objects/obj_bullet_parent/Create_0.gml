@@ -38,3 +38,5 @@ death = undefined;
 glow = c_red
 
 mask_index = spr_nothing
+
+command_setup()

@@ -68,15 +68,12 @@ blur_surf_ping = -1;
 
 #endregion
 
-#region Text Color Shader 
-
-tColor_shader = shd_invertColor;
-
-#endregion
 
 #region Water Shader
 
-water_surf = -1;
+water_shader = shd_wave;
+water_u_iTime = shader_get_uniform(water_shader, "iTime");
+
 
 #endregion
 
@@ -93,6 +90,7 @@ focusAnimCurve.percent = 1;
 
 background_surf = -1;
 shadowtemp_surf = -1;
+watertemp_surf = -1;
 
 backgroundOrder = [];
 currentBackground = 0;

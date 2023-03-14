@@ -137,6 +137,7 @@
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},},
     {"id":{"name":"obj_koSplash","path":"objects/obj_koSplash/obj_koSplash.yy",},},
     {"id":{"name":"input","path":"objects/input/input.yy",},},
+    {"id":{"name":"shd_wave","path":"shaders/shd_wave/shd_wave.yy",},},
     {"id":{"name":"mus_boss2","path":"sounds/mus_boss2/mus_boss2.yy",},},
     {"id":{"name":"obj_enemy","path":"objects/obj_enemy/obj_enemy.yy",},},
     {"id":{"name":"spr_tilesets_stage1","path":"sprites/spr_tilesets_stage1/spr_tilesets_stage1.yy",},},
@@ -168,6 +169,7 @@
     {"id":{"name":"obj_bullet_parent","path":"objects/obj_bullet_parent/obj_bullet_parent.yy",},},
     {"id":{"name":"spr_enemy_cat","path":"sprites/spr_enemy_cat/spr_enemy_cat.yy",},},
     {"id":{"name":"mus_stage2test","path":"sounds/mus_stage2test/mus_stage2test.yy",},},
+    {"id":{"name":"spr_player_shadow","path":"sprites/spr_player_shadow/spr_player_shadow.yy",},},
     {"id":{"name":"spr_collectable_pointMax","path":"sprites/spr_collectable_pointMax/spr_collectable_pointMax.yy",},},
     {"id":{"name":"ac_tween","path":"animcurves/ac_tween/ac_tween.yy",},},
     {"id":{"name":"scr_bullet","path":"scripts/scr_bullet/scr_bullet.yy",},},
@@ -224,6 +226,6 @@
     {"roomId":{"name":"rm_stage4","path":"rooms/rm_stage4/rm_stage4.yy",},},
   ],
   "TextureGroups": [
-    {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},
+    {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":false,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},
   ],
 }

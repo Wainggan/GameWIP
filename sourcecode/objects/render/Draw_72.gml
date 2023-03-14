@@ -10,6 +10,8 @@ if !surface_exists(blur_surf_ping)
 	
 if !surface_exists(shadowtemp_surf)
 	shadowtemp_surf = surface_create(WIDTH, HEIGHT);
+if !surface_exists(watertemp_surf)
+	watertemp_surf = surface_create(WIDTH, HEIGHT);
 	
 if !surface_exists(background_surf)
 	background_surf = surface_create(WIDTH, HEIGHT);
@@ -55,33 +57,34 @@ var _lastBY = backgroundY % (_currentB.height * 16) - (_currentB.height - 30) * 
 //surface_set_target(water_surf);
 //	draw_clear_alpha(c_black, 0);
 
-surface_set_target(background_surf)
+//surface_set_target(background_surf)
 
-	draw_clear(c_black)
+	//draw_clear_alpha(c_black, 1)
 	
 	// draw background layer
 	
 	// draw emergency tile
-	draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 1);
+	//draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 1);
 	
 	// draw background
 	
-	draw_set_color(c_white)
+	//draw_set_color(c_white)
 		
-	_currentB.draw(_lastBY);
-	_newB.draw(_lastBY - (_newB.height * 16));
+	//_currentB.draw(_lastBY);
+	//_newB.draw(_lastBY - (_newB.height * 16));
 
-surface_reset_target()
+//surface_reset_target()
 surface_set_target(shadowtemp_surf)
 	draw_clear_alpha(c_black, 0)
 	
-	var _angleX = -20;
-	var _angleY = 60;
+	/*
+	// fml
+	var _angleX = obj_player.x-mouse_x;
+	var _angleY = obj_player.y-mouse_y;
 	
-	
+	gpu_set_fog(true, c_black, 0, 1)
 	
 	with obj_player {
-		show_debug_message(sprite_width)
 		draw_sprite_pos(
 			sprite_index, image_index, 
 			x-(sprite_width/2)+_angleX,
@@ -94,14 +97,71 @@ surface_set_target(shadowtemp_surf)
 			y, 
 			1
 		)
-		draw_circle(x-(sprite_width/2), y, 2, false)
-		//draw_sprite_ext(sprite_index, image_index, round(x), round(y+32), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), -1, 0, c_black, 1)
 	}
+	
+	gpu_set_fog(false, c_black, 0, 1)
+	
+	*/
+	
+	with obj_player draw_sprite(spr_player_shadow, 0, x, y+32)
+
+surface_reset_target()
+surface_set_target(watertemp_surf)
+	draw_clear_alpha(c_black, 0)
+	draw_clear_alpha(#6db8ed, 1)
+	
+	draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 0.4);
+
+	with obj_bullet {
+		var _glow = merge_color(glowTarget, c_white, 0.2);
+		if object_index == obj_bullet
+			draw_sprite_ext(sprite_index, 1, round(x), round(y + 24), (image_xscale - fade/fadeTime) * 0.9, (image_yscale - fade/fadeTime) * 0.9, image_angle, _glow, image_alpha);
+		else {
+			//draw_sprite_ext(spr_laser_head, 1, round(x), round(y + 24), 1, image_yscale, image_angle, _glow, image_alpha);
+			//draw_sprite_ext(spr_laser, 1, round(x + lengthdir_x(30, image_angle)), round(y + lengthdir_y(30, image_angle) + 24), image_xscale, image_yscale, image_angle, _glow, image_alpha);
+		}
+	}
+
+	with obj_player {
+		
+		
+		draw_sprite_ext(sprite_index, image_index, round(x), round(y+64), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), -1, 0, c_white, 1)
+		
+		if sprite_index == spr_player_vee
+		for (var i = 0; i < array_length(tails); i++) {
+			for (var j = 0; j < array_length(tails[i]); j++) {
+				var p = tails[i][j];
+				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
+				draw_sprite_ext(spr_player_tail, 0, p.x, p.y + 64 - 12, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
+			}
+		}
+		
+	}
+		
+	
 
 surface_reset_target()
 surface_set_target(background_surf)
 	
-	draw_surface(shadowtemp_surf, 0, 0)
+	draw_clear_alpha(c_black, 1)
+	
+	//gpu_set_blendmode_ext(bm_inv_dest_alpha, bm_one)
+	shader_set(water_shader);
+	shader_set_uniform_f(water_u_iTime, global.time);
+	
+		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.2), 0.8)
+	
+	//gpu_set_blendmode(bm_normal)
+	shader_reset()
+	
+	_currentB.draw(_lastBY);
+	_newB.draw(_lastBY - (_newB.height * 16));
+	
+	draw_surface_ext(shadowtemp_surf, 0, 0, 1, 1, 0, c_white, 0.6)
+	
+	//_currentB.draw(_lastBY);
+	//_newB.draw(_lastBY - (_newB.height * 16));
+	
 
 surface_reset_target()
 	

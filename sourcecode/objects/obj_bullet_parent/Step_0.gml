@@ -1,6 +1,8 @@
 command_update();
 movement_update();
 
+// TODO: OPTIMIZE!!
+
 if fade != 0 {
 	fade = max(fade - global.delta_multi, 0);
 	if fade == 0 mask_index = sprite_index;

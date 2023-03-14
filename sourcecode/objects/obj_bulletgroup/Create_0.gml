@@ -20,6 +20,8 @@ life = undefined;
 step = undefined;
 death = undefined;
 
+command_setup()
+
 bullets = [];
 
 add = function(_bullets) {

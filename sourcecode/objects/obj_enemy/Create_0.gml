@@ -30,6 +30,8 @@ alarm[0] = 1;
 canDie = true;
 destroyAll = false
 
+command_setup()
+
 time = function(_time = -1, _mt = timerMin, _tma = undefined){
 	if is_array(_time) {
 		timerMod = _time;
