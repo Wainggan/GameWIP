@@ -28,6 +28,7 @@ var _newB = backgroundOrder[newBackground];
 	
 backgroundSpeed = approach(backgroundSpeed, newBackgroundSpeed, backgroundSpeedAccel);
 backgroundY += global.delta_multi * backgroundSpeed;
+backgroundTotalY += global.delta_multi * backgroundSpeed;
 		
 if backgroundY % (backgroundOrder[currentBackground].height * 16) < 
 	backgroundLastY % (backgroundOrder[currentBackground].height * 16) {
@@ -54,26 +55,7 @@ var _lastBY = backgroundY % (_currentB.height * 16) - (_currentB.height - 30) * 
 	
 #endregion
 
-//surface_set_target(water_surf);
-//	draw_clear_alpha(c_black, 0);
 
-//surface_set_target(background_surf)
-
-	//draw_clear_alpha(c_black, 1)
-	
-	// draw background layer
-	
-	// draw emergency tile
-	//draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 1);
-	
-	// draw background
-	
-	//draw_set_color(c_white)
-		
-	//_currentB.draw(_lastBY);
-	//_newB.draw(_lastBY - (_newB.height * 16));
-
-//surface_reset_target()
 surface_set_target(shadowtemp_surf)
 	draw_clear_alpha(c_black, 0)
 	
@@ -103,14 +85,54 @@ surface_set_target(shadowtemp_surf)
 	
 	*/
 	
-	with obj_player draw_sprite(spr_player_shadow, 0, x, y+32)
+	with obj_player draw_sprite(spr_player_shadow, 0, x, y+32);
+	
+	with obj_enemy draw_sprite(spr_player_shadow, 0, x, y+32)
 
 surface_reset_target()
 surface_set_target(watertemp_surf)
+
 	draw_clear_alpha(c_black, 0)
-	draw_clear_alpha(#6db8ed, 1)
+	draw_sprite_tiled_ext(spr_debug, 0, 0, _lastBY, 1, 1, merge_color(c_white, c_black, 0.4), 1);
+
+surface_reset_target()
+surface_set_target(background_surf) // draw underwater
+	draw_clear_alpha(#95e6dc, 1)
 	
-	draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 0.4);
+	show_debug_message(backgroundTotalY / HEIGHT / pi)
+	shader_set(water_shader);
+	shader_set_uniform_f(water_u_iTime, global.time);
+	
+		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.1), 0.4)
+	
+	//gpu_set_blendmode(bm_normal)
+	shader_reset()
+	
+surface_reset_target()
+surface_set_target(watertemp_surf) // draw reflections
+	draw_clear_alpha(c_black, 0)
+	//draw_clear_alpha(#68c3ed, 1)
+	
+	//draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 0.6);
+
+	with obj_enemy {
+		switch sprite_index {
+			case spr_enemy_thing:
+				image_index = 0
+				test += global.delta_multi;
+				for (var i = 0; i < 3; i++) {
+					draw_sprite(sprite_index, 1, x + lengthdir_x(32, test + 360 / 3 * i), y - lengthdir_y(28, test + 360 / 3 * i) + sprite_height)
+				}
+				for (var i = 0; i < 3; i++) {
+					draw_sprite(sprite_index, 1, x + lengthdir_x(32, -test + 360 / 3 * i), y - lengthdir_y(28, -test + 360 / 3 * i) + sprite_height)
+				}
+				break;
+		}
+
+		//show_debug_message(y)
+		draw_sprite_ext(sprite_index, image_index, round(x + xOff), round(y - yOff + sprite_height), image_xscale, image_yscale*-1, image_angle, image_blend, image_alpha)
+		
+	}
 
 	with obj_bullet {
 		var _glow = merge_color(glowTarget, c_white, 0.2);
@@ -124,6 +146,14 @@ surface_set_target(watertemp_surf)
 
 	with obj_player {
 		
+		if sprite_index == spr_player_vee
+		for (var i = 0; i < array_length(tails); i++) {
+			for (var j = 0; j < array_length(tails[i]); j++) {
+				var p = tails[i][j];
+				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
+				draw_sprite_ext(spr_player_tail, 0, p.x, p.y + 64 - 12, tailSize / 64, tailSize / 64, 0, #3e2b32, 1)
+			}
+		}
 		
 		draw_sprite_ext(sprite_index, image_index, round(x), round(y+64), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), -1, 0, c_white, 1)
 		
@@ -137,19 +167,22 @@ surface_set_target(watertemp_surf)
 		}
 		
 	}
-		
+	
+	
 	
 
 surface_reset_target()
-surface_set_target(background_surf)
+surface_set_target(background_surf) // finalize reflections
 	
-	draw_clear_alpha(c_black, 1)
+	//draw_clear_alpha(c_black, 1)
+	
+	//draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 1);
 	
 	//gpu_set_blendmode_ext(bm_inv_dest_alpha, bm_one)
 	shader_set(water_shader);
 	shader_set_uniform_f(water_u_iTime, global.time);
 	
-		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.2), 0.8)
+		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.2), 0.6)
 	
 	//gpu_set_blendmode(bm_normal)
 	shader_reset()
@@ -159,8 +192,6 @@ surface_set_target(background_surf)
 	
 	draw_surface_ext(shadowtemp_surf, 0, 0, 1, 1, 0, c_white, 0.6)
 	
-	//_currentB.draw(_lastBY);
-	//_newB.draw(_lastBY - (_newB.height * 16));
 	
 
 surface_reset_target()

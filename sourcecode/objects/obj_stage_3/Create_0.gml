@@ -574,7 +574,7 @@ enemies = {
 	}
 }
 
-stageIndex = 10
+//stageIndex = 10
 game_music(mus_stage3)
 
 stage = [

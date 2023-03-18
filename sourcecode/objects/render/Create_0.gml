@@ -73,6 +73,7 @@ blur_surf_ping = -1;
 
 water_shader = shd_wave;
 water_u_iTime = shader_get_uniform(water_shader, "iTime");
+// TODO: offset water wave to follow the background speed
 
 
 #endregion
@@ -91,11 +92,13 @@ focusAnimCurve.percent = 1;
 background_surf = -1;
 shadowtemp_surf = -1;
 watertemp_surf = -1;
+underwatertemp_surf = -1;
 
 backgroundOrder = [];
 currentBackground = 0;
 newBackground = 0;
 backgroundY = 0;
+backgroundTotalY = 0;
 backgroundLastY = 0;
 newBackgroundSpeed = 2;
 backgroundSpeed = 2;
