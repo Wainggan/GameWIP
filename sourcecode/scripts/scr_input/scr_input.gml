@@ -94,7 +94,7 @@ function Input(_manager) constructor {
 		    dir: _direction
 		};
 		key.check = method(key, function() {
-		    return gamepad_axis_value(creator.manager.gamepad, axis) * dir >= creator.manager.deadzone;
+		    return gamepad_axis_value(self.creator.manager.gamepad, axis) * self.dir >= self.creator.manager.deadzone;
 		});
 
 		array_push(keys, key);
@@ -106,7 +106,7 @@ function Input(_manager) constructor {
 		    button: _button
 		};
 		key.check = method(key, function() {
-		    return gamepad_button_value(creator.manager.gamepad, button) >= 0.2;//creator.manager.deadzone;
+		    return gamepad_button_value(self.creator.manager.gamepad, self.button) >= 0.2;//creator.manager.deadzone;
 		});
 
 		array_push(keys, key);

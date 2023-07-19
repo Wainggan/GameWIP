@@ -1,8 +1,13 @@
-global.delta_target = 1/60;
+targetFrame = 60;
+global.slowdownTime = 0;
+
+global.delta_target = 1/targetFrame;
+
 global.delta_multi = 1;
-global.delta_multiNP = 1;
+global.delta_multiNP = 1; // NP stands for "No Pause"
 global.delta_milli = global.delta_target
-global.delta_milliP = global.delta_target
+global.delta_milliP = global.delta_target // Now take a guess
+// im extremely stupid
 
 global.pause = 0;
 pause = 0;
@@ -19,6 +24,8 @@ global.screenShakeDamp = 0.2;
 global.focus = false;
 global.currentBackground = 0;
 global.currentBackgroundSpeed = 2;
+
+global.lastTime = 0;
 
 global.shotSound = false;
 

@@ -6,7 +6,7 @@ game_music(mus_stage1test)
 
 enemies = {
 	"basic1": function(){
-		hp = 4;
+		hp = 5;
 		scoreGive = 100;
 		pointGive = 2;
 		
@@ -31,7 +31,7 @@ enemies = {
 		
 		command_set([
 			20,
-			7,
+			10,
 			function(){
 				invinsible = false
 				bullet_shoot_dir2(x, y, 2, 0.3, 4.5, point_direction(x, y, obj_player.x, obj_player.y));
@@ -59,9 +59,9 @@ enemies = {
 		
 		command_set([
 			30,
-			32,
+			40,
 			function(){
-				bullet_preset_ring(x, y, 32, 8, wave(-360, 360, 10), function(_x, _y, _dir){
+				bullet_preset_ring(x, y, 24, 8, wave(-360, 360, 10), function(_x, _y, _dir){
 					with bullet_shoot_dir2(_x, _y, 2, 0.2, 3, _dir) {
 						sprite_index = spr_bullet_point
 						glow = cb_grey;
@@ -94,9 +94,9 @@ enemies = {
 		
 		command_set([
 			30, 
-			16,
+			18,
 			function(){
-				bullet_preset_ring(x, y, 32, 8, wave(-360, 360, 10), function(_x, _y, _dir){
+				bullet_preset_ring(x, y, 28, 8, wave(-360, 360, 10), function(_x, _y, _dir){
 					with bullet_shoot_dir2(_x, _y, 6, 0.2, 3, _dir) {
 						sprite_index = spr_bullet_large
 						glow = cb_blue;
@@ -109,6 +109,7 @@ enemies = {
 	"miniboss": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
+		bossFlag = true;
 		important = true;
 		invinsible = true;
 		ignoreSlap = true;
@@ -229,6 +230,7 @@ enemies = {
 	"boss": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
+		bossFlag = true;
 		important = true;
 		invinsible = true;
 		ignoreSlap = true;

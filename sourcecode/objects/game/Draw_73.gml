@@ -22,3 +22,4 @@ if global.showHitboxes {
 	
 	draw_set_color(c_white)
 }
+

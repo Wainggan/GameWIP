@@ -252,6 +252,7 @@ enemies = {
 	"miniboss": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
+		bossFlag = true;
 		important = true;
 		invinsible = true;
 		ignoreSlap = true;
@@ -369,6 +370,7 @@ enemies = {
 	"boss": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
+		bossFlag = true;
 		important = true;
 		invinsible = true;
 		ignoreSlap = true;
@@ -545,17 +547,24 @@ enemies = {
 				
 				hp = 200;
 				
-				movement_start(WIDTH/2, HEIGHT/2 - 32, 1/200)
+				movement_start(WIDTH/2, HEIGHT/2 - 96, 1/200)
 				
 				command_set([
 					100,
 					new CommandBeat(8),
 					function(){
-						bullet_preset_ring(irandom_range(32, WIDTH-32), irandom_range(32, HEIGHT-128), 11, 0, random_range(0, 360), function(_x, _y, _dir){
-							with bullet_laser(_x, _y, _dir, 4, 128) {
-								glow = cb_yellow;
+						repeat 2
+						with bullet_shoot_dir(x, y, 4.5, random_range(0, 360)) {
+							life = 30
+							death = function(){
+								bullet_preset_ring(x, y, 7, 0, random_range(0, 360), function(_x, _y, _dir){
+									with bullet_laser(_x, _y, _dir, 4, 32) {
+										glow = cb_yellow;
+									}
+								})
 							}
-						})
+						}
+						
 						commandIndex--
 					}
 					
@@ -563,11 +572,18 @@ enemies = {
 				])
 				
 				command_add([
-						2,
-						function(){
-							
-						}
-					])
+					60 * 14,
+					2,
+					function(){
+						bullet_preset_ring(x, y, 4, 16, wave(-360, 360, 12), function(_x, _y, _dir){
+							with bullet_shoot_dir(_x, _y, 1.5, _dir) {
+								sprite_index = spr_bullet_small
+							}
+						})
+						
+						commandIndex--;
+					}
+				])
 				
 			}
 		]
@@ -581,7 +597,7 @@ stage = [
 	function(){
 		time(60)
 	},
-	function(){
+	function(){  
 		for (var i = 0; i < 10; i++) {
 			enemy_delay("basic", WIDTH/2 + choose(-1, 1) * 150 + irandom_range(-80, 80), irandom_range(50, 200), i * 60);
 		}

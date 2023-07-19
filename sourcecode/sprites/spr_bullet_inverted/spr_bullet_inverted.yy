@@ -15,6 +15,7 @@
   "frames": [
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"5aa0ce56-d013-47ae-9149-2e1ddb698d84",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"2b843e20-7798-445c-a446-159acca14cf6",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b8269fc2-beb3-4b55-b35b-398ee31cb480",},
   ],
   "gridX": 8,
   "gridY": 8,
@@ -45,7 +46,7 @@
     "events": {"resourceType":"KeyframeStore<MessageEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "eventStubScript": null,
     "eventToFunction": {},
-    "length": 2.0,
+    "length": 3.0,
     "lockOrigin": false,
     "moments": {"resourceType":"KeyframeStore<MomentsEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "playback": 1,
@@ -58,6 +59,7 @@
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
             {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"5aa0ce56-d013-47ae-9149-2e1ddb698d84","path":"sprites/spr_bullet_inverted/spr_bullet_inverted.yy",},},},"Disabled":false,"id":"cddcecf7-8783-468f-becb-b71b756cacb3","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
             {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"2b843e20-7798-445c-a446-159acca14cf6","path":"sprites/spr_bullet_inverted/spr_bullet_inverted.yy",},},},"Disabled":false,"id":"062bf8ad-fc70-4aad-b112-194cee83c893","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"b8269fc2-beb3-4b55-b35b-398ee31cb480","path":"sprites/spr_bullet_inverted/spr_bullet_inverted.yy",},},},"Disabled":false,"id":"99b6dac5-5296-40da-b67c-894808d9a270","IsCreationKey":false,"Key":2.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

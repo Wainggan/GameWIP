@@ -15,6 +15,7 @@
   "frames": [
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"2824d40d-7889-476c-926d-76b6c2a7efbe",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"08c0dfbf-4bf6-498f-bedf-8ff188a8b222",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b677371b-97e4-453d-bbdf-ec8f3665fecd",},
   ],
   "gridX": 0,
   "gridY": 0,
@@ -45,7 +46,7 @@
     "events": {"resourceType":"KeyframeStore<MessageEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "eventStubScript": null,
     "eventToFunction": {},
-    "length": 2.0,
+    "length": 3.0,
     "lockOrigin": false,
     "moments": {"resourceType":"KeyframeStore<MomentsEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "playback": 1,
@@ -58,6 +59,7 @@
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
             {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"2824d40d-7889-476c-926d-76b6c2a7efbe","path":"sprites/spr_bullet_point/spr_bullet_point.yy",},},},"Disabled":false,"id":"3c877c2d-da3b-435d-9ada-e6f1eff87973","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
             {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"08c0dfbf-4bf6-498f-bedf-8ff188a8b222","path":"sprites/spr_bullet_point/spr_bullet_point.yy",},},},"Disabled":false,"id":"ef76f584-d8c3-4dd9-ae3c-305325c206b2","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"b677371b-97e4-453d-bbdf-ec8f3665fecd","path":"sprites/spr_bullet_point/spr_bullet_point.yy",},},},"Disabled":false,"id":"1892ce3e-dac3-43d3-9381-26b275afa09b","IsCreationKey":false,"Key":2.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

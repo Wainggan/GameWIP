@@ -29,6 +29,7 @@ ignoreSlap = false;
 alarm[0] = 1;
 canDie = true;
 destroyAll = false
+bossFlag = false;
 
 command_setup()
 

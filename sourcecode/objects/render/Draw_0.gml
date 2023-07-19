@@ -17,7 +17,7 @@ surface_set_target(bullet_playerSurf)
 			}
 		}
 		with obj_bullet_player {
-			draw_sprite_ext(sprite_index, 0, round(x), round(y), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, image_blend, image_alpha-fade/fadeTime);
+			draw_sprite_ext(sprite_index, image_index, round(x), round(y), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, image_blend, image_alpha-fade/fadeTime);
 		}
 		
 surface_reset_target()

@@ -239,6 +239,7 @@ enemies = {
 	"miniboss1": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
+		bossFlag = true;
 		important = true;
 		invinsible = true;
 		ignoreSlap = true;
@@ -389,6 +390,7 @@ enemies = {
 	"miniboss2": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
+		bossFlag = true;
 		important = true;
 		invinsible = true;
 		ignoreSlap = true;
@@ -539,6 +541,7 @@ enemies = {
 	"boss": function(){
 		hp = 69;
 		deathRadius = WIDTH * 2;
+		bossFlag = true;
 		important = true;
 		invinsible = true;
 		ignoreSlap = true;

@@ -10,7 +10,7 @@ slowMoveSpeed = 2;
 x_vel = 0;
 y_vel = 0
 
-accel = 2.5;
+accel = 0.1//2.5;
 slowAccel = 1;
 
 
@@ -61,7 +61,7 @@ reloadTime = tReloadTime;
 #region bullet upgrade defines
 bulletAmount = 3;
 bulletSpread = 6;
-bulletSpreadAngle = 14;
+bulletSpreadAngle = 18;
 bulletSpreadSlow = 6
 bulletSpreadAngleSlow = 1
 bulletSpeed = 14;
@@ -192,6 +192,7 @@ hook_focus_charge = 0;
 hook_focus_chargeAnim = new Sod(4, 0.6, 0);
 hook_focus_limit = 4;
 hook_focus_active = false;
+hook_focus_contactList = [];
 
 
 #region input
@@ -342,6 +343,11 @@ state.add("idle", {
 				(sprite_index == spr_collectable_bulletBonus && other.collectAllBullets) 
 				latch = true;
 		}
+		
+		if keyboard_check_pressed(ord("Y")) {
+			hook_focus_charge = 4;
+			hook_focus_active = true
+		}
 
 		#region Bullet Collision
 		var _grazedBulletsList = ds_list_create()
@@ -452,9 +458,15 @@ state.add("idle", {
 		
 						grazeHitboxGraphicShow = 1;
 						
-						if hook_focus_active {
-							_b.image_xscale = 0.6;
-							_b.image_yscale = 0.6;
+						if hook_focus_active && _b.object_index != obj_laser {
+							_b.innerGlow = #ddddff
+							_b.spd /= 4;
+							_b.x_vel /= 4;
+							_b.y_vel /= 4;
+							if _b.spd_target _b.spd_target /= 4;
+							if _b.x_target _b.x_target /= 4;
+							if _b.y_target _b.y_target /= 4;
+							array_push(hook_focus_contactList, _b)
 						}
 		
 						//func_grazeFlavorText(string(grazeCombo))
@@ -527,6 +539,12 @@ state.add("idle", {
 					test.mode = 1
 					test.scaleTarget = WIDTH * 4
 					test.scaleSpeed = 64
+					
+				var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+				inst.targetSize = 96
+				inst.sizeSpeed = 64;
+				inst.bulletBonus = true;
+				inst.destroy = true;
 				
 				repeat 25
 					text_splash_random(x, y, "1000", 128, 20);
@@ -599,19 +617,56 @@ state.add("idle", {
 		}
 		if hook_ing {
 			hook_buffer = 12;
+			if schedule(2) particle_burst(x, y + 16, ps_player_hookTrail)
 		}
 		
 		
 
 		if hook_focus_active {
 			game_focus_set(true)
-			//if global.time % 2 <= 1 particle_burst(x, y + 16, ps_player_hookTrail)
+			if !global.pause {
+				global.slowdownTime = 4;
+			}
 			
-			hook_focus_charge -= 0.006 * global.delta_multi;
+			hook_focus_charge -= 0.04 * global.delta_multi;
 			if hook_focus_charge <= 0 {
 				hook_focus_charge = 0;
 				hook_focus_active = false;
+				game_pause(3)
+				screenShake_set(4, 0.1)
 				game_focus_set(false)
+				
+				for (var i = 0; i < array_length(hook_focus_contactList); i++) {
+					with hook_focus_contactList[i] {
+						var _d = instance_nearest(x, y, obj_enemy);
+						if _d == noone {
+							_d = irandom(360);
+						} else {
+							_d = point_direction(x, y, _d.x, _d.y);
+						}
+						
+						
+						with instance_create_depth(x, y, depth, obj_bullet_player) {
+							fade = 1
+							fadeTime = 1
+							x_vel = 0;
+							y_vel = 0;
+							spd = 12;
+							dir = _d;
+							damage = 4;
+								
+							image_alpha = 1;
+							sprite_index = other.sprite_index;
+							image_index = 2;
+							image_blend = merge_color(other.glow, c_white, 0.5);
+							if other.showDirection image_angle = other.dir;
+								
+						}
+						
+						instance_destroy()
+						
+					}
+				}
 			}
 		}
 		

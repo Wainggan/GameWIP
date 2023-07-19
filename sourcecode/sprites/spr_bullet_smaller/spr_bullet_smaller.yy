@@ -15,6 +15,7 @@
   "frames": [
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"5c723da2-c6ef-4b08-a3aa-7e1842ced69e",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"2824d40d-7889-476c-926d-76b6c2a7efbe",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"2ac3c9c2-c25a-49f8-8e2f-b53a25fd4407",},
   ],
   "gridX": 0,
   "gridY": 0,
@@ -45,7 +46,7 @@
     "events": {"resourceType":"KeyframeStore<MessageEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "eventStubScript": null,
     "eventToFunction": {},
-    "length": 2.0,
+    "length": 3.0,
     "lockOrigin": false,
     "moments": {"resourceType":"KeyframeStore<MomentsEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "playback": 1,
@@ -58,6 +59,7 @@
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
             {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"5c723da2-c6ef-4b08-a3aa-7e1842ced69e","path":"sprites/spr_bullet_smaller/spr_bullet_smaller.yy",},},},"Disabled":false,"id":"d1a4a16e-6078-4d16-b95c-14051990f796","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
             {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"2824d40d-7889-476c-926d-76b6c2a7efbe","path":"sprites/spr_bullet_smaller/spr_bullet_smaller.yy",},},},"Disabled":false,"id":"3af7373b-7683-4376-8389-f470c05e49cd","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"2ac3c9c2-c25a-49f8-8e2f-b53a25fd4407","path":"sprites/spr_bullet_smaller/spr_bullet_smaller.yy",},},},"Disabled":false,"id":"03335609-60f4-4755-bbdc-79918a93d396","IsCreationKey":false,"Key":2.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

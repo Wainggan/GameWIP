@@ -83,3 +83,10 @@ function bullet_destroy(_inst) {
 function particle_burst(_x, _y, _name) {
 	particle._burst(_x, _y, _name)
 }
+
+
+function schedule(_time) {
+	return (global.time % _time) < (global.lastTime % _time);
+}
+
+

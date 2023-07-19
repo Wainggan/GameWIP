@@ -7,6 +7,7 @@ autoX = 0;
 autoY = 0;
 
 glow = cb_red;
+innerGlow = c_white;
 glowTarget = glow;
 pop = 0;
 

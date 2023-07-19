@@ -99,7 +99,7 @@ surface_reset_target()
 surface_set_target(background_surf) // draw underwater
 	draw_clear_alpha(#95e6dc, 1)
 	
-	show_debug_message(backgroundTotalY / HEIGHT / pi)
+	//show_debug_message(backgroundTotalY / HEIGHT / pi)
 	shader_set(water_shader);
 	shader_set_uniform_f(water_u_iTime, global.time);
 	

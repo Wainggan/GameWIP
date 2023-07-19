@@ -1,5 +1,10 @@
-testSlowDown = keyboard_check_pressed(ord("Q")) ? !testSlowDown : testSlowDown
-global.delta_target = testSlowDown ? 1/20 : 1/60
+
+
+global.slowdownTime -= global.delta_multi;
+
+targetFrame = approach(targetFrame, global.slowdownTime > 0 ? 30 : 60, 2)
+
+global.delta_target = 1 / targetFrame
 
 var actualDelta = 1/60//delta_time / 1000000
 
@@ -14,6 +19,7 @@ if global.pause || pause {
 	global.delta_multi = 0;
 	global.delta_milliP = 0;
 }
+global.lastTime = global.time
 global.time += global.delta_multi;
 
 global.screenShake = approach(global.screenShake, 0, global.screenShakeDamp * global.delta_multi)
