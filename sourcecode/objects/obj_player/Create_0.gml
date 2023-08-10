@@ -275,10 +275,14 @@ func_grazeFlavorText = function(_text, _x = x, _y = y) {
 	var _inst = instance_create_depth(_x, _y, depth, obj_flavorText)
 	with _inst {
 		_inst.accel_y = 0.1;
-		_inst.x_vel = sign(_nX) * 0.4;
+		_inst.x_vel = -sign(_nX) * 0.4;
 		_inst.y_vel = -1.3;
 			
 		_inst.life = 15;
+		
+		_inst.scale = 0.6
+		_inst.scale_vel = 0.08
+		_inst.scale_target = 3
 			
 		_inst.text = string(_text)
 	}
