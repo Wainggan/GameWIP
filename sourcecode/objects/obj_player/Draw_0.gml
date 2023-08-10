@@ -77,24 +77,44 @@ if shakeAmount > 0 {
 			y + 48 > HEIGHT ? y - 42 : y + 42, 
 	1 - power(1 - 0.9999999, global.delta_milli * 2)
 		);
-	var _amount = 16;
-	var _size = 6;
-	for (var i = 0; i < round(_amount * hook_charge); i++) {
-		draw_line_sprite(
-			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * i - 90), 
-			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * i - 90),
-			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (i + 1) - 90), 
-			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (i + 1) - 90),
-			4, c_blue, 0.4
-		);
-		draw_line_sprite(
-			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * -i - 90), 
-			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * -i - 90),
-			round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (-i - 1) - 90), 
-			round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (-i - 1) - 90),
-			4, c_blue, 0.4
-		);
-	}
+	
+	var _rad = 6, _outlineColor = merge_color(c_black, c_white, hook_charge)
+	if hook_charge == 1
+		_outlineColor = (global.time % 8) < 4 ? #ff44ff : c_white
+	
+	draw_set_color(_outlineColor)
+	draw_set_alpha(hook_charge * 0.6 + 0.2)
+	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad + 3, 2, hook_charge / 2, 270, false)
+	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad + 3, 2, hook_charge / 2, 270, true)
+	
+	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad - 2, 1, hook_charge / 2, 270, false)
+	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad - 2, 1, hook_charge / 2, 270, true)
+	
+	draw_set_color(c_blue)
+	draw_set_alpha(0.4)
+	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad, 4, hook_charge / 2, 270, false)
+	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad, 4, hook_charge / 2, 270, true)
+	
+	draw_set_color(c_white)
+	draw_set_alpha(1)
+	//var _amount = 16;
+	//var _size = 6;
+	//for (var i = 0; i < round(_amount * hook_charge); i++) {
+	//	draw_line_sprite(
+	//		round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * i - 90), 
+	//		round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * i - 90),
+	//		round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (i + 1) - 90), 
+	//		round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (i + 1) - 90),
+	//		4, c_blue, 0.4
+	//	);
+	//	draw_line_sprite(
+	//		round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * -i - 90), 
+	//		round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * -i - 90),
+	//		round(lifeChargeGraphicX) + lengthdir_x(_size, 360 / _amount / 2 * (-i - 1) - 90), 
+	//		round(lifeChargeGraphicY) + lengthdir_y(_size, 360 / _amount / 2 * (-i - 1) - 90),
+	//		4, c_blue, 0.4
+	//	);
+	//}
 //surface_reset_target()
 
 draw_line_sprite(x, y, hook_x, hook_y, hook_line_showAnim.value * 4, c_white, 1);

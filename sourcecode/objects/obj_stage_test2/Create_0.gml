@@ -54,6 +54,8 @@ pattern_add("test-3", function() {
 	
 })
 
+// dfdfdf
+
 addEnemy("test", function() {
 	setPatterns([
 		new Pattern("test-1"),
