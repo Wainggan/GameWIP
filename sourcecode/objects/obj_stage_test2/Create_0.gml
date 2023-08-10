@@ -1,9 +1,7 @@
 event_inherited();
 
 pattern_add("test-1", function() {
-	
-	show_debug_message("gogogoog moeomrow")
-	
+
 	command_set([
 		30,
 		10,
@@ -19,8 +17,6 @@ pattern_add("test-1", function() {
 })
 
 pattern_add("test-2", function() {
-	
-	show_debug_message("gogogoog moeomrow")
 	
 	command_set([
 		30,
@@ -40,8 +36,6 @@ pattern_add("test-2", function() {
 })
 
 pattern_add("test-3", function() {
-	
-	show_debug_message("gogogoog moeomrow")
 	
 	command_set([
 		30,
