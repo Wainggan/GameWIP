@@ -28,6 +28,11 @@ function command_add(_array) {
 	});
 	commandIndex = 0;
 	commandTimer = 0;
+	__commandCurrent = undefined;
+	__commandRepeat = 0;
+	__commandRepeatCache = undefined;
+	__commandRepeatFall = undefined;
+	__commandRepeatLock = false;
 }
 function command_get(_index) {
 	return commandList[_index].list;
@@ -97,6 +102,23 @@ function command_switch_set(_index) {
 	commandSwitches.timer = 0;
 }
 
+function command_repeat(_amount, _fall = -1) {
+	if __commandRepeat > 0 { // still repeating
+		__commandRepeat--
+		commandIndex += __commandRepeatFall
+		return
+	}
+	if __commandRepeatCache != __commandCurrent { // setting for first time
+		__commandRepeatCache = __commandCurrent
+		__commandRepeat = _amount
+		__commandRepeatFall = _fall
+		commandIndex += _fall
+		return
+	}
+	// resetting
+	__commandRepeatCache = undefined
+}
+
 function command_update() {
 	if commandSwitches != undefined && array_length(commandSwitches.list) > 0 {
 		commandSwitches.timer -= global.delta_multi;
@@ -125,6 +147,7 @@ function command_update() {
 						&& commandBeat <= 0 
 						{
 							var lastC = commandIndex;
+							__commandCurrent = cL[commandIndex]
 							if typeof(cL[commandIndex]) == "method" {
 								cL[commandIndex]();
 							} else if is_struct(cL[commandIndex]) {
@@ -146,6 +169,7 @@ function command_update() {
 						&& commandTimer <= 0 
 						{
 							var lastC = commandIndex;
+							__commandCurrent = cL[commandIndex]
 							if typeof(cL[commandIndex]) == "method" {
 								cL[commandIndex]();
 							} else if is_struct(cL[commandIndex]) {

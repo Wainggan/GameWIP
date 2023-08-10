@@ -23,10 +23,10 @@ func_close = function() {
 }
 
 menu_main = new Menu()
-	//.add_button("TEST2", function(){
-	//	game_start(rm_stagetest2);
-	//	func_close();
-	//})
+	.add_button("TEST2", function(){
+		game_start(rm_stagetest2);
+		func_close();
+	})
 	.add_button("Stage 3", function(){
 		game_start(rm_stage3);
 		func_close();

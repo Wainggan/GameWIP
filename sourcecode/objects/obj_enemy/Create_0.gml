@@ -118,6 +118,73 @@ func_nextAttack = function(){
 currentAttack = 0;
 attacks = []
 
+
+currentPattern = -1
+patterns = []
+
+currentPhase = -1;
+phases = []
+
+setPatterns = function(_patterns) {
+	patterns = _patterns
+	currentPattern = 0
+}
+
+nextPattern = function() {
+	currentPattern++
+	if currentPattern >= array_length(phases[currentPhase].patterns)
+		currentPattern = 0
+	startPattern()
+}
+
+setPhases = function(_phases) {
+	phases = _phases
+	currentPhase = 0
+}
+
+// multiplied by timer in seconds to get hp
+#macro MAGIC_HEALTH_MULTIPLIER 30
+
+startPhase = function(_index = currentPhase) {
+	
+	var _phase = phases[_index]
+	
+	var _hp = _phase.time * MAGIC_HEALTH_MULTIPLIER
+	
+	hp = _hp
+	maxhp = _hp
+	
+	show_debug_message(hp)
+	
+	currentPattern = 0
+	if _phase.force != undefined 
+		currentPattern = _phase.force
+	
+	startPattern()
+	
+}
+
+nextPhase = function () {
+	stopPattern()
+	currentPhase++
+	if currentPhase < array_length(phases) {
+		startPhase()
+		return true
+	}
+	return false
+}
+
+startPattern = function(_index = currentPattern) {
+	// uuhhh i ummmm
+	patterns[phases[currentPhase].patterns[_index]].run(self)
+}
+stopPattern = function(_index = currentPattern) {
+	patterns[phases[currentPhase].patterns[_index]].stop()
+}
+
+
+
+
 // magic animation offset number
 test = random_range(0, 1000)
 

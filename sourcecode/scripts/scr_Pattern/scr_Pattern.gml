@@ -9,11 +9,31 @@ function pattern_get(_name) {
 	return global.patterns[$ _name]
 }
 
-function Pattern(_init) constructor {
+function Pattern(_init, _onstop = undefined) constructor {
 	if typeof(_init) == "string" {
-		init = pattern_get(_init)
+		__init = pattern_get(_init)
 	} else 
-		init = _init
+		__init = _init
+	
+	static __stopperr = function() {
+		command_reset()
+		movement_stop()
+	}
+	
+	if _onstop != undefined
+		__stop = _onstop
+	else
+		__stop = __stopperr
+		
+	context = noone
+	
+	static run = function(_context) {
+		context = _context
+		method(context, __init)()
+	}
+	static stop = function() {
+		method(context, __stop)()
+	}
 }
 
 function AttackPhase(_timeLength, _patterns, _force = undefined) constructor {
