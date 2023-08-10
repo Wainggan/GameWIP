@@ -125,6 +125,9 @@ patterns = []
 currentPhase = -1;
 phases = []
 
+phaseTimer = 0
+phaseStartTimer = -1;
+
 setPatterns = function(_patterns) {
 	patterns = _patterns
 	currentPattern = 0
@@ -143,32 +146,40 @@ setPhases = function(_phases) {
 }
 
 // multiplied by timer in seconds to get hp
-#macro MAGIC_HEALTH_MULTIPLIER 30
+#macro MAGIC_HEALTH_MULTIPLIER 28
 
-startPhase = function(_index = currentPhase) {
+startPhase = function(_index = currentPhase, _compensation = 0) {
 	
 	var _phase = phases[_index]
 	
-	var _hp = _phase.time * MAGIC_HEALTH_MULTIPLIER
+	var _shorten = clamp(_compensation, 0, 4)
+	var _pause = abs(clamp(_compensation, -4, 0))
+	
+	//show_debug_message($"short {_shorten}")
+	//show_debug_message($"pause {_pause}")
+	
+	var _hp = (_phase.time - _shorten) * MAGIC_HEALTH_MULTIPLIER
 	
 	hp = _hp
 	maxhp = _hp
 	
-	show_debug_message(hp)
+	phaseTimer = 0
+	
+	//show_debug_message(hp)
 	
 	currentPattern = 0
 	if _phase.force != undefined 
 		currentPattern = _phase.force
 	
-	startPattern()
-	
+	phaseStartTimer = _pause
+
 }
 
 nextPhase = function () {
 	stopPattern()
 	currentPhase++
 	if currentPhase < array_length(phases) {
-		startPhase()
+		startPhase(, phaseTimer - phases[currentPhase].time)
 		return true
 	}
 	return false

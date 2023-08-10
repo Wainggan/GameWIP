@@ -32,6 +32,15 @@ if timer != -1 || timerMod != undefined {
 }
 if timerMinActive timerMin -= global.delta_multi
 
+phaseTimer += global.delta_milliP
+if phaseStartTimer >= 0 {
+	phaseStartTimer -= global.delta_milliP
+	if phaseStartTimer < 0 {
+		phaseStartTimer = -1;
+		startPattern()
+	}
+}
+
 if hp <= 0 && shakeFix == undefined {
 	if timerMod == undefined time()
 	
