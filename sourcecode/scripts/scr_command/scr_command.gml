@@ -110,7 +110,7 @@ function command_repeat(_amount, _fall = -1) {
 	}
 	if __commandRepeatCache != __commandCurrent { // setting for first time
 		__commandRepeatCache = __commandCurrent
-		__commandRepeat = _amount
+		__commandRepeat = _amount - 2
 		__commandRepeatFall = _fall
 		commandIndex += _fall
 		return

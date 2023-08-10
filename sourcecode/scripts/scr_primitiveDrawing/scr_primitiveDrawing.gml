@@ -84,6 +84,10 @@ function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngl
 	draw_primitive_end();
 }
 
+function draw_circle_outline(x, y, radius, thickness) {
+	draw_circle_outline_part(x, y, radius, thickness, 1, 0, false)
+}
+
 function draw_rectangle_cd() {
 	/// draw_rectangle_cd(x1, y1, x2, y2, value, texture)
 	var v, x1, y1, x2, y2, xm, ym, vd, vx, vy, vl;

@@ -6,7 +6,7 @@ pattern_add("test-1", function() {
 		30,
 		10,
 		function(){
-			bullet_shoot_dir2(x, y, 1, 0.3, 2, point_direction(x, y, obj_player.x, obj_player.y));
+			bullet_shoot_dir2(x, y, 1, 0.3, 3, point_direction(x, y, obj_player.x, obj_player.y));
 			command_repeat(20)
 		},
 		function(){
@@ -66,6 +66,7 @@ addEnemy("test", function() {
 	setPhases([
 		new AttackPhase(6, [0, 1]),
 		new AttackPhase(6, [2]),
+		new AttackPhase(6, [2, 0], 0),
 	])
 	
 	startPhase()
