@@ -1,3 +1,5 @@
+
+
 function game_start(_rm = rm_stage1) {
 	global.logger.log("Game started, " + room_get_name(_rm))
 	

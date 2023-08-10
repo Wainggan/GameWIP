@@ -118,6 +118,7 @@ func_nextAttack = function(){
 currentAttack = 0;
 attacks = []
 
+// magic animation offset number
 test = random_range(0, 1000)
 
 directionToMove = sign(WIDTH/2 - x);

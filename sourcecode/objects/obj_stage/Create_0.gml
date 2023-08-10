@@ -54,4 +54,12 @@ stageIndex = -1;
 
 stage = []
 
+addEnemy = function(_name, _func) {
+	enemies[$ _name] = _func
+}
+
+addSection = function(_func, _name = undefined) {
+	array_push(stage, _func)
+}
+
 
