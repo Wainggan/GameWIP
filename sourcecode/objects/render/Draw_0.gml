@@ -26,7 +26,15 @@ surface_reset_target()
 surface_set_target(bullet_surf)
 	draw_clear_alpha(c_black, 0)
 	
-	draw_surface_ext(bullet_playerSurf, 0, 0, 1, 1, 0, c_white, 1)
+	shader_set(outline_shader)
+	shader_set_uniform_f(outline_u_color, 1, 0.96, 1, 0.7)
+	shader_set_uniform_f(outline_u_thickness, 2)
+	shader_set_uniform_f(outline_u_pixelSize, 
+		1 / surface_get_width(bullet_playerSurf),
+		1 / surface_get_height(bullet_playerSurf),
+	)
+		draw_surface_ext(bullet_playerSurf, 0, 0, 1, 1, 0, c_white, 1)
+	shader_reset()	
 	
 	gpu_set_blendmode(bm_add)
 		with obj_bullet {

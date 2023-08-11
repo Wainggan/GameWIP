@@ -105,6 +105,7 @@
     {"name":"obj_stage_test","order":6,"path":"objects/obj_stage_test/obj_stage_test.yy",},
     {"name":"obj_bullet_parent","order":5,"path":"objects/obj_bullet_parent/obj_bullet_parent.yy",},
     {"name":"mus_stage2test","order":2,"path":"sounds/mus_stage2test/mus_stage2test.yy",},
+    {"name":"shd_outline","order":7,"path":"shaders/shd_outline/shd_outline.yy",},
     {"name":"spr_player_shadow","order":11,"path":"sprites/spr_player_shadow/spr_player_shadow.yy",},
     {"name":"spr_collectable_pointMax","order":3,"path":"sprites/spr_collectable_pointMax/spr_collectable_pointMax.yy",},
     {"name":"rm_stage2","order":5,"path":"rooms/rm_stage2/rm_stage2.yy",},

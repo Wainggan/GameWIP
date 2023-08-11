@@ -68,6 +68,14 @@ blur_surf_ping = -1;
 
 #endregion
 
+#region Outline Shader
+
+outline_shader = shd_outline
+outline_u_color = shader_get_uniform(outline_shader, "u_color")
+outline_u_pixelSize = shader_get_uniform(outline_shader, "u_pixelSize")
+outline_u_thickness = shader_get_uniform(outline_shader, "u_thickness")
+
+#endregion
 
 #region Water Shader
 
