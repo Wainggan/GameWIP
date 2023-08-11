@@ -172,6 +172,7 @@
     {"id":{"name":"obj_bullet_parent","path":"objects/obj_bullet_parent/obj_bullet_parent.yy",},},
     {"id":{"name":"spr_enemy_cat","path":"sprites/spr_enemy_cat/spr_enemy_cat.yy",},},
     {"id":{"name":"mus_stage2test","path":"sounds/mus_stage2test/mus_stage2test.yy",},},
+    {"id":{"name":"shd_outline","path":"shaders/shd_outline/shd_outline.yy",},},
     {"id":{"name":"spr_player_shadow","path":"sprites/spr_player_shadow/spr_player_shadow.yy",},},
     {"id":{"name":"spr_collectable_pointMax","path":"sprites/spr_collectable_pointMax/spr_collectable_pointMax.yy",},},
     {"id":{"name":"ac_tween","path":"animcurves/ac_tween/ac_tween.yy",},},

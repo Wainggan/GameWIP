@@ -82,8 +82,15 @@ if hp <= 0 && shakeFix == undefined {
 			shockwave.scaleSpeed = 24
 		
 			//game_pause(2)
-			screenShake_set(2, 0.25);
-		
+			if bossFlag {
+				screenShake_set(5, 0.2);
+				//instance_create_layer(0, 0, "Instances", obj_koSplash);
+				game_pause(26)
+				shakeAmount = 26
+				audio_play_sound(snd_explosion1, 20, false);
+			} else {
+				screenShake_set(2, 0.25);
+			}
 		
 		}
 	

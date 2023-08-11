@@ -36,7 +36,7 @@ function Pattern(_init, _onstop = undefined) constructor {
 	}
 }
 
-function AttackPhase(_timeLength, _patterns, _force = undefined) constructor {
+function AttackPhase(_timeLength, _patterns, _force = 0) constructor {
 	time = _timeLength
 	patterns = _patterns
 	force = _force

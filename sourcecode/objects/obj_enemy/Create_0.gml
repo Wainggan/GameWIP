@@ -10,6 +10,20 @@ maxhp = hp
 scoreGive = 1000;
 pointGive = 1;
 
+setHp = function(_hp) {
+	hp = _hp;
+	maxhp = _hp;
+}
+
+setPoints = function(_direct, _item) {
+	scoreGive = _direct;
+	pointGive = _item
+}
+
+setSprite = function(_sprite) {
+	sprite_index = _sprite;
+}
+
 hpModArray = undefined;
 currentHpMod = 0;
 hpMod = function(_arr){
@@ -128,12 +142,15 @@ phases = []
 phaseTimer = 0
 phaseStartTimer = -1;
 
+phaseActive = false
+
 setPatterns = function(_patterns) {
 	patterns = _patterns
 	currentPattern = 0
 }
 
 nextPattern = function() {
+	phaseActive = true
 	currentPattern++
 	if currentPattern >= array_length(phases[currentPhase].patterns)
 		currentPattern = 0
@@ -152,6 +169,8 @@ startPhase = function(_index = currentPhase, _compensation = 0) {
 	
 	var _phase = phases[_index]
 	
+	// if prev phase ended early, pause
+	// if prev phase ended late, shorten this phase via hp
 	var _shorten = clamp(_compensation, 0, 4)
 	var _pause = abs(clamp(_compensation, -4, 0))
 	
@@ -160,16 +179,13 @@ startPhase = function(_index = currentPhase, _compensation = 0) {
 	
 	var _hp = (_phase.time - _shorten) * MAGIC_HEALTH_MULTIPLIER
 	
-	hp = _hp
-	maxhp = _hp
+	setHp(_hp)
 	
 	phaseTimer = 0
 	
 	//show_debug_message(hp)
 	
-	currentPattern = 0
-	if _phase.force != undefined 
-		currentPattern = _phase.force
+	currentPattern = _phase.force
 	
 	phaseStartTimer = _pause
 
@@ -191,6 +207,18 @@ startPattern = function(_index = currentPattern) {
 }
 stopPattern = function(_index = currentPattern) {
 	patterns[phases[currentPhase].patterns[_index]].stop()
+}
+
+
+setBoss = function() {
+	bossFlag = true
+	ignoreSlap = true
+	important = true
+	destroyAll = true
+}
+
+setInvincible = function(_b) {
+	invinsible = _b
 }
 
 

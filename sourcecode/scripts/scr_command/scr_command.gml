@@ -34,7 +34,7 @@ function command_add(_array) {
 	__commandRepeatFall = undefined;
 	__commandRepeatLock = false;
 }
-function command_get(_index) {
+function command_get(_index = 0) {
 	return commandList[_index].list;
 }
 function command_reset() {

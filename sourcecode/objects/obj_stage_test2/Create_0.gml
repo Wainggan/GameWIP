@@ -57,6 +57,8 @@ pattern_add("test-3", function() {
 // dfdfdf
 
 addEnemy("test", function() {
+	setBoss()
+	
 	setPatterns([
 		new Pattern("test-1"),
 		new Pattern("test-2"),
@@ -66,7 +68,7 @@ addEnemy("test", function() {
 	setPhases([
 		new AttackPhase(6, [0, 1]),
 		new AttackPhase(6, [2]),
-		new AttackPhase(6, [2, 0], 0),
+		new AttackPhase(6, [2, 0], 1),
 	])
 	
 	startPhase()
