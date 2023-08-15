@@ -174,16 +174,13 @@ startPhase = function(_index = currentPhase, _compensation = 0) {
 	var _shorten = clamp(_compensation, 0, 4)
 	var _pause = abs(clamp(_compensation, -4, 0))
 	
-	//show_debug_message($"short {_shorten}")
-	//show_debug_message($"pause {_pause}")
-	
 	var _hp = (_phase.time - _shorten) * MAGIC_HEALTH_MULTIPLIER
 	
 	setHp(_hp)
 	
 	phaseTimer = 0
 	
-	//show_debug_message(hp)
+	show_debug_message($"short {_shorten}, pause {_pause}, {hp}")
 	
 	currentPattern = _phase.force
 	
