@@ -72,7 +72,7 @@ currentTimerMod = 0;
 timerMin = 0;
 timerMinActive = false;
 
-deathRadius = 16
+deathRadius = 32
 
 xOff = 0;
 yOff = 0;
@@ -215,6 +215,7 @@ setBoss = function() {
 	ignoreSlap = true
 	important = true
 	destroyAll = true
+	deathRadius = WIDTH * 2;
 }
 
 setInvincible = function(_b) {

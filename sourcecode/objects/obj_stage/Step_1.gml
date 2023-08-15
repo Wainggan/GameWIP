@@ -6,12 +6,25 @@ if array_length(stage) > 0 {
 		}
 	} else {
 		if timeLeft <= 0 && minimumTime <= 0 {
+			
 			stageIndex++
+			var _item = stage[stageIndex]
 			if stageIndex >= array_length(stage) {
 				instance_destroy();
-			} else {
+				print("end of stage")
+			} else if is_method(_item) {
 				time(60)
-				stage[stageIndex]();
+				_item();
+				print("stage: method")
+			} else {
+				if is_instanceof(_item, __Stage) {
+					time(0)
+					_item.func()
+					print("stage: __Stage")
+				} else if is_instanceof(_item, __Pause) {
+					time(_item.length, _item.wait, _item.minimumLength)
+					print("stage: __Pause")
+				}
 			}
 			exit;
 		} else timeLeft -= global.delta_multi;

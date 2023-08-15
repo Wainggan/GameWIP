@@ -32,7 +32,7 @@ surface_set_target(bullet_surf)
 	shader_set_uniform_f(outline_u_pixelSize, 
 		1 / surface_get_width(bullet_playerSurf),
 		1 / surface_get_height(bullet_playerSurf),
-	)
+	);
 		draw_surface_ext(bullet_playerSurf, 0, 0, 1, 1, 0, c_white, 1)
 	shader_reset()	
 	

@@ -1,4 +1,7 @@
+
+// what the fuck
 if destroyAll && destroy && !fix {
+	print("what the fuck??")
 	with obj_bullet {
 		mask_index = spr_nothing
 	}

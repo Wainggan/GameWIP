@@ -58,8 +58,22 @@ addEnemy = function(_name, _func) {
 	enemies[$ _name] = _func
 }
 
+__Stage = function(_func, _name) constructor {
+	func = _func
+	name = _name
+}
+__Pause = function(_amount, _wait, _min) constructor {
+	length = _amount
+	wait = _wait
+	minimumLength = _min
+}
+
 addSection = function(_func, _name = undefined) {
-	array_push(stage, _func)
+	array_push(stage, new __Stage(_func, _name))
+}
+
+addPause = function(_length, _wait = false, _min = 0) {
+	array_push(stage, new __Pause(_length, _wait, _min))
 }
 
 

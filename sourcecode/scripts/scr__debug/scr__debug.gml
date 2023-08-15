@@ -46,15 +46,7 @@ if file_exists(DEBUG_LOG_FILE) {
 global.logger = new Logger(DEBUG_LOG_FILE)
 log("Logger initialized")
 
-///@func print(...)
-function print() {
-	var r = string(argument[0]), i;
-	for (i = 1; i < argument_count; i++) {
-	    r += ", " + string(argument[i])
-	}
-	show_debug_message(r)
-}
-
+#macro print show_debug_message
 
 if DEBUG_THINGS exception_unhandled_handler(function(ex){
 	log_newline()

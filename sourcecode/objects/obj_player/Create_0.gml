@@ -19,7 +19,7 @@ isShooting = false;
 
 collectDist = 64;
 collectPoint = 0;
-collectAllBullets = false;
+collectAllBullets = true;
 
 
 grazeRadius = 38;
