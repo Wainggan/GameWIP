@@ -22,6 +22,13 @@ meta = {
 		loopLength = (60 + 41.53) - introLength;
 		totalLength = introLength + loopLength;
 	}),
+	mus_stage1: method(self, function(){
+		bpm = 154
+		introLength = beat_to_time(8 * 4, bpm);
+		print(beat_to_time(68 * 4, bpm))
+		loopLength =  beat_to_time(68 * 4, bpm) - introLength;
+		totalLength = introLength + loopLength;
+	}),
 	mus_stage2test: method(self, function(){
 		introLength = 19.45;
 		loopLength = (60 * 3 + 37.29) - introLength;
@@ -57,7 +64,7 @@ news_subscribe("music_change", function(_s) {
 			meta[$ audio_get_name(playing)]()
 		show_debug_message("{0}, {1}", introLength, loopLength)
 		audio_sound_loop_start(bgm, introLength)
-		audio_sound_loop_end(bgm, loopLength)
+		audio_sound_loop_end(bgm, totalLength)
 	}
 });
 

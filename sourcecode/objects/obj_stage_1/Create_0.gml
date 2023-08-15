@@ -2,7 +2,7 @@
 
 event_inherited()
 
-game_music(mus_stage1test)
+game_music(mus_stage1)
 
 addEnemy("basic1", function(){
 	setHp(5)
@@ -63,7 +63,7 @@ addEnemy("basic2", function() {
 		
 	command_set([
 		30,
-		40,
+		new CommandBeat(12),
 		function(){
 			bullet_preset_ring(x, y, 24, 8, wave(-360, 360, 10), function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 2, 0.2, 3, _dir) {
@@ -98,7 +98,7 @@ addEnemy("big1", function(){
 		
 	command_set([
 		30, 
-		18,
+		new CommandBeat(8),
 		function(){
 			bullet_preset_ring(x, y, 28, 8, wave(-360, 360, 10), function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 6, 0.2, 3, _dir) {
@@ -120,7 +120,7 @@ pattern_add("stage1-miniboss-1", function() {
 	b_range = 64;
 				
 	command_set([
-		20,
+		new CommandBeat(8),
 		function(){
 			bullet_preset_ring(x, y, b_density, 8, irandom_range(0, 360), function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 8, 0.4, 2.4, _dir).glow = cb_green
@@ -150,7 +150,7 @@ pattern_add("stage1-miniboss-2", function() {
 	
 	command_set([
 		20,
-		4,
+		new CommandBeat(1),
 		function(){
 			b_dir += 5 * b_dirV
 			
@@ -171,7 +171,7 @@ pattern_add("stage1-miniboss-3", function() {
 	b_density = 7;
 				
 	command_set([
-		20,
+		new CommandBeat(8),
 		function(){
 			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + irandom_range(-8, 8), function(_x, _y, _dir){
 				with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
@@ -226,8 +226,8 @@ addEnemy("miniboss", function() {
 	]);
 		
 	setPhases([
-		new AttackPhase(12, [0, 1]),
-		new AttackPhase(12, [0, 2], 1),
+		new AttackPhase(beat_to_time(8 * 4), [0, 1]),
+		new AttackPhase(beat_to_time(8 * 4), [0, 2], 1),
 	]);
 })
 
@@ -571,30 +571,30 @@ enemies45534345 = {
 
 //stageIndex = 7;
 
-addPause(60 * 0.76 - 20);
+addPause(beat_to_frame(1));
 
 addSection(function(){
 	game_background( , 1);
 	for (var i = 0; i < 16; i++)
-		enemy_delay("basic1", WIDTH / 2 + irandom_range(-196, 196), irandom_range(32, 96), i * (60 * 0.76));
+		enemy_delay("basic1", WIDTH / 2 + irandom_range(-196, 196), irandom_range(32, 96), i * beat_to_frame(2));
 });
-addPause(16 * (60 * 0.76) + 60)
+addPause(beat_to_frame(8 * 4 - 1))
 
 addSection(function(){
 	game_background( , 4);
 	
 	enemy_delay("big1", WIDTH / 2, 90, 60);
 })
-addPause(60 * 6)
+addPause(beat_to_frame(4 * 4))
 
 addSection(function(){
-	for (var i = 0; i < 16; i++)
-		enemy_delay("basic1", WIDTH / 2 + irandom_range(-128, 128), irandom_range(80, 128), i * (60 * 1));
+	for (var i = 0; i < 24; i++)
+		enemy_delay("basic1", WIDTH / 2 + irandom_range(-128, 128), irandom_range(80, 128), i * beat_to_frame(2));
 	
-	enemy_delay("big1", WIDTH / 2, 90, 60 * 2);
-	enemy_delay("big1", WIDTH / 2, 90, 60 * 8);
+	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(2 * 4));
+	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(6 * 4));
 })
-addPause(16 * (60 * 1) + 60 * 2);
+addPause(beat_to_frame(12 * 4));
 
 addSection(function(){
 	game_background([1, 2] , 1);
@@ -604,34 +604,36 @@ addSection(function(){
 		enemy_delay("basic2", WIDTH / 2 +  190, -32, (i + 1) * (60 * 1));
 	}
 })
-addPause(8 * (60 * 1) + 60 * 3);
+addPause(beat_to_frame(8 * 4));
 
 addSection(function(){
 	game_background([3, 4], 4);
 		
-	enemy_delay("miniboss", 0, 0, 60 * 1);
+	enemy_delay("miniboss", 0, 0, 10);
 })
-addPause(, true, 60 * 23);
+addPause(, true, beat_to_frame(16 * 4));
 
 addSection(function(){
 	game_background([5, 6], 2)
 	spawnUpgrade()
 })
-addPause(30)
+addPause(beat_to_frame(2))
 
 addSection(function(){
 	for (var i = 0; i < 25; i++)
-		enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(80, 128), i * (60 * 1));
+		enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(80, 128), i * beat_to_frame(2));
 	
 	for (var i = 0; i < 8; i += 2) {
 		enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 4 + i * (60 * 2));
 		enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 4 + (i + 1) * (60 * 2));
 	}
 	
-	enemy_delay("big1", WIDTH / 2, 90, 60 * 10);
-	enemy_delay("big1", WIDTH / 2, 90, 60 * 17);
+	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(8 * 4));
+	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(12 * 4));
 })
-addPause(60 * 27);
+addPause(beat_to_frame(16 * 4) - 2);
+
+addPause(beat_to_frame(4));
 
 addSection(function(){
 	game_background(, 1);

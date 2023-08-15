@@ -219,6 +219,7 @@
     {"id":{"name":"spr_enemyIndicator","path":"sprites/spr_enemyIndicator/spr_enemyIndicator.yy",},},
     {"id":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},},
     {"id":{"name":"obj_helperButEvil","path":"objects/obj_helperButEvil/obj_helperButEvil.yy",},},
+    {"id":{"name":"mus_stage1","path":"sounds/mus_stage1/mus_stage1.yy",},},
     {"id":{"name":"rm_stage1","path":"rooms/rm_stage1/rm_stage1.yy",},},
   ],
   "RoomOrderNodes": [

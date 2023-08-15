@@ -144,5 +144,6 @@
     {"name":"music","order":5,"path":"objects/music/music.yy",},
     {"name":"obj_specialText","order":6,"path":"objects/obj_specialText/obj_specialText.yy",},
     {"name":"obj_helperButEvil","order":12,"path":"objects/obj_helperButEvil/obj_helperButEvil.yy",},
+    {"name":"mus_stage1","order":8,"path":"sounds/mus_stage1/mus_stage1.yy",},
   ],
 }
