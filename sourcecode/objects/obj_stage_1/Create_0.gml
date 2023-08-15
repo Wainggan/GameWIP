@@ -223,13 +223,12 @@ addEnemy("miniboss", function() {
 		new Pattern("stage1-miniboss-1"),
 		new Pattern("stage1-miniboss-2"),
 		new Pattern("stage1-miniboss-3"),
-	])
+	]);
 		
 	setPhases([
 		new AttackPhase(12, [0, 1]),
 		new AttackPhase(12, [0, 2], 1),
-	])
-	
+	]);
 })
 
 enemies45534345 = {
