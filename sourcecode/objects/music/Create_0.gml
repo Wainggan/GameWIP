@@ -29,6 +29,12 @@ meta = {
 		loopLength =  beat_to_time(68 * 4, bpm) - introLength;
 		totalLength = introLength + loopLength;
 	}),
+	mus_boss1: method(self, function(){
+		bpm = 148
+		introLength = beat_to_time(8 * 2, bpm);
+		loopLength =  beat_to_time(27 * 4, bpm) - introLength;
+		totalLength = introLength + loopLength;
+	}),
 	mus_stage2test: method(self, function(){
 		introLength = 19.45;
 		loopLength = (60 * 3 + 37.29) - introLength;

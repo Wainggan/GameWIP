@@ -73,6 +73,7 @@
     {"id":{"name":"spr_player_helper","path":"sprites/spr_player_helper/spr_player_helper.yy",},},
     {"id":{"name":"spr_bullet_normal","path":"sprites/spr_bullet_normal/spr_bullet_normal.yy",},},
     {"id":{"name":"ft_text","path":"fonts/ft_text/ft_text.yy",},},
+    {"id":{"name":"mus_boss1","path":"sounds/mus_boss1/mus_boss1.yy",},},
     {"id":{"name":"scr_game","path":"scripts/scr_game/scr_game.yy",},},
     {"id":{"name":"spr_playerHookAim","path":"sprites/spr_playerHookAim/spr_playerHookAim.yy",},},
     {"id":{"name":"scr_input","path":"scripts/scr_input/scr_input.yy",},},

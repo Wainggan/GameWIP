@@ -231,6 +231,93 @@ addEnemy("miniboss", function() {
 	]);
 })
 
+
+pattern_add("stage1-boss-1", function(){
+	b_1_density = 24
+	b_1_speed = 2.5
+	b_1_reload = 24;
+				
+	b_2_angle = 0;
+	b_2_speed = 2.5
+	b_2_reload = 8
+	
+	movement_start(clamp(x, WIDTH / 2 - 48, WIDTH / 2 + 48), 90, 1/20)
+	command_set([
+		20,
+		b_1_reload,
+		function(){
+			bullet_preset_plate(x, y, 25, b_1_density, 4, -16, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
+				bullet_shoot_dir2(_x, _y, 8, 0.2, b_1_speed, _dir).glow = cb_blue;
+			})
+			command_repeat(12)
+		},
+		nextPattern
+	]);
+	
+	command_add([
+		60, 
+		function(){
+			movement_start(clamp(obj_player.x + irandom_range(-32, 32), 128, WIDTH - 128), irandom_range(40, 60), 1/60);
+			commandIndex--;
+		}
+	]);
+})
+
+pattern_add("stage1-boss-2", function(){
+	command_set([
+		20,
+		b_2_reload,
+		function(){
+			var _dir = irandom_range(0, 360);
+			bullet_preset_ring(x, y, 2, 0, _dir, function(_x, _y, _dir){
+				bullet_preset_plate(_x, _y, 4, 3, 4, 0, _dir, function(_x, _y, _dir){
+					bullet_shoot_dir(_x, _y, b_2_speed, _dir).glow = cb_yellow;
+				})
+			})
+			bullet_preset_ring(x, y, 8, 0, _dir + 360 / 8 / 2, function(_x, _y, _dir){
+				bullet_preset_plate(_x, _y, 2, 3, 4, 0, _dir, function(_x, _y, _dir){
+					bullet_shoot_dir(_x, _y, b_2_speed, _dir).glow = cb_yellow;
+				})
+			})
+			b_2_angle += 26.7;
+			command_repeat(20)
+		},
+		nextPattern
+	]);
+})
+
+addEnemy("boss", function(){
+	setBoss()
+	
+	setSprite(spr_enemy_testBoss)
+	setInvincible(true)
+	
+	x = -120;
+	y = -60;
+		
+	movement_start(WIDTH / 2, 90, 1/50, , function(){
+		textbox_scene_create([
+			["hi!"],
+			["go away", undefined, function(){
+				game_music(mus_boss1)
+				setInvincible(false)
+				startPhase();
+			}]
+		])
+	});
+	
+	setPatterns([
+		new Pattern("stage1-boss-1"),
+		new Pattern("stage1-boss-2"),
+		new Pattern("stage1-miniboss-3"),
+	]);
+		
+	setPhases([
+		new AttackPhase(beat_to_time(12 * 4), [0, 1]),
+		new AttackPhase(beat_to_time(16 * 4), [0, 2], 1),
+	]);
+})
+
 enemies45534345 = {
 
 	"boss": function(){
@@ -571,6 +658,8 @@ enemies45534345 = {
 
 //stageIndex = 7;
 
+/*
+
 addPause(beat_to_frame(1));
 
 addSection(function(){
@@ -634,6 +723,8 @@ addSection(function(){
 addPause(beat_to_frame(16 * 4) - 2);
 
 addPause(beat_to_frame(4));
+
+*/
 
 addSection(function(){
 	game_background(, 1);
