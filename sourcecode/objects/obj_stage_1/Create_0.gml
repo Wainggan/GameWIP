@@ -227,7 +227,7 @@ addEnemy("miniboss", function() {
 		
 	setPhases([
 		new AttackPhase(beat_to_time(8 * 4), [0, 1]),
-		new AttackPhase(beat_to_time(8 * 4), [0, 2], 1),
+		new AttackPhase(beat_to_time(8 * 4), [2, 0]),
 	]);
 })
 
@@ -795,6 +795,7 @@ addSection(function(){
 addPause(120, true, 60)
 
 addSection(function(){
+	print("table")
 	game_music(-1)
 	game_nextRoom(rm_stage2);
 })

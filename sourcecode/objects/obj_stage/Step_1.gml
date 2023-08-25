@@ -7,12 +7,9 @@ if array_length(stage) > 0 {
 	} else {
 		if timeLeft <= 0 && minimumTime <= 0 {
 			
-			stageIndex++
-			var _item = stage[stageIndex]
-			if stageIndex >= array_length(stage) {
-				instance_destroy();
-				print("end of stage")
-			} else if is_method(_item) {
+			
+			var _item = stage[stageIndex++]
+			if is_method(_item) {
 				time(60)
 				_item();
 				print("stage: method")
@@ -26,6 +23,12 @@ if array_length(stage) > 0 {
 					print("stage: __Pause")
 				}
 			}
+			
+			if stageIndex + 1 > array_length(stage) {
+				instance_destroy();
+				print("end of stage")
+			}
+			
 			exit;
 		} else timeLeft -= global.delta_multi;
 	}

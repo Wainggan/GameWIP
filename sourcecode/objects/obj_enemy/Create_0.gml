@@ -193,7 +193,7 @@ nextPhase = function () {
 	stopPattern()
 	currentPhase++
 	if currentPhase < array_length(phases) {
-		startPhase(, phaseTimer - phases[currentPhase].time)
+		startPhase(, phaseTimer - phases[currentPhase - 1].time)
 		return true
 	}
 	return false

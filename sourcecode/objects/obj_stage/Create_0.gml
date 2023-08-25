@@ -50,7 +50,7 @@ time = function(_time = 0, _done = false, _buffer = 0){
 timeLeft = 0;
 waitUntilDone = false;
 minimumTime = 0;
-stageIndex = -1;
+stageIndex = 0;
 
 stage = []
 
