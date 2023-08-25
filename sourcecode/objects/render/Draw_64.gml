@@ -119,11 +119,12 @@ var i = 0;
 draw_text(winWidth - 8, winHeight - 32 - 24 * i++, "FPS: " + string(fps))
 draw_text(winWidth - 8, winHeight - 32 - 24 * i++, "Count: " + string(instance_number(obj_bullet)))
 with obj_enemy {
-	if (important == 1) {
+	if bossFlag {
 		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, "---");
-		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, "HP: " + string(hp));
-		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, "Timer: " + string(timer));
-		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, "MinTimer: " + string(timerMin));
+		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"HP: {hp}");
+		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"phase timer: {phaseTimer}");
+		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"phase stimer: {phaseStartTimer}");
+		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"target time: {phases[currentPhase].time}");
 	}
 }
 draw_set_color(c_white)

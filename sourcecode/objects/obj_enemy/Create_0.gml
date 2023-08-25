@@ -172,15 +172,16 @@ startPhase = function(_index = currentPhase, _compensation = 0) {
 	// if prev phase ended early, pause
 	// if prev phase ended late, shorten this phase via hp
 	var _shorten = clamp(_compensation, 0, 4)
-	var _pause = abs(clamp(_compensation, -4, 0))
+	var _pause = abs(clamp(_compensation, -3, 0))
 	
 	var _hp = (_phase.time - _shorten) * MAGIC_HEALTH_MULTIPLIER
 	
 	setHp(_hp)
 	
-	phaseTimer = 0
+	show_debug_message($"prev pause {phaseStartTimer}, time {phaseTimer}")
+	show_debug_message($"comp {_compensation}:: short {_shorten}, pause {_pause}, {hp}")
 	
-	show_debug_message($"short {_shorten}, pause {_pause}, {hp}")
+	phaseTimer = 0
 	
 	currentPattern = _phase.force
 	

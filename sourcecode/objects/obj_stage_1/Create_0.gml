@@ -233,21 +233,17 @@ addEnemy("miniboss", function() {
 
 
 pattern_add("stage1-boss-1", function(){
-	b_1_density = 24
-	b_1_speed = 2.5
-	b_1_reload = 24;
-				
-	b_2_angle = 0;
-	b_2_speed = 2.5
-	b_2_reload = 8
+	b_density = 24
+	b_speed = 2.5
+	b_reload = 24;
 	
 	movement_start(clamp(x, WIDTH / 2 - 48, WIDTH / 2 + 48), 90, 1/20)
 	command_set([
 		20,
-		b_1_reload,
+		new CommandBeat(6),
 		function(){
-			bullet_preset_plate(x, y, 25, b_1_density, 4, -16, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
-				bullet_shoot_dir2(_x, _y, 8, 0.2, b_1_speed, _dir).glow = cb_blue;
+			bullet_preset_plate(x, y, 25, b_density, 4, -16, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
+				bullet_shoot_dir2(_x, _y, 8, 0.2, b_speed, _dir).glow = cb_blue;
 			})
 			command_repeat(12)
 		},
@@ -264,26 +260,84 @@ pattern_add("stage1-boss-1", function(){
 })
 
 pattern_add("stage1-boss-2", function(){
+	b_angle = random(360)
+	b_reload = 8
+	b_speed = 2.5
+	
 	command_set([
 		20,
-		b_2_reload,
+		new CommandBeat(4),
 		function(){
 			var _dir = irandom_range(0, 360);
 			bullet_preset_ring(x, y, 2, 0, _dir, function(_x, _y, _dir){
 				bullet_preset_plate(_x, _y, 4, 3, 4, 0, _dir, function(_x, _y, _dir){
-					bullet_shoot_dir(_x, _y, b_2_speed, _dir).glow = cb_yellow;
+					bullet_shoot_dir(_x, _y, b_speed, _dir).glow = cb_yellow;
 				})
 			})
 			bullet_preset_ring(x, y, 8, 0, _dir + 360 / 8 / 2, function(_x, _y, _dir){
 				bullet_preset_plate(_x, _y, 2, 3, 4, 0, _dir, function(_x, _y, _dir){
-					bullet_shoot_dir(_x, _y, b_2_speed, _dir).glow = cb_yellow;
+					bullet_shoot_dir(_x, _y, b_speed, _dir).glow = cb_yellow;
 				})
 			})
-			b_2_angle += 26.7;
+			b_angle += 26.7;
 			command_repeat(20)
 		},
 		nextPattern
 	]);
+})
+pattern_add("stage1-boss-3", function(){ // Speed
+	b_amount = 12;
+	b_speed = 4;
+	b_dir = 0;
+	b_turn = 1;
+	b_reload = 12;
+	
+	command_set([
+		new CommandBeat(4),
+		function(){
+			var _d = wave(-5, 5, 15);
+			b_turn = _d;
+			bullet_preset_ring(x, y, b_amount, 0, b_dir, function(_x, _y, _dir){
+				with bullet_shoot_dir2(x, y, 10, 0.5, b_speed, _dir, 4) {
+					glow = cb_yellow;
+					dir_target = dir + 90 * other.b_turn / 5;
+					dir_accel = 3;
+				}
+			})
+			b_dir += _d;
+						
+			command_repeat(10)
+		},
+		nextPattern
+	]);
+	
+	command_add([
+		120,
+		function(){
+			movement_start(clamp(obj_player.x + irandom_range(-8, 8), 96, WIDTH - 96), irandom_range(80, 90), 1/60);
+			commandIndex--;
+		}
+	])
+})
+
+pattern_add("stage1-boss-4", function(){
+
+	b_golden = 0
+
+	movement_start(WIDTH / 2 + irandom_range(-16, 16), HEIGHT / 4 + irandom_range(-16, 16), 1/40)
+	command_set([
+		50,
+		1,
+		function(){
+			b_golden = bullet_preset_golden(x, y, 8, 4, b_golden, function(_x, _y, _dir){
+				bullet_shoot_dir3(_x, _y, 0.5, 0.01, 1, 0.1, 4, _dir)
+			})
+			command_repeat(40)
+		},
+		10,
+		nextPattern
+	]);
+
 })
 
 addEnemy("boss", function(){
@@ -309,12 +363,14 @@ addEnemy("boss", function(){
 	setPatterns([
 		new Pattern("stage1-boss-1"),
 		new Pattern("stage1-boss-2"),
-		new Pattern("stage1-miniboss-3"),
+		new Pattern("stage1-boss-3"),
+		new Pattern("stage1-boss-4"),
 	]);
 		
 	setPhases([
-		new AttackPhase(beat_to_time(12 * 4), [0, 1]),
-		new AttackPhase(beat_to_time(16 * 4), [0, 2], 1),
+		new AttackPhase(beat_to_time(10 * 4), [0, 1]),
+		new AttackPhase(beat_to_time(16 * 4), [3, 0, 2]),
+		new AttackPhase(beat_to_time(8 * 4), [1]),
 	]);
 })
 

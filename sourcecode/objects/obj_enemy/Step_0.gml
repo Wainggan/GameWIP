@@ -47,6 +47,16 @@ if hp <= 0 && shakeFix == undefined {
 	var _godWHYY = false
 	if currentPhase != -1 {
 		_godWHYY = nextPhase()
+		
+		screenShake_set(4, 0.3)
+		game_pause(4)
+		
+		var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+		inst.targetSize = deathRadius
+		inst.sizeSpeed = 32;
+		inst.bulletBonus = true;
+		inst.destroy = false;
+		inst.destroyAll = true;
 	}
 	
 	if !_godWHYY {
