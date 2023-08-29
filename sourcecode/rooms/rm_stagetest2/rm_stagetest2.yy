@@ -29,7 +29,7 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_75BA21F3_1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":{"name":"inst_75BA21F3","path":"rooms/rm_stageParent/rm_stageParent.yy",},"inheritItemSettings":true,"isDnd":false,"objectId":{"name":"obj_backgroundGrouper","path":"objects/obj_backgroundGrouper/obj_backgroundGrouper.yy",},"properties":[],"rotation":0.0,"scaleX":32.0,"scaleY":30.0,"x":0.0,"y":0.0,},
       ],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},
     {"resourceType":"GMRTileLayer","resourceVersion":"1.1","name":"Background","depth":400,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":true,"inheritLayerSettings":true,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"properties":[],"tiles":{"SerialiseHeight":30,"SerialiseWidth":32,"TileCompressedData":[
--960,0,],"TileDataFormat":1,},"tilesetId":{"name":"ts_stage1","path":"tilesets/ts_stage1/ts_stage1.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
+-540,0,-2,1,-30,0,-2,1,-386,0,],"TileDataFormat":1,},"tilesetId":{"name":"ts_stage1","path":"tilesets/ts_stage1/ts_stage1.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
   ],
   "parent": {
     "name": "Rooms",

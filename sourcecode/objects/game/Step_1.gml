@@ -2,12 +2,12 @@
 
 global.slowdownTime -= global.delta_multi;
 
-targetFrame = approach(targetFrame, global.slowdownTime > 0 ? 30 : 60, 2)
+targetFrame = approach(targetFrame, global.slowdownTime > 0 ? 40 : 60, 2)
 
 global.delta_target = 1 / targetFrame
 
-var actualDelta = 1/60//delta_time / 1000000
-
+var actualDelta = 1/60//
+//delta_time / 1000000
 
 global.delta_multi = actualDelta / global.delta_target
 global.delta_multiNP = actualDelta / global.delta_target

@@ -1,4 +1,29 @@
 
+if !keyboard_check(ord("H")) {
+
+surface_set_target(background_surf)
+//draw_surface(application_surface, 0, 0)
+surface_reset_target()
+
+var _col = merge_color(c_white, c_purple, 0.5)
+//gpu_set_tex_filter(true)
+//gpu_set_blendmode_ext(bm_dest_colour, bm_zero); // multiply
+gpu_set_blendmode_ext_sepalpha(bm_dest_colour, bm_zero, bm_src_alpha, bm_inv_src_alpha);
+
+	//draw_sprite_ext(spr_atmosphere, 0, WIDTH / 2, HEIGHT / 2, 2, 2, 0, _col, 1)
+	
+gpu_set_blendmode(bm_normal)
+//gpu_set_tex_filter(false)
+
+var _col = c_blue
+//shader_set(shd_blend_overlay)
+
+	//draw_surface_ext(background_surf, 0, 0, 1, 1, 0, _col, 0.04)
+	
+//shader_reset()
+
+}
+
 
 with obj_bullet {
 	if object_index == obj_bullet

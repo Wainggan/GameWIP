@@ -102,6 +102,7 @@ surface_set_target(background_surf) // draw underwater
 	//show_debug_message(backgroundTotalY / HEIGHT / pi)
 	shader_set(water_shader);
 	shader_set_uniform_f(water_u_iTime, global.time);
+	shader_set_uniform_f(water_u_iPos, backgroundTotalY / HEIGHT);
 	
 		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.1), 0.4)
 	
@@ -179,8 +180,10 @@ surface_set_target(background_surf) // finalize reflections
 	//draw_sprite_tiled_ext(spr_debug, 0, 0, global.time, 1, 1, merge_color(c_white, c_black, 0.4), 1);
 	
 	//gpu_set_blendmode_ext(bm_inv_dest_alpha, bm_one)
+	
 	shader_set(water_shader);
 	shader_set_uniform_f(water_u_iTime, global.time);
+	shader_set_uniform_f(water_u_iPos, backgroundTotalY / HEIGHT);
 	
 		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.2), 0.6)
 	

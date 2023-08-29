@@ -81,6 +81,7 @@ outline_u_thickness = shader_get_uniform(outline_shader, "u_thickness")
 
 water_shader = shd_wave;
 water_u_iTime = shader_get_uniform(water_shader, "iTime");
+water_u_iPos = shader_get_uniform(water_shader, "iPos");
 // TODO: offset water wave to follow the background speed
 
 

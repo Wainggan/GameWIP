@@ -49,5 +49,6 @@ if (array_length(shockwave_waves) > 0) {
 	
 } else {
 	draw_surface(application_surface, gameSurfaceX, gameSurfaceY)
+	
 }
 
