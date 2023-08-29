@@ -647,10 +647,11 @@ state.add("idle", {
 				
 				for (var i = 0; i < array_length(hook_focus_contactList); i++) {
 					with hook_focus_contactList[i] {
-						var _d = instance_nearest(x, y, obj_enemy);
-						if _d == noone {
+						var _d
+						if !instance_exists(obj_enemy) {
 							_d = irandom(360);
 						} else {
+							_d = instance_find(obj_enemy, irandom_range(0, instance_number(obj_enemy) - 1))
 							_d = point_direction(x, y, _d.x, _d.y);
 						}
 						
@@ -662,7 +663,7 @@ state.add("idle", {
 							y_vel = 0;
 							spd = 12;
 							dir = _d;
-							damage = 4;
+							damage = 5
 								
 							image_alpha = 1;
 							sprite_index = other.sprite_index;

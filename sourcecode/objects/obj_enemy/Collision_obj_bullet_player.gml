@@ -3,8 +3,8 @@ if !invinsible {
 	else hp -= other.damage
 	hitAnim = 1
 	
-	text_splash_random(x, y, 20, 64, 10)
-	global.score += 20;
+	text_splash_random(x, y, 10, 64, 10)
+	global.score += 10;
 	
 	onHit(other)
 	
