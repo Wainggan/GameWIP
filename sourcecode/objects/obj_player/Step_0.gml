@@ -64,10 +64,12 @@ for (var i = 0; i < array_length(tails); i++) {
 	
 		var _diff = (((_angle - _lastDir) + 180) % 360 + 360) % 360 - 180;
 		_diff *= p.damp;
+		
+		var _force = power(1 - j / array_length(tails[i]), 8) * 2
 	
 		p.dir = _lastDir + _diff;
 		p.x = _lastX - lengthdir_x(p.len, p.dir);
-		p.y = _lastY - lengthdir_y(p.len, p.dir);
+		p.y = _lastY - lengthdir_y(p.len, p.dir) + _force;
 	
 		_lastX = p.x;
 		_lastY = p.y;

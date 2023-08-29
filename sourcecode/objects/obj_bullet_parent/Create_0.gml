@@ -17,7 +17,6 @@ spd_target = undefined;
 spd_accel2 = 0;
 spd_target2 = undefined;
 
-moveFix = false;
 x_delta = 0;
 y_delta = 0;
 

@@ -5,7 +5,7 @@ function movement_start(_targetx, _targety, _speed, _type = "smooth", _func = fu
 	movement_speed = _speed;
 	movement_func = _func;
 }
-function movement_update() {
+function movement_update() { // todo: replace with != undefined for speed
 	if variable_instance_exists(self, "movement_animCurve") 
 		&& movement_animCurve != undefined {
 		movement_animCurve.percent = min(movement_animCurve.percent + movement_speed * global.delta_multi, 1);

@@ -925,6 +925,7 @@ for (var i = 0; i < 2; i++) {
 
 hitboxAnim = new Sod().setAccuracy();
 hitboxSize = 0;
+hitboxAnimRotate = 0;
 
 dir_graphic = 1;
 dir_anim = 0;

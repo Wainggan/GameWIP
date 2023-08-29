@@ -41,7 +41,7 @@ if phaseStartTimer >= 0 {
 	}
 }
 
-if hp <= 0 && shakeFix == undefined {
+if hp <= 0 && shakeFix == undefined { // todo: complete rewrite
 	if timerMod == undefined time()
 	
 	var _godWHYY = false
@@ -57,6 +57,8 @@ if hp <= 0 && shakeFix == undefined {
 		inst.bulletBonus = true;
 		inst.destroy = false;
 		inst.destroyAll = true;
+		
+		sound.play(snd_bossphase)
 	}
 	
 	if !_godWHYY {
@@ -66,13 +68,15 @@ if hp <= 0 && shakeFix == undefined {
 		
 			repeat 20
 				text_splash_random(x, y, round(scoreGive/20), 96, 20, 20)
-		
-			var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)
-			inst.targetSize = deathRadius
-			inst.sizeSpeed = 32;
-			inst.bulletBonus = true;
-			inst.destroy = !destroyAll;
-			inst.destroyAll = destroyAll;
+			
+			if !bossFlag {
+				var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)
+				inst.targetSize = deathRadius
+				inst.sizeSpeed = 32;
+				inst.bulletBonus = true;
+				inst.destroy = true;
+				inst.destroyAll = false;
+			}
 		
 			instance_create_depth(x, y, depth+100, obj_effect_hitpop).sprite_index = sprite_index;
 	
@@ -95,11 +99,13 @@ if hp <= 0 && shakeFix == undefined {
 			if bossFlag {
 				screenShake_set(5, 0.2);
 				//instance_create_layer(0, 0, "Instances", obj_koSplash);
+				
 				game_pause(26)
 				shakeAmount = 26
-				audio_play_sound(snd_explosion1, 20, false);
+				
 			} else {
 				screenShake_set(2, 0.25);
+				sound.play(snd_enemydeath)
 			}
 		
 		}

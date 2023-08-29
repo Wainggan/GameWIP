@@ -185,6 +185,8 @@ startPhase = function(_index = currentPhase, _compensation = 0) {
 	
 	currentPattern = _phase.force
 	
+	_phase.run()
+	
 	phaseStartTimer = _pause
 
 }

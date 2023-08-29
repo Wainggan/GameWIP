@@ -10,6 +10,7 @@ var _t = global.delta_milliP
 
 hitboxAnim.update(_t, input.check("sneak"));
 hitboxSize = hitboxAnim.value;
+hitboxAnimRotate += 0.8 * global.delta_multi
 
 hook_ind_xAnim.update(_t, hook_x);
 hook_ind_yAnim.update(_t, hook_y);
@@ -127,5 +128,30 @@ draw_set_color(c_white);
 var prog = hook_focus_chargeAnim.value / hook_focus_limit;
 draw_line_sprite(2, HEIGHT-3, prog*(WIDTH/2-2)+2, HEIGHT-3, 3);
 draw_line_sprite(WIDTH-2, HEIGHT-3, WIDTH-prog*(WIDTH/2-2)+2, HEIGHT-3, 3);
+
+var _amount = 3;
+
+var _size = 0;
+_size += hitboxAnim.value * ((hitboxAnim.value - 1) * 0.8 + 1) * grazeRadius
+_size = max(_size, 2)
+if hitboxAnim.value > 0.1
+	_size += wave(-4, 4, 24)
+
+for (var i = 0; i < _amount; i++) {
+	draw_sprite(
+		spr_player_hitboxFlair, 0,
+		round(x) + lengthdir_x(_size, 360 / _amount * i + 90 + hitboxAnimRotate), 
+		round(y) + lengthdir_y(_size, 360 / _amount * i + 90 + hitboxAnimRotate)
+	);
+}
+for (var i = 0; i < _amount; i++) {
+	draw_sprite(
+		spr_player_hitboxFlair, 0,
+		round(x) + lengthdir_x(_size, 360 / _amount * i + 90 + -hitboxAnimRotate), 
+		round(y) + lengthdir_y(_size, 360 / _amount * i + 90 + -hitboxAnimRotate)
+	);
+}
+
+
 
 //draw_surface(surf, 0, 0);

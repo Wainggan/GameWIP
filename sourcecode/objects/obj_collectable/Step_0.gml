@@ -18,6 +18,8 @@ if latch && !latchTimer {
 		if scoreGive > 0
 			text_splash_random(x, y, scoreGive, 64, 6, 2)
 		if func != undefined func();
+		if sprite_index != spr_collectable_graze
+			sound.play(snd_collectItem)
 		instance_destroy();
 	}
 	
@@ -28,5 +30,6 @@ if latch && !latchTimer {
 }
 x += x_vel * global.delta_multi;
 y += y_vel * global.delta_multi;
-if y > HEIGHT + 64
-		instance_destroy()
+if y > HEIGHT + 64 {
+	instance_destroy()
+}

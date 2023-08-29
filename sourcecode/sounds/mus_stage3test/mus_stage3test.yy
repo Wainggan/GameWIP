@@ -7,7 +7,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "bitDepth": 1,
-  "bitRate": 192,
+  "bitRate": 112,
   "compression": 1,
   "conversionMode": 0,
   "duration": 119.275085,
@@ -18,6 +18,6 @@
   "preload": false,
   "sampleRate": 44100,
   "soundFile": "mus_stage3test.mp3",
-  "type": 1,
+  "type": 0,
   "volume": 1.0,
 }

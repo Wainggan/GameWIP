@@ -40,6 +40,7 @@ addEnemy("basic1", function(){
 					if other.b_alt % 2 == 0 sprite_index = spr_bullet_small
 				}
 			})
+			sound.play(snd_bulletshoot)
 			commandIndex--;
 		}
 	]);
@@ -71,6 +72,7 @@ addEnemy("basic2", function() {
 					glow = cb_grey;
 				}
 			})
+			sound.play(snd_bulletshoot)
 			commandIndex--;
 		}
 	]);
@@ -106,6 +108,7 @@ addEnemy("big1", function(){
 					glow = cb_blue;
 				}
 			})
+			sound.play(snd_bulletshoot_2)
 			commandIndex--;
 		}
 	])
@@ -125,6 +128,7 @@ pattern_add("stage1-miniboss-1", function() {
 			bullet_preset_ring(x, y, b_density, 8, irandom_range(0, 360), function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 8, 0.4, 2.4, _dir).glow = cb_green
 			});
+			sound.play(snd_bulletshoot)
 			command_repeat(6)
 		},
 		40,
@@ -157,6 +161,7 @@ pattern_add("stage1-miniboss-2", function() {
 			bullet_preset_ring(x, y, 20, 8, b_dir, function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, random_range(7, 9), 0.4, random_range(2.3, 2.6), _dir).glow = c_grey
 			});
+			sound.play(snd_bulletshoot)
 			command_repeat(10)
 		},
 		40,
@@ -173,6 +178,7 @@ pattern_add("stage1-miniboss-3", function() {
 	command_set([
 		new CommandBeat(8),
 		function(){
+			sound.play(snd_bulletshoot_2)
 			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + irandom_range(-8, 8), function(_x, _y, _dir){
 				with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
 					y_target = 5;
@@ -180,8 +186,10 @@ pattern_add("stage1-miniboss-3", function() {
 								
 					glow = cb_green;
 					sprite_index = spr_bullet_large;
-								
+					
+					
 					command_timer(irandom_range(60, 80), function(){
+						sound.play(snd_bulletshoot)
 						bullet_preset_ring(x, y, 10, 4, irandom_range(0, 360), function(_x, _y, _dir){
 							with bullet_shoot_dir2(_x, _y, 3, 0.1, 1, _dir) {
 								glow = cb_pink;
@@ -237,11 +245,22 @@ pattern_add("stage1-boss-1", function(){
 	b_speed = 2.5
 	b_reload = 24;
 	
+	if b_difficulty >= 1 {
+		b_density = 20
+		b_reload = 16
+	}
+	if b_difficulty >= 2 {
+		b_density = 18
+		b_reload = 15;
+		b_speed = 4
+	}
+	
 	movement_start(clamp(x, WIDTH / 2 - 48, WIDTH / 2 + 48), 90, 1/20)
 	command_set([
 		20,
 		new CommandBeat(6),
 		function(){
+			sound.play(snd_bulletshoot_2)
 			bullet_preset_plate(x, y, 25, b_density, 4, -16, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
 				bullet_shoot_dir2(_x, _y, 8, 0.2, b_speed, _dir).glow = cb_blue;
 			})
@@ -264,11 +283,20 @@ pattern_add("stage1-boss-2", function(){
 	b_reload = 8
 	b_speed = 2.5
 	
+	if b_difficulty >= 1 {
+		b_speed = 3;
+		b_reload = 7;
+	}
+	if b_difficulty >= 2 {
+		b_reload = 8;
+	}
+	
 	command_set([
 		20,
 		new CommandBeat(4),
 		function(){
 			var _dir = irandom_range(0, 360);
+			sound.play(snd_bulletshoot)
 			bullet_preset_ring(x, y, 2, 0, _dir, function(_x, _y, _dir){
 				bullet_preset_plate(_x, _y, 4, 3, 4, 0, _dir, function(_x, _y, _dir){
 					bullet_shoot_dir(_x, _y, b_speed, _dir).glow = cb_yellow;
@@ -292,11 +320,23 @@ pattern_add("stage1-boss-3", function(){ // Speed
 	b_turn = 1;
 	b_reload = 12;
 	
+	if b_difficulty >= 1 {
+		b_reload = 10;
+		b_speed = 4.5
+		b_amount = 14;
+	}
+	if b_difficulty >= 2 {
+		b_reload = 8;
+		b_speed = 5
+		b_amount = 15;
+	}
+	
 	command_set([
 		new CommandBeat(4),
 		function(){
 			var _d = wave(-5, 5, 15);
 			b_turn = _d;
+			sound.play(snd_bulletshoot)
 			bullet_preset_ring(x, y, b_amount, 0, b_dir, function(_x, _y, _dir){
 				with bullet_shoot_dir2(x, y, 10, 0.5, b_speed, _dir, 4) {
 					glow = cb_yellow;
@@ -329,12 +369,67 @@ pattern_add("stage1-boss-4", function(){
 		50,
 		1,
 		function(){
+			sound.play(snd_bulletshoot)
 			b_golden = bullet_preset_golden(x, y, 8, 4, b_golden, function(_x, _y, _dir){
 				bullet_shoot_dir3(_x, _y, 0.5, 0.01, 1, 0.1, 4, _dir)
 			})
 			command_repeat(40)
 		},
 		10,
+		nextPattern
+	]);
+
+})
+
+pattern_add("stage1-boss-5", function(){
+
+	b_dir = -1
+	b_density = 44;
+	b_angleDensity = 12
+	b_rotateSpeed = 0.1
+	b_speed = 1.2
+				
+	movement_start(WIDTH / 2, 90, 1/30);
+				
+	command_set([
+		60,
+		function(){
+			sound.play(snd_bulletshoot_2)
+			bullet_group_start(x, y)
+			bullet_preset_ring(x, y, b_angleDensity, 32, point_direction(x, y, obj_player.x, obj_player.y) + 360 / b_angleDensity / 2, function(_x, _y, _dir){
+				bullet_preset_line2(_x, _y, _dir, b_density, 14, function(_x, _y) {
+					with bullet_shoot(_x, _y) {
+						deathBorder = other.b_density * 14;
+						glow = cb_blue
+						step = function(){
+							if y > HEIGHT + 64 instance_destroy()
+						}
+					}
+				})
+			})
+			with bullet_shoot(x, y) {
+				sprite_index = spr_bullet_large
+				glow = cb_blue
+			}
+			with bullet_group_end() {
+				b_dir = other.b_dir;
+				b_rotateSpeed = other.b_rotateSpeed;
+				b_speed = other.b_speed;
+				dir = point_direction(x, y, obj_player.x, obj_player.y);
+				spd = 0;
+				spd_accel = 0.01;
+				spd_target = b_speed;
+				step = function(){
+					rotate(b_dir * b_rotateSpeed * global.delta_multi)
+				}
+			}
+			b_dir *= -1;
+		},
+		120,
+		function(){
+			command_repeat(2, -3)
+		},
+		60,
 		nextPattern
 	]);
 
@@ -365,12 +460,16 @@ addEnemy("boss", function(){
 		new Pattern("stage1-boss-2"),
 		new Pattern("stage1-boss-3"),
 		new Pattern("stage1-boss-4"),
+		new Pattern("stage1-boss-5"),
 	]);
+	
+	b_difficulty = 0
 		
 	setPhases([
 		new AttackPhase(beat_to_time(10 * 4), [0, 1]),
-		new AttackPhase(beat_to_time(16 * 4), [3, 0, 2]),
-		new AttackPhase(beat_to_time(8 * 4), [1]),
+		new AttackPhase(beat_to_time(16 * 4), [3, 0, 2], function(){ b_difficulty = 1 }),
+		new AttackPhase(beat_to_time(16 * 4), [4, 1], function(){ b_difficulty = 2 }),
+		new AttackPhase(beat_to_time(16 * 4), [1, 4, 2], function(){ b_difficulty = 3 }),
 	]);
 })
 
@@ -714,7 +813,7 @@ enemies45534345 = {
 
 //stageIndex = 7;
 
-/*
+
 
 addPause(beat_to_frame(1));
 
@@ -780,7 +879,7 @@ addPause(beat_to_frame(16 * 4) - 2);
 
 addPause(beat_to_frame(4));
 
-*/
+
 
 addSection(function(){
 	game_background(, 1);
