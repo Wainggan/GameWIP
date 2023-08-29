@@ -21,6 +21,7 @@
   "HTile": false,
   "layers": [
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"4a1fdd4c-b6a6-4600-a3dc-6f47e0b2e242","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"5b753e1a-4296-424c-ba6b-b81443f1bc10","blendMode":0,"displayName":"Layer 1","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": {
     "resourceType": "GMNineSliceData",
