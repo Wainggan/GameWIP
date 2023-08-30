@@ -85,6 +85,7 @@
     {"name":"ts_tiles","order":1,"path":"tilesets/ts_tiles/ts_tiles.yy",},
     {"name":"input","order":4,"path":"objects/input/input.yy",},
     {"name":"shd_wave","order":6,"path":"shaders/shd_wave/shd_wave.yy",},
+    {"name":"shd_multiplyHelper","order":9,"path":"shaders/shd_multiplyHelper/shd_multiplyHelper.yy",},
     {"name":"mus_boss2","order":3,"path":"sounds/mus_boss2/mus_boss2.yy",},
     {"name":"obj_enemy","order":13,"path":"objects/obj_enemy/obj_enemy.yy",},
     {"name":"sound","order":7,"path":"objects/sound/sound.yy",},

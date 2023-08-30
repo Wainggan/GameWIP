@@ -1,26 +1,39 @@
 
 if !keyboard_check(ord("H")) {
 
+// multiply post
+
+var _colList = [c_blue, c_fuchsia, c_purple, c_aqua, c_orange]
+gpu_set_tex_filter(true)
+gpu_set_blendmode_ext(bm_dest_colour, bm_zero); // multiply
+//gpu_set_blendmode_ext_sepalpha(bm_dest_colour, bm_zero, bm_src_alpha, bm_inv_src_alpha);
+shader_set(shd_multiplyHelper)
+	
+	for (var i = 0; i < 5; i++) {
+		var _rnd = i * 3.141 * 2.0 + 0.412;
+		var _col = _colList[wrap(i, 0, array_length(_colList))]
+		var _posX = sin(global.time / 200.0 * 0.9212 + _rnd * 0.6512) * WIDTH / 2;
+		var _posY = cos(global.time / 200.0 * 1.0442 + _rnd * 0.1264) * HEIGHT / 2;
+		draw_sprite_ext(spr_atmosphere, 0, WIDTH / 2 + _posX, HEIGHT / 2 + _posY, 5, 5, 0, _col, 0.04)
+	}
+	
+shader_reset()
+gpu_set_blendmode(bm_normal)
+gpu_set_tex_filter(false)
+
+
+// overlay post
+
 surface_set_target(background_surf)
-//draw_surface(application_surface, 0, 0)
+draw_surface(application_surface, 0, 0)
 surface_reset_target()
 
-var _col = merge_color(c_white, c_purple, 0.5)
-//gpu_set_tex_filter(true)
-//gpu_set_blendmode_ext(bm_dest_colour, bm_zero); // multiply
-gpu_set_blendmode_ext_sepalpha(bm_dest_colour, bm_zero, bm_src_alpha, bm_inv_src_alpha);
-
-	//draw_sprite_ext(spr_atmosphere, 0, WIDTH / 2, HEIGHT / 2, 2, 2, 0, _col, 1)
-	
-gpu_set_blendmode(bm_normal)
-//gpu_set_tex_filter(false)
-
 var _col = c_blue
-//shader_set(shd_blend_overlay)
+shader_set(shd_blend_overlay)
 
-	//draw_surface_ext(background_surf, 0, 0, 1, 1, 0, _col, 0.04)
+	draw_surface_ext(background_surf, 0, 0, 1, 1, 0, _col, 0.03)
 	
-//shader_reset()
+shader_reset()
 
 }
 

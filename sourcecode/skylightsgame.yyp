@@ -147,6 +147,7 @@
     {"id":{"name":"ts_tiles","path":"tilesets/ts_tiles/ts_tiles.yy",},},
     {"id":{"name":"input","path":"objects/input/input.yy",},},
     {"id":{"name":"shd_wave","path":"shaders/shd_wave/shd_wave.yy",},},
+    {"id":{"name":"shd_multiplyHelper","path":"shaders/shd_multiplyHelper/shd_multiplyHelper.yy",},},
     {"id":{"name":"mus_boss2","path":"sounds/mus_boss2/mus_boss2.yy",},},
     {"id":{"name":"obj_enemy","path":"objects/obj_enemy/obj_enemy.yy",},},
     {"id":{"name":"sound","path":"objects/sound/sound.yy",},},
