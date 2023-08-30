@@ -14,12 +14,12 @@ hitboxAnimRotate += 0.8 * global.delta_multi
 
 hook_ind_xAnim.update(_t, hook_x);
 hook_ind_yAnim.update(_t, hook_y);
-hook_ind_showAnim.update(_t, hook_maybeTarget);
+hook_ind_showAnim.update(_t, hook_maybeTarget != noone ? 1 : 0);
 
 hook_line_showAnim.update(_t, hook_ing);
 
 hook_icon_xAnim.update(_t, hook_x);
-hook_icon_showAnim.update(_t, hook_maybeTarget);
+hook_icon_showAnim.update(_t, hook_maybeTarget != noone ? 1 : 0);
 hook_icon_rotate += 1 * global.delta_multi
 
 hook_focus_chargeAnim.update(_t, hook_focus_charge);

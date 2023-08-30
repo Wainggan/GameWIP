@@ -6,6 +6,8 @@ func_inputUpdate(input.check("left"),
 var _lastX = x;
 var _lastY = y;
 
+canShoot = instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
+
 state.run()
 
 for (var i = 0; i < array_length(bulletLaserList); i++) {
