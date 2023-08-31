@@ -10,7 +10,6 @@ var _t = global.delta_milliP
 
 hitboxAnim.update(_t, input.check("sneak"));
 hitboxSize = hitboxAnim.value;
-hitboxAnimRotate += 0.8 * global.delta_multi
 
 hook_ind_xAnim.update(_t, hook_x);
 hook_ind_yAnim.update(_t, hook_y);
@@ -23,6 +22,20 @@ hook_icon_showAnim.update(_t, hook_maybeTarget != noone ? 1 : 0);
 hook_icon_rotate += 1 * global.delta_multi
 
 hook_focus_chargeAnim.update(_t, hook_focus_charge);
+
+var _focusIntensity = clamp(hook_focus_chargeAnim.value - (hook_focus_limit - 1) + hook_focus_active * (hook_focus_limit - 1), 0, 1)
+print(_focusIntensity)
+if hook_focus_charge == hook_focus_limit || hook_focus_active {
+
+	gpu_set_blendmode(bm_add)
+	var _col = [c_fuchsia, c_aqua]
+	_col = _col[global.time % 12 <= 6]
+	if global.time % 6 <= 3
+		draw_sprite_ext(spr_atmosphere, 0, x, y, 2, 2, 0, _col, _focusIntensity * 0.06)
+	
+	gpu_set_blendmode(bm_normal)
+
+}
 
 
 draw_set_alpha(grazeHitboxGraphicShow)
@@ -125,11 +138,18 @@ if hook_ing {
 }
 
 draw_set_color(c_white);
-var prog = hook_focus_chargeAnim.value / hook_focus_limit;
-draw_line_sprite(2, HEIGHT-3, prog*(WIDTH/2-2)+2, HEIGHT-3, 3);
-draw_line_sprite(WIDTH-2, HEIGHT-3, WIDTH-prog*(WIDTH/2-2)+2, HEIGHT-3, 3);
+var _prog = hook_focus_chargeAnim.value / hook_focus_limit;
+var _thick = hook_focus_charge == hook_focus_limit ? 2 : 3
+draw_line_sprite(2, HEIGHT-3, _prog*(WIDTH/2-2)+2, HEIGHT-3, _thick);
+draw_line_sprite(WIDTH-2, HEIGHT-3, WIDTH-_prog*(WIDTH/2-2)+2, HEIGHT-3, _thick);
 
 var _amount = 3;
+
+var _speed = 0.8
+// gl
+_speed += _focusIntensity * 5
+hitboxAnimRotate += _speed * global.delta_multi
+var _lineLength = max(3, _speed * 3)
 
 var _size = 0;
 _size += hitboxAnim.value * ((hitboxAnim.value - 1) * 0.8 + 1) * grazeRadius
@@ -138,18 +158,38 @@ if hitboxAnim.value > 0.1
 	_size += wave(-4, 4, 24)
 
 for (var i = 0; i < _amount; i++) {
-	draw_sprite(
-		spr_player_hitboxFlair, 0,
-		round(x) + lengthdir_x(_size, 360 / _amount * i + 90 + hitboxAnimRotate), 
-		round(y) + lengthdir_y(_size, 360 / _amount * i + 90 + hitboxAnimRotate)
-	);
+	var _p = 360 / _amount * i + 90
+	if hitboxAnim.value < 0.4 
+		draw_sprite(
+			spr_player_hitboxFlair, 0,
+			round(x) + lengthdir_x(_size, _p + hitboxAnimRotate), 
+			round(y) + lengthdir_y(_size, _p + hitboxAnimRotate)
+		);
+	else
+		draw_line_sprite(
+			round(x) + lengthdir_x(_size, _p + hitboxAnimRotate), 
+			round(y) + lengthdir_y(_size, _p + hitboxAnimRotate),
+			round(x) + lengthdir_x(_size, _p + hitboxAnimRotate - _lineLength), 
+			round(y) + lengthdir_y(_size, _p + hitboxAnimRotate - _lineLength),
+			2
+		);
 }
 for (var i = 0; i < _amount; i++) {
-	draw_sprite(
-		spr_player_hitboxFlair, 0,
-		round(x) + lengthdir_x(_size, 360 / _amount * i + 90 + -hitboxAnimRotate), 
-		round(y) + lengthdir_y(_size, 360 / _amount * i + 90 + -hitboxAnimRotate)
-	);
+	var _p = 360 / _amount * i + 90
+	if hitboxAnim.value < 0.4 
+		draw_sprite(
+			spr_player_hitboxFlair, 0,
+			round(x) + lengthdir_x(_size, _p + -hitboxAnimRotate), 
+			round(y) + lengthdir_y(_size, _p + -hitboxAnimRotate)
+		);
+	else
+		draw_line_sprite(
+			round(x) + lengthdir_x(_size, _p + -hitboxAnimRotate), 
+			round(y) + lengthdir_y(_size, _p + -hitboxAnimRotate),
+			round(x) + lengthdir_x(_size, _p + -hitboxAnimRotate + _lineLength), 
+			round(y) + lengthdir_y(_size, _p + -hitboxAnimRotate + _lineLength),
+			2
+		);
 }
 
 

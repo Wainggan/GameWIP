@@ -35,6 +35,8 @@ inputSystem.create_input("sneak")
 	.add_gamepad_shoulder(gp_shoulderrb)
 inputSystem.create_input("bomb")
 	.add_keyboard_key(ord("X"))
+inputSystem.create_input("focus")
+	.add_keyboard_key(vk_control)
 	
 inputSystem.create_input("pause")
 	.add_keyboard_key(vk_escape)

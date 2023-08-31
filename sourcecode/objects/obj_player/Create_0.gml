@@ -315,13 +315,11 @@ func_hookPop = function(){
 	
 	if hook_extrabuffer < 0 {
 		if hook_focus_active {
-			hook_focus_charge += 0.25;
+			hook_focus_charge += 2;
 		} else {
 			hook_focus_charge += 1;
 		}
-		if hook_focus_charge == hook_focus_limit {
-			hook_focus_active = true;
-		}
+		hook_focus_charge = min(hook_focus_charge, hook_focus_limit)
 	}
 				
 	if hook_extrabuffer < 0 
@@ -330,7 +328,63 @@ func_hookPop = function(){
 		hook_extrabuffer = 0;
 	hook_buffer = 0
 	
+}
 
+func_handleFocus = function() {
+	
+	if hook_focus_charge == hook_focus_limit && input.check_pressed("focus") {
+		hook_focus_active = true;
+	}
+	
+	if hook_focus_active {
+		game_focus_set(true)
+		if !global.pause {
+			global.slowdownTime = 4;
+		}
+			
+		hook_focus_charge -= 0.04 * global.delta_multi;
+		if hook_focus_charge <= 0 {
+			hook_focus_charge = 0;
+			hook_focus_active = false;
+			game_pause(3)
+			screenShake_set(4, 0.1)
+			game_focus_set(false)
+				
+			for (var i = 0; i < array_length(hook_focus_contactList); i++) {
+				with hook_focus_contactList[i] {
+					var _d
+					if !instance_exists(obj_enemy) {
+						_d = irandom(360);
+					} else {
+						_d = instance_find(obj_enemy, irandom_range(0, instance_number(obj_enemy) - 1))
+						_d = point_direction(x, y, _d.x, _d.y);
+					}
+						
+						
+					with instance_create_depth(x, y, depth, obj_bullet_player) {
+						fade = 1
+						fadeTime = 1
+						x_vel = 0;
+						y_vel = 0;
+						spd = 12;
+						dir = _d;
+						damage = 5
+								
+						image_alpha = 1;
+						sprite_index = other.sprite_index;
+						image_index = 2;
+						image_blend = merge_color(other.glow, c_white, 0.5);
+						if other.showDirection image_angle = other.dir;
+								
+					}
+						
+					instance_destroy()
+						
+				}
+			}
+		}
+	}
+	
 }
 
 #region states
@@ -386,7 +440,6 @@ step : function(){
 		
 	if keyboard_check_pressed(ord("Y")) {
 		hook_focus_charge = 4;
-		hook_focus_active = true
 	}
 
 	#region Bullet Collision
@@ -564,6 +617,7 @@ step : function(){
 	isShooting = input.check("shoot") && canShoot
 		
 	hook_charge = min(hook_charge + 0.0035 * global.delta_multi, 1);
+	func_handleFocus()
 		
 	hook_buffer -= global.delta_multi;
 	hook_extrabuffer -= global.delta_multi;
@@ -611,54 +665,7 @@ step : function(){
 		
 		
 
-	if hook_focus_active {
-		game_focus_set(true)
-		if !global.pause {
-			global.slowdownTime = 4;
-		}
-			
-		hook_focus_charge -= 0.04 * global.delta_multi;
-		if hook_focus_charge <= 0 {
-			hook_focus_charge = 0;
-			hook_focus_active = false;
-			game_pause(3)
-			screenShake_set(4, 0.1)
-			game_focus_set(false)
-				
-			for (var i = 0; i < array_length(hook_focus_contactList); i++) {
-				with hook_focus_contactList[i] {
-					var _d
-					if !instance_exists(obj_enemy) {
-						_d = irandom(360);
-					} else {
-						_d = instance_find(obj_enemy, irandom_range(0, instance_number(obj_enemy) - 1))
-						_d = point_direction(x, y, _d.x, _d.y);
-					}
-						
-						
-					with instance_create_depth(x, y, depth, obj_bullet_player) {
-						fade = 1
-						fadeTime = 1
-						x_vel = 0;
-						y_vel = 0;
-						spd = 12;
-						dir = _d;
-						damage = 5
-								
-						image_alpha = 1;
-						sprite_index = other.sprite_index;
-						image_index = 2;
-						image_blend = merge_color(other.glow, c_white, 0.5);
-						if other.showDirection image_angle = other.dir;
-								
-					}
-						
-					instance_destroy()
-						
-				}
-			}
-		}
-	}
+	
 		
 		
 	#region shoot
@@ -897,6 +904,8 @@ step: function(){
 	hook_y_vel = approach(hook_y_vel, lengthdir_y(14 * global.delta_multi, _dir), 2);
 	x += hook_x_vel;
 	y += hook_y_vel;
+	
+	func_handleFocus()
 	
 	if point_distance(x, y, hook_x, hook_y) < 64 {
 		hook_buffer = 12;
