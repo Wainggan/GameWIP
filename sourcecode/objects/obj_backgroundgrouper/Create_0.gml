@@ -8,10 +8,14 @@ height = max(30, image_yscale);
 // if background issues happen again, blame this
 var _layers = layer_get_all()
 
+array_sort(_layers, true)
+
 for (var i = 0; i < array_length(_layers); i++) {
 	var layID = _layers[i];
-	if !string_starts_with(layer_get_name(_layers[i]), "Background")
+	if !string_starts_with(layer_get_name(layID), "Background")
 		continue
+		
+	layer_set_visible(layID, false)
 	
 	var _tMID = layer_tilemap_get_id(layID);
 	
@@ -23,6 +27,7 @@ for (var i = 0; i < array_length(_layers); i++) {
 		_data.tilelayer, 0, 0, 
 		_data.tileset, width, height
 	);
+	_data.water = string_starts_with(layer_get_name(layID), "BackgroundWater")
 	
 	for (var _x = 0; _x < width; _x++) {
 		for (var _y = 0; _y < height; _y++) {
@@ -45,6 +50,14 @@ sprite_index = spr_nothing;
 
 draw = function(_y){
 	for (var i = array_length(tilemaps) - 1; i >= 0; i--) {
+		if tilemaps[i].water continue
+		draw_tilemap(tilemaps[i].tilemap, 0, _y)
+	}
+}
+
+draw_water = function(_y){
+	for (var i = array_length(tilemaps) - 1; i >= 0; i--) {
+		if !tilemaps[i].water continue
 		draw_tilemap(tilemaps[i].tilemap, 0, _y)
 	}
 }

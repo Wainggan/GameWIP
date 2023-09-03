@@ -96,13 +96,16 @@ surface_set_target(watertemp_surf)
 	
 	draw_sprite_tiled_ext(spr_debug, 0, 0, _lastBY, 1, 1, merge_color(c_white, c_black, 0.4), 1);
 	
+	_currentB.draw_water(_lastBY);
+	_newB.draw_water(_lastBY - (_newB.height * 16));
+	
 	gpu_set_blendmode_ext(bm_dest_colour, bm_zero)
 	
-		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #3355bb, 1)
+		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #446699, 1)
 	
 	gpu_set_blendmode(bm_add)
 	
-		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #5b5566, 1)
+		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #333344, 1)
 	
 	gpu_set_blendmode(bm_normal)
 	
