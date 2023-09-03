@@ -335,6 +335,8 @@ func_handleFocus = function() {
 	
 	if hook_focus_charge == hook_focus_limit && input.check_pressed("focus") {
 		hook_focus_active = true;
+		game_pause(3)
+		screenShake_set(2, 0.1)
 	}
 	
 	if hook_focus_active {
@@ -347,8 +349,8 @@ func_handleFocus = function() {
 		if hook_focus_charge <= 0 {
 			hook_focus_charge = 0;
 			hook_focus_active = false;
-			game_pause(3)
-			screenShake_set(4, 0.1)
+			game_pause(6)
+			screenShake_set(5, 0.2)
 			game_focus_set(false)
 				
 			for (var i = 0; i < array_length(hook_focus_contactList); i++) {

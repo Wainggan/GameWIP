@@ -152,12 +152,12 @@ surface_set_target(watertemp_surf) // draw reflections
 	}
 
 	with obj_bullet {
-		var _glow = merge_color(glowTarget, #ddbbdd, 0.7);
+		var _glow = merge_color(glowTarget, #998899, 0.7);
 		if object_index == obj_bullet
 			draw_sprite_ext(sprite_index, 1, round(x), round(y + 24), (image_xscale - fade/fadeTime) * 0.9, (image_yscale - fade/fadeTime) * 0.9, image_angle, _glow, image_alpha);
 		else {
-			//draw_sprite_ext(spr_laser_head, 1, round(x), round(y + 24), 1, image_yscale, image_angle, _glow, image_alpha);
-			//draw_sprite_ext(spr_laser, 1, round(x + lengthdir_x(30, image_angle)), round(y + lengthdir_y(30, image_angle) + 24), image_xscale, image_yscale, image_angle, _glow, image_alpha);
+			draw_sprite_ext(spr_laser_head, 1, round(x), round(y + 24), 1, image_yscale, image_angle, _glow, image_alpha);
+			draw_sprite_ext(spr_laser, 1, round(x + lengthdir_x(30, image_angle)), round(y + lengthdir_y(30, image_angle) + 24), image_xscale, image_yscale, image_angle, _glow, image_alpha);
 		}
 	}
 

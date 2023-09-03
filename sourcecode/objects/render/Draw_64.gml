@@ -122,9 +122,11 @@ with obj_enemy {
 	if bossFlag && hp > 0 {
 		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, "---");
 		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"hp: {hp}");
-		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"pt: {phaseTimer}");
-		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"pst: {phaseStartTimer}");
-		draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"tt: {phases[currentPhase].time}");
+		if phaseActive {
+			draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"pt: {phaseTimer}");
+			draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"pst: {phaseStartTimer}");
+			draw_text(winWidth - 8, winHeight - 32 - 24 * i++, $"tt: {phases[currentPhase].time}");
+		}
 	}
 }
 draw_set_color(c_white)

@@ -936,7 +936,7 @@ enemies = {
 };
 
 
-stageIndex = 10
+//stageIndex = 10
 
 stage = [
 	function(){
