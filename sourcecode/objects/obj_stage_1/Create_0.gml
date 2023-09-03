@@ -813,6 +813,7 @@ enemies45534345 = {
 
 //stageIndex = 7;
 
+
 addPause(beat_to_frame(1));
 
 addSection(function(){
@@ -853,7 +854,7 @@ addSection(function(){
 		
 	enemy_delay("miniboss", 0, 0, 10);
 })
-addPause(, true, beat_to_frame(16 * 4));
+addPause(, true);
 
 addSection(function(){
 	game_background([5, 6], 2)

@@ -33,6 +33,7 @@ if sprite_boss {
 	moveAnim.update(global.delta_milliP, clamp(lastX - x, -7, 7))
 	image_angle = moveAnim.value * 1.5
 	image_index = 0;
+	yOff = wave(-1, 2, 3);
 	if abs(moveAnim.value) > 1 image_index = 1
 }
 

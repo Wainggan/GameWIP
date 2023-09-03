@@ -153,6 +153,7 @@
     {"id":{"name":"shd_wave","path":"shaders/shd_wave/shd_wave.yy",},},
     {"id":{"name":"shd_multiplyHelper","path":"shaders/shd_multiplyHelper/shd_multiplyHelper.yy",},},
     {"id":{"name":"mus_boss2","path":"sounds/mus_boss2/mus_boss2.yy",},},
+    {"id":{"name":"scr_ropes","path":"scripts/scr_ropes/scr_ropes.yy",},},
     {"id":{"name":"obj_enemy","path":"objects/obj_enemy/obj_enemy.yy",},},
     {"id":{"name":"sound","path":"objects/sound/sound.yy",},},
     {"id":{"name":"spr_tilesets_stage1","path":"sprites/spr_tilesets_stage1/spr_tilesets_stage1.yy",},},
