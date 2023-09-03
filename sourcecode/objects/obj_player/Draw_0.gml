@@ -24,7 +24,6 @@ hook_icon_rotate += 1 * global.delta_multi
 hook_focus_chargeAnim.update(_t, hook_focus_charge);
 
 var _focusIntensity = clamp(hook_focus_chargeAnim.value - (hook_focus_limit - 1) + hook_focus_active * (hook_focus_limit - 1), 0, 1)
-print(_focusIntensity)
 if hook_focus_charge == hook_focus_limit || hook_focus_active {
 
 	gpu_set_blendmode(bm_add)

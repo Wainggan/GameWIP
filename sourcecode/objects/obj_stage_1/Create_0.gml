@@ -813,13 +813,6 @@ enemies45534345 = {
 
 //stageIndex = 7;
 
-addSection(function(){
-	game_background(, 1);
-	
-	enemy_delay("boss", 0, 0, 60)
-})
-addPause(, true);
-
 addPause(beat_to_frame(1));
 
 addSection(function(){

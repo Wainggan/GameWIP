@@ -17,7 +17,6 @@ play = function(_sound){
 	var _sesound = audio_get_name(_sound)
 	
 	if meta[$ _sesound] == undefined {
-		print("oops")
 		audio_play_sound(_sound, 10, false)
 		return
 	}
