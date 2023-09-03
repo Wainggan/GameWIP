@@ -58,10 +58,15 @@ for (var i = 0; i < array_length(tails); i++) {
 		var p = tails[i][j];
 		
 		var _dir = sin(global.time / 60 / 1 + j * 0.4 + i * 3.14) * 2;
-		var _spreadAngle = wave(30, 50, 24);
+		var _spreadAngle = wave(50, 70, 24);
 		var _tailDir = (wave(-4, 4, 20) - 90 + -_spreadAngle/2) - (-_spreadAngle/max(array_length(tails)-1, 1) * i);
-		p.x_vel = lengthdir_x(1, p.dir + _dir) + lengthdir_x(0.01, _tailDir);
-		p.y_vel = lengthdir_y(1, p.dir + _dir) + lengthdir_y(0.01, _tailDir) + 0.04;
+		var _force = power(max(1 - j / 8, 0), 8)
+		var _waveMag = 0.2, _uMag = 0.1 * _force
+		//var _force = power(max(1 - j / array_length(tails[i]), 0), 8)
+		
+		
+		p.x_vel = lengthdir_x(_waveMag, p.dir + _dir) + lengthdir_x(_uMag, _tailDir);
+		p.y_vel = lengthdir_y(_waveMag, p.dir + _dir) + lengthdir_y(_uMag, _tailDir) + _force;
 	
 		var _angle = point_direction(p.x + p.x_vel * global.delta_multi, p.y + p.y_vel * global.delta_multi, _lastX, _lastY);
 		if _lastDir == undefined _lastDir = _angle;
@@ -69,11 +74,11 @@ for (var i = 0; i < array_length(tails); i++) {
 		var _diff = (((_angle - _lastDir) + 180) % 360 + 360) % 360 - 180;
 		_diff *= p.damp;
 		
-		var _force = power(1 - j / array_length(tails[i]), 8) * 2
+		
 	
 		p.dir = _lastDir + _diff;
 		p.x = _lastX - lengthdir_x(p.len, p.dir);
-		p.y = _lastY - lengthdir_y(p.len, p.dir) + _force;
+		p.y = _lastY - lengthdir_y(p.len, p.dir);
 	
 		_lastX = p.x;
 		_lastY = p.y;

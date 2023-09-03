@@ -72,7 +72,7 @@ if shakeAmount > 0 {
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
-				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
+				var tailSize = p.size
 				//draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, tailSize / 64, tailSize / 64, 0, _col_outline, 1)
 			}
 		}
@@ -91,7 +91,7 @@ if shakeAmount > 0 {
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
-				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
+				var tailSize = p.size
 				draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, _col_tail, 1)
 			}
 		}

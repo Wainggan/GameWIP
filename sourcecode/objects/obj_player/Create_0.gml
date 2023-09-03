@@ -949,14 +949,19 @@ var _Point = function() constructor {
 }
 
 tails = [];
-for (var i = 0; i < 2; i++) {
+for (var i = 0; i < 1; i++) {
 	var tail = [];
 	for (var j = 0; j < 10; j++) { // 10
 		var p = new _Point();
 	
-		p.len = min(power(max(j - 4, 0) , 1.16) + 5, 11)
+		p.len = min(power(max(j - 4, 0) , 1.2) + 4, 7)
+		
 		//p.len = min(power(max(j - 6, 0) , 0.7) + 5, 11)
 		p.damp = 0.9
+		p.x = x
+		p.y = y + j * 6
+		
+		p.size = max(parabola_mid(4, 6, 8, j) + 4, 6)
 	
 		array_push(tail, p);
 	}

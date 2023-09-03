@@ -29,8 +29,14 @@ function chance(_percent) {
 	return _percent > random(1);
 }
 
-function parabola(p1, p2, y, x) {
-  return -(y / power((p1 - p2) / 2, 2)) * (x - p1) * (x - p2)
+function parabola(_p1, _p2, _height, _off) {
+  return -(_height / power((_p1 - _p2) / 2, 2)) * (_off - _p1) * (_off - _p2)
+}
+function parabola_mid(_center, _size, _height, _off) {
+  return parabola(_center - _size, _center + _size, _height, _off)
+}
+function parabola_mid_edge(_center, _p, _height, _off) {
+  return parabola(_center - (_p - _center), _p, _height, _off)
 }
 
 ///@func script_execute_deep(array, [runPlainFunctionFirst = true])
