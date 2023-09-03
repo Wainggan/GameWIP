@@ -193,6 +193,7 @@ hook_buffer = 0;
 hook_extrabuffer = 0;
 hook_iframe = 0;
 hook_radius = 0;
+hook_radius_collectLimit = 0;
 hook_charge = 0;
 
 hook_focus_charge = 0;
@@ -312,6 +313,7 @@ func_hookPop = function(){
 	inst.sizeSpeed = 64;
 	inst.bulletBonus = true;
 	inst.destroy = true;
+	inst.bulletCharge = true
 	
 	hook_radius += 16
 				
@@ -326,7 +328,7 @@ func_hookPop = function(){
 		if hook_focus_active {
 			hook_focus_charge += 2;
 		} else {
-			hook_focus_charge += 1;
+			//hook_focus_charge += 1;
 		}
 		hook_focus_charge = min(hook_focus_charge, hook_focus_limit)
 	}
@@ -336,6 +338,8 @@ func_hookPop = function(){
 	else
 		hook_extrabuffer = 0;
 	hook_buffer = 0
+	
+	hook_radius_collectLimit = 24
 	
 }
 
@@ -398,6 +402,17 @@ func_handleFocus = function() {
 	
 }
 
+func_handleCollectable = function(_inst){
+	
+	if _inst.s_charge {
+		hook_radius_collectLimit -= 1
+		if hook_radius_collectLimit >= 0 {
+			hook_focus_charge += 0.05
+		}
+	}
+	
+}
+
 #region states
 
 state = new State("idle");
@@ -448,7 +463,9 @@ step : function(){
 			(sprite_index == spr_collectable_bulletBonus && other.collectAllBullets) 
 			latch = true;
 	}
-		
+	
+	hook_focus_charge = min(hook_focus_charge, hook_focus_limit)
+	
 	if keyboard_check_pressed(ord("Y")) {
 		hook_focus_charge = 4;
 	}

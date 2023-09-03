@@ -162,8 +162,10 @@ if hook_ing {
 draw_set_color(c_white);
 var _prog = hook_focus_chargeAnim.value / hook_focus_limit;
 var _thick = hook_focus_charge == hook_focus_limit ? 2 : 3
-draw_line_sprite(2, HEIGHT-3, _prog*(WIDTH/2-2)+2, HEIGHT-3, _thick);
-draw_line_sprite(WIDTH-2, HEIGHT-3, WIDTH-_prog*(WIDTH/2-2)+2, HEIGHT-3, _thick);
+if (hook_focus_charge != hook_focus_limit || global.time % 8 <= 4) && hook_focus_chargeAnim.value > 0 {
+	draw_line_sprite(2, HEIGHT-3, _prog*(WIDTH/2-2)+2, HEIGHT-3, _thick);
+	draw_line_sprite(WIDTH-2, HEIGHT-3, WIDTH-_prog*(WIDTH/2-2)+2, HEIGHT-3, _thick);
+}
 
 var _amount = 3;
 

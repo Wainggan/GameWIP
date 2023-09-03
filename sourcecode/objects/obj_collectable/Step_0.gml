@@ -17,6 +17,7 @@ if latch && !latchTimer {
 		global.score += scoreGive;
 		if scoreGive > 0
 			text_splash_random(x, y, scoreGive, 64, 6, 2)
+		obj_player.func_handleCollectable(self)
 		if func != undefined func();
 		if sprite_index != spr_collectable_graze
 			sound.play(snd_collectItem)

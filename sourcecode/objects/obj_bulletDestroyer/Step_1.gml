@@ -22,9 +22,19 @@ for (var i = 0; i < ds_list_size(list); i++) {
 	if hasTouched[$ b] == undefined {
 		if bulletBonus 
 			if false || ((0 < b.x && b.x < WIDTH) && (0 < b.y && b.y < HEIGHT + 32)) {
-				with instance_create_layer(b.x, b.y, "Instances", obj_collectable) y_vel = -2
+				
+				with instance_create_layer(b.x, b.y, "Instances", obj_collectable) {
+					y_vel = -2
+					
+					if other.bulletCharge {
+						image_blend = #dd99ff
+						s_charge = true	
+					}
+				}
+				
 				text_splash_random(b.x, b.y, "100", 16, 10, 30);
 				global.score += 100;
+				
 			}
 		hasTouched[$ b] = 69;
 	}
