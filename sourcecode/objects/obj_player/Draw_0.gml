@@ -152,7 +152,10 @@ if shakeAmount > 0 {
 
 draw_line_sprite(x, y, hook_x, hook_y, hook_line_showAnim.value * 4, c_white, 1);
 
+
+
 if hook_ing {
+	draw_circle(x, y, hook_radius - 16, true)
 	//draw_sprite(spr_playerHookAim, 0, x, y - 16);
 }
 

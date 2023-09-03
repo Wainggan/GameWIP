@@ -192,6 +192,7 @@ hook_maybeTarget = noone;
 hook_buffer = 0;
 hook_extrabuffer = 0;
 hook_iframe = 0;
+hook_radius = 0;
 hook_charge = 0;
 
 hook_focus_charge = 0;
@@ -296,7 +297,10 @@ func_grazeFlavorText = function(_text, _x = x, _y = y) {
 
 func_hookPop = function(){
 	
-	instance_create_layer(x, y, layer, obj_playerPop);
+	with instance_create_layer(x, y, layer, obj_playerPop) {
+		size = other.hook_radius
+	}
+	screenShake_set(4, 0.2);
 	game_pause(8)
 	var test = render.shockwave_create(x, y)
 		test.mode = 1
@@ -304,10 +308,12 @@ func_hookPop = function(){
 		test.scaleSpeed = 64
 					
 	var inst = instance_create_layer(x, y, layer, obj_bulletDestroyer)
-	inst.targetSize = 96
+	inst.targetSize = hook_radius
 	inst.sizeSpeed = 64;
 	inst.bulletBonus = true;
 	inst.destroy = true;
+	
+	hook_radius += 16
 				
 	repeat 25
 		text_splash_random(x, y, "1000", 128, 20);
@@ -893,15 +899,22 @@ enter: function(){
 	hook_ing = true;
 	hook_x_vel = 0;
 	hook_y_vel = 0;
+	hook_radius_vel = 0;
+	hook_radius = 48;
 },
 step: function(){
 	
 	if instance_exists(hook_target) {
 		hook_x = hook_target.x;
 		hook_y = hook_target.y;
+		
+		
 	} else {
 		
 	}
+	
+	hook_radius_vel = approach(hook_radius_vel, 14, 0.4 * global.delta_multi)
+	hook_radius = approach(hook_radius, 84, hook_radius_vel * global.delta_multi)
 	
 	var _dir = point_direction(x, y, hook_x, hook_y);
 	
