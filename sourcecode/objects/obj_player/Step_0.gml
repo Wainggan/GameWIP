@@ -8,6 +8,8 @@ var _lastY = y;
 
 canShoot = instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
 
+mask_index = spr_player_hitbox
+
 state.run()
 
 for (var i = 0; i < array_length(bulletLaserList); i++) {

@@ -147,18 +147,18 @@ surface_set_target(watertemp_surf) // draw reflections
 
 	with obj_player {
 		
-		if sprite_index == spr_player_vee
+		//if sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
 				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
-				draw_sprite_ext(spr_player_tail, 0, p.x, p.y + 64 - 12, tailSize / 64, tailSize / 64, 0, #3e2b32, 1)
+				//draw_sprite_ext(spr_player_tail, 0, p.x, p.y + 64 - 12, tailSize / 64, tailSize / 64, 0, #3e2b32, 1)
 			}
 		}
 		
 		draw_sprite_ext(sprite_index, image_index, round(x), round(y+64), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), -1, 0, c_white, 1)
 		
-		if sprite_index == spr_player_vee
+		//if sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];

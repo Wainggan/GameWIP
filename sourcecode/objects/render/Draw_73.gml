@@ -68,4 +68,4 @@ draw_set_color(c_white)
 draw_set_halign(fa_left)
 draw_set_font(ft_debug)
 
-with obj_player draw_sprite_ext(sprite_index, 5, round(x), round(y), hitboxSize, hitboxSize, 0, c_white, 1)
+with obj_player draw_sprite_ext(spr_player_hitbox, 0, round(x), round(y), hitboxSize, hitboxSize, 0, c_white, 1)

@@ -51,6 +51,9 @@ if shakeAmount > 0 {
 }
 //surface_set_target(surf);
 	//draw_clear_alpha(c_black, 0)
+	
+	//var _col_tail = #cc8297, _col_outline = #3e2b32
+	var _col_tail = #dc7b95, _col_outline = #3e2b32
 
 	var _img = 0;
 	if abs(dir_graphic) <= slowMoveSpeed + 0.1 {
@@ -60,26 +63,36 @@ if shakeAmount > 0 {
 		if dir_graphic < 0 _img = 3;
 		else if dir_graphic > 0 _img = 4;
 	}
+	
+	_img = 0
 
 	image_index = _img;
 	
-	if sprite_index == spr_player_vee
+	if true || sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
 				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
-				draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, tailSize / 64, tailSize / 64, 0, #3e2b32, 1)
+				//draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, tailSize / 64, tailSize / 64, 0, _col_outline, 1)
 			}
 		}
-
-	draw_sprite_ext(sprite_index, _img, round(_offX + x), round( _offY + y), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), 1, 0, c_white, 1)
 	
-	if sprite_index == spr_player_vee
+	var _flip = 1 * dir_graphic == 0 ? 1 : sign(dir_graphic)
+	_flip = 1;
+	
+	//sprite_index = keyboard_check(190) ? spr_player_vee : spr_player_vii
+	
+	moveAnim.update(_t, clamp(x_vel, -6, 6))
+	
+	draw_sprite_ext(sprite_index, _img, round(_offX + x), round( _offY + y), _flip, 1, moveAnim.value * -1.5, c_white, 1)
+	
+	
+	if true || sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
 				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
-				draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
+				draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, _col_tail, 1)
 			}
 		}
 	

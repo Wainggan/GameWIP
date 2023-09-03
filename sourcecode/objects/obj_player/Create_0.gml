@@ -13,6 +13,7 @@ y_vel = 0
 accel = 0.1//2.5;
 slowAccel = 1;
 
+moveAnim = new Sod(6)
 
 isShooting = false;
 
@@ -975,3 +976,4 @@ surf = -1;
 
 iFrames = 0;
 
+mask_index = spr_player_hitbox
