@@ -61,12 +61,12 @@ for (var i = 0; i < array_length(tails); i++) {
 		var _spreadAngle = wave(50, 70, 24);
 		var _tailDir = (wave(-4, 4, 20) - 90 + -_spreadAngle/2) - (-_spreadAngle/max(array_length(tails)-1, 1) * i);
 		var _force = power(max(1 - j / 8, 0), 8)
-		var _waveMag = 0.2, _uMag = 0.1 * _force
+		var _waveMag = 0.4, _uMag = 0.2 * _force
 		//var _force = power(max(1 - j / array_length(tails[i]), 0), 8)
 		
 		
 		p.x_vel = lengthdir_x(_waveMag, p.dir + _dir) + lengthdir_x(_uMag, _tailDir);
-		p.y_vel = lengthdir_y(_waveMag, p.dir + _dir) + lengthdir_y(_uMag, _tailDir) + _force;
+		p.y_vel = lengthdir_y(_waveMag, p.dir + _dir) + lengthdir_y(_uMag, _tailDir) + _force * 0.3;
 	
 		var _angle = point_direction(p.x + p.x_vel * global.delta_multi, p.y + p.y_vel * global.delta_multi, _lastX, _lastY);
 		if _lastDir == undefined _lastDir = _angle;
