@@ -2,7 +2,7 @@ event_inherited();
 
 enemies = {
 	"test": function(){
-		hp = 10000;
+		hp = 1000000;
 		canDie = false;
 		
 		b_lastTaken = 0;
@@ -33,10 +33,10 @@ stage = [
 	}
 ]
 
-repeat 60
+repeat 120
 	array_push(stage, function(){
 		spawnUpgrade()
-		time(60 * 10);
+		time(60 * 4);
 	})
 
 array_push(stage, function(){
