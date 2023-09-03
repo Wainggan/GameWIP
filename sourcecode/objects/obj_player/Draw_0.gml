@@ -85,7 +85,7 @@ if shakeAmount > 0 {
 	
 	draw_sprite_ext(sprite_index, _img, round(offX + x), round(offY + y), _flip, 1, moveAnim.value * -1.5, c_white, 1)
 	
-	hairTuft.loop(function(_p, i, _points) {
+	ignore hairTuft.loop(function(_p, i, _points) {
 		if i == 0 return;
 		
 		draw_sprite_ext(sprite_index, 1, _points[i - 1].x, _points[i - 1].y, 1, 1, _p.dir + 90, c_white, 1)
