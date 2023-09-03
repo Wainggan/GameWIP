@@ -1,6 +1,7 @@
 {
   "FolderOrderSettings": [
     {"name":"particles","order":14,"path":"folders/Graphics/particles.yy",},
+    {"name":"bosses","order":1,"path":"folders/Graphics/gameplay/bosses.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"spr_maxsucks","order":11,"path":"sprites/spr_maxsucks/spr_maxsucks.yy",},

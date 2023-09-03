@@ -1,5 +1,7 @@
 //if !active exit
 
+lastX = x;
+
 if step != undefined step();
 
 command_update();

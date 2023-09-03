@@ -3,6 +3,9 @@ active = false
 x_vel = 0;
 y_vel = 0;
 
+lastX = x;
+moveAnim = new Sod(6)
+
 onGround = false;
 
 hp = 2;
@@ -20,8 +23,10 @@ setPoints = function(_direct, _item) {
 	pointGive = _item
 }
 
-setSprite = function(_sprite) {
+sprite_boss = false;
+setSprite = function(_sprite, _special = false) {
 	sprite_index = _sprite;
+	sprite_boss = _special
 }
 
 hpModArray = undefined;

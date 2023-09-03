@@ -438,7 +438,7 @@ pattern_add("stage1-boss-5", function(){
 addEnemy("boss", function(){
 	setBoss()
 	
-	setSprite(spr_enemy_testBoss)
+	setSprite(spr_boss_raoul, true)
 	setInvincible(true)
 	
 	x = -120;
@@ -813,7 +813,12 @@ enemies45534345 = {
 
 //stageIndex = 7;
 
-
+addSection(function(){
+	game_background(, 1);
+	
+	enemy_delay("boss", 0, 0, 60)
+})
+addPause(, true);
 
 addPause(beat_to_frame(1));
 

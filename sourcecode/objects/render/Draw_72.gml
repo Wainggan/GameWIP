@@ -172,7 +172,7 @@ surface_set_target(watertemp_surf) // draw reflections
 			}
 		}
 		
-		draw_sprite_ext(sprite_index, image_index, round(x), round(y+64), 1 * dir_graphic == 0 ? 1 : sign(dir_graphic), -1, 0, c_white, 1)
+		draw_sprite_ext(sprite_index, image_index, round(x), round(y+64),1, -1, 0, c_white, 1)
 		
 		//if sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {

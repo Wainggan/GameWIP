@@ -29,6 +29,13 @@ switch sprite_index {
 		break;
 }
 
+if sprite_boss {
+	moveAnim.update(global.delta_milliP, clamp(lastX - x, -7, 7))
+	image_angle = moveAnim.value * 1.5
+	image_index = 0;
+	if abs(moveAnim.value) > 1 image_index = 1
+}
+
 if hitAnim != 0 {
 	shader_set(shd_color)
 	shader_set_uniform_f(shader_get_uniform(shd_color, "colorAmount"), hitAnim)
