@@ -172,15 +172,15 @@ surface_set_target(watertemp_surf) // draw reflections
 			}
 		}
 		
-		draw_sprite_ext(sprite_index, image_index, round(x), round(y+64),1, -1, 0, c_white, 1)
+		draw_sprite_ext(sprite_index, image_index, round(offX + x), round(offY + y + 64),1, -1, 0, c_white, 1)
 		
 		//if sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
-			for (var j = 0; j < array_length(tails[i]); j++) {
-				var p = tails[i][j];
-				var tailSize = p.size
-				draw_sprite_ext(spr_player_tail, 0, p.x, p.y + 64 - 12, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
-			}
+			
+			tails[i].loop(function(_p, j) {
+				draw_sprite_ext(spr_player_tail, 0, offX + _p.x, offY + _p.y + 64, _p.size / 64, _p.size / 64, 0, #dc7b95, 1)
+			})
+			
 		}
 		
 	}

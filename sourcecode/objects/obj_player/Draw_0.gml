@@ -42,11 +42,11 @@ draw_set_alpha(grazeHitboxGraphicShow)
 draw_set_alpha(1)
 
 
-var _offX = 0;
-var _offY = 0;
+offX = 0;
+offY = 0;
 if shakeAmount > 0 {
-	_offX += round(random_range(-shakeAmount, shakeAmount))
-	_offY += round(random_range(-shakeAmount/4, shakeAmount/4))
+	offX += round(random_range(-shakeAmount, shakeAmount))
+	offY += round(random_range(-shakeAmount/4, shakeAmount/4))
 }
 //surface_set_target(surf);
 	//draw_clear_alpha(c_black, 0)
@@ -67,7 +67,7 @@ if shakeAmount > 0 {
 
 	image_index = _img;
 	
-	if true || sprite_index == spr_player_vee
+	ignore if true || sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
@@ -83,17 +83,24 @@ if shakeAmount > 0 {
 	
 	moveAnim.update(_t, clamp(x_vel, -7, 7))
 	
-	draw_sprite_ext(sprite_index, _img, round(_offX + x), round( _offY + y), _flip, 1, moveAnim.value * -1.5, c_white, 1)
+	draw_sprite_ext(sprite_index, _img, round(offX + x), round(offY + y), _flip, 1, moveAnim.value * -1.5, c_white, 1)
+	
+	hairTuft.loop(function(_p, i, _points) {
+		if i == 0 return;
+		
+		draw_sprite_ext(sprite_index, 1, _points[i - 1].x, _points[i - 1].y, 1, 1, _p.dir + 90, c_white, 1)
+	})
 	
 	
 	if true || sprite_index == spr_player_vee
 		for (var i = 0; i < array_length(tails); i++) {
-			for (var j = 0; j < array_length(tails[i]); j++) {
-				var p = tails[i][j];
-				var tailSize = p.size
-				draw_sprite_ext(spr_player_tail, 0, _offX + p.x, _offY + p.y, (tailSize-2) / 64, (tailSize-2) / 64, 0, _col_tail, 1)
-			}
+			
+			tails[i].loop(function(_p, j) {
+				draw_sprite_ext(spr_player_tail, 0, offX + _p.x, offY + _p.y, _p.size / 64, _p.size / 64, 0, #dc7b95, 1)
+			})
+			
 		}
+		
 	
 	lifeChargeGraphicX = 
 		lerp(lifeChargeGraphicX, x, 1 - power(1 - 0.9999999, global.delta_milli * 2));

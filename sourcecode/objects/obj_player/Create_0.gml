@@ -54,6 +54,8 @@ grazeComboBulletMult = 1
 grazeComboBulletExp = 0.15;
 
 shakeAmount = 0;
+offX = 0;
+offY = 0;
 
 
 tReloadTime = 7;
@@ -950,26 +952,51 @@ var _Point = function() constructor {
 	len = 12;
 }
 
+//tails = [];
+//for (var i = 0; i < 2; i++) {
+//	var tail = [];
+//	for (var j = 0; j < 10; j++) { // 10
+//		var p = new _Point();
+		
+//		p.len = min(power(max(j - 4, 0) , 1.16) + 5, 11)
+		
+//		//p.len = min(power(max(j - 6, 0) , 0.7) + 5, 11)
+//		p.damp = 0.92
+//		p.x = x
+//		p.y = y + j * 6
+		
+//		p.size = max(parabola_mid(2, 8, 7, j) + 4, 6)
+	
+//		array_push(tail, p);
+//	}
+//	array_push(tails, tail);
+//}
+
 tails = [];
 for (var i = 0; i < 2; i++) {
-	var tail = [];
-	for (var j = 0; j < 10; j++) { // 10
-		var p = new _Point();
+	var tail = yarn_create(10, function(_p, i){
 		
-		p.len = min(power(max(j - 4, 0) , 1.16) + 5, 11)
+		_p.len = min(power(max(i - 4, 0) , 1.16) + 5, 11)
 		
 		//p.len = min(power(max(j - 6, 0) , 0.7) + 5, 11)
-		p.damp = 0.92
-		p.x = x
-		p.y = y + j * 6
+		_p.damp = 0.92
+		_p.x = x
+		_p.y = y + i * 6
 		
-		p.size = max(parabola_mid(2, 8, 7, j) + 4, 6)
-	
-		array_push(tail, p);
-	}
+		_p.size = max(parabola_mid(2, 8, 7, i) + 3, 6)
+		
+	});
 	array_push(tails, tail);
 }
 
+hairTuft = yarn_create(2, function(_p) {
+	_p.sprite = spr_car
+	
+	_p.len = 30
+	
+	_p.x = x
+	_p.y = y - 20
+})
 
 
 hitboxAnim = new Sod().setAccuracy();
