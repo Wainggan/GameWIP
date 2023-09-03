@@ -82,7 +82,7 @@ if shakeAmount > 0 {
 	
 	//sprite_index = keyboard_check(190) ? spr_player_vee : spr_player_vii
 	
-	moveAnim.update(_t, clamp(x_vel, -6, 6))
+	moveAnim.update(_t, clamp(x_vel, -7, 7))
 	
 	draw_sprite_ext(sprite_index, _img, round(_offX + x), round( _offY + y), _flip, 1, moveAnim.value * -1.5, c_white, 1)
 	

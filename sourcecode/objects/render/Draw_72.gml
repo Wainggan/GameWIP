@@ -93,7 +93,20 @@ surface_reset_target()
 surface_set_target(watertemp_surf)
 
 	draw_clear_alpha(c_black, 0)
+	
 	draw_sprite_tiled_ext(spr_debug, 0, 0, _lastBY, 1, 1, merge_color(c_white, c_black, 0.4), 1);
+	
+	gpu_set_blendmode_ext(bm_dest_colour, bm_zero)
+	
+		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #3355bb, 1)
+	
+	gpu_set_blendmode(bm_add)
+	
+		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #5b5566, 1)
+	
+	gpu_set_blendmode(bm_normal)
+	
+	
 
 surface_reset_target()
 surface_set_target(background_surf) // draw underwater
@@ -104,7 +117,7 @@ surface_set_target(background_surf) // draw underwater
 	shader_set_uniform_f(water_u_iTime, global.time);
 	shader_set_uniform_f(water_u_iPos, backgroundTotalY / HEIGHT);
 	
-		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.1), 0.4)
+		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.1), 1)
 	
 	//gpu_set_blendmode(bm_normal)
 	shader_reset()
@@ -136,7 +149,7 @@ surface_set_target(watertemp_surf) // draw reflections
 	}
 
 	with obj_bullet {
-		var _glow = merge_color(glowTarget, c_white, 0.2);
+		var _glow = merge_color(glowTarget, #ddbbdd, 0.7);
 		if object_index == obj_bullet
 			draw_sprite_ext(sprite_index, 1, round(x), round(y + 24), (image_xscale - fade/fadeTime) * 0.9, (image_yscale - fade/fadeTime) * 0.9, image_angle, _glow, image_alpha);
 		else {
@@ -148,10 +161,10 @@ surface_set_target(watertemp_surf) // draw reflections
 	with obj_player {
 		
 		//if sprite_index == spr_player_vee
-		for (var i = 0; i < array_length(tails); i++) {
+		ignore for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
-				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
+				var tailSize = p.size
 				//draw_sprite_ext(spr_player_tail, 0, p.x, p.y + 64 - 12, tailSize / 64, tailSize / 64, 0, #3e2b32, 1)
 			}
 		}
@@ -162,7 +175,7 @@ surface_set_target(watertemp_surf) // draw reflections
 		for (var i = 0; i < array_length(tails); i++) {
 			for (var j = 0; j < array_length(tails[i]); j++) {
 				var p = tails[i][j];
-				var tailSize = max(parabola(-6, 10, 8, j) + 3, 6)
+				var tailSize = p.size
 				draw_sprite_ext(spr_player_tail, 0, p.x, p.y + 64 - 12, (tailSize-2) / 64, (tailSize-2) / 64, 0, #cc8297, 1)
 			}
 		}
@@ -185,7 +198,7 @@ surface_set_target(background_surf) // finalize reflections
 	shader_set_uniform_f(water_u_iTime, global.time);
 	shader_set_uniform_f(water_u_iPos, backgroundTotalY / HEIGHT);
 	
-		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.2), 0.6)
+		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.4), 1)
 	
 	//gpu_set_blendmode(bm_normal)
 	shader_reset()
