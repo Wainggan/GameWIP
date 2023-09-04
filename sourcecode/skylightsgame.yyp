@@ -85,6 +85,7 @@
     {"id":{"name":"scr_game","path":"scripts/scr_game/scr_game.yy",},},
     {"id":{"name":"spr_atmosphere","path":"sprites/spr_atmosphere/spr_atmosphere.yy",},},
     {"id":{"name":"spr_playerHookAim","path":"sprites/spr_playerHookAim/spr_playerHookAim.yy",},},
+    {"id":{"name":"ps_bulletFocusPop","path":"particles/ps_bulletFocusPop/ps_bulletFocusPop.yy",},},
     {"id":{"name":"scr_input","path":"scripts/scr_input/scr_input.yy",},},
     {"id":{"name":"spr_bullet_small","path":"sprites/spr_bullet_small/spr_bullet_small.yy",},},
     {"id":{"name":"scr_lib_animcurves","path":"scripts/scr_lib_animcurves/scr_lib_animcurves.yy",},},

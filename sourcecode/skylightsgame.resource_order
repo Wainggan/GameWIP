@@ -31,6 +31,7 @@
     {"name":"scr_game","order":3,"path":"scripts/scr_game/scr_game.yy",},
     {"name":"spr_atmosphere","order":4,"path":"sprites/spr_atmosphere/spr_atmosphere.yy",},
     {"name":"spr_playerHookAim","order":8,"path":"sprites/spr_playerHookAim/spr_playerHookAim.yy",},
+    {"name":"ps_bulletFocusPop","order":5,"path":"particles/ps_bulletFocusPop/ps_bulletFocusPop.yy",},
     {"name":"scr_input","order":4,"path":"scripts/scr_input/scr_input.yy",},
     {"name":"spr_bullet_small","order":6,"path":"sprites/spr_bullet_small/spr_bullet_small.yy",},
     {"name":"scr_lib_animcurves","order":8,"path":"scripts/scr_lib_animcurves/scr_lib_animcurves.yy",},

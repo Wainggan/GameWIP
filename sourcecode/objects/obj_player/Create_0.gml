@@ -377,8 +377,9 @@ func_handleFocus = function() {
 						_d = instance_find(obj_enemy, irandom_range(0, instance_number(obj_enemy) - 1))
 						_d = point_direction(x, y, _d.x, _d.y);
 					}
-						
-						
+					
+					particle_burst(x, y, ps_bulletFocusPop)
+					
 					with instance_create_depth(x, y, depth, obj_bullet_player) {
 						fade = 1
 						fadeTime = 1
@@ -387,6 +388,9 @@ func_handleFocus = function() {
 						spd = 12;
 						dir = _d;
 						damage = 5
+						fakedamage = 5
+						
+						s_captured = true
 								
 						image_alpha = 1;
 						sprite_index = other.sprite_index;
