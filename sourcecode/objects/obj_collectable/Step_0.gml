@@ -1,4 +1,5 @@
-if distance_to_object(obj_player) < obj_player.collectDist latch = true;
+var _dist = distance_to_object(obj_player)
+if _dist < obj_player.collectDist latch = true;
 latchTimer -= global.delta_multi
 if latch && !latchTimer {
 	var _dir = point_direction(x, y, obj_player.x, obj_player.y)
@@ -12,6 +13,8 @@ if latch && !latchTimer {
 	accel = clamp(accel + 0.05 * global.delta_multi, 0, 0.6)
 
 	image_angle = point_direction(0, 0, x_vel, y_vel) + 90;
+	
+	
 	
 	if place_meeting(x, y, obj_player) {
 		global.score += scoreGive;
@@ -31,6 +34,7 @@ if latch && !latchTimer {
 }
 x += x_vel * global.delta_multi;
 y += y_vel * global.delta_multi;
+image_alpha = clamp(1 - (96 - _dist) / 96, 0, 1) * 0.3 + 0.7
 if y > HEIGHT + 64 {
 	instance_destroy()
 }

@@ -3,8 +3,11 @@ if !invinsible {
 	else hp -= other.damage
 	hitAnim = 1
 	
-	text_splash_random(x, y, 10, 64, 10)
-	global.score += 10;
+	ignore with text_splash_random(other.x, other.y, ceil(other.fakedamage * 10), 32, 10) {
+		font = ft_damage
+		color = #ff6688
+	}
+	//global.score += 10;
 	
 	onHit(other)
 	

@@ -30,6 +30,8 @@
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"text","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"","varType":2,},
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"life","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"20","varType":0,},
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"y_vel","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"1","varType":0,},
+    {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"font","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"ft_splash","varType":0,},
+    {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"color","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"$FFFFFFFF","varType":7,},
   ],
   "solid": false,
   "spriteId": null,

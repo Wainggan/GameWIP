@@ -41,15 +41,19 @@ function game_music(_s) {
 
 
 function text_splash(_x, _y, _text) {
-	with instance_create_layer(_x, _y, "Instances", obj_specialText) {
+	var _inst = instance_create_layer(_x, _y, "Instances", obj_specialText)
+	with _inst {
 		text = _text;
 	}
+	return _inst
 }
 function text_splash_random(_x, _y, _text, _posR = 16, _lifeR = 4, _lifeA = 0) {
-	with instance_create_layer(_x + irandom_range(-_posR, _posR), _y + irandom_range(-_posR, _posR), "Instances", obj_specialText) {
+	var _inst = instance_create_layer(_x + irandom_range(-_posR, _posR), _y + irandom_range(-_posR, _posR), "Instances", obj_specialText)
+	with _inst {
 		text = _text;
 		life += irandom_range(0 + _lifeA, _lifeR + _lifeA)
 	}
+	return _inst
 }
 
 function screenShake_set(_amount, _damp = 0.2) {

@@ -10,4 +10,4 @@ latchTimer = 40;
 
 s_charge = 0;
 
-image_alpha = 0.8
+image_alpha = 1

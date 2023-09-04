@@ -1,7 +1,7 @@
 {
   "FolderOrderSettings": [
-    {"name":"particles","order":14,"path":"folders/Graphics/particles.yy",},
     {"name":"bosses","order":1,"path":"folders/Graphics/gameplay/bosses.yy",},
+    {"name":"particles","order":14,"path":"folders/Graphics/particles.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"spr_maxsucks","order":11,"path":"sprites/spr_maxsucks/spr_maxsucks.yy",},
@@ -44,6 +44,7 @@
     {"name":"obj_showScore","order":4,"path":"objects/obj_showScore/obj_showScore.yy",},
     {"name":"rm_mainmenu","order":2,"path":"rooms/rm_mainmenu/rm_mainmenu.yy",},
     {"name":"shd_shockwave_distort","order":4,"path":"shaders/shd_shockwave_distort/shd_shockwave_distort.yy",},
+    {"name":"ft_damage","order":6,"path":"fonts/ft_damage/ft_damage.yy",},
     {"name":"spr_bullet_point","order":5,"path":"sprites/spr_bullet_point/spr_bullet_point.yy",},
     {"name":"spr_nothing","order":12,"path":"sprites/spr_nothing/spr_nothing.yy",},
     {"name":"obj_laser_player","order":8,"path":"objects/obj_laser_player/obj_laser_player.yy",},
