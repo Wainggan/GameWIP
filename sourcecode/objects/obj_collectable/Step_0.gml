@@ -1,5 +1,10 @@
 var _dist = distance_to_object(obj_player)
-if _dist < obj_player.collectDist latch = true;
+if _dist < obj_player.collectDist {
+	if latch = false {
+		//particle_burst(x, y, ps_itemLatch)
+	}
+	latch = true;
+}
 latchTimer -= global.delta_multi
 if latch && !latchTimer {
 	var _dir = point_direction(x, y, obj_player.x, obj_player.y)

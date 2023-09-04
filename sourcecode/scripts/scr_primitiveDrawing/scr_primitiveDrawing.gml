@@ -31,9 +31,7 @@ function draw_rectangle_sprite(_x1, _y1, _x2, _y2, _outline = false, _color = dr
 }
 
 function draw_circle_sprite(_x, _y, _r, _outline = false, _color = draw_get_color(), _alpha = draw_get_alpha()) {
-	if _outline {
-		draw_sprite_ext(spr_circleoutline, 0, _x, _y, _r, _r, 0, _color, _alpha)
-	}
+	draw_sprite_ext(spr_circleoutline, _outline ? 0 : 1, _x, _y, _r * 2 /128, _r * 2/128, 0, _color, _alpha)
 }
 
 function draw_outline(_x, _y, _func = function(_x, _y){}, _thickness = 1, _res = 9) {
@@ -54,7 +52,7 @@ function draw_text_outline(_x, _y, _string) {
 
 function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngle, anticlockwise) {
 	// How precise? (big number = smoother but takes longer to draw)
-	static precision = 64;
+	static precision = 48;
 	static interval = 360 / precision;
 	
 	anticlockwise = anticlockwise ? -1 : 1
