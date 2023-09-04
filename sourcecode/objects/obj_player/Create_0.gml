@@ -937,11 +937,11 @@ enter: function(){
 },
 step: function(){
 	
-	if instance_exists(hook_target) {
+	if instance_exists(hook_target) && 
+		(hook_target.x > 0 || hook_target.x < WIDTH || hook_target.y > 0 || hook_target.y < HEIGHT)
+	{
 		hook_x = hook_target.x;
 		hook_y = hook_target.y;
-		
-		
 	} else {
 		
 	}
@@ -962,7 +962,7 @@ step: function(){
 		hook_buffer = 12;
 		state.change("idle")
 	}
-	if hook_x < 0 || hook_x > WIDTH || hook_y < 0 || hook_y > HEIGHT {
+	ignore if hook_x < 0 || hook_x > WIDTH || hook_y < 0 || hook_y > HEIGHT {
 		hook_buffer = 12;
 		state.change("idle")
 	}
