@@ -7,7 +7,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "bitDepth": 1,
-  "bitRate": 112,
+  "bitRate": 96,
   "compression": 1,
   "conversionMode": 0,
   "duration": 179.27835,
@@ -18,6 +18,6 @@
   "preload": false,
   "sampleRate": 44100,
   "soundFile": "mus_boss3old.mp3",
-  "type": 0,
+  "type": 1,
   "volume": 1.0,
 }
