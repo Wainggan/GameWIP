@@ -61,7 +61,11 @@ with obj_specialText {
 	var _col = merge_color(color, make_color_rgb(200, 200, 200), 0.5)
 	if draw_get_color() != _col draw_set_color(_col)
 	
-	draw_text_transformed(round(x), round(y), text, 1, min(life / 4, 1), 0)
+	var _scale = 1
+	if font == ft_bigdamage
+		_scale = 3
+	
+	draw_text_transformed(round(x), round(y), text, 1 * _scale, min(life / 4, 1) * _scale, 0)
 }
 //shader_reset()
 

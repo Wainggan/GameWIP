@@ -56,6 +56,24 @@ function text_splash_random(_x, _y, _text, _posR = 16, _lifeR = 4, _lifeA = 0) {
 	return _inst
 }
 
+function text_damage_random(_x, _y, _dir, _text, _posR = 16, _lifeR = 4, _lifeA = 0, _spd = 1) {
+	var _inst = instance_create_layer(
+		_x + irandom_range(-_posR, _posR), 
+		_y + irandom_range(-_posR, _posR), 
+		"Instances", obj_specialText
+	);
+	with _inst {
+		text = _text;
+		color = #ff5588
+		x_vel = lengthdir_x(_spd, _dir)
+		y_vel = lengthdir_y(_spd, _dir)
+		life += irandom_range(0 + _lifeA, _lifeR + _lifeA)
+		
+		font = ft_damage
+	}
+	return _inst
+}
+
 function screenShake_set(_amount, _damp = 0.2) {
 	global.screenShake = _amount;
 	global.screenShakeDamp = _damp;

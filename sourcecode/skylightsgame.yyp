@@ -214,6 +214,7 @@
     {"id":{"name":"scr_Pattern","path":"scripts/scr_Pattern/scr_Pattern.yy",},},
     {"id":{"name":"scr_menu","path":"scripts/scr_menu/scr_menu.yy",},},
     {"id":{"name":"scr_command","path":"scripts/scr_command/scr_command.yy",},},
+    {"id":{"name":"ft_bigdamage","path":"fonts/ft_bigdamage/ft_bigdamage.yy",},},
     {"id":{"name":"scr_sounds","path":"scripts/scr_sounds/scr_sounds.yy",},},
     {"id":{"name":"obj_stage_3_Old","path":"objects/obj_stage_3_Old/obj_stage_3_Old.yy",},},
     {"id":{"name":"spr_bullet_large","path":"sprites/spr_bullet_large/spr_bullet_large.yy",},},

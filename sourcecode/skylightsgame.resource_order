@@ -138,6 +138,7 @@
     {"name":"scr_Pattern","order":19,"path":"scripts/scr_Pattern/scr_Pattern.yy",},
     {"name":"scr_menu","order":15,"path":"scripts/scr_menu/scr_menu.yy",},
     {"name":"scr_command","order":2,"path":"scripts/scr_command/scr_command.yy",},
+    {"name":"ft_bigdamage","order":7,"path":"fonts/ft_bigdamage/ft_bigdamage.yy",},
     {"name":"scr_sounds","order":17,"path":"scripts/scr_sounds/scr_sounds.yy",},
     {"name":"obj_stage_3_Old","order":7,"path":"objects/obj_stage_3_Old/obj_stage_3_Old.yy",},
     {"name":"spr_bullet_large","order":3,"path":"sprites/spr_bullet_large/spr_bullet_large.yy",},

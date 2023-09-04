@@ -17,3 +17,4 @@ active = false;
 activeAnim = 0;
 
 damage = 1
+damageTimer = 0;

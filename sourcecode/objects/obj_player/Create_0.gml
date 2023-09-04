@@ -134,7 +134,7 @@ bulletWavyDamage = 4;
 bulletWavySplashDamage = 0.04;
 
 bulletHelperList = [];
-bulletHelperDamage = 0.5;
+bulletHelperDamage = 0.4;
 bulletHelperReload = 6;
 
 func_addHelper = function(){
@@ -146,7 +146,7 @@ func_addHelper = function(){
 }
 
 bulletEvilList = [];
-bulletEvilDamage = 0.4;
+bulletEvilDamage = 0.3;
 bulletEvilReload = 8;
 
 func_addEvil = function(){
@@ -731,6 +731,7 @@ step : function(){
 					_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
 					_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
 					damage = other.bulletDamage
+					fakedamage = 1
 				}
 			})
 		}
@@ -756,6 +757,7 @@ step : function(){
 					dir_accel = input.check("sneak") ? 1 : 2;
 						
 					damage = other.bulletHomingDamage
+					fakedamage = 0.2
 						
 					sprite_index = spr_bullet_homingplayerTest
 						
@@ -781,6 +783,7 @@ step : function(){
 					dir_accel = input.check("sneak") ? 9 : 6;
 						
 					damage = other.bulletRoundDamage
+					fakedamage = 0.2
 						
 					sprite_index = spr_player_round;
 
@@ -805,17 +808,10 @@ step : function(){
 						
 					static _wavyStepFunction = function(){ // TODO: redo
 						x += wave(-2, 2, 1, b_off) * global.delta_multi;
-						mask_index = sprite_index;
-						if place_meeting(x, y, obj_enemy) {
-							b_kill = true
-							instance_destroy()
-						}
-								
-						mask_index = spr_nothing;
 					}
 					step = _wavyStepFunction;
 					static _wavyDeathFunction = function(){
-						if b_kill
+						if y > 0 - 32
 						bullet_preset_ring(x, y, b_amount, 8, random(360), function(_x, _y, _dir){
 							var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
 							with _inst {
@@ -825,6 +821,7 @@ step : function(){
 								spd = other.b_speed;
 						
 								damage = other.b_damage;
+								fakedamage = 0.1
 							
 								image_alpha = 0.5;
 								sprite_index = spr_player_round;
@@ -834,6 +831,7 @@ step : function(){
 					death = _wavyDeathFunction;
 						
 					damage = other.bulletWavyDamage;
+					fakedamage = 4
 						
 					b_damage = other.bulletWavySplashDamage
 					b_amount = other.bulletWavySplashAmount
@@ -880,6 +878,7 @@ step : function(){
 						dir = 90;
 						spd = 14;
 						damage = _damage;
+						fakedamage = 0.4
 						sprite_index = spr_player_helper
 					}
 				}
@@ -902,6 +901,7 @@ step : function(){
 						spd = 14;
 						//show_debug_message(_damage)
 						damage = _damage;
+						fakedamage = 0.3
 						sprite_index = spr_player_helper
 					}
 				}
