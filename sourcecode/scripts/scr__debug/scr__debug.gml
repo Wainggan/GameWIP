@@ -1,8 +1,18 @@
-#macro DEBUG_THINGS false
-global.debug = true;
+
+#macro DEBUG true
+#macro Debug:DEBUG true
+#macro Release:DEBUG false
+
+#macro DEMO false
+#macro Demo:DEMO true
+
 #macro DEBUG_LOG_FILE "log.txt"
-#macro LOG_WARNING 1
-#macro LOG_ERROR 2
+
+enum Log {
+	None = 0,
+	Warning = 1,
+	Error = 2
+}
 
 function Logger(_filename) constructor {
 	filename = _filename;
@@ -13,7 +23,7 @@ function Logger(_filename) constructor {
 	log = function(_input, _priority = 0) {
 		if priority <= _priority || _priority == -1 {
 			//var file = file_text_open_append(filename)
-			file_text_write_string(file, (_priority != -1 ? (_priority == 0 ? "Log - " : (_priority == 1 ? "Warning - " : "Error - ")) : "") + _input)
+			file_text_write_string(file, (_priority != -1 ? (_priority == Log.None ? "Log - " : (_priority == Log.Warning ? "Warning - " : "Error - ")) : "") + _input)
 			file_text_writeln(file)
 			//file_text_close(file)
 		}
@@ -48,10 +58,10 @@ log("Logger initialized")
 
 #macro print show_debug_message
 
-if DEBUG_THINGS exception_unhandled_handler(function(ex){
+if DEBUG exception_unhandled_handler(function(ex){
 	log_newline()
 	log("-------------", -1)
-	log(string(ex.message), LOG_ERROR)
+	log(string(ex.message), Log.Error)
 	log(string(ex.longMessage), -1)
 	log("Script: " + string(ex.script), -1)
 	log("Line " + string(ex.line), -1)

@@ -38,7 +38,7 @@ for (var i = 0; i < min(array_length(_grazeArray), 200); i++) {
 	}
 }
 
-if keyboard_check_pressed(ord("T")) bullet_laser(x, y + 64, 90, 20, 60)
+if DEBUG if keyboard_check_pressed(ord("T")) bullet_laser(x, y + 64, 90, 20, 60)
 
 if !game_pause() dir_graphic = (x - _lastX) / global.delta_multi;
 

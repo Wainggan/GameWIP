@@ -1,5 +1,4 @@
 
-if !keyboard_check(ord("H")) {
 
 // multiply post
 
@@ -35,7 +34,7 @@ shader_set(shd_blend_overlay)
 	
 shader_reset()
 
-}
+
 
 
 with obj_bullet {

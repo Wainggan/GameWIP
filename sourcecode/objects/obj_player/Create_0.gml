@@ -469,7 +469,7 @@ step : function(){
 	
 	hook_focus_charge = min(hook_focus_charge, hook_focus_limit)
 	
-	if keyboard_check_pressed(ord("Y")) {
+	if DEBUG if keyboard_check_pressed(ord("Y")) {
 		hook_focus_charge = 4;
 	}
 

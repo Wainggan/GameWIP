@@ -6,6 +6,7 @@ lastPlaying = playing
 
 volume = 0;
 
+
 introLength = 4;
 loopLength = (60 + 4) - introLength;
 totalLength = introLength + loopLength;
@@ -82,6 +83,7 @@ news_subscribe("volume_change", function(_v) {
 		audio_sound_gain(bgm, volume, 10)
 });
 
+if !DEBUG
 news_push("volume_change", [ // TODO: clean
 	global.file.settings.sound.globalVolume * 
 	global.file.settings.sound.musicVolume

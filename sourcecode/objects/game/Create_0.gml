@@ -80,8 +80,8 @@ global.file = undefined;
 			settings : {
 				sound : {
 					globalVolume : 1,
-					musicVolume : 0,
-					sfxVolume : 1,
+					musicVolume : 0.8,
+					sfxVolume : 0.9,
 				},
 				graphics : {
 					screenShake : 2,
@@ -137,7 +137,7 @@ global.file = undefined;
 		
 		switch checkNewVersion {
 			default:
-				log("Attempted to update to file version " + checkNewVersion + ", but it does not exist.", LOG_ERROR)
+				log("Attempted to update to file version " + checkNewVersion + ", but it does not exist.", Log.Error)
 			break
 		}
 		

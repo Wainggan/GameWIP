@@ -1,4 +1,4 @@
-global.showHitboxes = keyboard_check_pressed(ord("O")) ? !global.showHitboxes : global.showHitboxes;
+if DEBUG global.showHitboxes = keyboard_check_pressed(ord("O")) ? !global.showHitboxes : global.showHitboxes;
 
 
 
