@@ -23,31 +23,35 @@ func_close = function() {
 }
 
 menu_main = new Menu()
-	.add_button("TEST2", function(){
-		game_start(rm_stagetest2);
-		func_close();
-	})
-	.add_button("Stage 3", function(){
-		game_start(rm_stage3);
+	.add_button("Stage 1", function(){
+		game_start(rm_stage1);
 		func_close();
 	})
 	.add_button("Stage 2", function(){
 		game_start(rm_stage2);
 		func_close();
 	})
-	.add_button("Stage 1", function(){
-		game_start(rm_stage1);
+	.add_button("Stage 3", function(){
+		game_start(rm_stage3);
 		func_close();
 	})
+
+if DEBUG {
+	menu_main
 	.add_button("TEST", function(){
 		game_start(rm_stagetest);
+		func_close();
+	})
+	.add_button("TEST2", function(){
+		game_start(rm_stagetest2);
 		func_close();
 	})
 	.add_button("Stage 4", function(){
 		game_start(rm_stage4);
 		func_close();
 	})
-	
+}
+menu_main
 	.add_button("Settings", function(){
 		func_open(menu_settings);
 	})
@@ -82,7 +86,6 @@ menu_settings = new Menu()
 		show_debug_message(_e * 0.1)
 		global.file.settings.sound.sfxVolume = _e * 0.1;
 	})
-for(var i = 0; i < 30; i++)  menu_settings.add_button(string(i), , string("Tooltip {0}", i));
 
 menu_debug = new Menu()
 	.add_button("Delete File", function(){
