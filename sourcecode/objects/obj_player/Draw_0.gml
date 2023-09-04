@@ -111,25 +111,59 @@ if shakeAmount > 0 {
 	1 - power(1 - 0.9999999, global.delta_milli * 2)
 		);
 	
+	
 	var _rad = 6, _outlineColor = merge_color(c_black, c_white, hook_charge)
 	if hook_charge == 1
 		_outlineColor = (global.time % 8) < 4 ? #ff44ff : c_white
 	
 	draw_set_color(_outlineColor)
 	draw_set_alpha(hook_charge * 0.6 + 0.2)
-	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad + 3, 2, hook_charge / 2, 270, false)
-	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad + 3, 2, hook_charge / 2, 270, true)
 	
-	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad - 2, 1, hook_charge / 2, 270, false)
-	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad - 2, 1, hook_charge / 2, 270, true)
+	var _x = round(lifeChargeGraphicX), _y = round(lifeChargeGraphicY)
 	
-	draw_set_color(c_blue)
-	draw_set_alpha(0.4)
-	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad, 4, hook_charge / 2, 270, false)
-	draw_circle_outline_part(round(lifeChargeGraphicX), round(lifeChargeGraphicY), _rad, 4, hook_charge / 2, 270, true)
+	
+	// outer outline
+	draw_circle_outline_part(_x, _y, _rad + 3, 2, hook_charge / 2, 270, false)
+	draw_circle_outline_part(_x, _y, _rad + 3, 2, hook_charge / 2, 270, true)
+	
+	// inner outline
+	draw_circle_outline_part(_x, _y, _rad - 2, 1, hook_charge / 2, 270, false)
+	draw_circle_outline_part(_x, _y, _rad - 2, 1, hook_charge / 2, 270, true)
+	
+	
+	var _lowColor = c_white, _highColor = c_white;
+	var _lowPrecent = 0, _highPrecent = 0;
+	
+	if hook_charge < graze_charge {
+		_lowColor = #dd66ff
+		_lowPrecent = hook_charge
+		_highColor = #dd22dd
+		_highPrecent = graze_charge
+	} else {
+		_lowColor = #dd66ff
+		_lowPrecent = graze_charge
+		_highColor = #2233ff
+		_highPrecent = hook_charge
+	}
+	
+	
+	// inside graze charge
+	draw_set_color(_highColor)
+	draw_set_alpha(0.8)
+	draw_circle_outline_part(_x, _y, _rad, 4, max(0, _highPrecent / 2 - _lowPrecent / 2), 270 + 180 * _lowPrecent, false)
+	draw_circle_outline_part(_x, _y, _rad, 4, max(0, _highPrecent / 2 - _lowPrecent / 2), 270 - 180 * _lowPrecent, true)
+	
+	draw_set_color(_lowColor)
+	draw_set_alpha(0.8)
+	draw_circle_outline_part(_x, _y, _rad, 4, _lowPrecent / 2, 270, false)
+	draw_circle_outline_part(_x, _y, _rad, 4, _lowPrecent / 2, 270, true)
 	
 	draw_set_color(c_white)
 	draw_set_alpha(1)
+	
+	
+	
+	
 	//var _amount = 16;
 	//var _size = 6;
 	//for (var i = 0; i < round(_amount * hook_charge); i++) {

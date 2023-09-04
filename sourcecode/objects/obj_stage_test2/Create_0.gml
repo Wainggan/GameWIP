@@ -4,10 +4,12 @@ pattern_add("test-1", function() {
 
 	command_set([
 		30,
-		10,
+		8,
 		function(){
-			bullet_shoot_dir2(x, y, 1, 0.3, 3, point_direction(x, y, obj_player.x, obj_player.y));
-			command_repeat(20)
+			//bullet_shoot_dir2(x, y, 1, 0.3, 3, point_direction(x, y, obj_player.x, obj_player.y));
+			bullet_shoot_dir2(x, y, 1, 0.3, 4, 270);
+			commandIndex--
+			//command_repeat(20)
 		},
 		function(){
 			nextPattern()

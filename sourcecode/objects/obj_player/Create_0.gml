@@ -35,6 +35,9 @@ tGrazeComboQueueTimer = 2;
 grazeComboQueueLastX = 0;
 grazeComboQueueLastY = 0;
 
+graze_charge = 0;
+graze_charge_timer = 0;
+
 grazeBulletList = {};
 grazeBulletListClearTime = 60 * 4;
 grazeBulletListClearTimeLaser = 8;
@@ -538,6 +541,8 @@ step : function(){
 				if grazeBulletList[$ _b] == undefined {
 					grazeBulletList[$ _b] = _b.object_index == obj_bullet ? grazeBulletListClearTime : grazeBulletListClearTimeLaser ;
 					_b.pop = 1;
+					
+					// reflect bullets
 					if grazeReflectChance > 0 && random(1) < grazeReflectChance {
 						var _vdX = lengthdir_x(_b.spd, _b.dir) + _b.x_vel + _b.autoX;
 						var _vdY = lengthdir_y(_b.spd, _b.dir) + _b.y_vel + _b.autoY;
@@ -565,7 +570,11 @@ step : function(){
 					grazeCombo += 1;
 					grazeComboQueue += 1;
 					grazeComboTimer = tGrazeComboTimer;
-					lifeCharge = min(lifeCharge + lifeChargeGraze, 1);
+					
+					graze_charge += 0.06;
+					graze_charge_timer = 50;		
+					
+					//lifeCharge = min(lifeCharge + lifeChargeGraze, 1);
 						
 					_grazeTotal++;
 						
@@ -626,9 +635,15 @@ step : function(){
 		func_grazeFlavorText(string(grazeCombo - grazeComboQueue), grazeComboQueueLastX, grazeComboQueueLastY)
 			
 	}
-		
+	
+	graze_charge_timer -= global.delta_multi
+	if graze_charge_timer <= 0 {
+		graze_charge -= 0.03 * global.delta_multi
+	}
+	graze_charge = clamp(graze_charge, 0, 1)
+	
 
-	lifeCharge = min(lifeCharge + lifeChargeSpeed * global.delta_multi, 1);
+	//lifeCharge = min(lifeCharge + lifeChargeSpeed * global.delta_multi, 1);
 
 	// TODO: rebalance bulletcharge
 	bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
@@ -644,7 +659,8 @@ step : function(){
 		
 	isShooting = input.check("shoot") && canShoot
 		
-	hook_charge = min(hook_charge + 0.0035 * global.delta_multi, 1);
+	hook_charge = min(hook_charge + 0.001 * global.delta_multi, 1);
+	hook_charge = min(hook_charge + graze_charge * 0.003 * global.delta_multi, 1);
 	func_handleFocus()
 		
 	hook_buffer -= global.delta_multi;
