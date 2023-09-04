@@ -178,7 +178,7 @@ surface_set_target(watertemp_surf) // draw reflections
 		for (var i = 0; i < array_length(tails); i++) {
 			
 			tails[i].loop(function(_p, j) {
-				draw_sprite_ext(spr_player_tail, 0, offX + _p.x, offY + _p.y + 64, _p.size / 64, _p.size / 64, 0, #dc7b95, 1)
+				draw_sprite_ext(spr_player_tail, 0, offX + _p.x, offY + _p.y + 64 - 12, _p.size / 64, _p.size / 64, 0, #dc7b95, 1)
 			})
 			
 		}

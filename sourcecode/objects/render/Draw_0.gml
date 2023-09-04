@@ -27,7 +27,7 @@ surface_set_target(bullet_surf)
 	draw_clear_alpha(c_black, 0)
 	
 	shader_set(outline_shader)
-	shader_set_uniform_f(outline_u_color, 1, 0.96, 1, 0.8)
+	shader_set_uniform_f(outline_u_color, 1, 0.96, 1, 0.96)
 	shader_set_uniform_f(outline_u_thickness, 2)
 	shader_set_uniform_f(outline_u_pixelSize, 
 		1 / surface_get_width(bullet_playerSurf),
