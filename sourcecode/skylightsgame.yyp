@@ -173,6 +173,7 @@
     {"id":{"name":"snd_bulletshoot_old","path":"sounds/snd_bulletshoot_old/snd_bulletshoot_old.yy",},},
     {"id":{"name":"spr_playerTarget","path":"sprites/spr_playerTarget/spr_playerTarget.yy",},},
     {"id":{"name":"spr_importantIndicator","path":"sprites/spr_importantIndicator/spr_importantIndicator.yy",},},
+    {"id":{"name":"spr_normalEnemyIndicator","path":"sprites/spr_normalEnemyIndicator/spr_normalEnemyIndicator.yy",},},
     {"id":{"name":"spr_enemy_flower","path":"sprites/spr_enemy_flower/spr_enemy_flower.yy",},},
     {"id":{"name":"scr_test","path":"scripts/scr_test/scr_test.yy",},},
     {"id":{"name":"spr_player_laser_head","path":"sprites/spr_player_laser_head/spr_player_laser_head.yy",},},

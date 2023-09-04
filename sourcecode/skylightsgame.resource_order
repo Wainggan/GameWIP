@@ -102,6 +102,7 @@
     {"name":"snd_bulletshoot_old","order":1,"path":"sounds/snd_bulletshoot_old/snd_bulletshoot_old.yy",},
     {"name":"spr_playerTarget","order":7,"path":"sprites/spr_playerTarget/spr_playerTarget.yy",},
     {"name":"spr_importantIndicator","order":3,"path":"sprites/spr_importantIndicator/spr_importantIndicator.yy",},
+    {"name":"spr_normalEnemyIndicator","order":5,"path":"sprites/spr_normalEnemyIndicator/spr_normalEnemyIndicator.yy",},
     {"name":"spr_enemy_flower","order":3,"path":"sprites/spr_enemy_flower/spr_enemy_flower.yy",},
     {"name":"scr_test","order":16,"path":"scripts/scr_test/scr_test.yy",},
     {"name":"spr_player_laser_head","order":1,"path":"sprites/spr_player_laser_head/spr_player_laser_head.yy",},

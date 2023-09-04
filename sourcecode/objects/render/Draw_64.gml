@@ -80,6 +80,11 @@ if global.gameActive {
 				draw_sprite_ext(spr_importantIndicator, 0, round(gameSurfaceX+xP), gameSurfaceY+HEIGHT + 16, 1, 1, 0, c_white, 1)
 				draw_sprite_ext(spr_importantIndicator, 0, round(gameSurfaceX+xP), gameSurfaceY+HEIGHT + 16, 1-hp/maxhp, 1-hp / maxhp, 0, merge_color(c_black, c_fuchsia, 0.2), 0.7)
 			}
+		} else {
+			if 0 < xP && xP < WIDTH {
+				draw_sprite_ext(spr_normalEnemyIndicator, 0, round(gameSurfaceX+xP), gameSurfaceY+HEIGHT + 16, 1, 1, 0, c_white, 1)
+				draw_sprite_ext(spr_normalEnemyIndicator, 1, round(gameSurfaceX+xP), gameSurfaceY+HEIGHT + 16, 1-hp/maxhp, 1-hp / maxhp, 0,c_white, 1)
+			}
 		}
 	}
 	with obj_player
