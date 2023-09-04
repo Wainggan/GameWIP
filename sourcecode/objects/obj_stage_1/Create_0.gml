@@ -447,8 +447,6 @@ addEnemy("boss", function(){
 	movement_start(WIDTH / 2, 90, 1/50, , function(){
 		textbox_scene_create([
 			["a", [spr_test_viiPortrait, 0, -1]],
-			["b", [spr_car, 0, 1]],
-			["c", [spr_test_viiPortrait, 0, -1]],
 			["d", [spr_car, 0, 1]],
 			["go away", undefined, function(){
 				game_music(mus_boss1)
@@ -815,12 +813,12 @@ enemies45534345 = {
 };
 
 //stageIndex = 7;
-addSection(function(){
+ignore addSection(function(){
 	game_background(, 1);
 	
 	enemy_delay("boss", 0, 0, 60)
 })
-addPause(, true);
+ignore addPause(, true);
 
 addPause(beat_to_frame(1));
 

@@ -26,6 +26,8 @@ if portrait != undefined {
 			subsprite = other.portrait[1];
 			side = other.portrait[2];
 			owner = other;
+			
+			if other.anim.percent < 1 delay = 10
 		}
 	else
 		with _out {
