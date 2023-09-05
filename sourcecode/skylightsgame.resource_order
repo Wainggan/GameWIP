@@ -100,6 +100,7 @@
     {"name":"sound","order":7,"path":"objects/sound/sound.yy",},
     {"name":"ft_score","order":1,"path":"fonts/ft_score/ft_score.yy",},
     {"name":"obj_stage_test2","order":8,"path":"objects/obj_stage_test2/obj_stage_test2.yy",},
+    {"name":"obj_effect_hit","order":15,"path":"objects/obj_effect_hit/obj_effect_hit.yy",},
     {"name":"ps_itemLatch","order":6,"path":"particles/ps_itemLatch/ps_itemLatch.yy",},
     {"name":"obj_portrait","order":2,"path":"objects/obj_portrait/obj_portrait.yy",},
     {"name":"obj_bulletGroup","order":7,"path":"objects/obj_bulletGroup/obj_bulletGroup.yy",},

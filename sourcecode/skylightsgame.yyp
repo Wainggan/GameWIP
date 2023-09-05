@@ -169,6 +169,7 @@
     {"id":{"name":"spr_tilesets_stage1","path":"sprites/spr_tilesets_stage1/spr_tilesets_stage1.yy",},},
     {"id":{"name":"ft_score","path":"fonts/ft_score/ft_score.yy",},},
     {"id":{"name":"obj_stage_test2","path":"objects/obj_stage_test2/obj_stage_test2.yy",},},
+    {"id":{"name":"obj_effect_hit","path":"objects/obj_effect_hit/obj_effect_hit.yy",},},
     {"id":{"name":"obj_flag_create","path":"objects/obj_flag_create/obj_flag_create.yy",},},
     {"id":{"name":"scr_macro","path":"scripts/scr_macro/scr_macro.yy",},},
     {"id":{"name":"ps_itemLatch","path":"particles/ps_itemLatch/ps_itemLatch.yy",},},

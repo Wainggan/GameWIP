@@ -105,6 +105,9 @@ if hp <= 0 && shakeFix == undefined { // todo: complete rewrite
 				game_pause(26)
 				shakeAmount = 26
 				
+				instance_create_layer(x, y, layer, obj_effect_hit)
+
+				
 			} else {
 				screenShake_set(2, 0.25);
 				sound.play(snd_enemydeath)

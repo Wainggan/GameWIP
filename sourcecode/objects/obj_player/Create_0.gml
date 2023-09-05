@@ -509,6 +509,8 @@ step : function(){
 				grazeComboQueue = 0;
 				grazeCombo = 0;
 				func_grazeFlavorText("0")
+				
+				instance_create_layer(x, y, layer, obj_effect_hit)
 			
 				state.change("respawn")
 			} else {
