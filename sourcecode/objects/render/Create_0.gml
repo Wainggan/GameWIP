@@ -103,6 +103,8 @@ shadowtemp_surf = -1;
 watertemp_surf = -1;
 underwatertemp_surf = -1;
 
+application_surf = -1;
+
 backgroundOrder = [];
 currentBackground = 0;
 newBackground = 0;
@@ -117,3 +119,15 @@ screenShakeX = 0;
 screenShakeY = 0;
 
 scoreAnim = 0
+
+refreshApplicationSurf = function(){
+	surface_set_target(application_surf)
+	draw_surface(application_surface, 0, 0)
+	surface_reset_target()
+}
+
+blendmodeSet = function(_mode){
+	shader_set(_mode)
+	texture_set_stage(shader_get_sampler_index(_mode, "u_destination"), surface_get_texture(application_surf))
+}
+

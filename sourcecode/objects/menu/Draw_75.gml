@@ -3,6 +3,8 @@ var winHeight = window_get_height();
 
 // TODO: fix
 
+if input.check("sneak") exit
+
 for (var i = 0; i < array_length(menuList); i++) {
 	var _cM = menuList[i];
 	

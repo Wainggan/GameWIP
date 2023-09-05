@@ -15,6 +15,8 @@ if !surface_exists(watertemp_surf)
 	
 if !surface_exists(background_surf)
 	background_surf = surface_create(WIDTH, HEIGHT);
+if !surface_exists(application_surf)
+	application_surf = surface_create(WIDTH, HEIGHT);
 	
 //if !surface_exists(water_surf)
 //	water_surf = surface_create(WIDTH, HEIGHT);
