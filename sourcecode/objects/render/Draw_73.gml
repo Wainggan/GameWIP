@@ -28,7 +28,7 @@ refreshApplicationSurf()
 var _col = c_blue
 blendmodeSet(shd_blend_overlay)
 
-	draw_rectangle_sprite(0, 0, WIDTH, HEIGHT, , _col, 0.02)
+	//draw_rectangle_sprite(0, 0, WIDTH, HEIGHT, , _col, 0.02)
 	
 shader_reset()
 

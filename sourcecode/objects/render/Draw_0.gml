@@ -49,4 +49,4 @@ surface_set_target(bullet_surf)
 	gpu_set_blendmode(bm_normal)
 surface_reset_target()
 
-draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, c_white, 0.6)
+draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, #ffffff, 0.7)
