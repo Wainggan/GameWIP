@@ -39,7 +39,7 @@ if latch && !latchTimer {
 }
 x += x_vel * global.delta_multi;
 y += y_vel * global.delta_multi;
-image_alpha = clamp(1 - (96 - _dist) / 96, 0, 1) * 0.3 + 0.7
+image_alpha = clamp(1 - (96 - _dist) / 96, 0, 1) * 0.5 + 0.5
 if y > HEIGHT + 64 {
 	instance_destroy()
 }

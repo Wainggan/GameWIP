@@ -4,7 +4,7 @@ var winHeight = window_get_height();
 var gameSurfaceX = round(x);
 var gameSurfaceY = round(y);
 
-
+gpu_set_blendenable(false)
 if (array_length(shockwave_waves) > 0) {
 	
 	var fxStrength = -0.04
@@ -54,7 +54,10 @@ if (array_length(shockwave_waves) > 0) {
 	
 	// the manual lied
 	draw_rectangle_sprite(gameSurfaceX, gameSurfaceY, gameSurfaceX+ WIDTH, gameSurfaceY+HEIGHT, false, c_black)
+	
 	draw_surface(application_surface, gameSurfaceX, gameSurfaceY)
+	
 	
 }
 
+gpu_set_blendenable(true)
