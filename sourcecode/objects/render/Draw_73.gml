@@ -34,7 +34,7 @@ shader_reset()
 
 
 // fix alpha
-gpu_set_blendmode_ext_sepalpha(bm_src_alpha, bm_inv_src_alpha, bm_src_alpha, bm_one)
+//gpu_set_blendmode_ext_sepalpha(bm_src_alpha, bm_inv_src_alpha, bm_src_alpha, bm_one)
 
 with obj_bullet {
 	if object_index == obj_bullet
@@ -45,7 +45,7 @@ with obj_bullet {
 	}
 }
 
-gpu_set_blendmode(bm_normal)
+//gpu_set_blendmode(bm_normal)
 
 
 draw_set_font(ft_splash)
