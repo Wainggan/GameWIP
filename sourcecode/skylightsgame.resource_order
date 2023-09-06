@@ -125,6 +125,7 @@
     {"name":"obj_helper","order":11,"path":"objects/obj_helper/obj_helper.yy",},
     {"name":"snd_bulletshoot_2","order":6,"path":"sounds/snd_bulletshoot_2/snd_bulletshoot_2.yy",},
     {"name":"obj_stage_test","order":6,"path":"objects/obj_stage_test/obj_stage_test.yy",},
+    {"name":"mus_title","order":10,"path":"sounds/mus_title/mus_title.yy",},
     {"name":"obj_bullet_parent","order":5,"path":"objects/obj_bullet_parent/obj_bullet_parent.yy",},
     {"name":"mus_stage2test","order":2,"path":"sounds/mus_stage2test/mus_stage2test.yy",},
     {"name":"shd_blend_overlay","order":8,"path":"shaders/shd_blend_overlay/shd_blend_overlay.yy",},

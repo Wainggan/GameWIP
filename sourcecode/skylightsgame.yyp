@@ -197,6 +197,7 @@
     {"id":{"name":"obj_helper","path":"objects/obj_helper/obj_helper.yy",},},
     {"id":{"name":"snd_bulletshoot_2","path":"sounds/snd_bulletshoot_2/snd_bulletshoot_2.yy",},},
     {"id":{"name":"obj_stage_test","path":"objects/obj_stage_test/obj_stage_test.yy",},},
+    {"id":{"name":"mus_title","path":"sounds/mus_title/mus_title.yy",},},
     {"id":{"name":"obj_bullet_parent","path":"objects/obj_bullet_parent/obj_bullet_parent.yy",},},
     {"id":{"name":"spr_enemy_cat","path":"sprites/spr_enemy_cat/spr_enemy_cat.yy",},},
     {"id":{"name":"mus_stage2test","path":"sounds/mus_stage2test/mus_stage2test.yy",},},
