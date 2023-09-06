@@ -28,10 +28,13 @@ refreshApplicationSurf()
 var _col = c_blue
 blendmodeSet(shd_blend_overlay)
 
-	//draw_rectangle_sprite(0, 0, WIDTH, HEIGHT, , _col, 0.02)
+	draw_rectangle_sprite(0, 0, WIDTH, HEIGHT, , _col, 0.02)
 	
 shader_reset()
 
+
+// fix alpha
+gpu_set_blendmode_ext_sepalpha(bm_src_alpha, bm_inv_src_alpha, bm_src_alpha, bm_one)
 
 with obj_bullet {
 	if object_index == obj_bullet
@@ -41,6 +44,8 @@ with obj_bullet {
 		draw_sprite_ext(spr_laser, 0, round(x + lengthdir_x(30, image_angle)), round(y + lengthdir_y(30, image_angle)), image_xscale, image_yscale, image_angle, c_white, image_alpha);
 	}
 }
+
+gpu_set_blendmode(bm_normal)
 
 
 draw_set_font(ft_splash)

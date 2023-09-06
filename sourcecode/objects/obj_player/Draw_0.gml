@@ -115,9 +115,13 @@ if shakeAmount > 0 {
 	var _rad = 6, _outlineColor = merge_color(c_black, c_white, hook_charge)
 	if hook_charge == 1
 		_outlineColor = (global.time % 8) < 4 ? #ff44ff : c_white
+		
+	
+	// fix alpha
+	gpu_set_blendmode_ext_sepalpha(bm_src_alpha, bm_inv_src_alpha, bm_src_alpha, bm_one)
 	
 	draw_set_color(_outlineColor)
-	draw_set_alpha(hook_charge * 0.6 + 0.2)
+	draw_set_alpha(hook_charge * 0.6 + 0.1)
 	
 	var _x = round(lifeChargeGraphicX), _y = round(lifeChargeGraphicY)
 	
@@ -149,12 +153,12 @@ if shakeAmount > 0 {
 	
 	// inside graze charge
 	draw_set_color(_highColor)
-	draw_set_alpha(0.8)
+	draw_set_alpha(0.7)
 	draw_circle_outline_part(_x, _y, _rad, 4, max(0, _highPrecent / 2 - _lowPrecent / 2), 270 + 180 * _lowPrecent, false)
 	draw_circle_outline_part(_x, _y, _rad, 4, max(0, _highPrecent / 2 - _lowPrecent / 2), 270 - 180 * _lowPrecent, true)
 	
 	draw_set_color(_lowColor)
-	draw_set_alpha(0.8)
+	draw_set_alpha(0.7)
 	draw_circle_outline_part(_x, _y, _rad, 4, _lowPrecent / 2, 270, false)
 	draw_circle_outline_part(_x, _y, _rad, 4, _lowPrecent / 2, 270, true)
 	
@@ -162,7 +166,7 @@ if shakeAmount > 0 {
 	draw_set_alpha(1)
 	
 	
-	
+	gpu_set_blendmode(bm_normal)
 	
 	//var _amount = 16;
 	//var _size = 6;

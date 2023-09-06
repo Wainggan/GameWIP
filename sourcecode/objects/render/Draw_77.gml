@@ -20,14 +20,17 @@ if (array_length(shockwave_waves) > 0) {
 		draw_clear_alpha($FF7F7F, 1);
 		gpu_set_blendmode_ext(bm_dest_color, bm_src_color);
 		
+		// shockwave_surf_wavesScale * 2 to account for lower res shockwave images
+		// TODO: make these into objects
+		
 		shader_set(shd_addNormals);
 		for (var i = 0; i < array_length(shockwave_waves); i++) {
 			var w = shockwave_waves[i]
 			draw_sprite_ext(shockwave_sprite, w.image, 
 				w.x * shockwave_surf_wavesScale, 
 				w.y * shockwave_surf_wavesScale, 
-				w.scale * shockwave_surf_wavesScale,
-				w.scale * shockwave_surf_wavesScale, 0, c_white, w.alpha)
+				w.scale * shockwave_surf_wavesScale * 2,
+				w.scale * shockwave_surf_wavesScale * 2, 0, c_white, w.alpha)
 		}
 		shader_reset()
 		gpu_set_blendmode(bm_normal)
@@ -48,6 +51,9 @@ if (array_length(shockwave_waves) > 0) {
 	
 	
 } else {
+	
+	// the manual lied
+	draw_rectangle_sprite(gameSurfaceX, gameSurfaceY, gameSurfaceX+ WIDTH, gameSurfaceY+HEIGHT, false, c_black)
 	draw_surface(application_surface, gameSurfaceX, gameSurfaceY)
 	
 }
