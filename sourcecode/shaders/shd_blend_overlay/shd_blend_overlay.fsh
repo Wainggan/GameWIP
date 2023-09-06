@@ -28,7 +28,7 @@ void main()
 	}
 	
 	col.rgb = mix(dst.rgb, col.rgb, src.a);
-	col.a = 1.0;
+	col.a = src.a + dst.a * (1.0 - src.a);
 	
     gl_FragColor = col;
 }

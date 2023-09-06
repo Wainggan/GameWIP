@@ -12,8 +12,9 @@ void main()
 	vec4 dst = texture2D(u_destination, v_screen);
 	
 	vec4 col;
-	col.rgb = mix(dst.rgb, src.rgb, src.a);
-	col.a = 1.0;
+	col.a = src.a + dst.a * (1.0 - src.a);
+	col.rgb = src.rgb + dst.rgb * (1.0 - src.a);
+	col.rgb = col.rgb / col.a;
 
 	gl_FragColor = col;
 }
