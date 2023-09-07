@@ -318,6 +318,8 @@ func_hookPop = function(){
 	inst.destroy = true;
 	inst.bulletCharge = true
 	
+	particle_burst(x, y, ps_player_hookPop)
+	
 	hook_radius += 16
 				
 	repeat 25

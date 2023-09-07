@@ -27,6 +27,7 @@
     {"name":"obj_stage_3","order":2,"path":"objects/obj_stage_3/obj_stage_3.yy",},
     {"name":"ft_ui","order":3,"path":"fonts/ft_ui/ft_ui.yy",},
     {"name":"spr_player_helper","order":6,"path":"sprites/spr_player_helper/spr_player_helper.yy",},
+    {"name":"ps_player_hookPop","order":7,"path":"particles/ps_player_hookPop/ps_player_hookPop.yy",},
     {"name":"spr_bullet_normal","order":4,"path":"sprites/spr_bullet_normal/spr_bullet_normal.yy",},
     {"name":"ft_text","order":2,"path":"fonts/ft_text/ft_text.yy",},
     {"name":"mus_boss1","order":9,"path":"sounds/mus_boss1/mus_boss1.yy",},

@@ -81,6 +81,7 @@
     {"id":{"name":"obj_stage_3","path":"objects/obj_stage_3/obj_stage_3.yy",},},
     {"id":{"name":"ft_ui","path":"fonts/ft_ui/ft_ui.yy",},},
     {"id":{"name":"spr_player_helper","path":"sprites/spr_player_helper/spr_player_helper.yy",},},
+    {"id":{"name":"ps_player_hookPop","path":"particles/ps_player_hookPop/ps_player_hookPop.yy",},},
     {"id":{"name":"spr_bullet_normal","path":"sprites/spr_bullet_normal/spr_bullet_normal.yy",},},
     {"id":{"name":"ft_text","path":"fonts/ft_text/ft_text.yy",},},
     {"id":{"name":"mus_boss1","path":"sounds/mus_boss1/mus_boss1.yy",},},
