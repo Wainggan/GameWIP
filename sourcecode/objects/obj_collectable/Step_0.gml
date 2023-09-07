@@ -23,8 +23,14 @@ if latch && !latchTimer {
 	
 	if place_meeting(x, y, obj_player) {
 		global.score += scoreGive;
-		if scoreGive > 0
-			text_splash_random(x, y, scoreGive, 64, 6, 2)
+		if scoreGive > 0 {
+			var _dir = random_range(0, 360)
+			text_splash_random(
+				x + lengthdir_x(64, _dir), 
+				y + lengthdir_y(64, _dir), 
+				scoreGive, 16, 6, 2
+			);
+		}
 		obj_player.func_handleCollectable(self)
 		if func != undefined func();
 		if sprite_index != spr_collectable_graze
