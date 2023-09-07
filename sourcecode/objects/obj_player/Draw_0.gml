@@ -96,7 +96,7 @@ if shakeAmount > 0 {
 		for (var i = 0; i < array_length(tails); i++) {
 			
 			tails[i].loop(function(_p, j) {
-				draw_sprite_ext(spr_player_tail, 0, offX + _p.x, offY + _p.y, _p.size / 64, _p.size / 64, 0, #f27596, 1)
+				draw_sprite_ext(spr_player_tail, 0, offX + _p.x, offY + _p.y, _p.size / 64, _p.size / 64, 0, #ff7d9f, 1)
 			})
 			
 		}
