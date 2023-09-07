@@ -52,6 +52,6 @@ surface_reset_target()
 // fix alpha
 //gpu_set_blendmode_ext_sepalpha(bm_src_alpha, bm_inv_src_alpha, bm_src_alpha, bm_one)
 
-draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, #cccccc, 0.6)
+draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, #dddddd, 0.66)
 
 //gpu_set_blendmode(bm_normal)
