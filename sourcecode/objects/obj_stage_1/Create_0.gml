@@ -371,7 +371,9 @@ pattern_add("stage1-boss-4", function(){
 		function(){
 			sound.play(snd_bulletshoot)
 			b_golden = bullet_preset_golden(x, y, 8, 4, b_golden, function(_x, _y, _dir){
-				bullet_shoot_dir3(_x, _y, 0.5, 0.01, 1, 0.1, 4, _dir)
+				with bullet_shoot_dir3(_x, _y, 0.5, 0.01, 1, 0.1, 4, _dir) {
+					glow = cb_rust
+				}
 			})
 			command_repeat(40)
 		},
