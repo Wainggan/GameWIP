@@ -2,7 +2,7 @@
 
 event_inherited()
 
-game_music(mus_stage2)
+game_music(mus_stage2test)
 
 enemies = {
 	"basic1": function(){
