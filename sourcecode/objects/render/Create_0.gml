@@ -131,3 +131,6 @@ blendmodeSet = function(_mode){
 	texture_set_stage(shader_get_sampler_index(_mode, "u_destination"), surface_get_texture(application_surf))
 }
 
+if DEBUG {
+	show_debug_overlay(true)
+}
