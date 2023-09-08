@@ -54,7 +54,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.6.0.89",
+    "IDEVersion": "2023.8.0.98",
   },
   "resources": [
     {"id":{"name":"shd_blend_normal","path":"shaders/shd_blend_normal/shd_blend_normal.yy",},},
@@ -271,6 +271,7 @@
     {"roomId":{"name":"rm_stage4","path":"rooms/rm_stage4/rm_stage4.yy",},},
     {"roomId":{"name":"rm_stagetest2","path":"rooms/rm_stagetest2/rm_stagetest2.yy",},},
   ],
+  "templateType": null,
   "TextureGroups": [
     {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},
   ],
