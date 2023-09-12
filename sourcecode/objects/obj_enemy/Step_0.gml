@@ -116,13 +116,16 @@ if hp <= 0 && shakeFix == undefined { // todo: complete rewrite
 		}
 	
 		onDeath();
-		if canDie shakeFix = 1
+		if canDie {
+			shakeFix = 1
+			particle_burst(x, y, ps_enemypop_1)
+		}
 	}
 	
 	//func_destroyBullets()
 }
 if shakeFix != undefined {
-	particle_burst(x, y, ps_enemypop_1)
+	
 
 	shakeFix -= global.delta_multi
 	if canDie && shakeFix < 0 instance_destroy();
