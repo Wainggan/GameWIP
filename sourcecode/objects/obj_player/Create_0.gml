@@ -3,6 +3,8 @@ if instance_number(obj_player) > 1 {
 	exit;
 }
 
+// test
+
 moveSpeed = 5;
 fastMoveSpeed = 5;
 slowMoveSpeed = 2;
