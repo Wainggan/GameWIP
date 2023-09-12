@@ -276,9 +276,10 @@ func_inputUpdate = function(kleft = 0, kright = 0, kup = 0, kdown = 0) {
 
 func_grazeFlavorText = function(_text, _x = x, _y = y) {
 	var _dist = point_distance(x, y, _x, _y);
+	var _dir = point_direction(x, y, _x, _y);
 	
-	var _nX = ((_x - x) / _dist) * 32;
-	var _nY = ((_y - y) / _dist) * 32;
+	var _nX = ((_x - x) / _dist) * 48;
+	var _nY = ((_y - y) / _dist) * 48;
 	
 	_x = clamp(x + _nX, 16, WIDTH - 16);
 	_y = clamp(y + _nY, 16, HEIGHT - 16);

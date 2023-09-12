@@ -4,6 +4,7 @@ var winHeight = window_get_height();
 var gameSurfaceX = round(x);
 var gameSurfaceY = round(y);
 
+
 gpu_set_blendenable(false)
 if (array_length(shockwave_waves) > 0) {
 	
@@ -55,8 +56,9 @@ if (array_length(shockwave_waves) > 0) {
 	// the manual lied
 	draw_rectangle_sprite(gameSurfaceX, gameSurfaceY, gameSurfaceX+ WIDTH, gameSurfaceY+HEIGHT, false, c_black)
 	
+	//gpu_set_tex_filter(true)
 	draw_surface_ext(application_surface, gameSurfaceX, gameSurfaceY, scale, scale, 0, c_white, 1)
-	
+	//gpu_set_tex_filter(false)
 	
 }
 

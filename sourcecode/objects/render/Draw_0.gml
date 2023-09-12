@@ -1,8 +1,9 @@
 var winWidth = window_get_width();
 var winHeight = window_get_height();
 
-scale = min(floor(winWidth / WIDTH), floor(winHeight / HEIGHT))
-scale = max(scale, 0)
+scale = min(winWidth / WIDTH, winHeight / HEIGHT)
+scale = floor(scale)
+scale = max(scale,1)
 
 x = (winWidth/2- WIDTH/2*scale )+WIDTH/8;
 y = (winHeight/2-HEIGHT/2*scale )

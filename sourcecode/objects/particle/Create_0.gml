@@ -10,6 +10,10 @@ function particle_get_type(particle_asset, emitter_index=0) {
 
 _burst = function(_x, _y, _system) {
 	
+	part_particles_burst(particleSystems, _x, _y, _system)
+	
+	return;
+	
 	var _struct = particle_get_info(_system);
 	
 	for (var i = array_length(_struct.emitters) - 1; i >= 0; i--) {
