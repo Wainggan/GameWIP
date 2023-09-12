@@ -42,7 +42,7 @@ if (array_length(shockwave_waves) > 0) {
 		shader_set_uniform_f(shockwave_u_fxstrength, fxStrength)
 		shader_set_uniform_f(shockwave_u_aspect, WIDTH / HEIGHT)
 		texture_set_stage(shockwave_u_texWaves, shockwave_texWaves)
-		draw_surface(application_surface, gameSurfaceX, gameSurfaceY)
+		draw_surface_ext(application_surface, gameSurfaceX, gameSurfaceY, scale, scale, 0, c_white, 1)
 	shader_reset()
 	
 	ignore draw_surface_ext(shockwave_surf_waves, 0, 0, 1, 1, 0, c_white, 0.5)
@@ -55,7 +55,7 @@ if (array_length(shockwave_waves) > 0) {
 	// the manual lied
 	draw_rectangle_sprite(gameSurfaceX, gameSurfaceY, gameSurfaceX+ WIDTH, gameSurfaceY+HEIGHT, false, c_black)
 	
-	draw_surface(application_surface, gameSurfaceX, gameSurfaceY)
+	draw_surface_ext(application_surface, gameSurfaceX, gameSurfaceY, scale, scale, 0, c_white, 1)
 	
 	
 }

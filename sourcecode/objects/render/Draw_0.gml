@@ -1,8 +1,11 @@
 var winWidth = window_get_width();
 var winHeight = window_get_height();
 
-x = (winWidth/2-WIDTH/2)+WIDTH/8;
-y = 16
+scale = min(floor(winWidth / WIDTH), floor(winHeight / HEIGHT))
+scale = max(scale, 0)
+
+x = (winWidth/2- WIDTH/2*scale )+WIDTH/8;
+y = (winHeight/2-HEIGHT/2*scale )
 x += screenShakeX;
 y += screenShakeY;
 

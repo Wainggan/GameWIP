@@ -5,6 +5,8 @@ display_set_gui_maximize()
 
 depth = 100
 
+scale = 1
+
 draw_set_font(ft_debug)
 
 #region Shockwave shader

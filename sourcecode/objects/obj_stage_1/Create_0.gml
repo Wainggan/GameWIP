@@ -4,6 +4,8 @@ event_inherited()
 
 game_music(mus_stage1)
 
+// ~~ ENEMIES ~~
+
 addEnemy("basic1", function(){
 	setHp(5)
 	setPoints(100, 2);
@@ -15,8 +17,8 @@ addEnemy("basic1", function(){
 		
 	x += irandom_range(-32, 32);
 	y = -64;
-		
-	invinsible = true;
+	
+	setInvincible(true)
 	movement_start(startX, startY, 1 / 20);
 		
 	command_timer(60 * 1, function(){
@@ -33,7 +35,7 @@ addEnemy("basic1", function(){
 		20,
 		new CommandBeat(4),
 		function(){
-			invinsible = false
+			setInvincible(false)
 			b_alt++
 			bullet_preset_plate(x, y, b_alt % 2 == 0 ? 2 : 1, 2, 3, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
 				with bullet_shoot_dir2(_x, _y, 2, 0.3, 4.5, _dir) {
@@ -480,6 +482,8 @@ addEnemy("boss", function(){
 	]);
 })
 
+
+// ~~ STAGE ~~
 
 //stageIndex = 7;
 ignore addSection(function(){

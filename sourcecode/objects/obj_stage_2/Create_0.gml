@@ -4,6 +4,65 @@ event_inherited()
 
 game_music(mus_stage2)
 
+
+// ~~ ENEMIES ~~
+
+addEnemy("basic1", function(){
+	setHp(5)
+	setPoints(100, 1)
+		
+	sprite_index = spr_enemy_flower
+		
+	startX = x;
+	startY = y;
+		
+	x += irandom_range(-128, 128);
+	y = -64;
+		
+	setInvincible(true)
+	movement_start(startX, startY, 1 / 30, , function(){ setInvincible(false) });
+	
+	command_timer(60 * 12, function(){
+		command_reset();
+		movement_start(x + irandom_range(-64, 64), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
+	})
+		
+	b_reload = 4;
+	b_dir = 0;
+		
+	command_set([
+		20,
+		10,
+		function(){
+			b_dir = point_direction(x, y, obj_player.x, obj_player.y)
+		},
+		3,
+		function(){
+			bullet_shoot_dir2(x, y, 0, 0.2, 12, b_dir).glow = cb_pink;
+			if b_reload-- > 0 commandIndex--
+		},
+		20,
+		function(){
+			b_reload = 4;
+			movement_start(clamp(x + irandom_range(-128, 128), 32, WIDTH - 32), irandom_range(30, 200), 1/20);
+		},
+		20, 
+		function(){
+			commandIndex = 1;
+		}
+	]);
+	command_add([
+		80,
+		6,
+		function(){
+			bullet_preset_plate(x, y, 2, 24, 32, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
+				bullet_shoot_dir2(_x, _y, 4, 2, 14, _dir).glow = cb_green;
+			})
+			commandIndex--;
+		},
+	])
+})
+
 enemies = {
 	"basic1": function(){
 		hp = 5
