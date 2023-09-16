@@ -52,7 +52,7 @@ function draw_text_outline(_x, _y, _string) {
 
 function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngle, anticlockwise) {
 	// How precise? (big number = smoother but takes longer to draw)
-	static precision = 48;
+	static precision = 32;
 	static interval = 360 / precision;
 	
 	anticlockwise = anticlockwise ? -1 : 1
@@ -66,7 +66,7 @@ function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngl
 	draw_primitive_begin(pr_trianglestrip);
     
 	// repeat as much as the circle is filled
-	for (var i = 0; i <= percentage * precision; i++) {
+	for (var i = 0; i < percentage * precision; i++) {
         
 		// Find the angle from the center that the current vertices are at
 		var angle = startAngle + interval * i * anticlockwise;
@@ -79,6 +79,18 @@ function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngl
 		// Draw inner vertex
 		draw_vertex_color(x + (radius - hthick) * dir_x, y + (radius - hthick) * dir_y, color, alpha);
 	}
+	
+	// finish
+	var angle = startAngle + percentage * 360 * anticlockwise;
+	var dir_x = dcos(angle);
+	var dir_y = -dsin(angle);
+        
+	// Draw outer vertex
+	draw_vertex_color(x + (radius + hthick) * dir_x, y + (radius + hthick) * dir_y, color, alpha);
+        
+	// Draw inner vertex
+	draw_vertex_color(x + (radius - hthick) * dir_x, y + (radius - hthick) * dir_y, color, alpha);
+	
 	draw_primitive_end();
 }
 
