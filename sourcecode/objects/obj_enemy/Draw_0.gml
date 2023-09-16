@@ -46,3 +46,20 @@ if hitAnim != 0 {
 } else {
 	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale, image_yscale, image_angle, image_blend, image_alpha)
 }
+
+var _percent = hp / maxhp
+
+if array_length(phases) > 0 {
+	
+}
+
+draw_set_color(c_red)
+draw_set_alpha(0.7)
+
+draw_circle_outline_part(x, y, 64, 6, _percent / 2, 90, false)
+draw_circle_outline_part(x, y, 64, 6, _percent / 2, 90, true)
+	
+draw_set_color(c_white)
+draw_set_alpha(1)
+	
+

@@ -221,6 +221,7 @@ setBoss = function() {
 	important = true
 	destroyAll = true
 	deathRadius = WIDTH * 2;
+	showHp = true
 }
 
 setInvincible = function(_b) {
@@ -228,6 +229,10 @@ setInvincible = function(_b) {
 }
 
 
+showHp = false
+setShowHp = function(_b) {
+	showHp = _b
+}
 
 
 // magic animation offset number
