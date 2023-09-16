@@ -47,19 +47,67 @@ if hitAnim != 0 {
 	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale, image_yscale, image_angle, image_blend, image_alpha)
 }
 
-var _percent = hp / maxhp
 
-if array_length(phases) > 0 {
+var _x = x
+var _y = y
+
+if _y < 96
+	_y = lerp(_y, 96, 0.4)
+
+showHp_x = lerp(showHp_x, _x, 1 - power(1 - 0.999, global.delta_milliP))
+showHp_y = lerp(showHp_y, _y, 1 - power(1 - 0.999, global.delta_milliP))
+
+// draw boss hp bar
+if phaseActive && currentPhase < array_length(showHp_scale) {	
+	
+	var _x = showHp_x
+	var _y = showHp_y
+	
+	showHp_anim = approach(showHp_anim, 1, 0.04 * global.delta_multi)
+
+	var _currentpercent = hp / maxhp
+	var _totalpercent = 0
+
+	for (var i = array_length(showHp_scale) - 1; i >= currentPhase + 1; i--) {
+		_totalpercent += showHp_scale[i] / showHp_total
+	}
+
+	var _newpercent = showHp_scale[currentPhase] / showHp_total * _currentpercent
+
+	var _percent = _totalpercent + _newpercent
+	
+	var _danger = 1 - clamp(_percent * 4, 0, 1)
+	
+	var _flashingColor = global.time % 6 <= 3 ? #ff30ff : #30ffff
+	
+	draw_set_color(merge_color(#100010, _flashingColor, _danger))
+	draw_set_alpha(0.5)
+	
+	draw_circle_outline(_x, _y, 64, 4 * min(1, showHp_anim * 2))
+	
+	draw_set_alpha(0.8)
+	draw_set_color(merge_color(c_white, #ff5060, _danger))
+
+	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, false)
+	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, true)
+	
+	draw_set_color(c_white)
+	draw_set_alpha(1)
+
+	var _offset = 0
+	for (var i = 0; i < array_length(showHp_scale); i++) {
+		var _totalpercent = showHp_scale[i] / showHp_total
+		_offset += _totalpercent
+		
+		var _dir = 360 * _offset / 2
+		var _scale = abs(360 * (1 - _offset) - 360 * _percent)
+		_scale = 3 - clamp(_scale / 8, 0, 2)
+		_scale *= showHp_anim
+		
+		if i >= currentPhase && i < currentPhase + 2 {
+			draw_circle(_x + lengthdir_x(64 - 6, 90 - _dir), _y + lengthdir_y(64 - 6, 90 - _dir), _scale, false)
+			draw_circle(_x + lengthdir_x(64 - 6, 90 + _dir), _y + lengthdir_y(64 - 6, 90 + _dir), _scale, false)
+		}
+	}
 	
 }
-
-draw_set_color(c_red)
-draw_set_alpha(0.7)
-
-draw_circle_outline_part(x, y, 64, 6, _percent / 2, 90, false)
-draw_circle_outline_part(x, y, 64, 6, _percent / 2, 90, true)
-	
-draw_set_color(c_white)
-draw_set_alpha(1)
-	
-

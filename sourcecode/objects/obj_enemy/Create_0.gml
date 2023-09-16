@@ -155,7 +155,6 @@ setPatterns = function(_patterns) {
 }
 
 nextPattern = function() {
-	phaseActive = true
 	currentPattern++
 	if currentPattern >= array_length(phases[currentPhase].patterns)
 		currentPattern = 0
@@ -171,6 +170,10 @@ setPhases = function(_phases) {
 #macro MAGIC_HEALTH_MULTIPLIER 28
 
 startPhase = function(_index = currentPhase, _compensation = 0) {
+	
+	if !phaseActive {
+		setupShowHp()
+	}
 	
 	var _phase = phases[_index]
 	
@@ -189,6 +192,7 @@ startPhase = function(_index = currentPhase, _compensation = 0) {
 	phaseTimer = 0
 	
 	currentPattern = _phase.force
+	phaseActive = true
 	
 	_phase.run()
 	
@@ -221,7 +225,7 @@ setBoss = function() {
 	important = true
 	destroyAll = true
 	deathRadius = WIDTH * 2;
-	showHp = true
+	setShowHp(true)
 }
 
 setInvincible = function(_b) {
@@ -232,6 +236,19 @@ setInvincible = function(_b) {
 showHp = false
 setShowHp = function(_b) {
 	showHp = _b
+}
+
+showHp_scale = []
+showHp_total = 0
+showHp_anim = 0
+showHp_x = x
+showHp_y = y
+setupShowHp = function(){
+	for (var i = 0; i < array_length(phases); i++) {
+		var _amount = phases[i].time * MAGIC_HEALTH_MULTIPLIER
+		showHp_total += _amount
+		array_push(showHp_scale, _amount)
+	}
 }
 
 
