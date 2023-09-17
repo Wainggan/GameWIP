@@ -278,8 +278,8 @@ func_grazeFlavorText = function(_text, _x = x, _y = y) {
 	var _dist = point_distance(x, y, _x, _y);
 	var _dir = point_direction(x, y, _x, _y);
 	
-	var _nX = ((_x - x) / _dist) * 64;
-	var _nY = ((_y - y) / _dist) * 64;
+	var _nX = ((_x - x) / _dist) * 72;
+	var _nY = ((_y - y) / _dist) * 72;
 	
 	_x = clamp(x + _nX, 16, WIDTH - 16);
 	_y = clamp(y + _nY, 16, HEIGHT - 16);

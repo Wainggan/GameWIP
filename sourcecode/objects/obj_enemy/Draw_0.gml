@@ -60,8 +60,8 @@ showHp_y = lerp(showHp_y, _y, 1 - power(1 - 0.999, global.delta_milliP))
 // draw boss hp bar
 if phaseActive && currentPhase < array_length(showHp_scale) {	
 	
-	var _x = showHp_x
-	var _y = showHp_y
+	var _x = round(showHp_x)
+	var _y = round(showHp_y)
 	
 	showHp_anim = approach(showHp_anim, 1, 0.04 * global.delta_multi)
 
