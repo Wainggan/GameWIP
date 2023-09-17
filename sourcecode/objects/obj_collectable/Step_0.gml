@@ -45,7 +45,12 @@ if latch && !latchTimer {
 }
 x += x_vel * global.delta_multi;
 y += y_vel * global.delta_multi;
-image_alpha = clamp(1 - (96 - _dist) / 96, 0, 1) * 0.5 + 0.5
+
+if sprite_index = spr_collectable_bulletBonus {
+	image_alpha = clamp(1 - (142 - _dist) / 142, 0, 1) * 0.8 + 0
+} else {
+	image_alpha = clamp(1 - (96 - _dist) / 96, 0, 1) * 0.5 + 0.5
+}
 if y > HEIGHT + 64 {
 	instance_destroy()
 }
