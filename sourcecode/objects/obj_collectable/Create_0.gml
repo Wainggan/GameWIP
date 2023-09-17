@@ -8,6 +8,8 @@ func = undefined;
 latch = false;
 latchTimer = 40;
 
+squish = 0;
+
 s_charge = 0;
 
 image_alpha = 1

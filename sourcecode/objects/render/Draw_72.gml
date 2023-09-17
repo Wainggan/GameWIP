@@ -148,6 +148,9 @@ surface_set_target(watertemp_surf) // draw reflections
 					draw_sprite(sprite_index, 1, x + lengthdir_x(32, -test + 360 / 3 * i), y - lengthdir_y(28, -test + 360 / 3 * i) + sprite_height)
 				}
 				break;
+			case spr_enemy_crystal:
+				image_index = 1;
+				break
 		}
 
 		//show_debug_message(y)
@@ -217,7 +220,7 @@ surface_set_target(background_surf) // finalize reflections
 	// fix alpha
 	gpu_set_blendmode_ext_sepalpha(bm_src_alpha, bm_inv_src_alpha, bm_src_alpha, bm_one)
 	
-	draw_surface_ext(shadowtemp_surf, 0, 0, 1, 1, 0, c_white, 0.6)
+	draw_surface_ext(shadowtemp_surf, 0, 0, 1, 1, 0, c_black, 0.6)
 	
 	gpu_set_blendmode(bm_normal)
 	

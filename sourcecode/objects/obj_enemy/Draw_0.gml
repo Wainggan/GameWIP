@@ -13,6 +13,7 @@ switch sprite_index {
 		break;
 	case spr_enemy_crystal:
 		image_angle = wave(-10, 10, 4, test);
+		image_index = 0
 		break;
 	case spr_enemy_thing:
 		image_index = 0
