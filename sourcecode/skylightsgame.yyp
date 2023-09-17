@@ -139,6 +139,7 @@
     {"id":{"name":"scr_primitiveDrawing","path":"scripts/scr_primitiveDrawing/scr_primitiveDrawing.yy",},},
     {"id":{"name":"spr_player_wavy","path":"sprites/spr_player_wavy/spr_player_wavy.yy",},},
     {"id":{"name":"ft_combo","path":"fonts/ft_combo/ft_combo.yy",},},
+    {"id":{"name":"scr_look","path":"scripts/scr_look/scr_look.yy",},},
     {"id":{"name":"spr_laser","path":"sprites/spr_laser/spr_laser.yy",},},
     {"id":{"name":"snd_enemydeath","path":"sounds/snd_enemydeath/snd_enemydeath.yy",},},
     {"id":{"name":"nt_monk","path":"notes/nt_monk/nt_monk.yy",},},

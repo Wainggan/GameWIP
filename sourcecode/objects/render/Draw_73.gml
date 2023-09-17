@@ -2,18 +2,20 @@
 
 // multiply post
 
-var _colList = [c_blue, c_fuchsia, c_purple, c_aqua, c_orange]
+var _colList = look_atmosphere_colors.value
 gpu_set_tex_filter(true)
 gpu_set_blendmode_ext(bm_dest_colour, bm_zero); // multiply
 //gpu_set_blendmode_ext_sepalpha(bm_dest_colour, bm_zero, bm_src_alpha, bm_inv_src_alpha);
 shader_set(shd_multiplyHelper)
 	
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < array_length(_colList); i++) {
 		var _rnd = i * 3.141 * 2.0 + 0.412;
-		var _col = _colList[wrap(i, 0, array_length(_colList))]
+		var _col = _colList[wrap(i, 0, array_length(_colList))].value
 		var _posX = sin(global.time / 200.0 * 0.9212 + _rnd * 0.6512) * WIDTH / 2;
 		var _posY = cos(global.time / 200.0 * 1.0442 + _rnd * 0.1264) * HEIGHT / 2;
-		draw_sprite_ext(spr_atmosphere, 0, WIDTH / 2 + _posX, HEIGHT / 2 + _posY, 5, 5, 0, _col, 0.04)
+		draw_sprite_ext(
+			spr_atmosphere, 0, WIDTH / 2 + _posX, HEIGHT / 2 + _posY,
+			5, 5, 0, _col, look_atmosphere_strength.value)
 	}
 	
 shader_reset()
@@ -25,10 +27,10 @@ gpu_set_tex_filter(false)
 
 refreshApplicationSurf()
 
-var _col = c_blue
+var _col = look_overlay_color.value
 blendmodeSet(shd_blend_overlay)
 
-	draw_rectangle_sprite(0, 0, WIDTH, HEIGHT, , _col, 0.01)
+	draw_rectangle_sprite(0, 0, WIDTH, HEIGHT, , _col, look_overlay_strength.value)
 	
 shader_reset()
 

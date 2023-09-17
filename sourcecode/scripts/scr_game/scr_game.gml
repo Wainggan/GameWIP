@@ -94,7 +94,7 @@ function game_focus_set(_a = true) {
 	}
 	global.focus = _a;
 }
-function game_background(_back = global.currentBackground, _speed = global.currentBackgroundSpeed, _accel = 0.03) {
+function game_background(_back = global.currentBackground, _speed = global.currentBackgroundSpeed, _accel = 0.02) {
 	global.currentBackground = _back;
 	global.currentBackgroundSpeed = _speed;
 	render.backgroundSpeedAccel = _accel;

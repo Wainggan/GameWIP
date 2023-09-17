@@ -57,6 +57,8 @@ var _lastBY = backgroundY % (_currentB.height * 16) - (_currentB.height - 30) * 
 	
 #endregion
 
+look_update()
+
 
 surface_set_target(shadowtemp_surf)
 	draw_clear_alpha(c_black, 0)
@@ -103,11 +105,11 @@ surface_set_target(watertemp_surf)
 	
 	gpu_set_blendmode_ext(bm_dest_colour, bm_zero)
 	
-		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #446699, 1)
+		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, look_water_multiply.value, 1)
 	
 	gpu_set_blendmode(bm_add)
 	
-		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, #333344, 1)
+		draw_sprite_stretched_ext(spr_pixel, 0, 0, 0, WIDTH, HEIGHT, look_water_add.value, 1)
 	
 	gpu_set_blendmode(bm_normal)
 	
@@ -122,7 +124,7 @@ surface_set_target(background_surf) // draw underwater
 	shader_set_uniform_f(water_u_iTime, global.time);
 	shader_set_uniform_f(water_u_iPos, backgroundTotalY / HEIGHT);
 	
-		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.1), 1)
+		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, look_water_mix_background.value, 1)
 	
 	//gpu_set_blendmode(bm_normal)
 	shader_reset()
@@ -154,7 +156,7 @@ surface_set_target(watertemp_surf) // draw reflections
 	}
 
 	with obj_bullet {
-		var _glow = merge_color(glowTarget, #998899, 0.7);
+		var _glow = merge_color(glowTarget, other.look_water_bullets.value, other.look_water_bullets_amount.value);
 		if object_index == obj_bullet
 			draw_sprite_ext(sprite_index, 1, round(x), round(y + 24), (image_xscale - fade/fadeTime) * 0.9, (image_yscale - fade/fadeTime) * 0.9, image_angle, _glow, image_alpha);
 		else {
@@ -203,7 +205,7 @@ surface_set_target(background_surf) // finalize reflections
 	shader_set_uniform_f(water_u_iTime, global.time);
 	shader_set_uniform_f(water_u_iPos, backgroundTotalY / HEIGHT);
 	
-		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, merge_color(c_white, c_blue, 0.4), 1)
+		draw_surface_ext(watertemp_surf, 0, 0, 1, 1, 0, look_water_mix_objects.value, 1)
 	
 	//gpu_set_blendmode(bm_normal)
 	shader_reset()

@@ -133,6 +133,94 @@ blendmodeSet = function(_mode){
 	texture_set_stage(shader_get_sampler_index(_mode, "u_destination"), surface_get_texture(application_surf))
 }
 
+
+
+look_atmosphere_strength = new Look()
+look_atmosphere_colors = new Look_Array()
+
+look_set_atmosphere = function(
+		_strength = undefined,
+		_colors = undefined,
+		_force = false) {
+	look_atmosphere_strength.set(_strength, _force)
+	if _colors != undefined
+		look_atmosphere_colors.set(_colors, _force)
+}
+
+look_overlay_strength = new Look()
+look_overlay_color = new Look()
+
+look_set_overlay = function(
+		_strength = look_overlay_strength.target,
+		_color = look_overlay_color.target,
+		_force = false) {
+	look_overlay_strength.set(_strength, _force)
+	look_overlay_color.set(_color, _force)
+}
+
+look_water_multiply = new Look()
+look_water_add = new Look()
+
+look_set_water = function(
+		_multiply = undefined,
+		_add = undefined,
+		_force = false){
+	look_water_multiply.set(_multiply, _force)
+	look_water_add.set(_add, _force)
+}
+
+look_water_mix_background = new Look()
+look_water_mix_objects = new Look()
+
+
+look_set_water_mix = function(
+		_background = undefined,
+		_objects = undefined,
+		_force = false){
+	look_water_mix_background.set(_background, _force)
+	look_water_mix_objects.set(_objects, _force)
+}
+
+look_water_bullets = new Look()
+look_water_bullets_amount = new Look()
+
+look_set_water_bullets = function(
+		_color = undefined,
+		_amount = undefined,
+		_force = false){
+	look_water_bullets.set(_color, _force)
+	look_water_bullets_amount.set(_amount, _force)
+}
+
+
+look_default = function(){
+	look_set_atmosphere(0.04, [ #3333ff, #ff22ff, c_orange, #22ffff, #8830bb], true)
+	look_set_overlay(0.01, c_blue, true)
+	look_set_water(#446699, #333344, true)
+	look_set_water_mix(merge_color(c_white, c_blue, 0.15), merge_color(c_white, c_blue, 0.4), true);
+	look_set_water_bullets(#aa99aa, 0.7, true)
+}
+
+look_update = function(){
+	var _spd = 0.002 * global.delta_multi
+	look_atmosphere_strength.update(_spd)
+	look_atmosphere_colors.update_color(_spd)
+	
+	look_overlay_strength.update(_spd)
+	look_overlay_color.update_color(_spd)
+
+	look_water_multiply.update_color(_spd)
+	look_water_add.update_color(_spd)
+	
+	look_water_mix_background.update_color(_spd)
+	look_water_mix_objects.update_color(_spd)
+	
+	look_water_bullets.update_color(_spd)
+	look_water_bullets_amount.update(_spd)
+}
+
+look_default()
+
 if DEBUG {
 	show_debug_overlay(true)
 }

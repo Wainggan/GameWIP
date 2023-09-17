@@ -15,3 +15,5 @@ if array_length(backgroundOrder) == 0 {
 		image_yscale: 30
 	}));
 }
+
+look_default()
