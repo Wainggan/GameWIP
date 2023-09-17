@@ -475,10 +475,22 @@ addEnemy("boss", function(){
 	b_difficulty = 0
 		
 	setPhases([
-		new AttackPhase(beat_to_time(10 * 4), [0, 1]),
-		new AttackPhase(beat_to_time(16 * 4), [3, 0, 2], function(){ b_difficulty = 1 }),
-		new AttackPhase(beat_to_time(16 * 4), [4, 1], function(){ b_difficulty = 2 }),
-		new AttackPhase(beat_to_time(16 * 4), [1, 4, 2], function(){ b_difficulty = 3 }),
+		new AttackPhase(beat_to_time(10 * 4), [0, 1], function(){
+			game_background(, 3)
+		}),
+		new AttackPhase(beat_to_time(16 * 4), [3, 0, 2], function(){
+			game_background([3, 4], 5, 0.01)
+			b_difficulty = 1
+		}),
+		new AttackPhase(beat_to_time(16 * 4), [4, 1], function(){
+			game_background([5, 6])
+			b_difficulty = 2
+		}),
+		new AttackPhase(beat_to_time(16 * 4), [1, 4, 2], function(){
+			game_background([7, 8], 6, 0.01)
+			render.look_set_overlay(0.02, c_red)
+			b_difficulty = 3
+		}),
 	]);
 })
 
@@ -486,12 +498,12 @@ addEnemy("boss", function(){
 // ~~ STAGE ~~
 
 //stageIndex = 7;
-ignore addSection(function(){
+ addSection(function(){
 	game_background(, 1);
 	
 	enemy_delay("boss", 0, 0, 60)
 })
-ignore addPause(, true);
+ addPause(, true);
 
 addPause(beat_to_frame(1));
 
