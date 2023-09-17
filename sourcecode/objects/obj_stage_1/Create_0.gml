@@ -488,7 +488,7 @@ addEnemy("boss", function(){
 		}),
 		new AttackPhase(beat_to_time(16 * 4), [1, 4, 2], function(){
 			game_background([7, 8], 6, 0.01)
-			render.look_set_overlay(0.02, c_red)
+			render.look_set_overlay(0.04, c_red)
 			b_difficulty = 3
 		}),
 	]);
@@ -498,12 +498,12 @@ addEnemy("boss", function(){
 // ~~ STAGE ~~
 
 //stageIndex = 7;
- addSection(function(){
+ignore addSection(function(){
 	game_background(, 1);
 	
 	enemy_delay("boss", 0, 0, 60)
 })
- addPause(, true);
+ignore addPause(, true);
 
 addPause(beat_to_frame(1));
 
@@ -579,6 +579,7 @@ addSection(function(){
 addPause(, true);
 
 addSection(function(){
+	render.look_set_overlay(0.03, c_teal)
 	spawnUpgrade()
 })
 addPause(120, true, 60)
