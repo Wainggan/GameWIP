@@ -684,7 +684,11 @@ step : function(){
 		
 		// check if valid enemy above player exists
 		var _enemyList = ds_list_create(), _testTarget = noone
-		collision_rectangle_list(x-30, y-48, x+30, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
+		collision_rectangle_list(x-24, y-48, x+24, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
+		if ds_list_size(_enemyList) {
+			_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
+		}
+		collision_rectangle_list(x-48, y-48, x+48, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
 		if ds_list_size(_enemyList) {
 			_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
 		}
