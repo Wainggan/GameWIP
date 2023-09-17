@@ -10,14 +10,14 @@
   "bitRate": 112,
   "compression": 1,
   "conversionMode": 0,
-  "duration": 106.004875,
+  "duration": 106.75324,
   "parent": {
     "name": "Music",
     "path": "folders/Sounds/Music.yy",
   },
   "preload": false,
   "sampleRate": 44100,
-  "soundFile": "mus_stage1.mp3",
+  "soundFile": "mus_stage1.ogg",
   "type": 1,
   "volume": 0.7,
 }
