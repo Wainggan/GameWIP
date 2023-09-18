@@ -486,7 +486,7 @@ step : function(){
 	if ds_list_size(_grazedBulletsList) > 0 {
 		if iFrames <= 0 && !hook_ing && place_meeting(x, y, obj_bullet) {
 			if lifeCharge < 1 {
-				lifeCharge = min(lifeCharge + 0.5, 1);
+				//lifeCharge = min(lifeCharge + 0.5, 1);
 					
 				game_pause(16, true);
 				screenShake_set(4);
