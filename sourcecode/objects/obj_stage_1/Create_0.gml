@@ -455,7 +455,7 @@ addEnemy("boss", function(){
 		
 	movement_start(WIDTH / 2, 90, 1/50, , function(){
 		textbox_scene_create([
-			["a", [spr_test_viiPortrait, 0, -1]],
+			["a", [spr_car, 0, -1]],
 			["d", [spr_car, 0, 1]],
 			["go away", undefined, function(){
 				game_music(mus_boss1)

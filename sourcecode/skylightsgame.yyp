@@ -113,7 +113,6 @@
     {"id":{"name":"spr_koSplash","path":"sprites/spr_koSplash/spr_koSplash.yy",},},
     {"id":{"name":"snd_explosion1","path":"sounds/snd_explosion1/snd_explosion1.yy",},},
     {"id":{"name":"obj_textbox","path":"objects/obj_textbox/obj_textbox.yy",},},
-    {"id":{"name":"mus_boss3old","path":"sounds/mus_boss3old/mus_boss3old.yy",},},
     {"id":{"name":"obj_flag_scene","path":"objects/obj_flag_scene/obj_flag_scene.yy",},},
     {"id":{"name":"spr_bullet_homingplayerTest","path":"sprites/spr_bullet_homingplayerTest/spr_bullet_homingplayerTest.yy",},},
     {"id":{"name":"scr_json","path":"scripts/scr_json/scr_json.yy",},},
