@@ -51,6 +51,7 @@ destroyAll = false
 bossFlag = false;
 
 command_setup()
+movement_setup()
 
 time = function(_time = -1, _mt = timerMin, _tma = undefined){
 	if is_array(_time) {

@@ -499,12 +499,12 @@ addEnemy("boss", function(){
 // ~~ STAGE ~~
 
 //stageIndex = 7;
- addSection(function(){
+ignore addSection(function(){
 	game_background(, 1);
 	
 	enemy_delay("boss", 0, 0, 60)
 })
- addPause(, true);
+ignore addPause(, true);
 
 addPause(beat_to_frame(1));
 

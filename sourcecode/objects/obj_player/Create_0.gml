@@ -721,9 +721,6 @@ step : function(){
 	}
 		
 		
-
-	
-		
 		
 	#region shoot
 	if isShooting {

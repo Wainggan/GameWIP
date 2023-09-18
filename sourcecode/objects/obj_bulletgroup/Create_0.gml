@@ -21,6 +21,7 @@ step = undefined;
 death = undefined;
 
 command_setup()
+movement_setup()
 
 bullets = [];
 

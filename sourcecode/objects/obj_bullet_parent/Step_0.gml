@@ -1,5 +1,5 @@
 command_update();
-movement_update();
+//movement_update();
 
 // TODO: OPTIMIZE!!
 
