@@ -10,7 +10,10 @@ if firstFrame {
 	firstFrame = false
 }
 
-pop = lerp(pop, 0, 1 - power(0.001, global.delta_milli * 2));
+if pop != 0 {
+	pop = lerp(pop, 0, 1 - power(0.001, global.delta_milli * 2));
+	if pop <= 0.02 pop = 0
+}
 glowTarget = merge_color(glowTarget, glow, 1 - power(0.01, global.delta_milli * 4))
 
 event_inherited();

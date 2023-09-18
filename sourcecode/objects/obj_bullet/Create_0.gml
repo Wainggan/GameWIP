@@ -8,7 +8,7 @@ autoY = 0;
 
 glow = cb_red;
 innerGlow = c_white;
-glowTarget = glow;
+glowTarget = cb_white;
 pop = 0;
 
 disconnect = false;
