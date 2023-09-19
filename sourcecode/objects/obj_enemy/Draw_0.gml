@@ -19,10 +19,12 @@ switch sprite_index {
 		image_index = 0
 		test += global.delta_multi;
 		for (var i = 0; i < 3; i++) {
-			draw_sprite(sprite_index, 1, x + lengthdir_x(32, test + 360 / 3 * i), y + lengthdir_y(28, test + 360 / 3 * i))
+			draw_sprite(sprite_index, 2, x + lengthdir_x(32, test + 360 / 3 * i), y + lengthdir_y(28, test + 360 / 3 * i))
+			draw_sprite(sprite_index, 2, x + lengthdir_x(32, -test + 360 / 3 * i), y + lengthdir_y(28, -test + 360 / 3 * i))
 		}
-		for (var i = 0; i < 3; i++) {
-			draw_sprite(sprite_index, 1, x + lengthdir_x(32, -test + 360 / 3 * i), y + lengthdir_y(28, -test + 360 / 3 * i))
+		ignore for (var i = 0; i < 3; i++) {
+			//draw_sprite(sprite_index, 3, x + lengthdir_x(32, test + 360 / 3 * i), y + lengthdir_y(28, test + 360 / 3 * i))
+			//draw_sprite(sprite_index, 3, x + lengthdir_x(32, -test + 360 / 3 * i), y + lengthdir_y(28, -test + 360 / 3 * i))
 		}
 		break;
 	case spr_enemy_cat:
