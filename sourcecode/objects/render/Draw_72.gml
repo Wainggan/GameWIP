@@ -139,13 +139,13 @@ surface_set_target(watertemp_surf) // draw reflections
 	with obj_enemy {
 		switch sprite_index {
 			case spr_enemy_thing:
-				image_index = 0
+				image_index = 1
 				test += global.delta_multi;
 				for (var i = 0; i < 3; i++) {
-					draw_sprite(sprite_index, 1, x + lengthdir_x(32, test + 360 / 3 * i), y - lengthdir_y(28, test + 360 / 3 * i) + sprite_height)
+					draw_sprite(sprite_index, 2, x + lengthdir_x(32, test + 360 / 3 * i), y - lengthdir_y(28, test + 360 / 3 * i) + sprite_height)
 				}
 				for (var i = 0; i < 3; i++) {
-					draw_sprite(sprite_index, 1, x + lengthdir_x(32, -test + 360 / 3 * i), y - lengthdir_y(28, -test + 360 / 3 * i) + sprite_height)
+					draw_sprite(sprite_index, 2, x + lengthdir_x(32, -test + 360 / 3 * i), y - lengthdir_y(28, -test + 360 / 3 * i) + sprite_height)
 				}
 				break;
 			case spr_enemy_crystal:

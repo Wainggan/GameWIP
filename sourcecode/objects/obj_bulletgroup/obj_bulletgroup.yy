@@ -10,8 +10,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "bullet",
-    "path": "folders/Objects/bullet.yy",
+    "name": "other",
+    "path": "folders/Objects/bullet/other.yy",
   },
   "parentObjectId": {
     "name": "obj_entity",
