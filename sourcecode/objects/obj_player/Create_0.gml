@@ -71,118 +71,17 @@ weapons = []
 bullet_default = new PlayerWeapon_Default()
 array_push(weapons, bullet_default)
 
-bulletAmount = 3;
-bulletSpread = 6;
-bulletSpreadAngle = 18;
-bulletSpreadSlow = 6
-bulletSpreadAngleSlow = 1
-bulletSpeed = 14;
-bulletDamage = 1;
-
 bullet_homing = new PlayerWeapon_Homing()
 array_push(weapons, bullet_homing)
-
-tReloadHomingTime = 12;
-reloadHomingTime = tReloadHomingTime;
-
-bulletHomingAmount = 0;
-bulletHomingSpreadAngle = 90;
-bulletHomingSpreadAngleSlow = 45;
-bulletHomingSpeed = 8;
-bulletHomingDamage = 0.2;
 
 bullet_lazer = new PlayerWeapon_Lazer()
 array_push(weapons, bullet_lazer)
 
-bulletLaserList = [];
-bulletLaserSpreadAngle = 24
-bulletLaserSpreadAngleSlow = -18
-bulletLaserSpread = 16
-bulletLaserSpreadSlow = 32
-bulletLaserDamage = 0.02;
-
-func_addLaser = function(){
-	bulletHomingDamage *= array_length(bulletLaserList) / ((array_length(bulletLaserList) * 2 + 1) / 2);
-	with instance_create_layer(x, y, "Instances", obj_laser_player) {
-		xOff = 0;
-		yOff = 0;
-		angle = 90;
-		angle_target = 90;
-		angle_accel = 5;
-		damage = other.bulletLaserDamage;
-		array_push(other.bulletLaserList, self);
-	}
-	bulletLaserSpread *= 0.9;
-	bulletLaserSpreadSlow *= 0.9;
-	bulletLaserSpreadAngle *= 1.05;
-	bulletLaserSpreadAngleSlow *= 0.98;
-	/*
-	bulletLaserSpread *= 0.9;
-	bulletLaserSpreadSlow *= 0.96;
-	bulletLaserSpreadAngle *= 1.05;
-	bulletLaserSpreadAngleSlow *= 1.2;
-	*/
-}
-
 bullet_round = new PlayerWeapon_Round()
 array_push(weapons, bullet_round)
 
-tReloadRoundTime = 4;
-reloadRoundTime = tReloadRoundTime;
-
-bulletRoundAmount = 0;
-bulletRoundSpeed = 12;
-bulletRoundDamage = 0.2;
-
-tReloadWavyTime = 36;
-reloadWavyTime = tReloadWavyTime;
-
-bulletWavyAmount = 0;
-bulletWavySplashAmount = 16;
-bulletWavySpread = 8;
-bulletWavySpreadAngle = 38;
-bulletWavySpreadSlow = 2
-bulletWavySpreadAngleSlow = 16
-bulletWavySpeed = 5;
-bulletWavySplashSpeed = 8;
-bulletWavyDamage = 4;
-bulletWavySplashDamage = 0.04;
-
 bullet_helper = new PlayerWeapon_Lad()
 array_push(weapons, bullet_helper)
-
-bulletHelperList = [];
-bulletHelperDamage = 0.4;
-bulletHelperReload = 6;
-
-func_addHelper = function(){
-	if array_length(bulletHelperList) > 0 bulletHelperDamage *= array_length(bulletHelperList) / ((array_length(bulletHelperList) * 2 + 0.75) / 2);
-	with instance_create_layer(x, y, "Instances", obj_helper) {
-		array_push(other.bulletHelperList, self);
-	}
-	bulletHelperReload++;
-}
-
-bulletEvilList = [];
-bulletEvilDamage = 0.3;
-bulletEvilReload = 8;
-
-func_addEvil = function(){
-	if array_length(bulletEvilList) > 0 bulletEvilDamage *= array_length(bulletEvilList) / ((array_length(bulletEvilList) * 2 + 0.75) / 2);
-	with instance_create_layer(x, y, "Instances", obj_helperButEvil) {
-		array_push(other.bulletEvilList, self);
-	}
-	bulletEvilReload++;
-}
-
-ignore {
-	bulletSpread = 6;
-	bulletSpreadAngle = 32
-	bulletSpreadSlow = 2
-	bulletSpreadAngleSlow = 1
-	bulletAmount = 32;
-	bulletSpeed = 14;
-}
 
 #endregion
 
@@ -674,15 +573,6 @@ step : function(){
 
 	// TODO: rebalance bulletcharge
 	bulletCharge = approach(bulletCharge, (vkey == -1 ? bulletChargeTarget : 0), (vkey == -1 ? bulletChargeSpeed : bulletChargeSpeedSlow) * global.delta_multi)
-	var _newReloadTime = ( tReloadTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
-	var _newReloadHomingTime = ( tReloadHomingTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
-	var _newReloadRoundTime = ( tReloadRoundTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge
-	var _newReloadWavyTime = ( tReloadWavyTime + 1 - power(min(grazeCombo * grazeComboBulletMult + 1, 100), grazeComboBulletExp) ) - bulletCharge * 2
-		
-	reloadTime -= global.delta_multi
-	reloadHomingTime -= global.delta_multi
-	reloadRoundTime -= global.delta_multi
-	reloadWavyTime -= global.delta_multi
 		
 	isShooting = input.check("shoot") && canShoot
 		
@@ -737,214 +627,11 @@ step : function(){
 			hook_y = y;
 		}
 	}
-		
-		
-		
-	#region shoot
+	
+	
 	for (var i = 0; i < array_length(weapons); i++) {
 		weapons[i].run(isShooting)
 	}
-	if isShooting {
-		
-		ignore if reloadTime <= 0 {
-			reloadTime = _newReloadTime
-			var _spreadTemp = input.check("sneak") ? bulletSpreadSlow : bulletSpread
-			var _spreadAngleTemp = input.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
-				
-				
-			bullet_preset_plate(x, y, bulletAmount, _spreadTemp, _spreadAngleTemp, 2, 90, function(_x, _y, _dir){
-				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
-					
-				particle_burst(_x, _y - 24, ps_player_shoot)
-		
-				with _inst {
-					fade = 1
-					fadeTime = 1
-					_inst.x_vel = lengthdir_x(other.bulletSpeed, _dir);
-					_inst.y_vel = lengthdir_y(other.bulletSpeed, _dir);
-					damage = other.bulletDamage
-					fakedamage = 1
-				}
-			})
-		}
-		ignore if reloadHomingTime <= 0 {
-			reloadHomingTime = _newReloadHomingTime
-			var _spreadAngleTemp = input.check("sneak") ? bulletHomingSpreadAngleSlow : bulletHomingSpreadAngle
-			
-			bullet_preset_plate(x, y, bulletHomingAmount, 4, _spreadAngleTemp, 1, 90, function(_x, _y, _dir){
-				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
-		
-				with _inst {
-					fade = 1
-					fadeTime = 1
-					dir = _dir;
-					spd = other.bulletHomingSpeed;
-						
-					step = function(){
-						var _target = instance_nearest(x, y, obj_enemy);
-						if _target != noone
-							dir_target = point_direction(x, y, _target.x, _target.y);
-					}
-					dir_target = dir;
-					dir_accel = input.check("sneak") ? 1 : 2;
-						
-					damage = other.bulletHomingDamage
-					fakedamage = 0.2
-						
-					sprite_index = spr_bullet_homingplayerTest
-						
-					command_timer(60, function(){
-						step = undefined;
-					})
-				}
-			})
-		}
-		if reloadRoundTime <= 0 {
-			reloadRoundTime = _newReloadRoundTime
-			
-			bullet_preset_ring(x, y, bulletRoundAmount, 4, random_range(0, 360), function(_x, _y, _dir){
-				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
-		
-				with _inst {
-					fade = 1
-					fadeTime = 1
-					dir = _dir;
-					spd = other.bulletRoundSpeed;
-						
-					dir_target = 90;
-					dir_accel = input.check("sneak") ? 9 : 6;
-						
-					damage = other.bulletRoundDamage
-					fakedamage = 0.2
-						
-					sprite_index = spr_player_round;
-
-				}
-			})
-		}
-		if reloadWavyTime <= 0 {
-			reloadWavyTime = _newReloadWavyTime
-			var _spreadAngleTemp = input.check("sneak") ? bulletWavySpreadAngleSlow : bulletWavySpreadAngle;
-			var _spreadTemp = input.check("sneak") ? bulletWavySpreadSlow : bulletWavySpread;
-				
-			bullet_preset_plate(x, y + 32, bulletWavyAmount, _spreadTemp, _spreadAngleTemp, 0, 90, function(_x, _y, _dir){
-				var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
-		
-				with _inst {
-					fade = 1
-					fadeTime = 1
-					dir = _dir;
-					spd = other.bulletWavySpeed;
-						
-					b_off = random(4)
-						
-					static _wavyStepFunction = function(){ // TODO: redo
-						x += wave(-2, 2, 1, b_off) * global.delta_multi;
-					}
-					step = _wavyStepFunction;
-					static _wavyDeathFunction = function(){
-						if y > 0 - 32
-						bullet_preset_ring(x, y, b_amount, 8, random(360), function(_x, _y, _dir){
-							var _inst = instance_create_depth(_x, _y, depth, obj_bullet_player)
-							with _inst {
-								fade = 1
-								fadeTime = 1
-								dir = _dir;
-								spd = other.b_speed;
-						
-								damage = other.b_damage;
-								fakedamage = 0.1
-							
-								image_alpha = 0.5;
-								sprite_index = spr_player_round;
-							}
-						});
-					}
-					death = _wavyDeathFunction;
-						
-					damage = other.bulletWavyDamage;
-					fakedamage = 4
-						
-					b_damage = other.bulletWavySplashDamage
-					b_amount = other.bulletWavySplashAmount
-					b_speed = other.bulletWavySplashSpeed
-					b_kill = false;
-						
-					sprite_index = spr_player_wavy;
-					mask_index = spr_nothing;
-				}
-			})
-		}
-	} else {
-		for (var i = 0; i < array_length(weapons); i++) {
-			weapons[i].unrun()
-		}
-	}
-	if isShooting && input.check("sneak") {
-		bullet_preset_plate(0, 0 - 16, array_length(bulletLaserList), bulletLaserSpreadSlow, bulletLaserSpreadAngleSlow, 4, 90, function(_x, _y, _dir, _i) {
-			var _inst = bulletLaserList[_i];
-			_inst.xOff = lerp(_inst.xOff, _x, 1 - power(1 - 0.99999, global.delta_milli * 2));
-			_inst.yOff = lerp(_inst.yOff, _y, 1 - power(1 - 0.99999, global.delta_milli * 2));
-			_inst.angle_target = _dir;
-			_inst.damage = bulletLaserDamage;
-		})
-	} else {
-		bullet_preset_plate(0, 0 - 16, array_length(bulletLaserList), bulletLaserSpread, bulletLaserSpreadAngle, 16, 90, function(_x, _y, _dir, _i) {
-			var _inst = bulletLaserList[_i];
-			_inst.xOff = lerp(_inst.xOff, _x, 1 - power(1 - 0.99999, global.delta_milli * 2));
-			_inst.yOff = lerp(_inst.yOff, _y, 1 - power(1 - 0.99999, global.delta_milli * 2));
-			_inst.angle_target = _dir;
-			_inst.damage = bulletLaserDamage;
-		})
-	}
-	if isShooting {
-		for (var i = 0; i < array_length(bulletHelperList); i++) {
-			var _damage = bulletHelperDamage;
-			with bulletHelperList[i] {
-				tReloadTime = other.bulletHelperReload - i;
-					
-				reloadTime -= global.delta_multi;
-				if reloadTime <= 0 {
-					reloadTime = tReloadTime;
-					var _inst = instance_create_depth(x, y, depth, obj_bullet_player)
-		
-					with _inst {
-						fade = 1
-						fadeTime = 1
-						dir = 90;
-						spd = 14;
-						damage = _damage;
-						fakedamage = 0.4
-						sprite_index = spr_player_helper
-					}
-				}
-			}
-		}
-		for (var i = 0; i < array_length(bulletEvilList); i++) {
-			var _damage = bulletEvilDamage;
-			with bulletEvilList[i] {
-				tReloadTime = other.bulletEvilReload - i;
-					
-				reloadTime -= global.delta_multi;
-				if reloadTime <= 0 {
-					reloadTime = tReloadTime;
-					var _inst = instance_create_layer(x, y, "Instances", obj_bullet_player)
-		
-					with _inst {
-						fade = 1
-						fadeTime = 1
-						dir = 90;
-						spd = 14;
-						//show_debug_message(_damage)
-						damage = _damage;
-						fakedamage = 0.3
-						sprite_index = spr_player_helper
-					}
-				}
-			}
-		}
-	}
-	#endregion
 }
 })
 state.add("respawn", {
