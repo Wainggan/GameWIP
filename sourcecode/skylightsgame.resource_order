@@ -85,7 +85,6 @@
     {"name":"spr_laser","order":7,"path":"sprites/spr_laser/spr_laser.yy",},
     {"name":"snd_enemydeath","order":3,"path":"sounds/snd_enemydeath/snd_enemydeath.yy",},
     {"name":"nt_monk","order":7,"path":"notes/nt_monk/nt_monk.yy",},
-    {"name":"obj_bullet_parent_1","order":1,"path":"objects/obj_bullet_parent_1/obj_bullet_parent_1.yy",},
     {"name":"obj_stage_2_old","order":9,"path":"objects/obj_stage_2_old/obj_stage_2_old.yy",},
     {"name":"spr_player_tail","order":2,"path":"sprites/spr_player_tail/spr_player_tail.yy",},
     {"name":"spr_enemy_crystal_old","order":8,"path":"sprites/spr_enemy_crystal_old/spr_enemy_crystal_old.yy",},

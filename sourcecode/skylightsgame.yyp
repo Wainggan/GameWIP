@@ -147,7 +147,6 @@
     {"id":{"name":"spr_laser","path":"sprites/spr_laser/spr_laser.yy",},},
     {"id":{"name":"snd_enemydeath","path":"sounds/snd_enemydeath/snd_enemydeath.yy",},},
     {"id":{"name":"nt_monk","path":"notes/nt_monk/nt_monk.yy",},},
-    {"id":{"name":"obj_bullet_parent_1","path":"objects/obj_bullet_parent_1/obj_bullet_parent_1.yy",},},
     {"id":{"name":"obj_stage_2_old","path":"objects/obj_stage_2_old/obj_stage_2_old.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"game","path":"objects/game/game.yy",},},
