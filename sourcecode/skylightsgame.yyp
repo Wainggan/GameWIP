@@ -243,6 +243,7 @@
     {"id":{"name":"obj_stage_1","path":"objects/obj_stage_1/obj_stage_1.yy",},},
     {"id":{"name":"obj_roomTransition","path":"objects/obj_roomTransition/obj_roomTransition.yy",},},
     {"id":{"name":"rm_stagetest","path":"rooms/rm_stagetest/rm_stagetest.yy",},},
+    {"id":{"name":"scr_player","path":"scripts/scr_player/scr_player.yy",},},
     {"id":{"name":"ft_splash","path":"fonts/ft_splash/ft_splash.yy",},},
     {"id":{"name":"obj_shaderDrawer","path":"objects/obj_shaderDrawer/obj_shaderDrawer.yy",},},
     {"id":{"name":"spr_collectable_point","path":"sprites/spr_collectable_point/spr_collectable_point.yy",},},

@@ -65,6 +65,12 @@ tReloadTime = 7;
 reloadTime = tReloadTime;
 
 #region bullet upgrade defines
+
+weapons = []
+
+bullet_default = new PlayerWeapon_Default()
+array_push(weapons, bullet_default)
+
 bulletAmount = 3;
 bulletSpread = 6;
 bulletSpreadAngle = 18;
@@ -72,6 +78,9 @@ bulletSpreadSlow = 6
 bulletSpreadAngleSlow = 1
 bulletSpeed = 14;
 bulletDamage = 1;
+
+bullet_homing = new PlayerWeapon_Homing()
+array_push(weapons, bullet_homing)
 
 tReloadHomingTime = 12;
 reloadHomingTime = tReloadHomingTime;
@@ -81,6 +90,9 @@ bulletHomingSpreadAngle = 90;
 bulletHomingSpreadAngleSlow = 45;
 bulletHomingSpeed = 8;
 bulletHomingDamage = 0.2;
+
+bullet_lazer = new PlayerWeapon_Lazer()
+array_push(weapons, bullet_lazer)
 
 bulletLaserList = [];
 bulletLaserSpreadAngle = 24
@@ -112,6 +124,9 @@ func_addLaser = function(){
 	*/
 }
 
+bullet_round = new PlayerWeapon_Round()
+array_push(weapons, bullet_round)
+
 tReloadRoundTime = 4;
 reloadRoundTime = tReloadRoundTime;
 
@@ -132,6 +147,9 @@ bulletWavySpeed = 5;
 bulletWavySplashSpeed = 8;
 bulletWavyDamage = 4;
 bulletWavySplashDamage = 0.04;
+
+bullet_helper = new PlayerWeapon_Lad()
+array_push(weapons, bullet_helper)
 
 bulletHelperList = [];
 bulletHelperDamage = 0.4;
@@ -723,8 +741,12 @@ step : function(){
 		
 		
 	#region shoot
+	for (var i = 0; i < array_length(weapons); i++) {
+		weapons[i].run(isShooting)
+	}
 	if isShooting {
-		if reloadTime <= 0 {
+		
+		ignore if reloadTime <= 0 {
 			reloadTime = _newReloadTime
 			var _spreadTemp = input.check("sneak") ? bulletSpreadSlow : bulletSpread
 			var _spreadAngleTemp = input.check("sneak") ? bulletSpreadAngleSlow : bulletSpreadAngle
@@ -745,7 +767,7 @@ step : function(){
 				}
 			})
 		}
-		if reloadHomingTime <= 0 {
+		ignore if reloadHomingTime <= 0 {
 			reloadHomingTime = _newReloadHomingTime
 			var _spreadAngleTemp = input.check("sneak") ? bulletHomingSpreadAngleSlow : bulletHomingSpreadAngle
 			
@@ -853,6 +875,10 @@ step : function(){
 				}
 			})
 		}
+	} else {
+		for (var i = 0; i < array_length(weapons); i++) {
+			weapons[i].unrun()
+		}
 	}
 	if isShooting && input.check("sneak") {
 		bullet_preset_plate(0, 0 - 16, array_length(bulletLaserList), bulletLaserSpreadSlow, bulletLaserSpreadAngleSlow, 4, 90, function(_x, _y, _dir, _i) {
@@ -930,6 +956,12 @@ enter : function(){
 step : function(){
 	x = respawnAnim.evaluate("x")
 	y = respawnAnim.evaluate("y")
+	
+	isShooting = false
+	for (var i = 0; i < array_length(weapons); i++) {
+		weapons[i].run(false)
+	}
+	
 	respawnAnim.percent += 0.05 * global.delta_multi;
 	if respawnAnim.percent >= 1 {
 		state.change("idle")
@@ -965,6 +997,11 @@ step: function(){
 	hook_y_vel = approach(hook_y_vel, lengthdir_y(14 * global.delta_multi, _dir), 2);
 	x += hook_x_vel;
 	y += hook_y_vel;
+	
+	isShooting = false
+	for (var i = 0; i < array_length(weapons); i++) {
+		weapons[i].run(false)
+	}
 	
 	func_handleFocus()
 	

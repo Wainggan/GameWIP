@@ -166,6 +166,7 @@
     {"name":"spr_debug_miniChunk","order":1,"path":"sprites/spr_debug_miniChunk/spr_debug_miniChunk.yy",},
     {"name":"obj_stage_1","order":5,"path":"objects/obj_stage_1/obj_stage_1.yy",},
     {"name":"rm_stagetest","order":7,"path":"rooms/rm_stagetest/rm_stagetest.yy",},
+    {"name":"scr_player","order":22,"path":"scripts/scr_player/scr_player.yy",},
     {"name":"ft_splash","order":4,"path":"fonts/ft_splash/ft_splash.yy",},
     {"name":"obj_shaderDrawer","order":2,"path":"objects/obj_shaderDrawer/obj_shaderDrawer.yy",},
     {"name":"spr_collectable_point","order":2,"path":"sprites/spr_collectable_point/spr_collectable_point.yy",},

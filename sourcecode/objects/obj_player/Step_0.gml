@@ -12,12 +12,6 @@ mask_index = spr_player_hitbox
 
 state.run()
 
-for (var i = 0; i < array_length(bulletLaserList); i++) {
-	var _bl = bulletLaserList[i];
-	_bl.x = x + _bl.xOff
-	_bl.y = y + _bl.yOff
-	_bl.active = isShooting;
-}
 
 shakeAmount -= global.delta_multiNP
 
