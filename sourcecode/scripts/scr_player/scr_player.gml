@@ -177,7 +177,9 @@ function PlayerWeapon_Round() : PlayerWeapon() constructor {
 	static shot = function(_shooting) {
 		if !_shooting return;
 		
-		bullet_preset_ring(obj_player.x, obj_player.y, amount, 4, random_range(0, 360), function(_x, _y, _dir){
+		var _angle = irandom_range(0, 360)
+		
+		bullet_preset_ring(obj_player.x, obj_player.y, amount, 4, _angle, function(_x, _y, _dir){
 			with player_create_bullet(_x, _y) {
 				
 				dir = _dir;
@@ -201,8 +203,10 @@ function PlayerWeapon_Round() : PlayerWeapon() constructor {
 function PlayerWeapon_Lad() : PlayerWeapon() constructor {
 	
 	amount = 0;
-	reload = 6;
+	reload = 0;
 	damage = 0.4;
+	
+	treload = 12;
 	
 	speed = 14;
 	
@@ -220,6 +224,8 @@ function PlayerWeapon_Lad() : PlayerWeapon() constructor {
 	}
 	
 	static shot = function(_shooting) {
+		if keyboard_check_pressed(ord("4")) amount++
+		
 		while array_length(lads) < amount {
 			add()
 		}
@@ -227,12 +233,22 @@ function PlayerWeapon_Lad() : PlayerWeapon() constructor {
 			remove()
 		}
 		
+		var _ox = obj_player.x - 8;
+		var _oy = obj_player.y - 64;
+		
+		var _dist = power((input.check("sneak") ? 4 : 6) * array_length(lads), 1.05)
+		var _angle = wave(-360, 360, 6) + 90
+		var _anglediff = 360 / array_length(lads)
+		
 		for (var i = 0; i < array_length(lads); i++) {
 			var _other = self;
 			
 			with lads[i] {
-				tReloadTime = _other.reload + i;
+				tReloadTime = _other.treload + i * 0.5;
 				reloadTime -= global.delta_multi;
+				
+				x_target = _ox + lengthdir_x(_dist, _angle + _anglediff * i)
+				y_target = _oy + lengthdir_y(_dist * (input.check("sneak") ? 0.5 : 0.7), _angle + _anglediff * i)
 			}
 		}
 		

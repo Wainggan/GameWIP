@@ -60,10 +60,6 @@ shakeAmount = 0;
 offX = 0;
 offY = 0;
 
-
-tReloadTime = 7;
-reloadTime = tReloadTime;
-
 #region bullet upgrade defines
 
 weapons = []
