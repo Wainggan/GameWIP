@@ -131,6 +131,7 @@
     {"name":"spr_enemy_thing_old","order":12,"path":"sprites/spr_enemy_thing_old/spr_enemy_thing_old.yy",},
     {"name":"scr_stringParser","order":9,"path":"scripts/scr_stringParser/scr_stringParser.yy",},
     {"name":"spr_bullet_playerTest","order":2,"path":"sprites/spr_bullet_playerTest/spr_bullet_playerTest.yy",},
+    {"name":"spr_bullet_spark","order":11,"path":"sprites/spr_bullet_spark/spr_bullet_spark.yy",},
     {"name":"spr_enemyIndicatorBack","order":4,"path":"sprites/spr_enemyIndicatorBack/spr_enemyIndicatorBack.yy",},
     {"name":"obj_stage_4","order":3,"path":"objects/obj_stage_4/obj_stage_4.yy",},
     {"name":"obj_helper","order":11,"path":"objects/obj_helper/obj_helper.yy",},

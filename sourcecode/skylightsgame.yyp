@@ -204,6 +204,7 @@
     {"id":{"name":"scr_stringParser","path":"scripts/scr_stringParser/scr_stringParser.yy",},},
     {"id":{"name":"spr_bullet_playerTest","path":"sprites/spr_bullet_playerTest/spr_bullet_playerTest.yy",},},
     {"id":{"name":"obj_bulletDestroyer","path":"objects/obj_bulletDestroyer/obj_bulletDestroyer.yy",},},
+    {"id":{"name":"spr_bullet_spark","path":"sprites/spr_bullet_spark/spr_bullet_spark.yy",},},
     {"id":{"name":"spr_enemyIndicatorBack","path":"sprites/spr_enemyIndicatorBack/spr_enemyIndicatorBack.yy",},},
     {"id":{"name":"obj_stage_4","path":"objects/obj_stage_4/obj_stage_4.yy",},},
     {"id":{"name":"obj_helper","path":"objects/obj_helper/obj_helper.yy",},},
