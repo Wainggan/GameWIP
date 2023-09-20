@@ -17,6 +17,8 @@ moveAnim = new Sod(6)
 
 isShooting = false;
 
+upgrades = {}
+
 
 collectDist = 64;
 collectPoint = 0;
@@ -341,6 +343,8 @@ func_handleCollectable = function(_inst){
 state = new State("idle");
 state.add("idle", {
 step : function(){
+	var _ = player_calculate_upgrade()
+	
 	var hkey = 0;
 	var vkey = 0;
 

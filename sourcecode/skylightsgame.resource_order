@@ -178,6 +178,7 @@
     {"name":"spr_collectable_point_old","order":5,"path":"sprites/spr_collectable_point_old/spr_collectable_point_old.yy",},
     {"name":"ps_player_bulletHit","order":4,"path":"particles/ps_player_bulletHit/ps_player_bulletHit.yy",},
     {"name":"spr_enemy_test","order":4,"path":"sprites/spr_enemy_test/spr_enemy_test.yy",},
+    {"name":"scr_upgrades","order":23,"path":"scripts/scr_upgrades/scr_upgrades.yy",},
     {"name":"spr_collectable_upgrade","order":4,"path":"sprites/spr_collectable_upgrade/spr_collectable_upgrade.yy",},
     {"name":"scr_thread","order":13,"path":"scripts/scr_thread/scr_thread.yy",},
     {"name":"snd_bossphase","order":4,"path":"sounds/snd_bossphase/snd_bossphase.yy",},

@@ -259,6 +259,7 @@
     {"id":{"name":"ps_player_bulletHit","path":"particles/ps_player_bulletHit/ps_player_bulletHit.yy",},},
     {"id":{"name":"spr_collectable_bulletBonus","path":"sprites/spr_collectable_bulletBonus/spr_collectable_bulletBonus.yy",},},
     {"id":{"name":"spr_enemy_test","path":"sprites/spr_enemy_test/spr_enemy_test.yy",},},
+    {"id":{"name":"scr_upgrades","path":"scripts/scr_upgrades/scr_upgrades.yy",},},
     {"id":{"name":"spr_player_laser","path":"sprites/spr_player_laser/spr_player_laser.yy",},},
     {"id":{"name":"spr_collectable_upgrade","path":"sprites/spr_collectable_upgrade/spr_collectable_upgrade.yy",},},
     {"id":{"name":"scr_thread","path":"scripts/scr_thread/scr_thread.yy",},},

@@ -1,8 +1,6 @@
 
 function PlayerWeapon() constructor {
 	
-	amount = 0
-	
 	reloadTime = 0
 	reload = 4
 	
@@ -224,8 +222,7 @@ function PlayerWeapon_Lad() : PlayerWeapon() constructor {
 	}
 	
 	static shot = function(_shooting) {
-		if keyboard_check_pressed(ord("4")) amount++
-		
+
 		while array_length(lads) < amount {
 			add()
 		}
@@ -288,9 +285,5 @@ function player_create_bullet(_x, _y) {
 }
 
 
-function player_calculate_upgrade() {
-	
-	return {}
-	
-}
+
 
