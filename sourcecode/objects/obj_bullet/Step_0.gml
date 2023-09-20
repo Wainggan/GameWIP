@@ -1,15 +1,3 @@
-if firstFrame {
-	showDirection = false;
-	switch sprite_index {
-		case spr_bullet_point:
-			showDirection = true;
-		case spr_bullet_arrow:
-			showDirection = true;
-	}
-	glowTarget = glow;
-	firstFrame = false
-}
-
 if pop != 0 {
 	pop = lerp(pop, 0, 1 - power(0.001, global.delta_milli * 2));
 	if pop <= 0.02 pop = 0

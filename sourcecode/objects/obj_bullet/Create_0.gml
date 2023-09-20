@@ -13,4 +13,4 @@ pop = 0;
 
 disconnect = false;
 
-firstFrame = true
+alarm[0] = 1
