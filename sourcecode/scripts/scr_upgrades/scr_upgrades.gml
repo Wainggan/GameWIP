@@ -82,29 +82,32 @@ function Upgrade(_apply, _index = 0) constructor {
 global.upgrades = {
 	WeaponDefault: new Upgrade(function(_config){
 		_config.bullet_default += level
-	}),
+	}, 0),
 	WeaponHoming: new Upgrade(function(_config){
 		_config.bullet_homing += level
-	}),
+	}, 1),
 	WeaponLazer: new Upgrade(function(_config){
 		_config.bullet_lazer += level
-	}),
+	}, 2),
 	WeaponRound: new Upgrade(function(_config){
 		_config.bullet_round += level
-	}),
+	}, 3),
 	WeaponHelper: new Upgrade(function(_config){
 		_config.bullet_helper += level
-	}),
+	}, 4),
+	WeaponHelper2: new Upgrade(function(_config){
+		_config.bullet_helper += level * 2
+	}, 5),
 	WeaponCharge: new Upgrade(function(_config){
 		
 	}),
 	
 	Speed: new Upgrade(function(_config){
 		_config.moveSpeed_fast += 2 * level;
-	}),
+	}, 6),
 	Reflect: new Upgrade(function(_config){
 		_config.graze_reflectChance = min(_config.graze_reflectChance + 0.06 * level, 0.8);
-	}),
+	}, 7),
 	Sheild: new Upgrade(function(_config){
 		
 	}),
@@ -114,14 +117,14 @@ global.upgrades = {
 	
 	ItemPoint: new Upgrade(function(_config){
 		_config.collectPoint += 96 * level;
-	}),
+	}, 10),
 	ItemRadius: new Upgrade(function(_config){
 		_config.collectRadius += 16 * level;
-	}),
+	}, 9),
 	
 	HookChargeUp: new Upgrade(function(_config){
 		_config.hook_charge_ambient += 0.0005 * level;
-	}),
+	}, 8),
 	HookChargeAmount: new Upgrade(function(_config){
 		
 	}),

@@ -35,8 +35,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_collectable_upgrade",
-    "path": "sprites/spr_collectable_upgrade/spr_collectable_upgrade.yy",
+    "name": "spr_collectable_upgrade_symbols",
+    "path": "sprites/spr_collectable_upgrade_symbols/spr_collectable_upgrade_symbols.yy",
   },
   "spriteMaskId": null,
   "visible": true,
