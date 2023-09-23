@@ -103,7 +103,7 @@ global.upgrades = {
 		_config.moveSpeed_fast += 2 * level;
 	}),
 	Reflect: new Upgrade(function(_config){
-		_config.graze_reflectChance = min(_config.graze_reflectChance + 0.05 * level, 0.8);
+		_config.graze_reflectChance = min(_config.graze_reflectChance + 0.06 * level, 0.8);
 	}),
 	Sheild: new Upgrade(function(_config){
 		
@@ -120,13 +120,14 @@ global.upgrades = {
 	}),
 	
 	HookChargeUp: new Upgrade(function(_config){
-		
+		_config.hook_charge_ambient += 0.0005 * level;
 	}),
 	HookChargeAmount: new Upgrade(function(_config){
 		
 	}),
-	HookChargeRetention: new Upgrade(function(_config){
-		
+	GrazeChargeRetention: new Upgrade(function(_config){
+		_config.graze_charge_loss = max(0.005, _config.graze_charge_loss - 0.003 * level)
+		_config.graze_charge_retention += 10 * level
 	}),
 };
 
