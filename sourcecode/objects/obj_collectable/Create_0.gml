@@ -17,6 +17,9 @@ latchTimer = 40;
 
 squish = 0;
 
+offsetX = random_range(-8, 8)
+offsetY = random_range(-4, 4)
+
 s_charge = 0;
 
 image_alpha = 1
