@@ -18,6 +18,7 @@ moveAnim = new Sod(6)
 isShooting = false;
 
 upgrades = {}
+config = new PlayerConfig(self)
 
 
 collectDist = 64;
@@ -363,8 +364,8 @@ step : function(){
 		
 	var directionFix = (hkey != 0 && vkey != 0 ? 0.71 : 1)
     
-	var targetTopSpeed = (input.check("sneak") ? slowMoveSpeed : (input.check("shoot") ? moveSpeed : fastMoveSpeed))
-	var targetAccel = (input.check("sneak") ? slowAccel : accel)
+	var targetTopSpeed = (input.check("sneak") ? _.moveSpeed_slow : (input.check("shoot") ? _.moveSpeed : _.moveSpeed_fast))
+	var targetAccel = (input.check("sneak") ? _.accel_slow : _.accel)
     
 	//x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
 	//y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
@@ -386,8 +387,8 @@ step : function(){
 	y = clamp(y, 4, HEIGHT-4);
 		
 	with obj_collectable {
-		if	other.y < other.collectPoint || 
-			(sprite_index == spr_collectable_bulletBonus && other.collectAllBullets) 
+		if		other.y < _.collectPoint || 
+				sprite_index == spr_collectable_bulletBonus
 			latch = true;
 	}
 	
@@ -469,7 +470,7 @@ step : function(){
 					_b.pop = 1;
 					
 					// reflect bullets
-					if grazeReflectChance > 0 && random(1) < grazeReflectChance {
+					if _.graze_reflectChance > 0 && random(1) < _.graze_reflectChance {
 						var _vdX = lengthdir_x(_b.spd, _b.dir) + _b.x_vel + _b.autoX;
 						var _vdY = lengthdir_y(_b.spd, _b.dir) + _b.y_vel + _b.autoY;
 							
@@ -497,8 +498,8 @@ step : function(){
 					grazeComboQueue += 1;
 					grazeComboTimer = tGrazeComboTimer;
 					
-					graze_charge += 0.06;
-					graze_charge_timer = 50;		
+					graze_charge += _.graze_charge_gain;
+					graze_charge_timer = _.graze_charge_retention;
 					
 					//lifeCharge = min(lifeCharge + lifeChargeGraze, 1);
 						
@@ -564,7 +565,7 @@ step : function(){
 	
 	graze_charge_timer -= global.delta_multi
 	if graze_charge_timer <= 0 {
-		graze_charge -= 0.03 * global.delta_multi
+		graze_charge -= _.graze_charge_loss * global.delta_multi
 	}
 	graze_charge = clamp(graze_charge, 0, 1)
 	
@@ -576,8 +577,8 @@ step : function(){
 		
 	isShooting = input.check("shoot") && canShoot
 		
-	hook_charge = min(hook_charge + 0.001 * global.delta_multi, 1);
-	hook_charge = min(hook_charge + graze_charge * 0.003 * global.delta_multi, 1);
+	hook_charge = min(hook_charge + _.hook_charge_ambient * global.delta_multi, 1);
+	hook_charge = min(hook_charge + graze_charge * _.hook_charge_grazeMultiplier * global.delta_multi, 1);
 	func_handleFocus()
 		
 	hook_buffer -= global.delta_multi;
