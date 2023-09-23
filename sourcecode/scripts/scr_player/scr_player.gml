@@ -84,7 +84,7 @@ function PlayerWeapon_Default() : PlayerWeapon() constructor {
 
 function PlayerWeapon_Homing() : PlayerWeapon() constructor {
 	
-	defaults.amount = 0;
+	defaults.amount = 1;
 	defaults.reload = 12;
 	defaults.damage = 0.2;
 
@@ -122,6 +122,7 @@ function PlayerWeapon_Homing() : PlayerWeapon() constructor {
 				fakedamage = 0.2
 						
 				sprite_index = spr_bullet_homingplayerTest
+				showDirection = true
 						
 				command_timer(60, function(){
 					step = undefined;
