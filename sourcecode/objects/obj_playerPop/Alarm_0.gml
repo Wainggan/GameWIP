@@ -21,3 +21,9 @@ for (var i = 0; i < ds_list_size(_enemyList); i++) {
 }
 
 ds_list_destroy(_enemyList);
+
+var _upgrade = collision_circle(x, y, size, obj_collectable_upgrade, true, true);
+with _upgrade {
+	hp = 0
+}
+

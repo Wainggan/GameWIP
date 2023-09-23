@@ -258,7 +258,7 @@ func_hookPop = function(){
 	if hook_extrabuffer < 0 
 		hook_extrabuffer = 6;
 	else
-		hook_extrabuffer = 0;
+		hook_extrabuffer = -1;
 	hook_buffer = 0
 	
 	hook_radius_collectLimit = 24
@@ -588,20 +588,29 @@ step : function(){
 		func_hookPop()
 	}
 	
+	var _testTarget = noone
+	
+	// check if upgrade is in range
+	_testTarget = collision_rectangle(x-48, y-48, x+48, y - HEIGHT, obj_collectable_upgrade, false, true);
+	
 	// move into hook state
-	if !hook_ing  && hook_charge == 1 && canShoot {
+	if !hook_ing  && (hook_charge == 1 || _testTarget != noone) && canShoot {
 		
-		// check if valid enemy above player exists
-		var _enemyList = ds_list_create(), _testTarget = noone
-		collision_rectangle_list(x-24, y-48, x+24, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
-		if ds_list_size(_enemyList) {
-			_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
+		if _testTarget == noone {
+			// check if valid enemy above player exists
+			var _enemyList = ds_list_create()
+			collision_rectangle_list(x-24, y-48, x+24, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
+			if ds_list_size(_enemyList) {
+				_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
+			}
+			collision_rectangle_list(x-48, y-48, x+48, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
+			if ds_list_size(_enemyList) {
+				_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
+			}
+		
+			ds_list_destroy(_enemyList);
 		}
-		collision_rectangle_list(x-48, y-48, x+48, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
-		if ds_list_size(_enemyList) {
-			_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
-		}
-		ds_list_destroy(_enemyList);
+		
 		
 		// if enemy does exist, record its existence so the indicator can animate
 		if _testTarget != noone && canShoot {
@@ -627,6 +636,11 @@ step : function(){
 			hook_x = x;
 			hook_y = y;
 		}
+	} else {
+		hook_maybeTarget = noone;
+		hook_target = noone;
+		hook_x = x;
+		hook_y = y;
 	}
 	
 	
@@ -696,17 +710,28 @@ step: function(){
 	
 	func_handleFocus()
 	
-	if point_distance(x, y, hook_x, hook_y) < 64 {
-		hook_buffer = 12;
-		state.change("idle")
+	
+	if instance_exists(hook_target) && hook_target.object_index == obj_collectable_upgrade {
+		if point_distance(x, y, hook_x, hook_y) < hook_radius - 8 {
+			// automatically explode if hooking an upgrade
+			func_hookPop()
+		
+			hook_buffer = 0;
+			state.change("idle")
+		}
+	} else {
+		if point_distance(x, y, hook_x, hook_y) < 64 {
+			hook_buffer = 12;
+			state.change("idle")
+		}
+		else if input.check_pressed("bomb") && canShoot {
+			func_hookPop()
+			hook_buffer = 0;
+			state.change("idle")
+		}
 	}
 	ignore if hook_x < 0 || hook_x > WIDTH || hook_y < 0 || hook_y > HEIGHT {
 		hook_buffer = 12;
-		state.change("idle")
-	}
-	if input.check_pressed("bomb") && canShoot {
-		func_hookPop()
-		hook_buffer = 0;
 		state.change("idle")
 	}
 	

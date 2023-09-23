@@ -6,7 +6,7 @@ image_angle = 0;
 x += x_vel * global.delta_multi;
 y += y_vel * global.delta_multi;
 
-if HEIGHT + 32 < y
+if HEIGHT + 64 < y
 	instance_destroy()
 
 if hp <= 0 {
