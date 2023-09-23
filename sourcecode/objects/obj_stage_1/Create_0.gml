@@ -22,11 +22,11 @@ addEnemy("basic1", function(){
 	movement_start(startX, startY, 1 / 20);
 		
 	command_timer(60 * 1, function(){
-		movement_start(clamp(x + irandom_range(-64, 64), 96, WIDTH - 96), y + irandom_range(-16, 64), 1/180)
+		movement_start(lerp(x, WIDTH / 2, 0.25), y + 32, 1/180)
 	})
 	command_timer(60 * 4, function(){
 		command_reset();
-		movement_start(x + irandom_range(-96, 96), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
+		movement_start(lerp(x, WIDTH / 2, -0.8), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
 	})
 	
 	b_alt = 0
@@ -68,7 +68,7 @@ addEnemy("basic2", function() {
 		30,
 		new CommandBeat(12),
 		function(){
-			bullet_preset_ring(x, y, 24, 8, wave(-360, 360, 10), function(_x, _y, _dir){
+			bullet_preset_ring(x, y, 24, 8, wave(-360, 360, 18, offset * 4.2, time_total / 60), function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 2, 0.2, 3, _dir) {
 					sprite_index = spr_bullet_point
 					glow = cb_grey;
@@ -97,14 +97,17 @@ addEnemy("big1", function(){
 		command_reset();
 	})
 	command_timer(60 * 8, function(){
-		movement_start(x + irandom_range(-256, 256), -64, 1/360, , function(){ instance_destroy() })
+		movement_start(lerp(x, WIDTH / 2, -1), -64, 1/360, , function(){ instance_destroy() })
 	})
-		
+	
+	b_angle = offset * 32
+
 	command_set([
 		30, 
 		new CommandBeat(8),
 		function(){
-			bullet_preset_ring(x, y, 28, 8, wave(-360, 360, 10), function(_x, _y, _dir){
+			b_angle += 360 / 8 / 2 
+			bullet_preset_ring(x, y, 26, 8, b_angle, function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 6, 0.2, 3, _dir) {
 					sprite_index = spr_bullet_large
 					glow = cb_blue;
@@ -127,7 +130,7 @@ pattern_add("stage1-miniboss-1", function() {
 	command_set([
 		new CommandBeat(8),
 		function(){
-			bullet_preset_ring(x, y, b_density, 8, irandom_range(0, 360), function(_x, _y, _dir){
+			bullet_preset_ring(x, y, b_density, 8, wave(-360, 360, 4, , time_phase / 60), function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 8, 0.4, 2.4, _dir).glow = cb_green
 			});
 			sound.play(snd_bulletshoot)
@@ -138,9 +141,12 @@ pattern_add("stage1-miniboss-1", function() {
 	]);
 				
 	command_add([
-		60, 
+		50, 
 		function(){
-			movement_start(clamp(obj_player.x + irandom_range(-b_range, b_range), 96, WIDTH - 96), irandom_range(60, 80), 1/60);
+			movement_start(
+				approach(x, clamp(obj_player.x + wave(-b_range, b_range, 12, , time_phase / 60), 96, WIDTH - 96), 48), 
+				wave(60, 80, 4, , time_phase / 60), 1/50
+			);
 			command_repeat(3)
 		}
 	]);
@@ -149,10 +155,13 @@ pattern_add("stage1-miniboss-1", function() {
 
 pattern_add("stage1-miniboss-2", function() {
 	
-	b_dir = irandom(360)
-	b_dirV = choose(-1, 1)
+	b_dir = wave(-360, -360, 4, , time_phase / 60)
+	b_dirV = wave(-1, 1, 2, , time_phase / 60) * 5
 	
-	movement_start(clamp(obj_player.x + irandom_range(-96, 96), 96, WIDTH - 96), irandom_range(60, 80), 1/20);
+	movement_start(
+		clamp(obj_player.x + wave(-96, 96, 12, , time_phase / 60), 96, WIDTH - 96), 
+		wave(60, 70, 4, , time_phase / 60), 1/20
+	);
 	
 	command_set([
 		20,
@@ -161,12 +170,12 @@ pattern_add("stage1-miniboss-2", function() {
 			b_dir += 5 * b_dirV
 			
 			bullet_preset_ring(x, y, 20, 8, b_dir, function(_x, _y, _dir){
-				bullet_shoot_dir2(_x, _y, random_range(7, 9), 0.4, random_range(2.3, 2.6), _dir).glow = c_grey
+				bullet_shoot_dir2(_x, _y, 9, 0.4, 2, _dir).glow = c_grey
 			});
 			sound.play(snd_bulletshoot)
 			command_repeat(10)
 		},
-		40,
+		50,
 		nextPattern
 	])
 	
@@ -181,7 +190,7 @@ pattern_add("stage1-miniboss-3", function() {
 		new CommandBeat(8),
 		function(){
 			sound.play(snd_bulletshoot_2)
-			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + irandom_range(-8, 8), function(_x, _y, _dir){
+			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + wave(-8, 8, 12, , time_phase / 60), function(_x, _y, _dir, _i){
 				with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
 					y_target = 5;
 					y_accel = 0.1;
@@ -189,10 +198,11 @@ pattern_add("stage1-miniboss-3", function() {
 					glow = cb_green;
 					sprite_index = spr_bullet_large;
 					
+					offset = _i
 					
-					command_timer(irandom_range(60, 80), function(){
+					command_timer(60, function(){
 						sound.play(snd_bulletshoot)
-						bullet_preset_ring(x, y, 10, 4, irandom_range(0, 360), function(_x, _y, _dir){
+						bullet_preset_ring(x, y, 9, 4, 90, function(_x, _y, _dir){
 							with bullet_shoot_dir2(_x, _y, 3, 0.1, 1, _dir) {
 								glow = cb_pink;
 								sprite_index = spr_bullet_arrow;
@@ -212,7 +222,10 @@ pattern_add("stage1-miniboss-3", function() {
 		new CommandBeat(8),
 		40,
 		function(){
-			movement_start(clamp(obj_player.x + irandom_range(-32, 32), 96, WIDTH - 96), irandom_range(50, 100), 1/20);
+			movement_start(
+				approach(x, clamp(obj_player.x + wave(-32, 32, 12, , time_phase / 60), 96, WIDTH - 96), 48), 
+				wave(50, 100, 4, , time_phase / 60), 1/20
+			);
 			commandIndex--
 		}
 	])

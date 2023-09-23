@@ -2,6 +2,8 @@ enemies = {};
 enemiesMod = {};
 
 enemy = function(_type, _x = 0, _y = 0, _args = []){
+	static count = 0
+	
 	static _empty = function(){};
 	var inst = instance_create_layer(_x, _y, "Instances", obj_enemy);
 	var func = method_get_index(method(inst, enemies[$ _type]));
@@ -10,6 +12,7 @@ enemy = function(_type, _x = 0, _y = 0, _args = []){
 			? method_get_index(method(inst, enemiesMod[$ _type]))
 			: method_get_index(_empty) ;
 	with inst {
+		offset = count++;
 		script_execute_ext(func, _args);
 		script_execute_ext(modFunc, _args);
 	}
@@ -52,6 +55,7 @@ time = function(_time = 0, _done = false, _buffer = 0){
 timeLeft = 0;
 waitUntilDone = false;
 minimumTime = 0;
+global.stage_time = 0;
 stageIndex = 0;
 
 stage = []
@@ -78,4 +82,7 @@ addPause = function(_length, _wait = false, _min = 0) {
 	array_push(stage, new __Pause(_length, _wait, _min))
 }
 
+getTime = function() {
+	return global.stage_time
+}
 

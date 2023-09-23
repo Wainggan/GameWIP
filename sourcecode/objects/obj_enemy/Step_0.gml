@@ -33,6 +33,7 @@ if timer != -1 || timerMod != undefined {
 	}
 }
 if timerMinActive timerMin -= global.delta_multi
+time_total += global.delta_multi
 
 phaseTimer += global.delta_milliP
 if phaseStartTimer >= 0 {
@@ -41,7 +42,10 @@ if phaseStartTimer >= 0 {
 		phaseStartTimer = -1;
 		startPattern()
 	}
+} else {
+	time_phase += global.delta_multi
 }
+
 
 if hp <= 0 && shakeFix == undefined { // todo: complete rewrite
 	if timerMod == undefined time()

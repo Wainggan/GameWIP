@@ -191,6 +191,7 @@ startPhase = function(_index = currentPhase, _compensation = 0) {
 	show_debug_message($"comp {_compensation}:: short {_shorten}, pause {_pause}, {hp}")
 	
 	phaseTimer = 0
+	time_phase = 0
 	
 	currentPattern = _phase.force
 	phaseActive = true
@@ -255,6 +256,12 @@ setupShowHp = function(){
 
 // magic animation offset number
 test = random_range(0, 1000)
+
+// behaviour randomizer. assigned when created with obj_stage api
+offset = 0
+
+time_total = 0
+time_phase = 0
 
 directionToMove = sign(WIDTH/2 - x);
 

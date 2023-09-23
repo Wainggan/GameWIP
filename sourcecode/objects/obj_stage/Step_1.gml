@@ -33,6 +33,7 @@ if array_length(stage) > 0 {
 		} else timeLeft -= global.delta_multi;
 	}
 }
+global.stage_time += global.delta_multi
 
 for (var i = 0; i < array_length(enemyBuffer); i++) {
 	enemyBuffer[i][3] -= global.delta_multi;
