@@ -35,26 +35,18 @@ function PlayerConfig(_player) constructor {
 		
 	};
 	
-	upgrades = [
-		new Upgrade_WeaponDefault(),
-		new Upgrade_WeaponHoming(),
-		new Upgrade_WeaponLazer(),
-		new Upgrade_WeaponRound(),
-		new Upgrade_WeaponHelper(),
-		new Upgrade_WeaponCharge(),
-		
-		new Upgrade_Speed(),
-		new Upgrade_Reflect(),
-		new Upgrade_Shield(),
-		new Upgrade_Clean(),
-		
-		new Upgrade_ItemPoint(),
-		new Upgrade_ItemRadius(),
-		
-		new Upgrade_HookChargeUp(),
-		new Upgrade_HookChargeAmount(),
-		new Upgrade_GrazeChargeRetention(),
-	]
+	upgrades = [];
+	
+	for (var i = 0; i < array_length(global.upgrades); i++) {
+		array_push(upgrades, global.upgrades[i].create());
+	}
+	
+	static get = function(_name) {
+		for (var i = 0; i < array_length(upgrades); i++) {
+			if upgrades[i].name == _name return upgrades[i];
+		}
+		return undefined;
+	}
 	
 }
 
@@ -70,111 +62,74 @@ function player_calculate_upgrade() {
 	
 }
 
-function player_setup_upgrade(_player) {
+
+function Upgrade(_name, _apply, _index = 0) constructor {
+
+	name = _name;
+	apply = _apply;
 	
-	_player.upgrades = []
+	index = _index;
 	
-	for (var i = 0; i < array_length(global.upgrades); i++) {
-		array_push(_player.upgrades, new global.upgrades[i]())
-	}
+	static create = function() {
+		var _upgrade = {
+			level: 0,
+			name,
+			apply: undefined,
+		};
+		_upgrade.apply = method(_upgrade, apply);
+		return _upgrade;
+	};
 	
 }
 
-
-function Upgrade() constructor {
-
-	level = 0
-	
-	static apply = function(_config){}
-	
-}
-
-
-global.upgrades = []
-
-function upgrade_register(_type) {
-	array_push(global.upgrades, _type)
-}
-
-// kill me
-function Upgrade_WeaponDefault() : Upgrade() constructor {
-	static apply = function(_config) {
+global.upgrades = [
+	new Upgrade("WeaponDefault", function(_config){
 		_config.bullet_default += level
-	}
-}
-function Upgrade_WeaponHoming() : Upgrade() constructor {
-	static apply = function(_config) {
+	}),
+	new Upgrade("WeaponHoming", function(_config){
 		_config.bullet_homing += level
-	}
-}
-function Upgrade_WeaponLazer() : Upgrade() constructor {
-	static apply = function(_config) {
+	}),
+	new Upgrade("WeaponLazer", function(_config){
 		_config.bullet_lazer += level
-	}
-}
-function Upgrade_WeaponRound() : Upgrade() constructor {
-	static apply = function(_config) {
+	}),
+	new Upgrade("WeaponRound", function(_config){
 		_config.bullet_round += level
-	}
-}
-function Upgrade_WeaponHelper() : Upgrade() constructor {
-	static apply = function(_config) {
+	}),
+	new Upgrade("WeaponHelper", function(_config){
 		_config.bullet_helper += level
-	}
-}
-function Upgrade_WeaponCharge() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	new Upgrade("WeaponCharge", function(_config){
 		
-	}
-}
-
-function Upgrade_Speed() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	
+	new Upgrade("Speed", function(_config){
 		_config.moveSpeed_fast += 2 * level;
-	}
-}
-
-function Upgrade_Reflect() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	new Upgrade("Reflect", function(_config){
 		_config.graze_reflectChance = min(_config.graze_reflectChance + 0.05 * level, 0.8);
-	}
-}
-
-function Upgrade_Shield() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	new Upgrade("Sheild", function(_config){
 		
-	}
-}
-function Upgrade_Clean() : Upgrade() constructor { // adds object that spins around player and destroys bullets sometimes
-	static apply = function(_config){
+	}),
+	new Upgrade("Clean", function(_config){
 		
-	}
-}
-
-function Upgrade_ItemRadius() : Upgrade() constructor {
-	static apply = function(_config){
-		_config.collectRadius += 16 * level;
-	}
-}
-function Upgrade_ItemPoint() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	
+	new Upgrade("ItemPoint", function(_config){
 		_config.collectPoint += 96 * level;
-	}
-}
-
-function Upgrade_HookChargeUp() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	new Upgrade("ItemRadius", function(_config){
+		_config.collectRadius += 16 * level;
+	}),
+	
+	new Upgrade("HookChargeUp", function(_config){
 		
-	}
-}
-function Upgrade_HookChargeAmount() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	new Upgrade("HookChargeAmount", function(_config){
 		
-	}
-}
-function Upgrade_GrazeChargeRetention() : Upgrade() constructor {
-	static apply = function(_config){
+	}),
+	new Upgrade("HookChargeRetention", function(_config){
 		
-	}
-}
+	}),
+];
 
