@@ -8,7 +8,7 @@ hitAnim = 0;
 
 scoreGive = 1000;
 
-type = 0
+type = ""
 
 
 image_alpha = 1

@@ -49,8 +49,8 @@ function PlayerConfig(_player) constructor {
 
 function player_calculate_upgrade() {
 	
-	var _copy = variable_clone(obj_player.config.defaults, 0);
-	
+	var _copy = variable_clone(obj_player.config.defaults, 1);
+
 	var _a = variable_struct_get_names(obj_player.config.upgrades);
 	
 	for (var i = 0; i < array_length(_a); i++) {

@@ -26,19 +26,21 @@ enemy_delay = function(_type, _x, _y, _time, _args = [], _func = function(){}){
 }
 
 spawnUpgrade = function(_t = undefined){
-	var t1 = irandom_range(0, UPGRADE_AMOUNT);
-	var t2 = irandom_range(0, UPGRADE_AMOUNT);
+	var _a = struct_get_names(global.upgrades)
+	
+	var t1 = irandom_range(0, array_length(_a) - 1);
+	var t2 = irandom_range(0, array_length(_a) - 1);
 	while t2 == t1 {
-		t2 = irandom_range(0, UPGRADE_AMOUNT);
+		t2 = irandom_range(0, array_length(_a) - 1);
 	}
 	if _t {
 		t1 = _t;
 		t2 = _t;
 	}
 	with instance_create_layer(WIDTH / 2 - 128, -32, "Instances", obj_collectable_upgrade)
-		type = t1;
+		type = _a[t1];
 	with instance_create_layer(WIDTH / 2 + 128, -32, "Instances", obj_collectable_upgrade)
-		type = t2;
+		type = _a[t2];
 }
 
 time = function(_time = 0, _done = false, _buffer = 0){
