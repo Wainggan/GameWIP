@@ -27,7 +27,7 @@ function PlayerConfig(_player) constructor {
 		hook_charge_ambient: 0.001,
 		hook_charge_grazeMultiplier: 0.003,
 		
-		bullet_default: 3,
+		bullet_default: 0,
 		bullet_homing: 0,
 		bullet_lazer: 0,
 		bullet_round: 0,

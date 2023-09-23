@@ -631,7 +631,7 @@ step : function(){
 	
 	
 	for (var i = 0; i < array_length(weapons); i++) {
-		weapons[i].run(isShooting)
+		weapons[i].run(isShooting, _)
 	}
 }
 })
@@ -642,12 +642,14 @@ enter : function(){
 	respawnAnim.add("y", y, HEIGHT - 32)
 },
 step : function(){
+	var _ = player_calculate_upgrade()
+	
 	x = respawnAnim.evaluate("x")
 	y = respawnAnim.evaluate("y")
 	
 	isShooting = false
 	for (var i = 0; i < array_length(weapons); i++) {
-		weapons[i].run(false)
+		weapons[i].run(false, _)
 	}
 	
 	respawnAnim.percent += 0.05 * global.delta_multi;
@@ -666,6 +668,7 @@ enter: function(){
 	hook_radius = 48;
 },
 step: function(){
+	var _ = player_calculate_upgrade()
 	
 	if instance_exists(hook_target) && 
 		(hook_target.x > 0 || hook_target.x < WIDTH || hook_target.y > 0 || hook_target.y < HEIGHT)
@@ -688,7 +691,7 @@ step: function(){
 	
 	isShooting = false
 	for (var i = 0; i < array_length(weapons); i++) {
-		weapons[i].run(false)
+		weapons[i].run(false, _)
 	}
 	
 	func_handleFocus()
