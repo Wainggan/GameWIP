@@ -35,17 +35,14 @@ function PlayerConfig(_player) constructor {
 		
 	};
 	
-	upgrades = [];
+	upgrades = {};
 	
-	for (var i = 0; i < array_length(global.upgrades); i++) {
-		array_push(upgrades, global.upgrades[i].create());
-	}
+	struct_foreach(global.upgrades, function(k, v){
+		upgrades[$ k] = v.create();
+	})
 	
 	static get = function(_name) {
-		for (var i = 0; i < array_length(upgrades); i++) {
-			if upgrades[i].name == _name return upgrades[i];
-		}
-		return undefined;
+		return upgrades[$ _name];
 	}
 	
 }
@@ -54,8 +51,10 @@ function player_calculate_upgrade() {
 	
 	var _copy = variable_clone(obj_player.config.defaults, 0);
 	
-	for (var i = 0; i < array_length(obj_player.config.upgrades); i++) {
-		obj_player.config.upgrades[i].apply(_copy);
+	var _a = variable_struct_get_names(obj_player.config.upgrades);
+	
+	for (var i = 0; i < array_length(_a); i++) {
+		obj_player.config.upgrades[$ _a[i]].apply(_copy);
 	}
 	
 	return _copy;
@@ -63,9 +62,8 @@ function player_calculate_upgrade() {
 }
 
 
-function Upgrade(_name, _apply, _index = 0) constructor {
+function Upgrade(_apply, _index = 0) constructor {
 
-	name = _name;
 	apply = _apply;
 	
 	index = _index;
@@ -73,7 +71,6 @@ function Upgrade(_name, _apply, _index = 0) constructor {
 	static create = function() {
 		var _upgrade = {
 			level: 0,
-			name,
 			apply: undefined,
 		};
 		_upgrade.apply = method(_upgrade, apply);
@@ -82,54 +79,54 @@ function Upgrade(_name, _apply, _index = 0) constructor {
 	
 }
 
-global.upgrades = [
-	new Upgrade("WeaponDefault", function(_config){
+global.upgrades = {
+	WeaponDefault: new Upgrade(function(_config){
 		_config.bullet_default += level
 	}),
-	new Upgrade("WeaponHoming", function(_config){
+	WeaponHoming: new Upgrade(function(_config){
 		_config.bullet_homing += level
 	}),
-	new Upgrade("WeaponLazer", function(_config){
+	WeaponLazer: new Upgrade(function(_config){
 		_config.bullet_lazer += level
 	}),
-	new Upgrade("WeaponRound", function(_config){
+	WeaponRound: new Upgrade(function(_config){
 		_config.bullet_round += level
 	}),
-	new Upgrade("WeaponHelper", function(_config){
+	WeaponHelper: new Upgrade(function(_config){
 		_config.bullet_helper += level
 	}),
-	new Upgrade("WeaponCharge", function(_config){
+	WeaponCharge: new Upgrade(function(_config){
 		
 	}),
 	
-	new Upgrade("Speed", function(_config){
+	Speed: new Upgrade(function(_config){
 		_config.moveSpeed_fast += 2 * level;
 	}),
-	new Upgrade("Reflect", function(_config){
+	Reflect: new Upgrade(function(_config){
 		_config.graze_reflectChance = min(_config.graze_reflectChance + 0.05 * level, 0.8);
 	}),
-	new Upgrade("Sheild", function(_config){
+	Sheild: new Upgrade(function(_config){
 		
 	}),
-	new Upgrade("Clean", function(_config){
+	Clean: new Upgrade(function(_config){
 		
 	}),
 	
-	new Upgrade("ItemPoint", function(_config){
+	ItemPoint: new Upgrade(function(_config){
 		_config.collectPoint += 96 * level;
 	}),
-	new Upgrade("ItemRadius", function(_config){
+	ItemRadius: new Upgrade(function(_config){
 		_config.collectRadius += 16 * level;
 	}),
 	
-	new Upgrade("HookChargeUp", function(_config){
+	HookChargeUp: new Upgrade(function(_config){
 		
 	}),
-	new Upgrade("HookChargeAmount", function(_config){
+	HookChargeAmount: new Upgrade(function(_config){
 		
 	}),
-	new Upgrade("HookChargeRetention", function(_config){
+	HookChargeRetention: new Upgrade(function(_config){
 		
 	}),
-];
+};
 
