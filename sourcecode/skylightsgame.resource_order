@@ -138,7 +138,7 @@
     {"name":"snd_bulletshoot_2","order":6,"path":"sounds/snd_bulletshoot_2/snd_bulletshoot_2.yy",},
     {"name":"obj_stage_test","order":6,"path":"objects/obj_stage_test/obj_stage_test.yy",},
     {"name":"mus_title","order":10,"path":"sounds/mus_title/mus_title.yy",},
-    {"name":"mus_stage2test","order":2,"path":"sounds/mus_stage2test/mus_stage2test.yy",},
+    {"name":"mus_stage2_old","order":2,"path":"sounds/mus_stage2_old/mus_stage2_old.yy",},
     {"name":"shd_blend_overlay","order":8,"path":"shaders/shd_blend_overlay/shd_blend_overlay.yy",},
     {"name":"shd_outline","order":7,"path":"shaders/shd_outline/shd_outline.yy",},
     {"name":"shd_blend_step","order":14,"path":"shaders/shd_blend_step/shd_blend_step.yy",},

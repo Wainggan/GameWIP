@@ -37,7 +37,16 @@ meta = {
 		print(beat_to_time(46 * 4, bpm))
 		totalLength = introLength + loopLength;
 	}),
-	mus_stage2test: method(self, function(){
+	mus_stage2: method(self, function(){
+		bpm = 146
+		introLength = beat_to_time(12 * 4, bpm);
+		loopLength =  beat_to_time(152 * 4, bpm) - introLength;
+		print(introLength)
+		print(beat_to_time(152 * 4, bpm))
+		print(loopLength)
+		totalLength = introLength + loopLength;
+	}),
+	mus_stage2_old: method(self, function(){
 		introLength = 19.45;
 		loopLength = (60 * 3 + 37.29) - introLength;
 		totalLength = introLength + loopLength;

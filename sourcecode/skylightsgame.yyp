@@ -213,7 +213,7 @@
     {"id":{"name":"mus_title","path":"sounds/mus_title/mus_title.yy",},},
     {"id":{"name":"obj_bullet_parent","path":"objects/obj_bullet_parent/obj_bullet_parent.yy",},},
     {"id":{"name":"spr_enemy_cat","path":"sprites/spr_enemy_cat/spr_enemy_cat.yy",},},
-    {"id":{"name":"mus_stage2test","path":"sounds/mus_stage2test/mus_stage2test.yy",},},
+    {"id":{"name":"mus_stage2_old","path":"sounds/mus_stage2_old/mus_stage2_old.yy",},},
     {"id":{"name":"shd_blend_overlay","path":"shaders/shd_blend_overlay/shd_blend_overlay.yy",},},
     {"id":{"name":"shd_outline","path":"shaders/shd_outline/shd_outline.yy",},},
     {"id":{"name":"shd_blend_step","path":"shaders/shd_blend_step/shd_blend_step.yy",},},
