@@ -17,7 +17,6 @@ for (var i = 0; i < array_length(menuList); i++) {
 		draw_set_alpha(1)
 		draw_set_color(c_white)
 	}
-	_cM.tooltip(winWidth - 200, -1, 204, winHeight+1, i = array_length(menuList)-1);
 	
 	_cM.camY = lerp(_cM.camY, 
 		max(_cM.position * (string_height("M") + 8) - (winHeight / 2 - 128 + 32), 0)

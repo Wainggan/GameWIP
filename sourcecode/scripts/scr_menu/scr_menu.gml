@@ -1,13 +1,114 @@
-function Menu() constructor {
+
+function Page() constructor {
+	
+	static onClose = function(){}
+	
+	static step = function(){}
+	static draw = function(){}
+	
+}
+
+function Page_Menu() constructor {
+	
 	position = 0;
 	elements = [];
 	
 	camY = 0;
 	
-	hoveringTime = 0;
-	hoveringAnim = new Sod(5, 0.8, 1);
-	hoveringTextAnim = new Sod(5, 1, 2);
-	hoveringLastText = undefined;
+	static scroll = function(_direction, _wrap = true) {
+		position += _direction;
+		if _direction != 0
+			hoveringTime = 0;
+		if _wrap {
+			position = position - floor(position / array_length(elements)) * array_length(elements);
+		} else {
+			position = clamp(position, 0, array_length(elements) - 1);
+		}
+	}
+	static change = function(_amount) {
+		if _amount != 0 {
+			elements[position].change(_amount);
+			elements[position].onChange(elements[position].value);
+		}
+	}
+	static click = function() {
+		elements[position].onClick();
+	}
+	
+	static add_button = function(_text, _onClick = function(){}, _tooltip) {
+		array_push(elements, new MenuButton(_text, _onClick, _tooltip));
+		return self;
+	}
+	static add_slider = function(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _start = _minimum, _width = 100, _onValueChange = function(){}, _tooltip) {
+		array_push(elements, new MenuSlider(_text, _minimum, _maximum, _interval, _start, _width, _onValueChange, _tooltip));
+		return self;
+	}
+	static add_radio = function(_text = "", _options = [], _start = 0, _onValueChange = function(){}, _tooltip) {
+		array_push(elements, new MenuRadio(_text, _options, _start, _onValueChange, _tooltip));
+		return self;
+	}
+	
+	static step = function(){
+		if global.gameActive && input.check_pressed("pause") {
+			if array_length(menuList) == 0
+				func_open(menu_pause);
+			else
+				func_close();
+		}
+		if input.check_pressed("bomb") && array_length(menuList) > 0
+			&& !(!global.gameActive && array_length(menuList) == 1)
+			func_pop();
+
+		if array_length(menuList) {
+			game_pause(2, true);
+			var _cM = menuList[array_length(menuList) - 1];
+			_cM.scroll(input.check_stutter("down", 12, 4) - input.check_stutter("up", 12, 4))
+			_cM.change(input.check_stutter("right", 12, 3) - input.check_stutter("left", 12, 3))
+			if input.check_pressed("shoot") {
+				_cM.click()
+			}
+		}
+	}
+	
+	static draw = function(_x, _y, _padding = string_height("M") + 8) {
+		var _lh = draw_get_halign();
+		var _lv = draw_get_valign();
+		draw_set_halign(fa_left);
+		draw_set_valign(fa_center);
+		for (var i = 0; i < array_length(elements); i++) {
+			elements[i].draw(_x, _y + _padding * i, i == position);
+		}
+		draw_set_halign(_lh);
+		draw_set_valign(_lv);
+    }
+	
+}
+
+function Page_Keyboard() : Page() constructor {
+	
+	
+	
+}
+
+function Page_Leaderboard() : Page() constructor {
+	
+}
+
+
+
+function __Menu() constructor {
+	
+	currentPage = 0;
+	
+}
+
+
+
+function Menu() constructor {
+	position = 0;
+	elements = [];
+	
+	camY = 0;
 	
 	scroll = function(_direction, _wrap = true) {
 		position += _direction;
@@ -53,43 +154,18 @@ function Menu() constructor {
 		draw_set_halign(_lh);
 		draw_set_valign(_lv);
     }
-	tooltip = function(_x, _y, _width, _height, _active) {
-		hoveringAnim.update(global.delta_milli, (hoveringTime >= 20 && _active && elements[position].tooltip != undefined) * _height);
-		hoveringTextAnim.update(global.delta_milli, hoveringTime >= 20 && _active);;
-		if !_active {
-			hoveringTime = 0;
-			return;
-		}
-		hoveringTime += global.delta_milli * 60;
-		if hoveringLastText == undefined && elements[position].tooltip != undefined hoveringLastText = elements[position].tooltip;
-		if hoveringAnim.value >= 1 && hoveringLastText != undefined {
-			draw_set_color(c_black);
-			draw_set_alpha(0.6);
-			draw_roundrect_ext(_x, _y, _x + _width, _y + hoveringAnim.value, 4, 4, false);
-			draw_set_alpha(1);
-			draw_set_color(c_white);
-			draw_roundrect_ext(_x, _y, _x + _width, _y + hoveringAnim.value, 4, 4, true);
-			
-			draw_set_alpha(hoveringTextAnim.value)
-			draw_text_ext(_x + 10, _y + 8, hoveringLastText, -1, _width - 24)
-			draw_set_alpha(1)
-		} else {
-			hoveringLastText = undefined;
-		}
-	}
 }
 
-function MenuElement(_onClick = function(){}, _onChange = function(){}, _tooltip = undefined) constructor {
+function MenuElement(_onClick = function(){}, _onChange = function(){}) constructor {
 	onClick = _onClick;
 	
 	value = 0;
-	tooltip = _tooltip;
 	change = function(){}
 	onChange = _onChange
 	draw = function(){}
 }
 
-function MenuButton(_text = "", _onClick, _tooltip) : MenuElement(_onClick, , _tooltip) constructor {
+function MenuButton(_text = "", _onClick) : MenuElement(_onClick) constructor {
 	text = _text;
 	
 	anim = new Sod(2, 0.5, 0.5);
@@ -101,7 +177,7 @@ function MenuButton(_text = "", _onClick, _tooltip) : MenuElement(_onClick, , _t
 	}
 }
 
-function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _start = _minimum, _width = 100, _onChange = function(){}, _tooltip) : MenuElement(undefined, _onChange, _tooltip) constructor {
+function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _start = _minimum, _width = 100, _onChange = function(){}) : MenuElement(undefined, _onChange) constructor {
 	text = _text + " : ";
 	
 	minimum = _minimum;
@@ -149,7 +225,7 @@ function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _sta
 	}
 }
 
-function MenuRadio(_text = "", _options = [], _start = 0, _onChange, _tooltip) : MenuElement(undefined, _onChange, _tooltip) constructor {
+function MenuRadio(_text = "", _options = [], _start = 0, _onChange) : MenuElement(undefined, _onChange) constructor {
 	text = _text + " : ";
 	options = _options;
 	value = _start;
