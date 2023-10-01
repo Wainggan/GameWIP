@@ -2,67 +2,68 @@ menuList = [];
 camX = 0;
 
 
-func_open = function(_menu) {
-	_menu.position = 0;
-	_menu.camY = 0;
-	array_push(menuList, _menu);
-}
-func_pop = function() {
-	with array_pop(menuList) {
-		position = 0;
-		hoveringTime = 0;
-	}
-}
-func_close = function() {
-	var _check = array_pop(menuList);
-	while _check {
-		_check.position = 0;
-		_check.hoveringTime = 0;
-		_check = array_pop(menuList);
-	}
-}
+controller = new PageController()
 
-menu_main = new Menu()
+leaderboard = new Page_Leaderboard()
+leaderboardType = new Page_Keyboard()
+
+
+menu_main = new Page_Menu()
 	.add_button("Stage 1", function(){
 		game_start(rm_stage1);
-		func_close();
+		controller.close();
 	})
 	.add_button("Stage 2", function(){
 		game_start(rm_stage2);
-		func_close();
+		controller.close();
 	})
 	.add_button("Stage 3", function(){
 		game_start(rm_stage3);
-		func_close();
+		controller.close();
+	})
+	.add_button("Leaderboard", function(){
+		leaderboard.previous(menu_main)
+		controller.next(leaderboard)
+	})
+	.add_button("Keyboard", function(){
+		leaderboardType.previous(menu_main)
+		leaderboardType.next(menu_main)
+		controller.next(leaderboardType)
 	})
 
 if DEBUG {
 	menu_main
 	.add_button("TEST", function(){
 		game_start(rm_stagetest);
-		func_close();
+		controller.close();
 	})
 	.add_button("TEST2", function(){
 		game_start(rm_stagetest2);
-		func_close();
+		controller.close();
 	})
 	.add_button("Stage 4", function(){
 		game_start(rm_stage4);
-		func_close();
+		controller.close();
 	})
 }
 menu_main
 	.add_button("Settings", function(){
-		func_open(menu_settings);
+		menu_settings.previous(menu_main);
+		controller.next(menu_settings);
 	})
 	.add_button("Debug", function(){
-		func_open(menu_debug);
+		menu_debug.previous(menu_main);
+		controller.next(menu_debug);
 	})
 	.add_button("Exit", function(){
 		game_end();
 	})
 
-menu_settings = new Menu()
+
+controller.next(menu_main)
+
+
+menu_settings = new Page_Menu()
 	.add_radio("Screenshake", ["None", "50%", "100%"], global.file.settings.graphics.screenShake, function(_e){
 		global.file.settings.graphics.screenShake = _e;
 	})
@@ -87,16 +88,17 @@ menu_settings = new Menu()
 		global.file.settings.sound.sfxVolume = _e * 0.1;
 	})
 
-menu_debug = new Menu()
+menu_debug = new Page_Menu()
 	.add_button("Delete File", function(){
 		global.file = global.file_default;
 		json_writeFrom(FILENAME, global.file);
 	})
 
-menu_pause = new Menu()
+menu_pause = new Page_Menu()
 	.add_button("Continue", function(){
 		func_close();
 	})
 	.add_button("Settings", function(){
 		func_open(menu_settings);
 	})
+

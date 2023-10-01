@@ -1,3 +1,3 @@
-with menu func_open(menu_main)
+with menu controller.next(menu_main)
 
 //game_music(mus_title)
