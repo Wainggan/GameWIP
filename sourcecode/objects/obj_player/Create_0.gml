@@ -400,9 +400,10 @@ step : function(){
 
 	#region Bullet Collision
 	var _grazedBulletsList = ds_list_create()
-	collision_circle_list(x, y, grazeRadius - 0, obj_bullet, 0, 1, _grazedBulletsList, true)
+	collision_circle_list(x, y, grazeRadius - 0, obj_bullet, 0, 1, _grazedBulletsList, true);
 	if ds_list_size(_grazedBulletsList) > 0 {
-		if iFrames <= 0 && !hook_ing && place_meeting(x, y, obj_bullet) {
+		var _inst = instance_place(x, y, obj_bullet)
+		if iFrames <= 0 && !hook_ing && _inst != noone && _inst.fade == 0 {
 			if lifeCharge < 1 {
 				//lifeCharge = min(lifeCharge + 0.5, 1);
 					

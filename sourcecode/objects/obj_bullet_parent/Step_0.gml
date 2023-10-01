@@ -14,8 +14,8 @@ dir = dir_target != undefined ? dir + median(angle_difference(dir_target, dir), 
 
 if fade != 0 {
 	fade = max(fade - global.delta_multi, 0);
-	if fade == 0 mask_index = sprite_index;
-	else mask_index = spr_nothing;
+	//if fade == 0 mask_index = sprite_index;
+	//else mask_index = spr_nothing;
 }
 
 spd = spd_target != undefined ? approach(spd, spd_target, spd_accel * global.delta_multi) : spd + spd_accel * global.delta_multi;
