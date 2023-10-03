@@ -366,20 +366,19 @@ step : function(){
     
 	var targetTopSpeed = (input.check("sneak") ? _.moveSpeed_slow : (input.check("shoot") ? _.moveSpeed : _.moveSpeed_fast))
 	var targetAccel = (input.check("sneak") ? _.accel_slow : _.accel)
-    
-	//x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
-	//y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
-		
-	x_vel = (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix)
-	y_vel = (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix)
-		
+	
 	// adjust for slow-mo
 	// making the game harder to change, one shitty line at a time
-	x_vel *= 60 * (1 / game.targetFrame);
-	y_vel *= 60 * (1 / game.targetFrame);
+	var _slowmoAdjust = (60 * (1 / game.targetFrame)) * global.delta_multi;
+    
+	x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), targetAccel * _slowmoAdjust);
+	y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), targetAccel * _slowmoAdjust);
+		
+	//x_vel = (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix)
+	//y_vel = (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix)
 	
-	x += x_vel * global.delta_multi;
-	y += y_vel * global.delta_multi;
+	x += x_vel * _slowmoAdjust;
+	y += y_vel * _slowmoAdjust;
 		
 	var _lastX = x;
 

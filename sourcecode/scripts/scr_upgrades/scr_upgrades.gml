@@ -10,7 +10,7 @@ function PlayerConfig(_player) constructor {
 		moveSpeed_fast: 5, // when not shooting and not shifting
 		moveSpeed_slow: 2, // when shifting
 		
-		accel: 5,
+		accel: 4,
 		accel_slow: 2, // when shifting
 		
 		collectRadius: 64, // item collection radius
