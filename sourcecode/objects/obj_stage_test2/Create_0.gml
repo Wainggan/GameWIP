@@ -1,15 +1,27 @@
 event_inherited();
 
 pattern_add("test-1", function() {
+	
+	b_colors = [
+		cb_red, cb_rust, cb_yellow, cb_lime, cb_green, cb_teal, cb_blue, cb_indigo, cb_pink,
+		cb_black, cb_grey, cb_white
+	];
+	b_sprites = [
+		spr_bullet_arrow, spr_bullet_normal, spr_bullet_point, spr_bullet_small, spr_bullet_spark,
+		spr_bullet_inverted, spr_bullet_large
+	];
 
 	command_set([
 		30,
-		8,
+		4,
 		function(){
-			//bullet_shoot_dir2(x, y, 1, 0.3, 3, point_direction(x, y, obj_player.x, obj_player.y));
-			bullet_shoot_dir2(x, y, 1, 0.3, 4, 270);
-			commandIndex--
-			//command_repeat(20)
+			bullet_preset_ring(x, y, array_length(b_colors), 8, random(360), function(_x, _y, _dir, i) {
+				with bullet_shoot_dir(_x, _y, 2, _dir) {
+					glow = other.b_colors[i]
+					sprite_index = array_shuffle(other.b_sprites)[0]
+				}
+			})
+			commandIndex--;
 		},
 		function(){
 			nextPattern()
