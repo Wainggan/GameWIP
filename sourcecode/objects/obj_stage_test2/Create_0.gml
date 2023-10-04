@@ -8,12 +8,13 @@ pattern_add("test-1", function() {
 	];
 	b_sprites = [
 		spr_bullet_arrow, spr_bullet_normal, spr_bullet_point, spr_bullet_small, spr_bullet_spark,
-		spr_bullet_inverted, spr_bullet_large
+		spr_bullet_inverted, spr_bullet_large, spr_bullet_largeinverted, spr_bullet_square,
+		spr_bullet_star
 	];
 
 	command_set([
 		30,
-		4,
+		6,
 		function(){
 			bullet_preset_ring(x, y, array_length(b_colors), 8, random(360), function(_x, _y, _dir, i) {
 				with bullet_shoot_dir(_x, _y, 2, _dir) {
