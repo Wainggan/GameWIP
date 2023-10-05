@@ -83,19 +83,14 @@ if phaseActive && currentPhase < array_length(showHp_scale) {
 	
 	var _flashingColor = global.time % 6 <= 3 ? #ff30ff : #30ffff
 	
-	draw_set_color(merge_color(#100010, _flashingColor, _danger))
-	draw_set_alpha(0.5)
+	var _color = merge_color(#100010, _flashingColor, _danger)
 	
-	draw_circle_outline(_x, _y, 64, 4 * min(1, showHp_anim * 2))
+	draw_circle_outline(_x, _y, 64, 4 * min(1, showHp_anim * 2), _color, 0.5)
 	
-	draw_set_alpha(0.8)
-	draw_set_color(merge_color(c_white, #ff5060, _danger))
+	var _color = merge_color(c_white, #ff5060, _danger)
 
-	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, false)
-	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, true)
-	
-	draw_set_color(c_white)
-	draw_set_alpha(1)
+	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, false, _color, 0.8)
+	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, true, _color, 0.8)
 
 	var _offset = 0
 	for (var i = 0; i < array_length(showHp_scale); i++) {
@@ -108,8 +103,8 @@ if phaseActive && currentPhase < array_length(showHp_scale) {
 		_scale *= showHp_anim
 		
 		if i >= currentPhase && i < currentPhase + 2 {
-			draw_circle(_x + lengthdir_x(64 - 6, 90 - _dir), _y + lengthdir_y(64 - 6, 90 - _dir), _scale, false)
-			draw_circle(_x + lengthdir_x(64 - 6, 90 + _dir), _y + lengthdir_y(64 - 6, 90 + _dir), _scale, false)
+			draw_circle_sprite(_x + lengthdir_x(64 - 6, 90 - _dir), _y + lengthdir_y(64 - 6, 90 - _dir), _scale, false, c_white, 1)
+			draw_circle_sprite(_x + lengthdir_x(64 - 6, 90 + _dir), _y + lengthdir_y(64 - 6, 90 + _dir), _scale, false, c_white, 1)
 		}
 	}
 	

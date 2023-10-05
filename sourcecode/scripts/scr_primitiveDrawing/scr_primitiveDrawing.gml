@@ -50,15 +50,12 @@ function draw_text_outline(_x, _y, _string) {
 	draw_text(_x, _y, _string);
 }
 
-function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngle, anticlockwise) {
+function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngle, anticlockwise, color = draw_get_color(), alpha = draw_get_alpha()) {
 	// How precise? (big number = smoother but takes longer to draw)
 	static precision = 32;
 	static interval = 360 / precision;
 	
 	anticlockwise = anticlockwise ? -1 : 1
-	
-	var color = draw_get_color();
-	var alpha = draw_get_alpha();
 	
 	var hthick = thickness / 2;
     
@@ -94,8 +91,8 @@ function draw_circle_outline_part(x, y, radius, thickness, percentage, startAngl
 	draw_primitive_end();
 }
 
-function draw_circle_outline(x, y, radius, thickness) {
-	draw_circle_outline_part(x, y, radius, thickness, 1, 0, false)
+function draw_circle_outline(x, y, radius, thickness, color = undefined, alpha = undefined) {
+	draw_circle_outline_part(x, y, radius, thickness, 1, 0, false, color, alpha)
 }
 
 function draw_rectangle_cd() {
