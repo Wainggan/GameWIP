@@ -57,7 +57,7 @@ if keyboard_check_pressed(ord("1")) debugpause = !debugpause;
 
 // bullet process for visibility + style
 
-if keyboard_check(ord("2")) {
+if !keyboard_check(ord("2")) {
 
 // overlay for grey backgrounds and spice
 refreshApplicationSurf()

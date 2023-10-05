@@ -6,11 +6,7 @@ var winHeight = window_get_height();
 if input.check("sneak") exit
 
 if controller.get_active() {
-	draw_set_color(c_black)
-	draw_set_alpha(0.6)
-		draw_rectangle(0, 0, winWidth, winHeight, 0)
-	draw_set_alpha(1)
-	draw_set_color(c_white)
+	draw_rectangle_sprite(0, 0, winWidth, winHeight, false, c_black, 0.6)
 }
 
 controller.draw()

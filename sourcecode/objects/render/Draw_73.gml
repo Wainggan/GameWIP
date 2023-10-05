@@ -49,15 +49,43 @@ with obj_bullet {
 
 //gpu_set_blendmode(bm_normal)
 
+/*
 
-draw_set_font(ft_splash)
 draw_set_halign(fa_center)
 
-with obj_specialText {
-	//if !(life <= 4 && life % 2 < 1)
-	if draw_get_font() != font draw_set_font(font)
-	var _col = merge_color(color, make_color_rgb(200, 200, 200), 0.5)
-	if draw_get_color() != _col draw_set_color(_col)
+draw_set_font(ft_splash)
+
+var _tf1 = 0, _tc1 = 0, _tf2 = 0, _tc2 = 0
+
+var _lastcolor = draw_get_color()
+
+with obj_specialText_score {
+	if draw_get_font() != font {
+		_tf1++
+		draw_set_font(font)
+	}
+	if _lastcolor != color {
+		draw_set_color(color); 
+		_lastcolor = color;
+		
+		_tc1++
+	}
+	
+	draw_text_transformed(round(x), round(y), text, 1, min(life / 4, 1), 0)
+}
+
+draw_set_font(ft_damage)
+
+with obj_specialText_damage {
+	if draw_get_font() != font {
+		_tf2++
+		draw_set_font(font)
+	}
+	if _lastcolor != color {
+		draw_set_color(color); 
+		_lastcolor = color;
+		_tc2++
+	}
 	
 	var _scale = 1
 	if font == ft_bigdamage
@@ -68,9 +96,21 @@ with obj_specialText {
 
 draw_set_color(c_white)
 
+draw_set_color(#aaaaaa)
+draw_set_font(ft_combo)
+
+with obj_flavorText {
+	draw_set_alpha(min(life / 10, 0.7))
+	draw_text_transformed(round(x), round(y), text, scale, scale, 0)
+}
+
+draw_set_alpha(1)
+
+draw_set_color(c_white)
+
 draw_set_halign(fa_left)
 draw_set_font(ft_debug)
-
+*/
 
 with obj_player draw_sprite_ext(spr_player_hitbox, 0, round(x), round(y), hitboxSize, hitboxSize, 0, c_white, 1)
 

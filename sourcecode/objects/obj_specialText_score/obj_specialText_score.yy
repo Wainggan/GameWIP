@@ -1,19 +1,20 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_flavorText",
-  "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":73,"eventType":8,"isDnD":false,},
+  "name": "obj_specialText_score",
+  "eventList": [],
+  "managed": true,
+  "overriddenProperties": [
+    {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},"propertyId":{"name":"color","path":"objects/obj_specialText/obj_specialText.yy",},"value":"$FFCCCCCC",},
   ],
-  "managed": false,
-  "overriddenProperties": [],
   "parent": {
     "name": "effects",
     "path": "folders/Objects/effects.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_specialText",
+    "path": "objects/obj_specialText/obj_specialText.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,
@@ -31,5 +32,5 @@
   "solid": false,
   "spriteId": null,
   "spriteMaskId": null,
-  "visible": false,
+  "visible": true,
 }

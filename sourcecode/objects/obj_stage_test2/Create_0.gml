@@ -8,18 +8,20 @@ pattern_add("test-1", function() {
 	];
 	b_sprites = [
 		spr_bullet_arrow, spr_bullet_normal, spr_bullet_point, spr_bullet_small, spr_bullet_spark,
-		spr_bullet_inverted, spr_bullet_large, spr_bullet_largeinverted, spr_bullet_square,
+		spr_bullet_inverted, spr_bullet_large, spr_bullet_square,
 		spr_bullet_star
 	];
+	
+	b_current = 0;
 
 	command_set([
 		30,
-		6,
+		3,
 		function(){
-			bullet_preset_ring(x, y, array_length(b_colors), 8, random(360), function(_x, _y, _dir, i) {
-				with bullet_shoot_dir(_x, _y, 2, _dir) {
+			bullet_preset_ring(x, y, array_length(b_colors), 32, wave(-360 * 4, 360 * 4, 28, time_phase / 60), function(_x, _y, _dir, i) {
+				with bullet_shoot_dir2(_x, _y, 5, 0.2, 3, _dir) {
 					glow = other.b_colors[i]
-					sprite_index = array_shuffle(other.b_sprites)[0]
+					sprite_index = other.b_sprites[other.b_current++ % array_length(other.b_sprites)]
 				}
 			})
 			commandIndex--;
@@ -81,9 +83,9 @@ addEnemy("test", function() {
 	])
 		
 	setPhases([
-		new AttackPhase(6, [0, 1]),
-		new AttackPhase(6, [2]),
-		new AttackPhase(6, [2, 0], 1),
+		new AttackPhase(16, [0]),
+		//new AttackPhase(6, [2]),
+		//new AttackPhase(6, [2, 0], 1),
 	])
 	
 	startPhase()
