@@ -9,17 +9,18 @@ pattern_add("test-1", function() {
 	b_sprites = [
 		spr_bullet_arrow, spr_bullet_normal, spr_bullet_point, spr_bullet_small, spr_bullet_spark,
 		spr_bullet_inverted, spr_bullet_large, spr_bullet_square,
-		spr_bullet_star
+		spr_bullet_star, spr_bullet_pill, spr_bullet_line, spr_bullet_heart,
+		spr_bullet_largeinverted
 	];
 	
 	b_current = 0;
 
 	command_set([
 		30,
-		3,
+		5,
 		function(){
-			bullet_preset_ring(x, y, array_length(b_colors), 32, wave(-360 * 4, 360 * 4, 28, time_phase / 60), function(_x, _y, _dir, i) {
-				with bullet_shoot_dir2(_x, _y, 5, 0.2, 3, _dir) {
+			bullet_preset_ring(x, y, array_length(b_colors), 32, wave(-360 * 4, 360 * 4, 48, time_phase / 60), function(_x, _y, _dir, i) {
+				with bullet_shoot_dir2(_x, _y, 6, 0.2, 2.5, _dir) {
 					glow = other.b_colors[i]
 					sprite_index = other.b_sprites[other.b_current++ % array_length(other.b_sprites)]
 				}
