@@ -103,6 +103,7 @@
     {"name":"spr_playerTargetIcon","order":9,"path":"sprites/spr_playerTargetIcon/spr_playerTargetIcon.yy",},
     {"name":"particleold","order":6,"path":"objects/particleold/particleold.yy",},
     {"name":"obj_bullet","order":7,"path":"objects/obj_bullet/obj_bullet.yy",},
+    {"name":"shd_blend_bullet","order":11,"path":"shaders/shd_blend_bullet/shd_blend_bullet.yy",},
     {"name":"spr_enemy_cat_old","order":7,"path":"sprites/spr_enemy_cat_old/spr_enemy_cat_old.yy",},
     {"name":"obj_koSplash","order":3,"path":"objects/obj_koSplash/obj_koSplash.yy",},
     {"name":"spr_bullet_star","order":14,"path":"sprites/spr_bullet_star/spr_bullet_star.yy",},

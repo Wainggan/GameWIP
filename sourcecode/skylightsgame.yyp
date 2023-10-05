@@ -172,6 +172,7 @@
     {"id":{"name":"spr_playerTargetIcon","path":"sprites/spr_playerTargetIcon/spr_playerTargetIcon.yy",},},
     {"id":{"name":"particleold","path":"objects/particleold/particleold.yy",},},
     {"id":{"name":"obj_bullet","path":"objects/obj_bullet/obj_bullet.yy",},},
+    {"id":{"name":"shd_blend_bullet","path":"shaders/shd_blend_bullet/shd_blend_bullet.yy",},},
     {"id":{"name":"spr_enemy_cat_old","path":"sprites/spr_enemy_cat_old/spr_enemy_cat_old.yy",},},
     {"id":{"name":"obj_koSplash","path":"objects/obj_koSplash/obj_koSplash.yy",},},
     {"id":{"name":"spr_bullet_star","path":"sprites/spr_bullet_star/spr_bullet_star.yy",},},

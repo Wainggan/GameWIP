@@ -57,7 +57,22 @@ if keyboard_check_pressed(ord("1")) debugpause = !debugpause;
 
 // bullet process for visibility + style
 
-if !keyboard_check(ord("2")) {
+if !keyboard_check(ord("1")) {
+
+// overlay for grey backgrounds and spice
+refreshApplicationSurf()
+blendmodeSet(shd_blend_bullet)
+gpu_set_blendmode_ext(bm_one, bm_zero)
+
+//if keyboard_check(ord("1"))
+draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, c_white, 1)
+
+shader_reset()
+
+gpu_set_blendmode(bm_normal);
+
+}
+else if !keyboard_check(ord("2")) {
 
 // overlay for grey backgrounds and spice
 refreshApplicationSurf()
