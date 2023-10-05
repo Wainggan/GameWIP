@@ -49,7 +49,7 @@ with obj_bullet {
 
 //gpu_set_blendmode(bm_normal)
 
-/*
+
 
 draw_set_halign(fa_center)
 
@@ -110,7 +110,7 @@ draw_set_color(c_white)
 
 draw_set_halign(fa_left)
 draw_set_font(ft_debug)
-*/
+
 
 with obj_player draw_sprite_ext(spr_player_hitbox, 0, round(x), round(y), hitboxSize, hitboxSize, 0, c_white, 1)
 
