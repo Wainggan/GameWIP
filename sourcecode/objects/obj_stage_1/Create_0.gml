@@ -54,7 +54,7 @@ addEnemy("basic2", function() {
 	
 	setSprite(spr_enemy_crystal);
 	
-	onGround = true;
+	setGrounded(true);
 		
 	step = function(){
 		if y > HEIGHT - HEIGHT / 3

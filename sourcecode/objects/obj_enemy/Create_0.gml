@@ -253,6 +253,10 @@ setupShowHp = function(){
 	}
 }
 
+setGrounded = function(_b) {
+	onGround = _b;
+}
+
 
 // magic animation offset number
 test = random_range(0, 1000)
