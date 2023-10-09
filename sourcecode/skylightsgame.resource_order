@@ -2,9 +2,9 @@
   "FolderOrderSettings": [
     {"name":"bosses","order":1,"path":"folders/Graphics/gameplay/bosses.yy",},
     {"name":"particles","order":14,"path":"folders/Graphics/particles.yy",},
+    {"name":"blend","order":16,"path":"folders/Graphics/Shaders/blend.yy",},
     {"name":"other","order":9,"path":"folders/Objects/bullet/other.yy",},
     {"name":"parent","order":8,"path":"folders/Objects/bullet/parent.yy",},
-    {"name":"blend","order":16,"path":"folders/Graphics/Shaders/blend.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"shd_blend_normal","order":3,"path":"shaders/shd_blend_normal/shd_blend_normal.yy",},
