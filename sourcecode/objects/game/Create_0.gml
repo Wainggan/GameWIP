@@ -1,4 +1,4 @@
-if !DEBUG || true {
+if !DEBUG {
 	gml_release_mode(true);
 }
 
