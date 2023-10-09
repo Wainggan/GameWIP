@@ -12,13 +12,13 @@ addEnemy("basic1", function(){
 	setPoints(100, 1);
 	
 	setSprite(spr_enemy_flower_red);
-		
+	
 	startX = x;
 	startY = y;
-		
+	
 	x += irandom_range(-128, 128);
 	y = -64;
-		
+	
 	setInvincible(true)
 	movement_start(startX, startY, 1 / 30, , function(){ setInvincible(false) });
 	
@@ -26,10 +26,10 @@ addEnemy("basic1", function(){
 		command_reset();
 		movement_start(x + irandom_range(-64, 64), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
 	})
-		
+	
 	b_reload = 4;
 	b_dir = 0;
-		
+	
 	command_set([
 		20,
 		10,
@@ -68,23 +68,23 @@ addEnemy("basic2", function(){
 	setPoints(1000, 3)
 	
 	setSprite(spr_enemy_fire)
-		
+	
 	startX = x;
 	startY = y;
-		
+	
 	x += irandom_range(-16, 16);
 	y = -64;
 	
 	setInvincible(true);
 	movement_start(startX, startY, 1 / 30, , function(){ setInvincible(false) });
-		
+	
 	command_timer(60 * 12, function(){
 		command_reset();
 		movement_start(x + irandom_range(-256, 256), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
 	})
-		
+	
 	b_golden = random_range(0, 12);
-		
+	
 	command_set([
 		24,
 		2,
