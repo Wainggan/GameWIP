@@ -8,6 +8,8 @@ if shakeAmount > 0 {
 }
 
 switch sprite_index {
+	case spr_enemy_flower_red:
+	case spr_enemy_flower_blue:
 	case spr_enemy_flower:
 		image_angle = wave(-360, 360, 6, test);
 		break;
