@@ -189,7 +189,7 @@ function command_update() {
 			_curr.timer = commandTimer;
 			_curr.beat = commandBeat;
 			
-			// uhhhhh
+			// uhhhhh bizarre edge case i cant explain
 			if i < array_length(commandList) && _curr == commandList[i] && _curr.index >= array_length(_curr.list)
 				array_delete(commandList, i--, 1);
 		}

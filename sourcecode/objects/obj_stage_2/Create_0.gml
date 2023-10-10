@@ -151,6 +151,152 @@ addEnemy("big1", function() {
 });
 
 
+
+pattern_add("stage2-miniboss1-1", function(){
+	
+	setInvincible(false)
+	
+	movement_start(WIDTH / 2, 50, 1/20)
+	command_set([
+		8,
+		8,
+		function(){
+			bullet_preset_ring(x, y, 48, 8, irandom_range(0, 359), function(_x, _y, _dir){
+				bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1));
+			})
+			command_repeat(20);
+		},
+		60,
+		nextPattern,
+	]);
+	
+	command_add([
+		24,
+		1,
+		function(){
+			with bullet_shoot_dir2(x + choose(-196, 196) + irandom_range(-112, 112), HEIGHT + 32, 0, 0.2, 9, 90, 1) {
+				glow = cb_green;
+				sprite_index = spr_bullet_large;
+			}
+						
+			commandIndex--;
+		}
+	]);
+	
+});
+
+pattern_add("stage2-miniboss1-2", function(){
+	
+	angle = 0;
+	count = 0;
+	dir = 1;
+	command_set([
+		function() {
+			movement_start(clamp(obj_player.x, 96, WIDTH - 96) + irandom_range(-64, 64), irandom_range(40, 100), 1/40);
+		},
+		50,
+		function(){
+			movement_start(x + irandom_range(-48, 48), y + irandom_range(-32, 16), 1/40, "linear");
+		},
+		1,
+		function(){
+			bullet_preset_ring(x, y, 13, 8, angle, function(_x, _y, _dir){
+				with bullet_shoot_dir2(_x, _y, 8, 0.12, 2, _dir) {
+					sprite_index = spr_bullet_small;
+				}
+			});
+			angle += 4 * dir;
+			command_repeat(30);
+		},
+		function(){
+			bullet_preset_plate(x, y, 9, 8, 16, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
+				bullet_shoot_dir2(_x, _y, 6, 0.1, 2, _dir).glow = cb_green;
+			})
+		},
+		120,
+		nextPattern,
+	]);
+	
+});
+
+pattern_add("stage2-miniboss1-3", function(){
+	
+	movement_start(WIDTH / 2, HEIGHT / 4, 1 / 20);
+	command_set([
+		12, 
+		function(){
+			bullet_shoot_dir2(irandom_range(16, WIDTH-16), -32, 12, 0.2, 3, 270, 1).sprite_index = spr_bullet_large;
+			commandIndex--;
+		}
+	]);
+	count = 0;
+	angle = 0;
+	command_add([
+		30,
+		function(){
+			movement_start(clamp(obj_player.x, 96, WIDTH - 96) + irandom_range(-64, 64), irandom_range(40, 100), 1/40);
+		},
+		40,
+		function(){
+			angle = point_direction(x, y, obj_player.x, obj_player.y);
+		},
+		16,
+		function(){
+			bullet_preset_plate(x, y, 2, 0, 16, 12, angle, function(_x, _y, _dir){
+				bullet_shoot_dir(_x, _y, 4.5, _dir);
+			})
+			command_repeat(3)
+		},
+		function(){
+			count++;
+			if count < 2 {
+				commandIndex = 0;
+			}
+		},
+		60,
+		nextPattern,
+	]);
+	
+	command_add([
+		6,
+		function(){
+			bullet_preset_ring(choose(-32, WIDTH + 32), irandom_range(60, HEIGHT / 2), 9, 0, random_range(0, 360), function(_x, _y, _dir){
+				with bullet_shoot_dir(_x, _y, 2, _dir) {
+					sprite_index = spr_bullet_small;
+					glow = cb_green;
+				}
+			});
+			commandIndex--;
+		}
+	])
+	
+})
+
+addEnemy("miniboss1", function(){
+	setBoss();
+	
+	setSprite(spr_car);
+	setInvincible(true);
+	
+	x = WIDTH - 74;
+	y = -60;
+	
+	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
+	
+	setPatterns([
+		new Pattern("stage2-miniboss1-1"),
+		new Pattern("stage2-miniboss1-2"),
+		new Pattern("stage2-miniboss1-3"),
+	]);
+		
+	setPhases([
+		new AttackPhase(beat_to_time(8 * 4), [0, 1]),
+		new AttackPhase(beat_to_time(8 * 4), [2, 1]),
+	]);
+	
+})
+
+
 ignore enemies = {
 	"basic3": function(_dir, _spd, _off = 0, _r = 5){
 		hp = 120;
@@ -998,6 +1144,11 @@ ignore enemies = {
 
 stage = [
 	function(){
+		enemy("miniboss1", 0, 0);
+		
+		time(, true, 60 * 26)
+	},
+	function(){
 		time(60)
 	},
 	function(){
@@ -1026,6 +1177,7 @@ stage = [
 		time(60 * (48 - 12))
 	},
 	function(){
+		return; // -------
 		enemy("miniboss1", 0, 0);
 		
 		time(, true, 60 * 26)
