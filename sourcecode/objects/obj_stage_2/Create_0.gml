@@ -95,10 +95,63 @@ addEnemy("basic2", function(){
 			commandIndex--
 		},
 	]);
-})
+});
+
+addEnemy("big1", function() {
+	setHp(180);
+	setPoints(1000, 8);
+	
+	setSprite(spr_enemy_thing);
+	
+	startX = x;
+	startY = y;
+	
+	x = x + irandom_range(-96, 96)
+	y = -64
+	
+	setInvincible(true);
+	movement_start(startX, startY, 1/120, , function(){ setInvincible(false) });
+	
+	
+	command_timer(60 * 10, function(){
+		command_reset()
+		movement_start(WIDTH / 2, y + 128, 1/360, , function(){
+			instance_destroy();
+		})
+	})
+	
+	b_golden = 0;
+	
+	command_set([
+		120,
+		2,
+		function(){
+			b_golden = bullet_preset_golden(x, y, 8, 2, b_golden, function(_x, _y, _dir){
+				with bullet_shoot_dir2(_x, _y, 14, 0.4, 1, _dir) {
+					glow = cb_pink;
+					//sprite_index = spr_bullet_huge
+				}
+			})
+			commandIndex--;
+		},
+	]);
+	
+	command_add([
+		120 + 60,
+		26,
+		function(){
+			with bullet_shoot_dir2(x, y, 1, 0.1, 4.5, point_direction(x, y, obj_player.x, obj_player.y)) {
+				glow = cb_teal;
+				sprite_index = spr_bullet_inverted;
+			}
+			commandIndex--;
+		},
+	]);
+	
+});
 
 
-enemies = {
+ignore enemies = {
 	"basic3": function(_dir, _spd, _off = 0, _r = 5){
 		hp = 120;
 		scoreGive = 2000;
@@ -939,6 +992,8 @@ enemies = {
 };
 
 
+// ~~ stage ~~
+
 //stageIndex = 10
 
 stage = [
@@ -948,7 +1003,7 @@ stage = [
 	function(){
 		// 120 + 8 * 60 + 16 * 40)
 		
-		enemy("basic4", WIDTH / 2, 80)
+		enemy("big1", WIDTH / 2, 80)
 		
 		time(60 * 13)
 		//time = -1
