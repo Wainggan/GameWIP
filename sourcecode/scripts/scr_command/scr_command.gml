@@ -134,6 +134,7 @@ function command_update() {
 		}
 	}
 	if commandList != undefined {
+		var _fuckme = commandList
 		for (var i = 0; i < array_length(commandList); i++) {
 			var _curr = commandList[i];
 			var cL = _curr.list;
@@ -158,6 +159,8 @@ function command_update() {
 							}
 							if lastC == commandIndex commandIndex++;
 						}
+					// i cant explain this
+					if commandList != _fuckme break;
 				}
 				
 				//show_debug_message("{0} {1}", commandBeat, +music.hasBeat)
@@ -180,6 +183,8 @@ function command_update() {
 							}
 							if lastC == commandIndex commandIndex++;
 						}
+					// im so sorry
+					if commandList != _fuckme break;
 				}
 			
 				commandTimer -= global.delta_multi;

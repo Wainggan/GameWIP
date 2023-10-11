@@ -158,6 +158,7 @@ pattern_add("stage2-miniboss1-1", function(){
 	
 	b_golden = 0;
 	
+	show_debug_message(movement_finished())
 	movement_start(WIDTH/2, 50, 1/20)
 	command_set([
 		18,
@@ -197,10 +198,12 @@ pattern_add("stage2-miniboss1-2", function(){
 	dir = 1;
 	command_set([
 		function() {
+			show_debug_message("a")
 			movement_start(clamp(obj_player.x, 128, WIDTH - 128) + wave(-64, 64, 1,, phaseTimer/60), wave(40, 100, 1,1/3, phaseTimer/60), 1/40);
 		},
 		50,
 		function(){
+			show_debug_message("b")
 			movement_start(x + sign(x - obj_player.x) * 32, y -16, 1/40, "linear");
 		},
 		1,
