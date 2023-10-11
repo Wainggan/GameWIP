@@ -13,6 +13,8 @@ addEnemy("basic1", function(){
 	
 	setSprite(spr_enemy_flower_red);
 	
+	setHook_Insta();
+	
 	startX = x;
 	startY = y;
 	
@@ -70,6 +72,8 @@ addEnemy("basic2", function(){
 	setPoints(1000, 3)
 	
 	setSprite(spr_enemy_fire)
+	
+	setHook_Insta();
 	
 	startX = x;
 	startY = y;
@@ -159,6 +163,11 @@ addEnemy("big1", function() {
 	
 });
 
+addEnemy("basic3", function(){
+	
+	
+	
+})
 
 
 pattern_add("stage2-miniboss1-1", function(){
@@ -243,9 +252,9 @@ pattern_add("stage2-miniboss1-3", function(){
 	
 	movement_start(WIDTH / 2, HEIGHT / 4, 1 / 20);
 	command_set([
-		12, 
+		9, 
 		function(){
-			bullet_shoot_dir2(irandom_range(16, WIDTH-16), -32, 12, 0.2, 3, 270, 1).sprite_index = spr_bullet_large;
+			bullet_shoot_dir2(irandom_range(16, WIDTH-16), -32, 12, 0.2, 3, 270, 1).sprite_index = spr_bullet_star;
 			sound.play(snd_bulletshoot)
 			commandIndex--;
 		}
@@ -264,7 +273,10 @@ pattern_add("stage2-miniboss1-3", function(){
 		16,
 		function(){
 			bullet_preset_plate(x, y, 2, 0, 16, 12, angle, function(_x, _y, _dir){
-				bullet_shoot_dir(_x, _y, 4.5, _dir);
+				with bullet_shoot_dir(_x, _y, 4.5, _dir) {
+					glow = cb_red
+					sprite_index = spr_bullet_square
+				}
 			})
 			sound.play(snd_bulletshoot_2)
 			command_repeat(4)
@@ -1171,7 +1183,35 @@ ignore enemies = {
 
 //stageIndex = 10
 
-stage = [
+addPause(beat_to_frame(2))
+
+addSection(function(){
+	enemy("big1", WIDTH / 2, 80);
+})
+addPause(beat_to_frame(8 * 4 - 2))
+
+addSection(function(){
+	enemy("basic1", WIDTH/4, 90)
+	enemy("basic1", WIDTH-WIDTH/4, 90)
+})
+addPause(beat_to_frame(4))
+
+addSection(function(){
+	for (var i = 0; i < 32; i++) {
+		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
+	}
+	for (var i = 0; i < 16; i++) {
+		enemy_delay("basic2", WIDTH / 2 + irandom_range(-32, 32), irandom_range(100, 140), beat_to_frame(8 * 4) + i * beat_to_frame(4))
+	}
+})
+addPause(beat_to_frame(24 * 4 - 4))
+
+addSection(function(){
+	enemy("miniboss1", 0, 0)
+});
+addPause(beat_to_frame(16 * 4))
+
+ignore stage = [
 	function(){
 		return;
 		enemy("miniboss1", 0, 0);
@@ -1190,7 +1230,8 @@ stage = [
 		//time = -1
 	},
 	function(){
-		enemy("basic1", WIDTH/2, 90)
+		enemy("basic1", WIDTH/4, 90)
+		enemy("basic1", WIDTH-WIDTH/4, 90)
 		for (var i = 0; i < 8; i++) {
 			enemy_delay("basic1", irandom_range(64, WIDTH - 64), irandom_range(80, 120), 120 + i * 60)
 		}
@@ -1204,7 +1245,10 @@ stage = [
 		for (var i = 1; i < 8; i++) {
 			enemy_delay("basic2", irandom_range(96, WIDTH - 96), irandom_range(100, 140), 12 * 60 + i * 120)
 		}
-		time(60 * (48 - 12))
+		time(beat_to_frame(24 * 4))
+	},
+	function(){
+		time(beat_to_frame(16 * 4))
 	},
 	function(){
 		//return; // -------
