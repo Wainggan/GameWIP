@@ -24,8 +24,8 @@ function PlayerConfig(_player) constructor {
 		graze_charge_loss: 0.03,
 		graze_charge_retention: 50,
 		
-		hook_charge_ambient: 0.001,
-		hook_charge_grazeMultiplier: 0.003,
+		hook_charge_ambient: 0.0006,
+		hook_charge_grazeMultiplier: 0.0015,
 		
 		bullet_default: 0,
 		bullet_homing: 0,
@@ -123,7 +123,7 @@ global.upgrades = {
 	}, 9),
 	
 	HookChargeUp: new Upgrade(function(_config){
-		_config.hook_charge_ambient += 0.0005 * level;
+		_config.hook_charge_ambient += 0.0004 * level;
 	}, 8),
 	HookChargeAmount: new Upgrade(function(_config){
 		
