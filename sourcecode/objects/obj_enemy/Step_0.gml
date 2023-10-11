@@ -135,5 +135,5 @@ if shakeFix != undefined {
 	if canDie && shakeFix < 0 instance_destroy();
 }
 
-
+fade = max(fade - global.delta_multi, 0)
 importantAnim.update(global.delta_milli, x);

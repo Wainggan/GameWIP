@@ -269,6 +269,10 @@ setHook_Damp = function(){
 }
 
 
+fade = 16;
+fadeTime = 16;
+
+
 // magic animation offset number
 test = random_range(0, 1000)
 

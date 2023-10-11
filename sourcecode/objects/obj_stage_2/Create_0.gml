@@ -1183,6 +1183,10 @@ ignore enemies = {
 
 //stageIndex = 10
 
+addSection(function(){
+	enemy("basic3", WIDTH/2, 60)
+})
+
 addPause(beat_to_frame(2))
 
 addSection(function(){
