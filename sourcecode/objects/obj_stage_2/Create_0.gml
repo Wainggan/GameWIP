@@ -156,29 +156,34 @@ pattern_add("stage2-miniboss1-1", function(){
 	
 	setInvincible(false)
 	
-	movement_start(WIDTH / 2, 50, 1/20)
+	b_golden = 0;
+	
+	movement_start(WIDTH/2, 50, 1/20)
 	command_set([
-		8,
-		8,
+		18,
+		1,
 		function(){
-			bullet_preset_ring(x, y, 48, 8, irandom_range(0, 359), function(_x, _y, _dir){
-				bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1));
+			b_golden = bullet_preset_golden(x, y, 48, 4, b_golden, function(_x, _y, _dir){
+				with bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1)) {
+					glow = cb_red;
+				}
 			})
-			command_repeat(20);
+			command_repeat(100);
 		},
 		60,
 		nextPattern,
 	]);
 	
+	b_count = 0;
 	command_add([
 		24,
 		1,
 		function(){
-			with bullet_shoot_dir2(x + choose(-196, 196) + irandom_range(-112, 112), HEIGHT + 32, 0, 0.2, 9, 90, 1) {
+			with bullet_shoot_dir2(x + (b_count % 2 == 0 ? -232 : 232) + irandom_range(-128, 128), HEIGHT + 32, 0, 0.2, 9, 90, 1) {
 				glow = cb_green;
 				sprite_index = spr_bullet_large;
 			}
-						
+			b_count++;			
 			commandIndex--;
 		}
 	]);
@@ -192,11 +197,11 @@ pattern_add("stage2-miniboss1-2", function(){
 	dir = 1;
 	command_set([
 		function() {
-			movement_start(clamp(obj_player.x, 96, WIDTH - 96) + irandom_range(-64, 64), irandom_range(40, 100), 1/40);
+			movement_start(clamp(obj_player.x, 128, WIDTH - 128) + wave(-64, 64, 1,, phaseTimer/60), wave(40, 100, 1,1/3, phaseTimer/60), 1/40);
 		},
 		50,
 		function(){
-			movement_start(x + irandom_range(-48, 48), y + irandom_range(-32, 16), 1/40, "linear");
+			movement_start(x + sign(x - obj_player.x) * 32, y -16, 1/40, "linear");
 		},
 		1,
 		function(){
@@ -210,7 +215,10 @@ pattern_add("stage2-miniboss1-2", function(){
 		},
 		function(){
 			bullet_preset_plate(x, y, 9, 8, 16, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
-				bullet_shoot_dir2(_x, _y, 6, 0.1, 2, _dir).glow = cb_green;
+				with bullet_shoot_dir2(_x, _y, 6, 0.1, 2, _dir) {
+					sprite_index = spr_bullet_star
+					glow = cb_green;
+				}
 			})
 		},
 		120,
