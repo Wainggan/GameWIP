@@ -125,6 +125,7 @@
     {"id":{"name":"mus_stage3test","path":"sounds/mus_stage3test/mus_stage3test.yy",},},
     {"id":{"name":"mus_stage3","path":"sounds/mus_stage3/mus_stage3.yy",},},
     {"id":{"name":"scr_useful","path":"scripts/scr_useful/scr_useful.yy",},},
+    {"id":{"name":"snd_bulletshoot_3","path":"sounds/snd_bulletshoot_3/snd_bulletshoot_3.yy",},},
     {"id":{"name":"mus_stage2","path":"sounds/mus_stage2/mus_stage2.yy",},},
     {"id":{"name":"obj_textboxQueued","path":"objects/obj_textboxQueued/obj_textboxQueued.yy",},},
     {"id":{"name":"spr_bullet_bump","path":"sprites/spr_bullet_bump/spr_bullet_bump.yy",},},
