@@ -584,7 +584,7 @@ step : function(){
 	hook_buffer -= global.delta_multi;
 	hook_extrabuffer -= global.delta_multi;
 	hook_iframe -= global.delta_multi;
-	if (hook_buffer > 0 || (hook_extrabuffer > 0 && hook_extrabuffer <= 2)) && input.check_pressed("bomb") && canShoot {
+	if (hook_buffer > 0 || (hook_extrabuffer > 0 && hook_extrabuffer <= 3)) && input.check_pressed("bomb") && canShoot {
 		func_hookPop()
 	}
 	
@@ -720,13 +720,14 @@ step: function(){
 			state.change("idle")
 		}
 	} else {
-		if point_distance(x, y, hook_x, hook_y) < 64 {
-			hook_buffer = 12;
-			state.change("idle")
-		}
-		else if input.check_pressed("bomb") && canShoot {
+		if input.check_pressed("bomb") && canShoot {
 			func_hookPop()
 			hook_buffer = 0;
+			state.change("idle")
+		}
+		else if point_distance(x, y, hook_x, hook_y) < 64 {
+			hook_buffer = 12;
+			iFrames = 14;
 			state.change("idle")
 		}
 	}

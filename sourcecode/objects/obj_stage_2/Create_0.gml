@@ -94,9 +94,9 @@ addEnemy("basic2", function(){
 	
 	command_set([
 		24,
-		2,
+		3,
 		function(){
-			b_golden = bullet_preset_golden(x, y, 0, 2, b_golden, function(_x, _y, _dir){
+			b_golden = bullet_preset_golden(x, y, 0, 1, b_golden, function(_x, _y, _dir){
 				bullet_shoot_dir(_x, _y, 2, _dir).glow = cb_grey;
 			})
 			if b_sound++ % 2 == 0
@@ -165,7 +165,75 @@ addEnemy("big1", function() {
 
 addEnemy("basic3", function(){
 	
+	setHp(70)
+	setPoints(2000, 4)
 	
+	setSprite(spr_enemy_cat)
+	
+	b_angle = irandom_range(0, 360)
+	b_count = 0
+	
+	command_set([
+		30,
+		2,
+		function(){
+			
+			bullet_preset_ring(x, y, 5, 16, b_angle, function(_x, _y, _dir, _i){
+				with bullet_shoot_dir3(_x, _y, 4, 0.2, 0, 1, 4, _dir) {
+					glow = _i == 0 ? cb_white : cb_indigo
+					sprite_index = _i == 0 ? spr_bullet_spark : spr_bullet_square
+				}
+			})
+			b_angle += 360 / 5 / 2 + 3
+			
+			command_repeat(40)
+			
+		},
+		8,
+		function(){
+			if b_count++ < 2 {
+				movement_start(clamp(lerp(x, obj_player.x, 0.4), 96, WIDTH-96), y + 32, 1/20)
+				commandIndex = 0;
+			}
+		},
+		60,
+		function(){
+			movement_start(x, -96, 1/120,,function(){instance_destroy()})
+		}
+	])
+	
+})
+
+addEnemy("basic4", function(){
+	
+	setHp(3)
+	setPoints(100, 1);
+	
+	setSprite(spr_enemy_flower_blue);
+	
+	b_dir = sign(x - WIDTH / 2);
+	
+	startX = x
+	
+	x = WIDTH/2 + (WIDTH/2 + 64) * b_dir;
+	
+	movement_start(startX, y, 1/40)
+	
+	command_set([
+		40,
+		function(){
+			bullet_preset_poly(x, y, 6, 3, 48, 90, function(_x, _y, _dir){
+				with bullet_shoot_dir2(_x, _y, 3, 0.1, 1.5, _dir + 90) {
+					glow = cb_grey
+					sprite_index = spr_bullet_line
+				}
+			})
+		},
+		50,
+		function(){
+			movement_start(WIDTH/2 + (WIDTH/2 + 64) * b_dir, y, 1/40,, function(){instance_destroy()})
+		}
+	])
 	
 })
 
@@ -1183,10 +1251,6 @@ ignore enemies = {
 
 //stageIndex = 10
 
-addSection(function(){
-	enemy("basic3", WIDTH/2, 60)
-})
-
 addPause(beat_to_frame(2))
 
 addSection(function(){
@@ -1201,17 +1265,29 @@ addSection(function(){
 addPause(beat_to_frame(4))
 
 addSection(function(){
-	for (var i = 0; i < 32; i++) {
+	for (var i = 0; i < 34; i++) {
 		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
 	}
-	for (var i = 0; i < 16; i++) {
+	for (var i = 0; i < 14; i++) {
 		enemy_delay("basic2", WIDTH / 2 + irandom_range(-32, 32), irandom_range(100, 140), beat_to_frame(8 * 4) + i * beat_to_frame(4))
 	}
 })
 addPause(beat_to_frame(24 * 4 - 4))
 
 addSection(function(){
-	enemy("miniboss1", 0, 0)
+	for (var i = 0; i < 4; i++) {
+		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 128 + i * 32, beat_to_frame(16) * i);
+	}
+	
+	for (var i = 0; i < 8 * 4 - 4; i++) {
+		enemy_delay("basic4", 96 + irandom_range(-16, 16), 128 + irandom_range(-32, 64), beat_to_frame(2) * i);
+		enemy_delay("basic4", WIDTH - 96 + irandom_range(-16, 16), 128 + irandom_range(-32, 64), beat_to_frame(2) * i);
+	}
+})
+addPause(beat_to_frame(16 * 4))
+
+addSection(function(){
+	enemy("miniboss1", 0, 0);
 });
 addPause(beat_to_frame(16 * 4))
 
