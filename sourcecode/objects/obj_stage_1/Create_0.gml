@@ -11,6 +11,7 @@ addEnemy("basic1", function(){
 	setPoints(100, 2);
 	
 	setSprite(spr_enemy_flower);
+	setHook_Insta();
 	
 	startX = x;
 	startY = y;
@@ -53,6 +54,7 @@ addEnemy("basic2", function() {
 	setPoints(200, 2);
 	
 	setSprite(spr_enemy_crystal);
+	setHook_Insta();
 	
 	setGrounded(true);
 		
