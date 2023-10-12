@@ -269,8 +269,8 @@ setHook_Damp = function(){
 }
 
 
-fade = 16;
-fadeTime = 16;
+fade = 24;
+fadeTime = 24;
 
 
 // magic animation offset number

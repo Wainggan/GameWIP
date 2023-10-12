@@ -9,6 +9,6 @@ uniform vec3 colorTarget;
 
 void main()
 {
-	vec4 texColor = texture2D( gm_BaseTexture, v_vTexcoord );
+	vec4 texColor = texture2D( gm_BaseTexture, v_vTexcoord ) * v_vColour;
     gl_FragColor = vec4(mix(texColor.rgb, colorTarget, colorAmount), texColor.a);
 }

@@ -48,7 +48,7 @@ if hitAnim != 0 {
 	shader_set(shd_color)
 	shader_set_uniform_f(shader_get_uniform(shd_color, "colorAmount"), hitAnim)
 	shader_set_uniform_f(shader_get_uniform(shd_color, "colorTarget"), 1, 1, 1)
-	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale + hitAnim/4 + fade/fadeTime, image_yscale + hitAnim/4 + fade/fadeTime, image_angle, image_blend, image_alpha * (1-fade/fadeTime))
+	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale + hitAnim/4 * (1-fade/fadeTime) + fade/fadeTime, image_yscale + hitAnim/4 * (1-fade/fadeTime) + fade/fadeTime, image_angle, image_blend, image_alpha * (1-fade/fadeTime))
 	shader_reset()
 } else {
 	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, image_blend, image_alpha * (1-fade/fadeTime))
