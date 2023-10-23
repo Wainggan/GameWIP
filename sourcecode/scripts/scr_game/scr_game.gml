@@ -108,8 +108,6 @@ function beat_to_frame(_beat, _bpm = music.bpm) {
 	return 60 / _bpm * _beat * 60
 }
 
-print(beat_to_time(4, 154))
-
 function particle_burst(_x, _y, _name) {
 	particle._burst(_x, _y, _name)
 }

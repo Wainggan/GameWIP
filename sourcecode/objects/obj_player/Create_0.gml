@@ -333,7 +333,7 @@ func_handleCollectable = function(_inst){
 	if _inst.s_charge {
 		hook_radius_collectLimit -= 1
 		if hook_radius_collectLimit >= 0 {
-			hook_focus_charge += 0.05
+			hook_focus_charge += 0.06
 		}
 	}
 	

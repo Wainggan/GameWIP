@@ -90,7 +90,6 @@ addEnemy("basic2", function(){
 	})
 	
 	b_golden = random_range(0, 12);
-	b_sound = 0;
 	
 	command_set([
 		24,
@@ -99,8 +98,7 @@ addEnemy("basic2", function(){
 			b_golden = bullet_preset_golden(x, y, 0, 1, b_golden, function(_x, _y, _dir){
 				bullet_shoot_dir(_x, _y, 2, _dir).glow = cb_grey;
 			})
-			if b_sound++ % 2 == 0
-				sound.play(snd_bulletshoot)
+			sound.play(snd_bulletshoot, 2)
 			commandIndex--
 		},
 	]);
@@ -130,7 +128,6 @@ addEnemy("big1", function() {
 	})
 	
 	b_golden = 0;
-	b_sound = 0;
 	
 	command_set([
 		120,
@@ -142,8 +139,7 @@ addEnemy("big1", function() {
 					//sprite_index = spr_bullet_huge
 				}
 			})
-			if b_sound++ % 2 == 0
-				sound.play(snd_bulletshoot)
+			sound.play(snd_bulletshoot, 2)
 			commandIndex--;
 		},
 	]);
@@ -184,6 +180,7 @@ addEnemy("basic3", function(){
 					sprite_index = _i == 0 ? spr_bullet_spark : spr_bullet_square
 				}
 			})
+			sound.play(snd_bulletshoot)
 			b_angle += 360 / 5 / 2 + 3
 			
 			command_repeat(40)
@@ -228,6 +225,7 @@ addEnemy("basic4", function(){
 					sprite_index = spr_bullet_line
 				}
 			})
+			sound.play(snd_bulletshoot_2)
 		},
 		50,
 		function(){
@@ -407,92 +405,6 @@ addEnemy("miniboss1", function(){
 
 
 ignore enemies = {
-	"basic3": function(_dir, _spd, _off = 0, _r = 5){
-		hp = 120;
-		scoreGive = 2000;
-		pointGive = 6;
-		
-		b_off = _off
-		
-		sprite_index = spr_enemy_flower
-		
-		movement_start(WIDTH / 2 + (WIDTH / 2 + 64) * _dir, y, 1 / abs(x - (WIDTH / 2 + (WIDTH / 2 + 64) * _dir)) * _spd, "linear",function(){instance_destroy()});
-		
-		command_set([
-			_r,
-			function(){
-				bullet_preset_plate(x, y, 3, 6, 90, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
-					with bullet_shoot_dir2(_x, _y, 7, 0.2, 1, _dir) {
-						glow = cb_teal
-						sprite_index = spr_bullet_point//spr_bullet_small
-						
-						command_timer(30, function(){
-							dir_target = point_direction(x, y, obj_player.x, obj_player.y)
-							dir_accel = 1
-							glow = cb_pink
-							spd_target = 7;
-							spd_accel = 0.14
-						})
-					}
-				})
-				commandTimer = b_off;
-				b_off = 0;
-				commandIndex--;
-			}
-		])
-		
-	},
-	"basic4": function() {
-		hp = 180
-		scoreGive = 1000
-		pointGive = 8
-		
-		startX = x;
-		startY = y;
-		
-		x = x + irandom_range(-96, 96)
-		y = -64
-		
-		invinsible = true;
-		movement_start(startX, startY, 1/120, , function(){invinsible = false});
-		
-		
-		command_timer(60 * 10, function(){
-			command_reset()
-			movement_start(WIDTH / 2 + WIDTH * choose(-1, 1), y + 128, 1/360, , function(){
-				instance_destroy()
-			})
-		})
-		
-		b_golden = 0
-		
-		command_set([
-			120,
-			2,
-			function(){
-				b_golden = bullet_preset_golden(x, y, 8, 3, b_golden, function(_x, _y, _dir){
-					with bullet_shoot_dir2(_x, _y, 14, 0.4, 1, _dir) {
-						glow = cb_pink
-						//sprite_index = spr_bullet_huge
-					}
-				})
-				commandIndex--
-			}
-		])
-		
-		command_add([
-			120 + 60,
-			24,
-			function(){
-				with bullet_shoot_dir2(x, y, 1, 0.1, 4, point_direction(x, y, obj_player.x, obj_player.y)) {
-					glow = cb_teal
-					sprite_index = spr_bullet_inverted
-				}
-				commandIndex--
-			}
-		])
-		
-	},
 	"basic5": function(){
 		hp = 20;
 		scoreGive = 2000;
@@ -1276,12 +1188,12 @@ addPause(beat_to_frame(24 * 4 - 4))
 
 addSection(function(){
 	for (var i = 0; i < 4; i++) {
-		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 128 + i * 32, beat_to_frame(16) * i);
+		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i);
 	}
 	
 	for (var i = 0; i < 8 * 4 - 4; i++) {
-		enemy_delay("basic4", 96 + irandom_range(-16, 16), 128 + irandom_range(-32, 64), beat_to_frame(2) * i);
-		enemy_delay("basic4", WIDTH - 96 + irandom_range(-16, 16), 128 + irandom_range(-32, 64), beat_to_frame(2) * i);
+		enemy_delay("basic4", 96 + irandom_range(-32, 32), 128 + irandom_range(-64, 96), beat_to_frame(2) * i);
+		enemy_delay("basic4", WIDTH - 96 + irandom_range(-32, 32), 128 + irandom_range(-64, 96), beat_to_frame(2) * i);
 	}
 })
 addPause(beat_to_frame(16 * 4))
