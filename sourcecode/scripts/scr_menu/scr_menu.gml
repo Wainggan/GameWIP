@@ -1,14 +1,63 @@
 
+function PageController() constructor {
+	
+	current = undefined;
+	
+	static next = function(_page){
+		_page.controller = self;
+		current = _page;
+	}
+	static back = function(){
+		if current == undefined {
+			throw "no page loaded";
+		}
+		if current.__previous == undefined return;
+		current = current.__previous;
+	}
+	
+	static get_active = function(){
+		return current;
+	}
+	static close = function(){
+		current = undefined;
+	}
+	
+	static step = function(){
+		if current current.step();
+	}
+	
+	static draw = function(){
+		if current current.draw(0, 0);
+	}
+	
+}
+
+
+
 function Page() constructor {
 	
-	static onClose = function(){}
+	__previous = undefined;
+	__next = undefined;
+	
+	// assigned by controller
+	controller = noone;
+	
+	static previous = function(_page = undefined) {
+		__previous = _page;
+		return self;
+	}
+	static next = function(_page = undefined) {
+		__next = _page;
+		return self;
+	}
+	static get_next = function(){ return __next; }
 	
 	static step = function(){}
 	static draw = function(){}
 	
 }
 
-function Page_Menu() constructor {
+function Page_Menu() : Page() constructor {
 	
 	position = 0;
 	elements = [];
@@ -17,8 +66,6 @@ function Page_Menu() constructor {
 	
 	static scroll = function(_direction, _wrap = true) {
 		position += _direction;
-		if _direction != 0
-			hoveringTime = 0;
 		if _wrap {
 			position = position - floor(position / array_length(elements)) * array_length(elements);
 		} else {
@@ -49,28 +96,34 @@ function Page_Menu() constructor {
 	}
 	
 	static step = function(){
-		if global.gameActive && input.check_pressed("pause") {
-			if array_length(menuList) == 0
-				func_open(menu_pause);
-			else
-				func_close();
+		//if global.gameActive && input.check_pressed("pause") {
+		//	if array_length(menuList) == 0
+		//		func_open(menu_pause);
+		//	else
+		//		func_close();
+		//}
+		if input.check_pressed("bomb") {
+			controller.back()
 		}
-		if input.check_pressed("bomb") && array_length(menuList) > 0
-			&& !(!global.gameActive && array_length(menuList) == 1)
-			func_pop();
 
-		if array_length(menuList) {
-			game_pause(2, true);
-			var _cM = menuList[array_length(menuList) - 1];
-			_cM.scroll(input.check_stutter("down", 12, 4) - input.check_stutter("up", 12, 4))
-			_cM.change(input.check_stutter("right", 12, 3) - input.check_stutter("left", 12, 3))
-			if input.check_pressed("shoot") {
-				_cM.click()
-			}
+		game_pause(2, true);
+		scroll(input.check_stutter("down", 12, 4) - input.check_stutter("up", 12, 4))
+		change(input.check_stutter("right", 12, 3) - input.check_stutter("left", 12, 3))
+		if input.check_pressed("shoot") {
+			click()
 		}
 	}
 	
 	static draw = function(_x, _y, _padding = string_height("M") + 8) {
+		
+		var _winHeight = window_get_height();
+		camY = lerp(camY, 
+			max(position * (string_height("M") + 8) - (_winHeight / 2 - 128 + 32), 0)
+			, 1 - power(1 - 0.99999, global.delta_milli * 2)
+		);
+		
+		_x += 64
+		_y += 64 - camY
 		var _lh = draw_get_halign();
 		var _lv = draw_get_valign();
 		draw_set_halign(fa_left);
@@ -84,21 +137,182 @@ function Page_Menu() constructor {
 	
 }
 
+
 function Page_Keyboard() : Page() constructor {
 	
+	name = ""
 	
+	location = 0;
+	anim_pos_x = new Sod(5, 0.6, 0.5);
+	anim_pos_y = new Sod(5, 0.6, 0.5);
+	
+	static _x_ = undefined;
+	
+	keys = [
+		["a", "b", "c", "d", "e", "f", "g", "7", "8", "9"], 
+		["h", "i", "j", "k", "l", "m", "n", "4", "5", "6"], 
+		["o", "p", "q", "r", "s", "t", "u", "1", "2", "3"], 
+		["v", "w", "x", "y", "z", _x_, ":", " ", "0", _x_],
+		["!", "?", "@", _x_, _x_, _x_, _x_, ".", "-", "+"],
+	];
+	key_pos_x = 0;
+	key_pos_y = 0;
+	
+	buttons = ["accept", "delete", "shift"]
+	button_pos = 0;
+	button_shift = false;
+	
+	mode = 0;
+	
+	
+	static step = function(){
+		
+		var _kx = input.check_pressed("right") - input.check_pressed("left");
+		var _ky = input.check_pressed("down") - input.check_pressed("up")
+		
+		if mode == 0 {
+		
+			var _sX = key_pos_x, _sY = key_pos_y;
+			
+			var _stop = 12
+			while _stop-- > 0 {
+				key_pos_y += _kx;
+				key_pos_x += _ky;
+			
+				if key_pos_x > array_length(keys) - 1 || key_pos_x < 0 {
+					mode = 1
+					key_pos_x = _sX;
+					key_pos_y = _sY;
+					break;
+				}
+		
+				key_pos_x = wrap(key_pos_x, 0, array_length(keys));
+				key_pos_y = wrap(key_pos_y, 0, array_length(keys[0]));
+			
+				if keys[key_pos_x][key_pos_y] != _x_ {
+					break;
+				}
+			}
+	
+			if input.check_pressed("shoot") {
+				if string_length(name) < 12 {
+					var _str = keys[key_pos_x][key_pos_y];
+					if button_shift _str = string_upper(_str)
+					name += _str
+				}
+			}
+			
+		} else {
+			
+			if _ky < 0 {
+				mode = 0;
+			} else if _ky > 0 {
+				mode = 0
+			} else if _kx != 0 {
+				button_pos += _kx;
+				button_pos = wrap(button_pos, 0, array_length(buttons))
+			}
+			
+			if input.check_pressed("shoot") {
+				switch buttons[button_pos] {
+					case "accept": {
+						controller.next(get_next())
+						break;
+					}
+					case "delete": {
+						name = string_delete(name, string_length(name), 1);
+						break;
+					}
+					case "shift": {
+						button_shift = !button_shift;
+						break;
+					}
+				}
+			}
+			
+		}
+
+	}
+	
+	static draw = function(){
+		
+		draw_set_font(ft_ui);
+		
+		draw_text(20, 20, "enter name!!")
+		
+		for (var _x = 0; _x < array_length(keys); _x++) {
+			for (var _y = 0; _y < array_length(keys[_x]); _y++) {
+				if !is_string(keys[_x, _y]) continue;
+				var _pX = 90 + _y * 48;
+				var _pY = 90 + _x * 32;
+				//draw_rectangle_sprite(_pX - 4, _pY - 4, _pX + 24, _pY + 24, true);
+				var _str = keys[_x][_y];
+				if button_shift _str = string_upper(_str)
+				draw_text(_pX, _pY, _str);
+			}
+		}
+		
+		for (var i = 0; i < array_length(buttons); i++) {
+			draw_text(90 + i * 128, 90 + array_length(keys) * 32 + 16, buttons[i]);
+		}
+		
+		var _tPx = 0, _tPy = 0;
+		
+		if mode == 0 {
+			_tPx = 90 + key_pos_y * 48 - 16;
+			_tPy = 90 + key_pos_x * 32;
+		} else {
+			_tPx = 90 + button_pos * 128 - 16
+			_tPy = 90 + array_length(keys) * 32 + 16;
+		}
+		
+		anim_pos_x.update(global.delta_milli, _tPx)
+		anim_pos_y.update(global.delta_milli, _tPy)
+		
+		draw_text(anim_pos_x.value, anim_pos_y.value, ">")
+		
+		draw_set_font(ft_score)
+		
+		draw_text(90, 90 + array_length(keys) * 32 + 48, "name: " + name);
+		
+		draw_set_font(ft_debug)
+		
+	}
 	
 }
 
 function Page_Leaderboard() : Page() constructor {
 	
-}
-
-
-
-function __Menu() constructor {
+	static step = function(){
+		
+		if input.check_pressed("bomb") {
+			controller.back()
+		}
+		
+	}
 	
-	currentPage = 0;
+	static draw = function(){
+		
+		var _lb = global.file.save.leaderboard;
+		draw_set_font(ft_ui)
+		for (var i = 0; i < array_length(_lb); i++) {
+			draw_set_alpha(0.1)
+			draw_set_color(c_black)
+				draw_text_outline(500, 48 + 32 * i*2, string(_lb[i].name))
+			draw_set_alpha(1)
+			draw_set_color(c_white)
+				draw_text(500, 48 + 32 * i*2, string(_lb[i].name))
+				
+			draw_set_alpha(0.1)
+			draw_set_color(c_black)
+				draw_text_outline(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
+				draw_set_alpha(1)
+			draw_set_color(c_white)
+				draw_text(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
+		}
+		
+	}
+	
 	
 }
 
@@ -186,7 +400,7 @@ function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _sta
 	
 	value = _start;
 	
-	animMove = new Sod(3, 0.8, 2).setValue((value - minimum) / (maximum - minimum));
+	animMove = new Sod(3, 1, 2).setValue((value - minimum) / (maximum - minimum));
 	animActive = new Sod(2, 0.8, 1);
 	width = 120;
 	

@@ -49,6 +49,7 @@ alarm[0] = 1;
 canDie = true;
 destroyAll = false
 bossFlag = false;
+hookDamageType = 0;
 
 command_setup()
 movement_setup()
@@ -223,7 +224,7 @@ stopPattern = function(_index = currentPattern) {
 
 setBoss = function() {
 	bossFlag = true
-	ignoreSlap = true
+	setHook_Damp();
 	important = true
 	destroyAll = true
 	deathRadius = WIDTH * 2;
@@ -252,6 +253,24 @@ setupShowHp = function(){
 		array_push(showHp_scale, _amount)
 	}
 }
+
+setGrounded = function(_b) {
+	onGround = _b;
+}
+
+setHook_Def = function(){
+	hookDamageType = 0;
+}
+setHook_Insta = function(){
+	hookDamageType = 1;
+}
+setHook_Damp = function(){
+	hookDamageType = 2;
+}
+
+
+fade = 24;
+fadeTime = 24;
 
 
 // magic animation offset number

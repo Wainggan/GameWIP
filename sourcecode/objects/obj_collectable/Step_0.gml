@@ -34,7 +34,7 @@ if latch && latchTimer <= 0 {
 	
 	image_angle = point_direction(0, 0, x_vel, y_vel) + 90;
 	
-	if place_meeting(x, y, obj_player) {
+	ignore if place_meeting(x, y, obj_player) {
 		global.score += scoreGive;
 		if scoreGive > 0 {
 			var _dir = random_range(0, 360)

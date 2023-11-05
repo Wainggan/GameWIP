@@ -12,6 +12,32 @@ mask_index = spr_player_hitbox
 
 state.run()
 
+var _collectables = ds_list_create();
+instance_place_list(x, y, obj_collectable, _collectables, false);
+
+for (var i = 0; i < ds_list_size(_collectables); i++) {
+	
+	with _collectables[| i] {
+		global.score += scoreGive;
+		if scoreGive > 0 {
+			var _dir = random_range(0, 360)
+			text_splash_random(
+				x + lengthdir_x(64, _dir), 
+				y + lengthdir_y(64, _dir), 
+				scoreGive, 16, 6, 2
+			);
+		}
+		obj_player.func_handleCollectable(self)
+		if func != undefined func();
+		if sprite_index != spr_collectable_graze
+			sound.play(snd_collectItem)
+		instance_destroy();
+	}
+	
+}
+
+ds_list_destroy(_collectables)
+
 
 shakeAmount -= global.delta_multiNP
 

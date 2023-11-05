@@ -142,10 +142,10 @@ surface_set_target(watertemp_surf) // draw reflections
 				image_index = 1
 				test += global.delta_multi;
 				for (var i = 0; i < 3; i++) {
-					draw_sprite(sprite_index, 2, x + lengthdir_x(32, test + 360 / 3 * i), y - lengthdir_y(28, test + 360 / 3 * i) + sprite_height)
+					draw_sprite_ext(sprite_index, 2, x + lengthdir_x(32, test + 360 / 3 * i), y - lengthdir_y(28, test + 360 / 3 * i) + sprite_height, 1, 1, 0, c_white, 1-fade/fadeTime)
 				}
 				for (var i = 0; i < 3; i++) {
-					draw_sprite(sprite_index, 2, x + lengthdir_x(32, -test + 360 / 3 * i), y - lengthdir_y(28, -test + 360 / 3 * i) + sprite_height)
+					draw_sprite_ext(sprite_index, 2, x + lengthdir_x(32, -test + 360 / 3 * i), y - lengthdir_y(28, -test + 360 / 3 * i) + sprite_height, 1, 1, 0, c_white, 1-fade/fadeTime)
 				}
 				break;
 			case spr_enemy_crystal:
@@ -154,7 +154,7 @@ surface_set_target(watertemp_surf) // draw reflections
 		}
 
 		//show_debug_message(y)
-		draw_sprite_ext(sprite_index, image_index, round(x + xOff), round(y - yOff + sprite_height), image_xscale, image_yscale*-1, image_angle, image_blend, image_alpha)
+		draw_sprite_ext(sprite_index, image_index, round(x + xOff), round(y - yOff + sprite_height), image_xscale + fade/fadeTime, image_yscale*-1 - fade/fadeTime, image_angle, image_blend, image_alpha * (1-fade/fadeTime))
 		
 	}
 

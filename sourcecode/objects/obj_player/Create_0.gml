@@ -333,7 +333,7 @@ func_handleCollectable = function(_inst){
 	if _inst.s_charge {
 		hook_radius_collectLimit -= 1
 		if hook_radius_collectLimit >= 0 {
-			hook_focus_charge += 0.05
+			hook_focus_charge += 0.06
 		}
 	}
 	
@@ -366,20 +366,19 @@ step : function(){
     
 	var targetTopSpeed = (input.check("sneak") ? _.moveSpeed_slow : (input.check("shoot") ? _.moveSpeed : _.moveSpeed_fast))
 	var targetAccel = (input.check("sneak") ? _.accel_slow : _.accel)
-    
-	//x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
-	//y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), 1 * global.delta_multi);
-		
-	x_vel = (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix)
-	y_vel = (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix)
-		
+	
 	// adjust for slow-mo
 	// making the game harder to change, one shitty line at a time
-	x_vel *= 60 * (1 / game.targetFrame);
-	y_vel *= 60 * (1 / game.targetFrame);
+	var _slowmoAdjust = (60 * (1 / game.targetFrame)) * global.delta_multi;
+    
+	x_vel = approach(x_vel, (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix), targetAccel * _slowmoAdjust);
+	y_vel = approach(y_vel, (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix), targetAccel * _slowmoAdjust);
+		
+	//x_vel = (hkey == 0 ? 0 : hkey * targetTopSpeed * directionFix)
+	//y_vel = (vkey == 0 ? 0 : vkey * targetTopSpeed * directionFix)
 	
-	x += x_vel * global.delta_multi;
-	y += y_vel * global.delta_multi;
+	x += x_vel * _slowmoAdjust;
+	y += y_vel * _slowmoAdjust;
 		
 	var _lastX = x;
 
@@ -400,9 +399,10 @@ step : function(){
 
 	#region Bullet Collision
 	var _grazedBulletsList = ds_list_create()
-	collision_circle_list(x, y, grazeRadius - 0, obj_bullet, 0, 1, _grazedBulletsList, true)
+	collision_circle_list(x, y, grazeRadius - 0, obj_bullet, 0, 1, _grazedBulletsList, true);
 	if ds_list_size(_grazedBulletsList) > 0 {
-		if iFrames <= 0 && !hook_ing && place_meeting(x, y, obj_bullet) {
+		var _inst = instance_place(x, y, obj_bullet)
+		if iFrames <= 0 && !hook_ing && _inst != noone && _inst.fade == 0 {
 			if lifeCharge < 1 {
 				//lifeCharge = min(lifeCharge + 0.5, 1);
 					
@@ -584,7 +584,7 @@ step : function(){
 	hook_buffer -= global.delta_multi;
 	hook_extrabuffer -= global.delta_multi;
 	hook_iframe -= global.delta_multi;
-	if (hook_buffer > 0 || (hook_extrabuffer > 0 && hook_extrabuffer <= 2)) && input.check_pressed("bomb") && canShoot {
+	if (hook_buffer > 0 || (hook_extrabuffer > 0 && hook_extrabuffer <= 3)) && input.check_pressed("bomb") && canShoot {
 		func_hookPop()
 	}
 	
@@ -720,13 +720,14 @@ step: function(){
 			state.change("idle")
 		}
 	} else {
-		if point_distance(x, y, hook_x, hook_y) < 64 {
-			hook_buffer = 12;
-			state.change("idle")
-		}
-		else if input.check_pressed("bomb") && canShoot {
+		if input.check_pressed("bomb") && canShoot {
 			func_hookPop()
 			hook_buffer = 0;
+			state.change("idle")
+		}
+		else if point_distance(x, y, hook_x, hook_y) < 64 {
+			hook_buffer = 12;
+			iFrames = 14;
 			state.change("idle")
 		}
 	}

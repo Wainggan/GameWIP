@@ -134,11 +134,13 @@ function command_update() {
 		}
 	}
 	if commandList != undefined {
+		var _fuckme = commandList
 		for (var i = 0; i < array_length(commandList); i++) {
-			var cL = commandList[i].list;
-			commandIndex = commandList[i].index;
-			commandTimer = commandList[i].timer;
-			commandBeat = commandList[i].beat;
+			var _curr = commandList[i];
+			var cL = _curr.list;
+			commandIndex = _curr.index;
+			commandTimer = _curr.timer;
+			commandBeat = _curr.beat;
 			
 			if commandBeat > 0 {
 				var _saftey = 1;
@@ -157,6 +159,8 @@ function command_update() {
 							}
 							if lastC == commandIndex commandIndex++;
 						}
+					// i cant explain this
+					if commandList != _fuckme break;
 				}
 				
 				//show_debug_message("{0} {1}", commandBeat, +music.hasBeat)
@@ -179,16 +183,19 @@ function command_update() {
 							}
 							if lastC == commandIndex commandIndex++;
 						}
+					// im so sorry
+					if commandList != _fuckme break;
 				}
 			
 				commandTimer -= global.delta_multi;
 			}
 			
-			commandList[i].index = commandIndex;
-			commandList[i].timer = commandTimer;
-			commandList[i].beat = commandBeat;
+			_curr.index = commandIndex;
+			_curr.timer = commandTimer;
+			_curr.beat = commandBeat;
 			
-			if commandList[i].index >= array_length(commandList[i].list)
+			// uhhhhh bizarre edge case i cant explain
+			if i < array_length(commandList) && _curr == commandList[i] && _curr.index >= array_length(_curr.list)
 				array_delete(commandList, i--, 1);
 		}
 	}

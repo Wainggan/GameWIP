@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "shd_blend_step",
   "parent": {
-    "name": "Shaders",
-    "path": "folders/Graphics/Shaders.yy",
+    "name": "blend",
+    "path": "folders/Graphics/Shaders/blend.yy",
   },
   "type": 1,
 }

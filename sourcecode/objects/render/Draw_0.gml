@@ -53,9 +53,57 @@ surface_set_target(bullet_surf)
 	gpu_set_blendmode(bm_normal)
 surface_reset_target()
 
-// fix alpha
-//gpu_set_blendmode_ext_sepalpha(bm_src_alpha, bm_inv_src_alpha, bm_src_alpha, bm_one)
+if keyboard_check_pressed(ord("1")) debugpause = !debugpause;
 
-draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, #dddddd, 0.66)
+// bullet process for visibility + style
 
-//gpu_set_blendmode(bm_normal)
+if !keyboard_check(ord("1")) {
+
+// overlay for grey backgrounds and spice
+refreshApplicationSurf()
+blendmodeSet(shd_blend_bullet)
+gpu_set_blendmode_ext(bm_one, bm_zero)
+
+//if keyboard_check(ord("1"))
+draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, c_white, 1)
+
+shader_reset()
+
+gpu_set_blendmode(bm_normal);
+
+}
+else if !keyboard_check(ord("2")) {
+
+// overlay for grey backgrounds and spice
+refreshApplicationSurf()
+blendmodeSet(shd_blend_difference)
+gpu_set_blendmode_ext(bm_one, bm_zero)
+
+//if keyboard_check(ord("1"))
+draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, c_white, 0.5)
+
+shader_reset()
+
+// smoothens and averages the general brightness of colors
+refreshApplicationSurf()
+blendmodeSet(shd_blend_overlay)
+
+//if keyboard_check(ord("2"))
+draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, c_white, 0.3)
+
+shader_reset()
+
+// makes the brighter colors darker and the darker bright
+refreshApplicationSurf()
+blendmodeSet(shd_blend_allanon)
+
+//if keyboard_check(ord("3"))
+draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, c_white, 0.6)
+
+shader_reset()
+
+gpu_set_blendmode(bm_normal)
+
+} else {
+	draw_surface_ext(bullet_surf, 0, 0, 1, 1, 0, #eeeeee, 0.6)
+}

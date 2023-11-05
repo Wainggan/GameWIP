@@ -36,7 +36,7 @@ death = undefined;
 
 glow = c_red
 
-mask_index = spr_nothing
+//mask_index = spr_nothing
 
 command_setup()
 //movement_setup()

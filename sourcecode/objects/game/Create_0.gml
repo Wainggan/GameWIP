@@ -1,3 +1,7 @@
+if !DEBUG {
+	gml_release_mode(true);
+}
+
 targetFrame = 60;
 global.slowdownTime = 0;
 

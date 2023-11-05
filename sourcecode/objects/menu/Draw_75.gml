@@ -5,6 +5,14 @@ var winHeight = window_get_height();
 
 if input.check("sneak") exit
 
+if controller.get_active() {
+	draw_rectangle_sprite(0, 0, winWidth, winHeight, false, c_black, 0.6)
+}
+
+controller.draw()
+
+exit
+
 for (var i = 0; i < array_length(menuList); i++) {
 	var _cM = menuList[i];
 	

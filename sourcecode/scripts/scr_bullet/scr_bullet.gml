@@ -162,16 +162,16 @@ function bullet_preset_plate(_x, _y, _amount, _spreadDist, _spreadAngle, _len, _
 			_y + lengthdir_y(_offset, _newDir - 90) + lengthdir_y(_len, _newDir), _newDir, i);
 	}
 }
-function bullet_preset_poly(_x, _y, _sides, _amount, _length, _func = function(_x, _y, _dir, i){}) {
+function bullet_preset_poly(_x, _y, _sides, _amount, _length, _dir, _func = function(_x, _y, _dir, i){}) {
 	var _points = [];
 	for (var i = 0; i < _sides; i++) {
 		var p = {
-			x: lengthdir_x(_length, i / _sides * 360),
-			y: lengthdir_y(_length, i / _sides * 360),
+			x: lengthdir_x(_length, i / _sides * 360 + _dir),
+			y: lengthdir_y(_length, i / _sides * 360 + _dir),
 		};
 		p.dir = point_direction(p.x, p.y, 
-			lengthdir_x(_length, (i + 1) / _sides * 360),
-			lengthdir_y(_length, (i + 1) / _sides * 360)
+			lengthdir_x(_length, (i + 1) / _sides * 360 + _dir),
+			lengthdir_y(_length, (i + 1) / _sides * 360 + _dir)
 		);
 		array_push(_points, p);
 	}

@@ -221,6 +221,7 @@ look_update = function(){
 
 look_default()
 
+debugpause = false
 if DEBUG {
 	show_debug_overlay(true)
 }

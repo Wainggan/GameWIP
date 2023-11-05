@@ -7,7 +7,11 @@ if shakeAmount > 0 {
 	_offY += round(random_range(-shakeAmount/4, shakeAmount/4))
 }
 
+
+
 switch sprite_index {
+	case spr_enemy_flower_red:
+	case spr_enemy_flower_blue:
 	case spr_enemy_flower:
 		image_angle = wave(-360, 360, 6, test);
 		break;
@@ -19,8 +23,8 @@ switch sprite_index {
 		image_index = 0
 		test += global.delta_multi;
 		for (var i = 0; i < 3; i++) {
-			draw_sprite(sprite_index, 2, x + lengthdir_x(32, test + 360 / 3 * i), y + lengthdir_y(28, test + 360 / 3 * i))
-			draw_sprite(sprite_index, 2, x + lengthdir_x(32, -test + 360 / 3 * i), y + lengthdir_y(28, -test + 360 / 3 * i))
+			draw_sprite_ext(sprite_index, 2, x + lengthdir_x(32, test + 360 / 3 * i), y + lengthdir_y(28, test + 360 / 3 * i), 1, 1, 0, c_white, (1-fade/fadeTime))
+			draw_sprite_ext(sprite_index, 2, x + lengthdir_x(32, -test + 360 / 3 * i), y + lengthdir_y(28, -test + 360 / 3 * i), 1, 1, 0, c_white, (1-fade/fadeTime))
 		}
 		ignore for (var i = 0; i < 3; i++) {
 			//draw_sprite(sprite_index, 3, x + lengthdir_x(32, test + 360 / 3 * i), y + lengthdir_y(28, test + 360 / 3 * i))
@@ -44,10 +48,10 @@ if hitAnim != 0 {
 	shader_set(shd_color)
 	shader_set_uniform_f(shader_get_uniform(shd_color, "colorAmount"), hitAnim)
 	shader_set_uniform_f(shader_get_uniform(shd_color, "colorTarget"), 1, 1, 1)
-	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale + hitAnim/4, image_yscale + hitAnim/4, image_angle, image_blend, image_alpha)
+	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale + hitAnim/4 * (1-fade/fadeTime) + fade/fadeTime, image_yscale + hitAnim/4 * (1-fade/fadeTime) + fade/fadeTime, image_angle, image_blend, image_alpha * (1-fade/fadeTime))
 	shader_reset()
 } else {
-	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale, image_yscale, image_angle, image_blend, image_alpha)
+	draw_sprite_ext(sprite_index, image_index, round(_offX + x + xOff), round(_offY + y + yOff), image_xscale + fade/fadeTime, image_yscale + fade/fadeTime, image_angle, image_blend, image_alpha * (1-fade/fadeTime))
 }
 
 
@@ -83,19 +87,14 @@ if phaseActive && currentPhase < array_length(showHp_scale) {
 	
 	var _flashingColor = global.time % 6 <= 3 ? #ff30ff : #30ffff
 	
-	draw_set_color(merge_color(#100010, _flashingColor, _danger))
-	draw_set_alpha(0.5)
+	var _color = merge_color(#100010, _flashingColor, _danger)
 	
-	draw_circle_outline(_x, _y, 64, 4 * min(1, showHp_anim * 2))
+	draw_circle_outline(_x, _y, 64, 4 * min(1, showHp_anim * 2), _color, 0.5)
 	
-	draw_set_alpha(0.8)
-	draw_set_color(merge_color(c_white, #ff5060, _danger))
+	var _color = merge_color(c_white, #ff5060, _danger)
 
-	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, false)
-	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, true)
-	
-	draw_set_color(c_white)
-	draw_set_alpha(1)
+	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, false, _color, 0.8)
+	draw_circle_outline_part(_x, _y, 64, 6 * showHp_anim, _percent / 2 * showHp_anim, 270, true, _color, 0.8)
 
 	var _offset = 0
 	for (var i = 0; i < array_length(showHp_scale); i++) {
@@ -108,8 +107,8 @@ if phaseActive && currentPhase < array_length(showHp_scale) {
 		_scale *= showHp_anim
 		
 		if i >= currentPhase && i < currentPhase + 2 {
-			draw_circle(_x + lengthdir_x(64 - 6, 90 - _dir), _y + lengthdir_y(64 - 6, 90 - _dir), _scale, false)
-			draw_circle(_x + lengthdir_x(64 - 6, 90 + _dir), _y + lengthdir_y(64 - 6, 90 + _dir), _scale, false)
+			draw_circle_sprite(_x + lengthdir_x(64 - 6, 90 - _dir), _y + lengthdir_y(64 - 6, 90 - _dir), _scale, false, c_white, 1)
+			draw_circle_sprite(_x + lengthdir_x(64 - 6, 90 + _dir), _y + lengthdir_y(64 - 6, 90 + _dir), _scale, false, c_white, 1)
 		}
 	}
 	

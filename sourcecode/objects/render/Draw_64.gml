@@ -93,27 +93,6 @@ if global.gameActive {
 } else {
 	
 	
-	if array_length(menu.menuList) <= 1 {
-		var _lb = global.file.save.leaderboard;
-		draw_set_font(ft_ui)
-		for (var i = 0; i < array_length(_lb); i++) {
-			draw_set_alpha(0.1)
-			draw_set_color(c_black)
-				draw_text_outline(500, 48 + 32 * i*2, string(_lb[i].name))
-			draw_set_alpha(1)
-			draw_set_color(c_white)
-				draw_text(500, 48 + 32 * i*2, string(_lb[i].name))
-				
-			draw_set_alpha(0.1)
-			draw_set_color(c_black)
-				draw_text_outline(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
-				draw_set_alpha(1)
-			draw_set_color(c_white)
-				draw_text(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
-		}
-	}
-	
-	
 }
 
 if DEBUG {
