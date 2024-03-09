@@ -39,7 +39,7 @@ for (var i = 0; i < ds_list_size(_collectables); i++) {
 ds_list_destroy(_collectables)
 
 
-shakeAmount -= global.delta_multiNP
+shakeAmount -= global.delta_multiNP * shakeDamp
 
 iFrames -= global.delta_multi
 

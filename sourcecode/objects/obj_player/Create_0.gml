@@ -60,6 +60,7 @@ grazeComboBulletMult = 1
 grazeComboBulletExp = 0.15;
 
 shakeAmount = 0;
+shakeDamp = 1;
 offX = 0;
 offY = 0;
 
@@ -406,10 +407,11 @@ step : function(){
 			if lifeCharge < 1 {
 				//lifeCharge = min(lifeCharge + 0.5, 1);
 					
-				game_pause(16, true);
+				game_pause(10, true);
 				screenShake_set(4);
-				shakeAmount = 15;
-				iFrames = 40;
+				shakeAmount = 20;
+				shakeDamp = 2;
+				iFrames = 60;
 					
 				var test = instance_create_layer(x, y, layer, obj_bulletDestroyer)
 				test.targetSize = WIDTH * 2;
@@ -432,8 +434,11 @@ step : function(){
 				func_grazeFlavorText("0")
 				
 				instance_create_layer(x, y, layer, obj_effect_hit)
-			
-				state.change("respawn")
+				
+				if livesLeft <= 0
+					state.change("dying");
+				else
+					state.change("respawn")
 			} else {
 				lifeCharge = 0;
 					
@@ -745,6 +750,45 @@ leave: function(){
 	hook_target = noone
 }
 })
+
+
+state.add("dying", {
+	enter: function(){
+		deadTimer = 1
+	},
+	step: function(){
+		deadTimer -= global.delta_multi;
+		if deadTimer <= 0
+			state.change("dead")
+	}
+})
+state.add("dead", {
+	enter: function(){
+		deadTimer = 60
+	},
+	step: function(){
+		deadTimer -= global.delta_multi;
+		if deadTimer <= 0 {
+			game_pause(4, false)
+			game_menu_steps(
+				new Steps()
+				.next(function(){ 
+					room_goto(rm_mainmenu)
+					game_music(-1)
+					return menu.leaderboardType 
+				})
+				.next(function(){
+					game_leaderboard_add(global.enteredName, global.score)
+					return menu.leaderboard
+				})
+				.next(function(){ return menu.menu_main })
+			);
+			state.change("nothing")
+		}
+	}
+})
+
+state.add("nothing", {})
 
 #endregion
 

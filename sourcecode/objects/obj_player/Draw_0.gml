@@ -1,3 +1,9 @@
+if state.currentState == "dead" {
+	hitboxAnim.update(global.delta_milliP, 0);
+	hitboxSize = hitboxAnim.value;
+	exit;
+}
+
 if input.check_pressed("sneak") {
 	//hitboxAnim.add(new Tween(0.25, 0, 1, function(_e){ hitboxSize = _e }, "backBig"))
 	hitboxAnim.setWeights(8, 2, 2.5)

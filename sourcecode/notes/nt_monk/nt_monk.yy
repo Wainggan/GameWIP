@@ -1,9 +1,11 @@
 {
-  "resourceType": "GMNotes",
-  "resourceVersion": "1.1",
-  "name": "nt_monk",
-  "parent": {
-    "name": "skylightsgame",
-    "path": "skylightsgame.yyp",
+  "$GMNotes":"",
+  "%Name":"nt_monk",
+  "name":"nt_monk",
+  "parent":{
+    "name":"skylightsgame",
+    "path":"skylightsgame.yyp",
   },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
 }

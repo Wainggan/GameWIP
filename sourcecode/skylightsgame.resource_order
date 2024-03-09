@@ -1,12 +1,12 @@
 {
-  "FolderOrderSettings": [
+  "FolderOrderSettings":[
     {"name":"bosses","order":1,"path":"folders/Graphics/gameplay/bosses.yy",},
     {"name":"particles","order":14,"path":"folders/Graphics/particles.yy",},
     {"name":"blend","order":16,"path":"folders/Graphics/Shaders/blend.yy",},
     {"name":"other","order":9,"path":"folders/Objects/bullet/other.yy",},
     {"name":"parent","order":8,"path":"folders/Objects/bullet/parent.yy",},
   ],
-  "ResourceOrderSettings": [
+  "ResourceOrderSettings":[
     {"name":"shd_blend_normal","order":3,"path":"shaders/shd_blend_normal/shd_blend_normal.yy",},
     {"name":"spr_maxsucks","order":11,"path":"sprites/spr_maxsucks/spr_maxsucks.yy",},
     {"name":"obj_collectable","order":9,"path":"objects/obj_collectable/obj_collectable.yy",},
@@ -198,6 +198,7 @@
     {"name":"scr_upgrades","order":23,"path":"scripts/scr_upgrades/scr_upgrades.yy",},
     {"name":"spr_collectable_upgrade_symbols","order":4,"path":"sprites/spr_collectable_upgrade_symbols/spr_collectable_upgrade_symbols.yy",},
     {"name":"scr_thread","order":13,"path":"scripts/scr_thread/scr_thread.yy",},
+    {"name":"scr_steps","order":24,"path":"scripts/scr_steps/scr_steps.yy",},
     {"name":"snd_bossphase","order":4,"path":"sounds/snd_bossphase/snd_bossphase.yy",},
     {"name":"spr_pixel","order":13,"path":"sprites/spr_pixel/spr_pixel.yy",},
     {"name":"music","order":5,"path":"objects/music/music.yy",},

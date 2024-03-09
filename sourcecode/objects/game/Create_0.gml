@@ -26,6 +26,7 @@ global.screenShake = 0;
 global.screenShakeDamp = 0.2;
 
 global.focus = false;
+global.focus_shut = false;
 global.currentBackground = 0;
 global.currentBackgroundSpeed = 2;
 
@@ -164,3 +165,5 @@ instance_create_layer(0,0, "Instances", particle)
 instance_create_layer(0,0, "Instances", music)
 
 room_goto(rm_mainmenu)
+
+with menu controller.next(menu_main)

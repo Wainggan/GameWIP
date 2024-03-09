@@ -1,10 +1,12 @@
 {
-  "resourceType": "GMShader",
-  "resourceVersion": "1.0",
-  "name": "shd_shockwave_distort",
-  "parent": {
-    "name": "Shaders",
-    "path": "folders/Graphics/Shaders.yy",
+  "$GMShader":"",
+  "%Name":"shd_shockwave_distort",
+  "name":"shd_shockwave_distort",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/Graphics/Shaders.yy",
   },
-  "type": 1,
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
 }

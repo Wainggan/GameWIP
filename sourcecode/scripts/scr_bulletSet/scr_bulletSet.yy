@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_bulletSet",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "group1",
-    "path": "folders/Scripts/group1.yy",
+  "$GMScript":"",
+  "%Name":"scr_bulletSet",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_bulletSet",
+  "parent":{
+    "name":"group1",
+    "path":"folders/Scripts/group1.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
