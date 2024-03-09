@@ -283,6 +283,7 @@
     {"id":{"name":"spr_player_laser","path":"sprites/spr_player_laser/spr_player_laser.yy",},},
     {"id":{"name":"spr_collectable_upgrade_symbols","path":"sprites/spr_collectable_upgrade_symbols/spr_collectable_upgrade_symbols.yy",},},
     {"id":{"name":"scr_thread","path":"scripts/scr_thread/scr_thread.yy",},},
+    {"id":{"name":"scr_steps","path":"scripts/scr_steps/scr_steps.yy",},},
     {"id":{"name":"snd_bossphase","path":"sounds/snd_bossphase/snd_bossphase.yy",},},
     {"id":{"name":"spr_pixel","path":"sprites/spr_pixel/spr_pixel.yy",},},
     {"id":{"name":"music","path":"objects/music/music.yy",},},

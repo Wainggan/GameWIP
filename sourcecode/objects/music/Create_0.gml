@@ -70,13 +70,14 @@ meta = {
 	}),
 }
 
-news_subscribe("music_change", function(_s) {
+news_subscribe("music_change", function(_s = -1) {
 	playing = _s;
 	
 	audio_stop_sound(bgm);
 	bgm = -1;
 	if playing != -1 {
-		bgm = audio_play_sound(playing, 0, true, volume);
+		bgm = audio_play_sound(playing, 0, true, volume, 0);
+		lastPausePos = 0;
 		if meta[$ audio_get_name(playing)]
 			meta[$ audio_get_name(playing)]()
 		show_debug_message("{0}, {1}", introLength, loopLength)

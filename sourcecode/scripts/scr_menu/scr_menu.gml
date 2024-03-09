@@ -2,10 +2,16 @@
 function PageController() constructor {
 	
 	current = undefined;
+	__steps = undefined
 	
+	static steps = function(_steps) {
+		__steps = _steps;
+		next();
+	}
 	static next = function(_page){
-		_page.controller = self;
+		if _page == undefined _page = __steps.run()
 		current = _page;
+		_page.controller = self;
 	}
 	static back = function(){
 		if current == undefined {
@@ -103,7 +109,7 @@ function Page_Menu() : Page() constructor {
 		//		func_close();
 		//}
 		if input.check_pressed("bomb") {
-			controller.back()
+			controller.next()
 		}
 
 		game_pause(2, true);
@@ -216,7 +222,8 @@ function Page_Keyboard() : Page() constructor {
 			if input.check_pressed("shoot") {
 				switch buttons[button_pos] {
 					case "accept": {
-						controller.next(get_next())
+						global.enteredName = name;
+						controller.next()
 						break;
 					}
 					case "delete": {
@@ -286,7 +293,7 @@ function Page_Leaderboard() : Page() constructor {
 	static step = function(){
 		
 		if input.check_pressed("bomb") {
-			controller.back()
+			controller.next()
 		}
 		
 	}

@@ -201,6 +201,7 @@
     {"name":"scr_upgrades","order":23,"path":"scripts/scr_upgrades/scr_upgrades.yy",},
     {"name":"spr_collectable_upgrade_symbols","order":4,"path":"sprites/spr_collectable_upgrade_symbols/spr_collectable_upgrade_symbols.yy",},
     {"name":"scr_thread","order":13,"path":"scripts/scr_thread/scr_thread.yy",},
+    {"name":"scr_steps","order":24,"path":"scripts/scr_steps/scr_steps.yy",},
     {"name":"snd_bossphase","order":4,"path":"sounds/snd_bossphase/snd_bossphase.yy",},
     {"name":"spr_pixel","order":13,"path":"sprites/spr_pixel/spr_pixel.yy",},
     {"name":"music","order":5,"path":"objects/music/music.yy",},

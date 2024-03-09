@@ -1,5 +1,4 @@
 
-
 global.slowdownTime -= global.delta_multi;
 
 targetFrame = approach(targetFrame, global.slowdownTime > 0 ? 40 : 60, 2)

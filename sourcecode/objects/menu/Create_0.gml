@@ -22,13 +22,18 @@ menu_main = new Page_Menu()
 		controller.close();
 	})
 	.add_button("Leaderboard", function(){
-		leaderboard.previous(menu_main)
-		controller.next(leaderboard)
+		controller.steps(
+			new Steps()
+			.next(function(){ return leaderboard })
+			.next(function(){ return menu_main })
+		);
 	})
 	.add_button("Keyboard", function(){
-		leaderboardType.previous(menu_main)
-		leaderboardType.next(menu_main)
-		controller.next(leaderboardType)
+		controller.steps(
+			new Steps()
+			.next(function(){ return leaderboardType })
+			.next(function(){ return menu_main })
+		);
 	})
 
 if DEBUG {
