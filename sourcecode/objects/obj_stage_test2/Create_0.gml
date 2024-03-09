@@ -17,11 +17,11 @@ pattern_add("test-1", function() {
 
 	command_set([
 		30,
-		5,
+		3,
 		function(){
-			bullet_preset_ring(x, y, array_length(b_colors), 32, wave(-360 * 4, 360 * 4, 48, time_phase / 60), function(_x, _y, _dir, i) {
-				with bullet_shoot_dir2(_x, _y, 6, 0.2, 2.5, _dir) {
-					glow = other.b_colors[i]
+			bullet_preset_ring(x, y, array_length(b_colors) * 2, 32, wave(-360 * 4, 360 * 4, 48, time_phase / 60), function(_x, _y, _dir, i) {
+				with bullet_shoot_dir2(_x, _y, 6, 0.2, 2.5, irandom_range(20, 340) - 90) {
+					glow = other.b_colors[i % array_length(other.b_colors)]
 					sprite_index = other.b_sprites[other.b_current++ % array_length(other.b_sprites)]
 				}
 			})
