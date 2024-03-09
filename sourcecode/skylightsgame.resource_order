@@ -1,12 +1,12 @@
 {
-  "FolderOrderSettings": [
+  "FolderOrderSettings":[
     {"name":"bosses","order":1,"path":"folders/Graphics/gameplay/bosses.yy",},
     {"name":"particles","order":14,"path":"folders/Graphics/particles.yy",},
     {"name":"blend","order":16,"path":"folders/Graphics/Shaders/blend.yy",},
     {"name":"other","order":5,"path":"folders/Objects/bullet/other.yy",},
     {"name":"parent","order":4,"path":"folders/Objects/bullet/parent.yy",},
   ],
-  "ResourceOrderSettings": [
+  "ResourceOrderSettings":[
     {"name":"shd_blend_normal","order":3,"path":"shaders/shd_blend_normal/shd_blend_normal.yy",},
     {"name":"spr_maxsucks","order":11,"path":"sprites/spr_maxsucks/spr_maxsucks.yy",},
     {"name":"obj_collectable","order":9,"path":"objects/obj_collectable/obj_collectable.yy",},

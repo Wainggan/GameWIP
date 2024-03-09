@@ -1,10 +1,12 @@
 {
-  "resourceType": "GMShader",
-  "resourceVersion": "1.0",
-  "name": "shd_blend_invert",
-  "parent": {
-    "name": "blend",
-    "path": "folders/Graphics/Shaders/blend.yy",
+  "$GMShader":"",
+  "%Name":"shd_blend_invert",
+  "name":"shd_blend_invert",
+  "parent":{
+    "name":"blend",
+    "path":"folders/Graphics/Shaders/blend.yy",
   },
-  "type": 1,
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
 }

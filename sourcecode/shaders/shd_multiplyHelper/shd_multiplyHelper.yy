@@ -1,10 +1,12 @@
 {
-  "resourceType": "GMShader",
-  "resourceVersion": "1.0",
-  "name": "shd_multiplyHelper",
-  "parent": {
-    "name": "Shaders",
-    "path": "folders/Graphics/Shaders.yy",
+  "$GMShader":"",
+  "%Name":"shd_multiplyHelper",
+  "name":"shd_multiplyHelper",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/Graphics/Shaders.yy",
   },
-  "type": 1,
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
 }
