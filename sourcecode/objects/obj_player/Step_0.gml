@@ -18,6 +18,8 @@ else
 
 state.run()
 
+mask_index = spr_player_hitbox
+
 var _collectables = ds_list_create();
 instance_place_list(x, y, obj_collectable, _collectables, false);
 

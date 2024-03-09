@@ -542,7 +542,6 @@ step : function(){
 				}
 			}
 			if _grazeTotal {
-				if !debug_invincible
 				repeat 1 + hook_focus_active * 1 {
 					var _x = random_range(-2, 2);
 					var _y = random_range(-3, 2);
