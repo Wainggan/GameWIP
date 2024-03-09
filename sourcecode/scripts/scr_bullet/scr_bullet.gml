@@ -1,35 +1,12 @@
-enum CB {
-	Upper = 240,
-	MidUp = 210,
-	Mid = 90,
-	Low = 10
-}
 
-#macro cb_red make_color_rgb(CB.Upper, CB.Low, CB.Mid)
-#macro cb_rust make_color_rgb(CB.Upper, CB.Mid, CB.Low)
-
-#macro cb_blue make_color_rgb(CB.Low, CB.Mid, CB.Upper)
-#macro cb_indigo make_color_rgb(CB.Mid, CB.Low, CB.Upper)
-
-#macro cb_green make_color_rgb(CB.Low, CB.Upper, CB.Mid)
-#macro cb_lime make_color_rgb(CB.Mid, CB.Upper, CB.Low)
-
-#macro cb_yellow make_color_rgb(CB.Upper, CB.MidUp, CB.Mid)
-#macro cb_pink make_color_rgb(CB.MidUp, CB.Mid, CB.Upper)
-#macro cb_teal make_color_rgb(CB.Mid, CB.Upper, CB.MidUp)
-
-#macro cb_black make_color_rgb(CB.Low, CB.Low, CB.Low)
-#macro cb_grey make_color_rgb(CB.Mid, CB.Mid, CB.Mid)
-#macro cb_white make_color_rgb(CB.Upper, CB.Upper, CB.Upper)
 
 global.bullet_currentGroup = undefined;
 
 function bullet_shoot(_x, _y, _delay = 8) {
 	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
-	with _inst {
-		self.fade = _delay;
-		self.fadeTime = _delay;
-	}
+	
+	bullet_set_fade(_inst, _delay);
+	
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
@@ -37,13 +14,10 @@ function bullet_shoot(_x, _y, _delay = 8) {
 
 function bullet_shoot_dir(_x, _y, _speed, _angle, _delay = 8) {
 	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
-	with _inst {
-		self.spd = _speed;
-		self.dir = _angle;
-		
-		self.fade = _delay;
-		self.fadeTime = _delay;
-	}
+
+	bullet_set_spd(_inst, _speed, _angle)
+	bullet_set_fade(_inst, _delay);
+	
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
@@ -51,32 +25,23 @@ function bullet_shoot_dir(_x, _y, _speed, _angle, _delay = 8) {
 
 function bullet_shoot_dir2(_x, _y, _speed, _accel, _targetSpd, _angle, _delay = 8) {
 	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
-	with _inst {
-		self.spd = _speed;
-		self.spd_accel = _accel;
-		self.spd_target = _targetSpd;
-		self.dir = _angle;
-		
-		self.fade = _delay;
-		self.fadeTime = _delay;
-	}
+
+	bullet_set_spd(_inst, _speed, _angle)
+	bullet_set_spd_target(_inst, _accel, _targetSpd)
+	bullet_set_fade(_inst, _delay);
+	
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
 }
 function bullet_shoot_dir3(_x, _y, _speed, _accel, _targetSpd, _accel2, _targetSpd2, _angle, _delay = 8) {
 	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
-	with _inst {
-		self.spd = _speed;
-		self.spd_accel = _accel;
-		self.spd_target = _targetSpd;
-		self.spd_accel2 = _accel2;
-		self.spd_target2 = _targetSpd2;
-		self.dir = _angle;
-		
-		self.fade = _delay;
-		self.fadeTime = _delay;
-	}
+
+	bullet_set_spd(_inst, _speed, _angle)
+	bullet_set_spd_target(_inst, _accel, _targetSpd)
+	bullet_set_spd_target2(_inst, _accel2, _targetSpd2)
+	bullet_set_fade(_inst, _delay);
+	
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
@@ -84,30 +49,22 @@ function bullet_shoot_dir3(_x, _y, _speed, _accel, _targetSpd, _accel2, _targetS
 
 function bullet_shoot_vel(_x, _y, _xvel, _yvel, _delay = 8) {
 	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
-	with _inst {
-		self.x_vel = _xvel;
-		self.y_vel = _yvel;
-		
-		self.fade = _delay;
-		self.fadeTime = _delay;
-	}
+
+	bullet_set_vel(_inst, _xvel, _yvel)
+	bullet_set_fade(_inst, _delay);
+	
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
 }
 function bullet_shoot_vel2(_x, _y, _xvel, _yvel, _xaccel, _yaccel, _xtarget, _ytarget, _delay = 8) {
 	var _inst = instance_create_layer(_x, _y, "Instances", obj_bullet);
-	with _inst {
-		self.x_vel = _xvel;
-		self.y_vel = _yvel;
-		self.x_accel = _xaccel;
-		self.y_accel = _yaccel;
-		self.x_target = _xtarget;
-		self.y_target = _ytarget;
-		
-		self.fade = _delay;
-		self.fadeTime = _delay;
-	}
+
+	bullet_set_vel(_inst, _xvel, _yvel)
+	bullet_set_vel_target_x(_inst, _xaccel, _xtarget)
+	bullet_set_vel_target_x(_inst, _yaccel, _ytarget)
+	bullet_set_fade(_inst, _delay);
+	
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
@@ -124,6 +81,7 @@ function bullet_laser(_x, _y, _dir, _life = undefined, _chargeUp = 16) {
 		fadeTime = _chargeUp + startTime;
 		life = _life != undefined ? _life + (fadeTime + endTime) : _life;
 	}
+	bullet_promote(_inst, 2)
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;
@@ -137,6 +95,7 @@ function bullet_laser2(_x, _y, _dir, _dirAccel, _dirTarget, _life = undefined) {
 		
 		life = _life;
 	}
+	bullet_promote(_inst, 2)
 	if global.bullet_currentGroup != undefined
 		global.bullet_currentGroup.add(_inst);
 	return _inst;

@@ -97,18 +97,18 @@ enemies = {
 					b_dir = _dir;
 					b_off = global.time;
 					
-					step = function(){
+					bullet_set_step(, function(){
 						dir = b_dir + wave(-110, 110, 1, 0.25, (global.time - b_off)/60)
-					}
+					})
 				}
 				with bullet_shoot_dir2(x, y, 5, 0.1, 4, _dir) {
 					sprite_index = spr_bullet_point
 					b_dir = _dir;
 					b_off = global.time;
 					
-					step = function(){
+					bullet_set_step(, function(){
 						dir = b_dir + wave(-110, 110, 1, 0.75, (global.time - b_off)/60)
-					}
+					})
 				}
 				commandIndex--
 			}
@@ -357,8 +357,7 @@ enemies = {
 			function(){
 				with bullet_shoot_dir(x, y, 1, random_range(180, 360)) {
 					y_vel = -2
-					y_accel = 0.02;
-					y_target = 3;
+					bullet_set_vel_target_y(, 0.02, 3)
 					
 					glow = choose(cb_teal, cb_pink);
 					sprite_index = spr_bullet_point

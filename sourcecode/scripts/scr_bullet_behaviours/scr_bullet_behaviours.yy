@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_bulletSet",
+  "name": "scr_bullet_behaviours",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "group1",
-    "path": "folders/Scripts/group1.yy",
+    "name": "bullet",
+    "path": "folders/Objects/bullet.yy",
   },
 }

@@ -194,14 +194,14 @@ pattern_add("stage1-miniboss-3", function() {
 			sound.play(snd_bulletshoot_2)
 			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + wave(-8, 8, 12, , time_phase / 60), function(_x, _y, _dir, _i){
 				with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
-					y_target = 5;
-					y_accel = 0.1;
+					bullet_set_vel_target_y(, 0.1, 5)
 								
 					glow = cb_green;
 					sprite_index = spr_bullet_large;
 					
 					offset = _i
 					
+					bullet_set_command()
 					command_timer(60, function(){
 						sound.play(snd_bulletshoot)
 						bullet_preset_ring(x, y, 9, 4, 90, function(_x, _y, _dir){
@@ -361,8 +361,7 @@ pattern_add("stage1-boss-3", function(){ // Speed
 			bullet_preset_ring(x, y, b_amount, 0, b_dir, function(_x, _y, _dir){
 				with bullet_shoot_dir2(x, y, 10, 0.5, b_speed, _dir, 4) {
 					glow = cb_yellow;
-					dir_target = dir + 90 * other.b_turn / 5;
-					dir_accel = 3;
+					bullet_set_dir_target(, 3, dir + 90 * other.b_turn / 5)
 					sprite_index = spr_bullet_arrow
 				}
 			})
@@ -425,9 +424,9 @@ pattern_add("stage1-boss-5", function(){
 					with bullet_shoot(_x, _y) {
 						deathBorder = other.b_density * 14;
 						glow = cb_blue
-						step = function(){
+						bullet_set_step(, function(){
 							if y > HEIGHT + 64 instance_destroy()
-						}
+						})
 					}
 				})
 			})

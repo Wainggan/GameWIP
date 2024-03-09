@@ -4,6 +4,6 @@ if pop != 0 {
 }
 glowTarget = merge_color(glowTarget, glow, 1 - power(0.01, global.delta_milli * 4))
 
-event_inherited();
+behaviour()
 
 if schedule(2) && random(1) < 0.1 particle_burst(x, y, ps_bulletTrail)

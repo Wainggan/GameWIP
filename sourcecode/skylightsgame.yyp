@@ -57,7 +57,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.8.0.98",
+    "IDEVersion": "2023.11.0.121",
   },
   "resources": [
     {"id":{"name":"shd_blend_normal","path":"shaders/shd_blend_normal/shd_blend_normal.yy",},},
@@ -160,7 +160,7 @@
     {"id":{"name":"spr_player_tail","path":"sprites/spr_player_tail/spr_player_tail.yy",},},
     {"id":{"name":"spr_enemy_crystal_old","path":"sprites/spr_enemy_crystal_old/spr_enemy_crystal_old.yy",},},
     {"id":{"name":"spr_shockwaves","path":"sprites/spr_shockwaves/spr_shockwaves.yy",},},
-    {"id":{"name":"scr_bulletSet","path":"scripts/scr_bulletSet/scr_bulletSet.yy",},},
+    {"id":{"name":"scr_bullet_setters","path":"scripts/scr_bullet_setters/scr_bullet_setters.yy",},},
     {"id":{"name":"shd_color","path":"shaders/shd_color/shd_color.yy",},},
     {"id":{"name":"scr_textbox","path":"scripts/scr_textbox/scr_textbox.yy",},},
     {"id":{"name":"spr_portraitTest","path":"sprites/spr_portraitTest/spr_portraitTest.yy",},},
@@ -232,6 +232,7 @@
     {"id":{"name":"shd_outline","path":"shaders/shd_outline/shd_outline.yy",},},
     {"id":{"name":"shd_blend_step","path":"shaders/shd_blend_step/shd_blend_step.yy",},},
     {"id":{"name":"spr_player_shadow","path":"sprites/spr_player_shadow/spr_player_shadow.yy",},},
+    {"id":{"name":"scr_bullet_behaviours","path":"scripts/scr_bullet_behaviours/scr_bullet_behaviours.yy",},},
     {"id":{"name":"spr_collectable_pointMax","path":"sprites/spr_collectable_pointMax/spr_collectable_pointMax.yy",},},
     {"id":{"name":"ac_tween","path":"animcurves/ac_tween/ac_tween.yy",},},
     {"id":{"name":"scr_bullet","path":"scripts/scr_bullet/scr_bullet.yy",},},
@@ -270,6 +271,7 @@
     {"id":{"name":"spr_collectable_point","path":"sprites/spr_collectable_point/spr_collectable_point.yy",},},
     {"id":{"name":"render","path":"objects/render/render.yy",},},
     {"id":{"name":"obj_flavorText","path":"objects/obj_flavorText/obj_flavorText.yy",},},
+    {"id":{"name":"scr_bullet_colors","path":"scripts/scr_bullet_colors/scr_bullet_colors.yy",},},
     {"id":{"name":"snd_bulletshoot","path":"sounds/snd_bulletshoot/snd_bulletshoot.yy",},},
     {"id":{"name":"spr_debug","path":"sprites/spr_debug/spr_debug.yy",},},
     {"id":{"name":"shd_blend_template","path":"shaders/shd_blend_template/shd_blend_template.yy",},},
