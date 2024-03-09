@@ -122,6 +122,8 @@ hook_focus_limit = 4;
 hook_focus_active = false;
 hook_focus_contactList = [];
 
+debug_invincible = false
+
 
 #region input
 horzMovementPriority = [];
@@ -540,6 +542,7 @@ step : function(){
 				}
 			}
 			if _grazeTotal
+				if !debug_invincible
 				repeat 1 + hook_focus_active * 1
 				with instance_create_layer(x, y, "Instances", obj_collectable) {
 					sprite_index = spr_collectable_graze;

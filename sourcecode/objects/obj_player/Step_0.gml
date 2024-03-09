@@ -8,7 +8,13 @@ var _lastY = y;
 
 canShoot = instance_number(obj_textbox) == 0 && instance_number(obj_roomTransition) == 0;
 
-mask_index = spr_player_hitbox
+if keyboard_check_pressed(ord("1"))
+	debug_invincible = !debug_invincible
+
+if debug_invincible
+	mask_index = spr_nothing
+else
+	mask_index = spr_player_hitbox
 
 state.run()
 
