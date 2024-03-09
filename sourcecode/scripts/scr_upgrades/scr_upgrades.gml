@@ -4,8 +4,6 @@ function PlayerConfig(_player) constructor {
 	// player defaults, before any upgrades are applied
 	defaults = {
 		
-		player: _player,
-		
 		moveSpeed: 5,
 		moveSpeed_fast: 5, // when not shooting and not shifting
 		moveSpeed_slow: 2, // when shifting
