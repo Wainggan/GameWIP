@@ -541,22 +541,27 @@ step : function(){
 					global.score += 100;
 				}
 			}
-			if _grazeTotal
+			if _grazeTotal {
 				if !debug_invincible
-				repeat 1 + hook_focus_active * 1
-				with instance_create_layer(x, y, "Instances", obj_collectable) {
-					sprite_index = spr_collectable_graze;
-					var _scale = random_range(0.4, 1);
-					image_xscale = _scale;
-					image_yscale = _scale;
-					image_alpha = 0.6;
+				repeat 1 + hook_focus_active * 1 {
+					var _x = random_range(-2, 2);
+					var _y = random_range(-3, 2);
+					var _dir = point_direction(0, 0, _x, _y)
+					with instance_create_layer(x + lengthdir_x(8, _dir), y + lengthdir_y(8, _dir), "Instances", obj_collectable) {
+						sprite_index = spr_collectable_graze;
+						var _scale = random_range(0.4, 1);
+						image_xscale = _scale;
+						image_yscale = _scale;
+						image_alpha = 0.6;
 						
-					scoreGive = _grazeTotal * 10;
-					x_vel = random_range(-2, 2);
-					y_vel = random_range(-3, 2);
-					latchTimer = 30;
-					accel = 0.4;
+						scoreGive = _grazeTotal * 10;
+						x_vel = _x
+						y_vel = _y
+						latchTimer = 30;
+						accel = 0.4;
+					}
 				}
+			}
 		}
 			
 	}
