@@ -598,6 +598,7 @@ addSection(function(){
 	enemy_delay("boss", 0, 0, 60)
 })
 addPause(, true);
+addPause(60 * 2);
 
 addSection(function(){
 	render.look_set_overlay(0.03, c_teal)
