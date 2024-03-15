@@ -532,7 +532,7 @@ addPause(beat_to_frame(8 * 4 - 1))
 addSection(function(){
 	game_background( , 4);
 	
-	enemy_delay("big1", WIDTH / 2, 90, 60);
+	enemy_delay("big1", WIDTH / 2, 100, 60);
 })
 addPause(beat_to_frame(4 * 4))
 
@@ -577,8 +577,8 @@ addSection(function(){
 		enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 4 + (i + 1) * (60 * 4));
 	}
 	
-	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(8 * 4));
-	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(12 * 4));
+	enemy_delay("big1", WIDTH / 2, 70, beat_to_frame(8 * 4));
+	enemy_delay("big1", WIDTH / 2, 70, beat_to_frame(12 * 4));
 })
 addPause(beat_to_frame(16 * 4) - 4);
 
