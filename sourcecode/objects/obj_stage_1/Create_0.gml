@@ -262,6 +262,7 @@ pattern_add("stage1-boss-1", function(){
 	b_density = 24
 	b_speed = 2.5
 	b_reload = 6;
+	b_pause = 0;
 	
 	if b_difficulty >= 1 {
 		b_density = 18
@@ -270,6 +271,7 @@ pattern_add("stage1-boss-1", function(){
 		b_density = 20
 		b_reload = 4;
 		b_speed = 4
+		b_pause = 16
 	}
 	
 	movement_start(clamp(x, WIDTH / 2 - 48, WIDTH / 2 + 48), 90, 1/20)
@@ -285,6 +287,7 @@ pattern_add("stage1-boss-1", function(){
 			})
 			command_repeat(12)
 		},
+		b_pause,
 		nextPattern
 	]);
 	
@@ -340,6 +343,7 @@ pattern_add("stage1-boss-3", function(){ // Speed
 	b_dir = 0;
 	b_turn = 1;
 	b_reload = 12;
+	b_wait = 0
 	
 	if b_difficulty >= 2 {
 		b_reload = 10;
@@ -350,9 +354,11 @@ pattern_add("stage1-boss-3", function(){ // Speed
 		b_reload = 6;
 		b_speed = 5
 		b_amount = 20;
+		b_wait = 10
 	}
 	
 	command_set([
+		b_wait,
 		new CommandBeat(4),
 		function(){
 			var _d = wave(-5, 5, 15);
