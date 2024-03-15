@@ -209,6 +209,7 @@ addEnemy("basic4", function(){
 	setSprite(spr_enemy_flower_blue);
 	
 	b_dir = sign(x - WIDTH / 2);
+	b_angle = offset * 45
 	
 	startX = x
 	
@@ -219,10 +220,9 @@ addEnemy("basic4", function(){
 	command_set([
 		40,
 		function(){
-			bullet_preset_poly(x, y, 6, 3, 48, 90, function(_x, _y, _dir){
+			bullet_preset_poly(x, y, 7, 3, 48, b_angle, function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 3, 0.1, 1.5, _dir + 90) {
-					glow = cb_grey
-					sprite_index = spr_bullet_line
+					bullet_set_look(, spr_bullet_line, cb_grey)
 				}
 			})
 			sound.play(snd_bulletshoot_2)
@@ -402,6 +402,9 @@ addEnemy("miniboss1", function(){
 	]);
 	
 })
+
+
+
 
 
 ignore enemies = {
