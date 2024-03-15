@@ -108,7 +108,7 @@ addEnemy("big1", function(){
 		30, 
 		new CommandBeat(8),
 		function(){
-			b_angle += 360 / 8 / 2 
+			b_angle += 360 / 26 / 2 
 			bullet_preset_ring(x, y, 26, 8, b_angle, function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 6, 0.2, 3, _dir) {
 					sprite_index = spr_bullet_large
@@ -572,9 +572,9 @@ addSection(function(){
 	for (var i = 0; i < 25; i++)
 		enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(80, 128), i * beat_to_frame(2));
 	
-	for (var i = 0; i < 6; i += 2) {
-		enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 4 + i * (60 * 2.5));
-		enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 4 + (i + 1) * (60 * 2.5));
+	for (var i = 0; i < 4; i += 2) {
+		enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 4 + i * (60 * 4));
+		enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 4 + (i + 1) * (60 * 4));
 	}
 	
 	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(8 * 4));
