@@ -1204,7 +1204,13 @@ addPause(beat_to_frame(16 * 4))
 addSection(function(){
 	enemy("miniboss1", 0, 0);
 });
+addPause(, true)
+
+addSection(function(){
+	spawnUpgrade()
+});
 addPause(beat_to_frame(16 * 4))
+
 
 ignore stage = [
 	function(){
