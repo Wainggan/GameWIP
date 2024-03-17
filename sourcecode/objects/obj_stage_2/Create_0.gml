@@ -404,6 +404,61 @@ addEnemy("miniboss1", function(){
 })
 
 
+addEnemy("basic5", function(_amount = 6) {
+	
+	setHp(30)
+	setPoints(1000, 2)
+	
+	setInvincible(true)
+	
+	startY = y
+	
+	y = -50
+	
+	movement_start(x, startY, 1/50)
+	
+	
+	b_angle = offset * 40
+	b_dir = offset % 2 == 0 ? -1 : 1
+	
+	b_amount = _amount
+	
+	b_last = offset
+	
+	command_set([
+		60,
+		new CommandBeat(2),
+		function(){
+			setInvincible(false)
+			
+			b_last++
+			
+			bullet_preset_ring(x, y, b_amount, 24, b_angle, function(_x, _y, _dir){
+				with bullet_shoot_dir2(_x, _y, 0, 0.04, 4, _dir) {
+					if other.b_last % 5 != 0
+						bullet_set_look(, spr_bullet_arrow, cb_pink)
+					else
+						bullet_set_look(, spr_bullet_inverted, cb_teal)
+					bullet_set_dir_target(, 1, _dir + 90 * -other.b_dir)
+				}
+			})
+			
+			sound.play(snd_bulletshoot)
+			
+			b_angle += (360 + 45 * b_amount) / b_amount / 8 * b_dir
+			
+			command_repeat(30)
+			
+		},
+		60,
+		function(){
+			movement_start(choose(-50, WIDTH + 50), -40, 1/300,,function(){instance_destroy();});
+		}
+	])
+	
+	
+	
+})
 
 
 
@@ -1206,11 +1261,33 @@ addSection(function(){
 });
 addPause(, true)
 
+addPause(beat_to_frame(2 * 4))
 addSection(function(){
 	spawnUpgrade()
 });
-addPause(beat_to_frame(16 * 4))
+addPause(beat_to_frame(2 * 4))
 
+
+addSection(function(){
+	enemy("basic5", WIDTH / 2, 120)
+})
+addPause(beat_to_frame(2 * 4))
+
+addSection(function(){
+	for (var i = 0; i < 14; i++) {
+		enemy_delay("basic5", WIDTH / 2 + (i % 2 == 0 ? -1 : 1) * i * (160 / 14), irandom_range(100, 140), i * beat_to_frame(4), [2 + floor(i / 2)])
+	}
+})
+addPause(beat_to_frame(16 * 4 - 2 * 4))
+
+addPause(beat_to_frame(2 * 4))
+
+addSection(function(){
+	enemy("big1", WIDTH / 2, 100);
+})
+addPause(beat_to_frame(8 * 4 - 2 * 4))
+
+addPause(beat_to_frame(12 * 4), true)
 
 ignore stage = [
 	function(){
