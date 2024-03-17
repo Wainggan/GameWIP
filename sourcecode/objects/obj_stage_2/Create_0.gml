@@ -56,7 +56,7 @@ addEnemy("basic1", function(){
 	]);
 	command_add([
 		80,
-		6,
+		new CommandBeat(2),
 		function(){
 			bullet_preset_plate(x, y, 2, 24, 48, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 4, 2, 14, _dir).glow = cb_green;
@@ -146,7 +146,7 @@ addEnemy("big1", function() {
 	
 	command_add([
 		120 + 60,
-		26,
+		new CommandBeat(8),
 		function(){
 			with bullet_shoot_dir2(x, y, 1, 0.1, 4.5, point_direction(x, y, obj_player.x, obj_player.y)) {
 				glow = cb_teal;
@@ -318,7 +318,7 @@ pattern_add("stage2-miniboss1-3", function(){
 	
 	movement_start(WIDTH / 2, HEIGHT / 4, 1 / 20);
 	command_set([
-		9, 
+		new CommandBeat(3), 
 		function(){
 			bullet_shoot_dir2(irandom_range(16, WIDTH-16), -32, 12, 0.2, 3, 270, 1).sprite_index = spr_bullet_star;
 			sound.play(snd_bulletshoot)
@@ -360,7 +360,7 @@ pattern_add("stage2-miniboss1-3", function(){
 	b_golden1 = 0;
 	b_golden2 = 0;
 	command_add([
-		2,
+		new CommandBeat(1),
 		function(){
 			var _fml = bullet_preset_golden(b_count % 2 == 0 ? -32 : WIDTH+32, wave(32, HEIGHT/2, 4,, phaseTimer/60), 9, 3, b_count % 2 == 0 ? b_golden1 : b_golden2, function(_x, _y, _dir){
 				with bullet_shoot_dir(_x, _y, 2, _dir) {
