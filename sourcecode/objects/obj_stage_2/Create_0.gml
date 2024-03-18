@@ -243,14 +243,19 @@ pattern_add("stage2-miniboss1-1", function(){
 	
 	b_golden = 0;
 	
-	movement_start(WIDTH/2, 50, 1/20)
+	if b_meta_kind
+		movement_start(WIDTH/2 + irandom_range(-60, 60), 50, 1/20)
+	else
+		movement_start(WIDTH/2, 50, 1/20)
+	
 	command_set([
 		18,
 		1,
 		function(){
-			b_golden = bullet_preset_golden(x, y, 48, 4, b_golden, function(_x, _y, _dir){
+			if b_meta_kind b_golden += 2
+			b_golden = bullet_preset_golden(x, y, 48, b_meta_kind ? 5 : 4, b_golden, function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1)) {
-					glow = cb_red;
+					bullet_set_look(, spr_bullet_normal, cb_red);
 				}
 			})
 			sound.play(snd_bulletshoot)
@@ -265,9 +270,10 @@ pattern_add("stage2-miniboss1-1", function(){
 		60,
 		1,
 		function(){
-			with bullet_shoot_dir2(x + (b_count++ % 2 == 0 ? -232 : 232) + irandom_range(-128, 128), HEIGHT + 32, 0, 0.2, 9, 90, 1) {
-				glow = cb_green;
-				sprite_index = spr_bullet_large;
+			var _dist = b_meta_kind ? 200 : 232
+			var _spd = b_meta_kind ? 10 : 9
+			with bullet_shoot_dir2(x + (b_count++ % 2 == 0 ? -_dist : _dist) + irandom_range(-128, 128), HEIGHT + 32, 0, 0.2, _spd, 90, 1) {
+				bullet_set_look(, spr_bullet_large, cb_green);
 			}
 			sound.play(snd_bulletshoot_3)
 			commandIndex--;
@@ -391,7 +397,7 @@ addEnemy("miniboss1", function(){
 	
 	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
 	
-	b_meta_kind = 0
+	b_meta_kind = false
 	
 	setPatterns([
 		new Pattern("stage2-miniboss1-1"),
@@ -416,7 +422,7 @@ addEnemy("miniboss2", function(){
 	
 	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
 	
-	b_meta_kind = 1
+	b_meta_kind = true
 	
 	setPatterns([
 		new Pattern("stage2-miniboss1-1"),
@@ -1286,7 +1292,7 @@ addSection(function(){
 addPause(beat_to_frame(16 * 4))
 
 addSection(function(){
-	enemy("miniboss1", 0, 0);
+	enemy("miniboss2", 0, 0);
 });
 addPause(, true)
 
