@@ -409,6 +409,7 @@ addEnemy("basic5", function(_amount = 6) {
 	setHp(30)
 	setPoints(1000, 2)
 	
+	setSprite(spr_enemy_crystal)
 	setInvincible(true)
 	
 	startY = y
@@ -1288,24 +1289,34 @@ addSection(function(){
 addPause(beat_to_frame(8 * 4 - 2 * 4))
 
 addSection(function(){
-	for (var i = 0; i < 32; i++) {
+	for (var i = 0; i < 16; i++) {
 		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
 	}
+	for (var i = 0; i < 4; i++) {
+		enemy_delay("basic2", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(2 * 4) + i * beat_to_frame(4))
+	}
+})
+addPause(beat_to_frame(8 * 4))
+
+addSection(function(){
+	for (var i = 0; i < 20; i++) {
+		enemy_delay("basic1", (i % 2 == 0 ? 140 : WIDTH - 140) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
+	}
+	for (var i = 0; i < 10; i++) {
+		enemy_delay("basic5", WIDTH / 2 + irandom_range(-48, 48), irandom_range(100, 120) + i * 10, i * beat_to_frame(6), [2 + floor(i / 3)])
+	}
 	for (var i = 0; i < 8; i++) {
-		enemy_delay("basic2", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(8 * 4) + i * beat_to_frame(4))
+		enemy_delay("basic4", 96 + irandom_range(-32, 32), 128 + irandom_range(-64, 96), beat_to_frame(4) + beat_to_frame(2) * i);
+		enemy_delay("basic4", WIDTH - 96 + irandom_range(-32, 32), 128 + irandom_range(-64, 96), beat_to_frame(4) + beat_to_frame(2) * i);
 	}
 })
 addPause(beat_to_frame(16 * 4))
 
+addPause(beat_to_frame(2))
 addSection(function(){
-	for (var i = 0; i < 24; i++) {
-		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
-	}
-	for (var i = 0; i < 12; i++) {
-		enemy_delay("basic5", WIDTH / 2 + irandom_range(-48, 48), irandom_range(100, 120) + i * 10, i * beat_to_frame(6), [2 + floor(i / 3)])
-	}
-})
-addPause(beat_to_frame(16 * 4))
+	enemy("miniboss1", 0, 0);
+});
+addPause(, true)
 
 addPause(, true)
 
