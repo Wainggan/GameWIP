@@ -1235,7 +1235,7 @@ addSection(function(){
 addPause(beat_to_frame(4))
 
 addSection(function(){
-	for (var i = 0; i < 34; i++) {
+	for (var i = 0; i < 38; i++) {
 		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
 	}
 	for (var i = 0; i < 14; i++) {
@@ -1287,7 +1287,28 @@ addSection(function(){
 })
 addPause(beat_to_frame(8 * 4 - 2 * 4))
 
-addPause(beat_to_frame(12 * 4), true)
+addSection(function(){
+	for (var i = 0; i < 32; i++) {
+		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
+	}
+	for (var i = 0; i < 8; i++) {
+		enemy_delay("basic2", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(8 * 4) + i * beat_to_frame(4))
+	}
+})
+addPause(beat_to_frame(16 * 4))
+
+addSection(function(){
+	for (var i = 0; i < 24; i++) {
+		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
+	}
+	for (var i = 0; i < 12; i++) {
+		enemy_delay("basic5", WIDTH / 2 + irandom_range(-48, 48), irandom_range(100, 120) + i * 10, i * beat_to_frame(6), [2 + floor(i / 3)])
+	}
+})
+addPause(beat_to_frame(16 * 4))
+
+addPause(, true)
+
 
 ignore stage = [
 	function(){
