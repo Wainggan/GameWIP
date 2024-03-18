@@ -243,7 +243,7 @@ pattern_add("stage2-miniboss1-1", function(){
 	
 	b_golden = 0;
 	
-	if b_meta_kind
+	if b_meta
 		movement_start(WIDTH/2 + irandom_range(-60, 60), 50, 1/20)
 	else
 		movement_start(WIDTH/2, 50, 1/20)
@@ -252,8 +252,8 @@ pattern_add("stage2-miniboss1-1", function(){
 		18,
 		1,
 		function(){
-			if b_meta_kind b_golden += 2
-			b_golden = bullet_preset_golden(x, y, 48, b_meta_kind ? 5 : 4, b_golden, function(_x, _y, _dir){
+			if b_meta b_golden += 2
+			b_golden = bullet_preset_golden(x, y, 48, b_meta ? 5 : 4, b_golden, function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1)) {
 					bullet_set_look(, spr_bullet_normal, cb_red);
 				}
@@ -270,8 +270,8 @@ pattern_add("stage2-miniboss1-1", function(){
 		60,
 		1,
 		function(){
-			var _dist = b_meta_kind ? 200 : 232
-			var _spd = b_meta_kind ? 10 : 9
+			var _dist = b_meta ? 200 : 232
+			var _spd = b_meta ? 10 : 9
 			with bullet_shoot_dir2(x + (b_count++ % 2 == 0 ? -_dist : _dist) + irandom_range(-128, 128), HEIGHT + 32, 0, 0.2, _spd, 90, 1) {
 				bullet_set_look(, spr_bullet_large, cb_green);
 			}
@@ -397,7 +397,7 @@ addEnemy("miniboss1", function(){
 	
 	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
 	
-	b_meta_kind = false
+	b_meta = false
 	
 	setPatterns([
 		new Pattern("stage2-miniboss1-1"),
@@ -422,7 +422,7 @@ addEnemy("miniboss2", function(){
 	
 	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
 	
-	b_meta_kind = true
+	b_meta = true
 	
 	setPatterns([
 		new Pattern("stage2-miniboss1-1"),
