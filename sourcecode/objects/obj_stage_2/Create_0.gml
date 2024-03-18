@@ -159,7 +159,7 @@ addEnemy("big1", function() {
 	
 });
 
-addEnemy("basic3", function(){
+addEnemy("basic3", function(_rate = 2){
 	
 	setHp(70)
 	setPoints(2000, 4)
@@ -168,10 +168,11 @@ addEnemy("basic3", function(){
 	
 	b_angle = irandom_range(0, 360)
 	b_count = 0
+	b_rate = _rate
 	
 	command_set([
 		30,
-		2,
+		b_rate,
 		function(){
 			
 			bullet_preset_ring(x, y, 5, 16, b_angle, function(_x, _y, _dir, _i){
@@ -410,8 +411,8 @@ addEnemy("miniboss2", function(){
 	setSprite(spr_car);
 	setInvincible(true);
 	
-	x = WIDTH - 74;
-	y = -60;
+	x = -50;
+	y = -20;
 	
 	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
 	
@@ -1330,7 +1331,7 @@ addSection(function(){
 		enemy_delay("basic1", (i % 2 == 0 ? 140 : WIDTH - 140) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
 	}
 	for (var i = 0; i < 4; i++) {
-		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i);
+		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i, [4]);
 	}
 })
 addPause(beat_to_frame(16 * 4))
