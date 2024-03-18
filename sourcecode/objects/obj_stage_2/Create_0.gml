@@ -390,6 +390,33 @@ addEnemy("miniboss1", function(){
 	
 	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
 	
+	b_meta_kind = 0
+	
+	setPatterns([
+		new Pattern("stage2-miniboss1-1"),
+		new Pattern("stage2-miniboss1-2"),
+		new Pattern("stage2-miniboss1-3"),
+	]);
+		
+	setPhases([
+		new AttackPhase(beat_to_time(8 * 4), [0, 1]),
+		new AttackPhase(beat_to_time(8 * 4), [2, 1]),
+	]);
+	
+})
+addEnemy("miniboss2", function(){
+	setBoss();
+	
+	setSprite(spr_car);
+	setInvincible(true);
+	
+	x = WIDTH - 74;
+	y = -60;
+	
+	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
+	
+	b_meta_kind = 1
+	
 	setPatterns([
 		new Pattern("stage2-miniboss1-1"),
 		new Pattern("stage2-miniboss1-2"),
@@ -1293,7 +1320,7 @@ addSection(function(){
 		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
 	}
 	for (var i = 0; i < 4; i++) {
-		enemy_delay("basic2", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(2 * 4) + i * beat_to_frame(4))
+		enemy_delay("basic5", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(2 * 4) + i * beat_to_frame(4))
 	}
 })
 addPause(beat_to_frame(8 * 4))
@@ -1302,12 +1329,8 @@ addSection(function(){
 	for (var i = 0; i < 20; i++) {
 		enemy_delay("basic1", (i % 2 == 0 ? 140 : WIDTH - 140) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
 	}
-	for (var i = 0; i < 10; i++) {
-		enemy_delay("basic5", WIDTH / 2 + irandom_range(-48, 48), irandom_range(100, 120) + i * 10, i * beat_to_frame(6), [2 + floor(i / 3)])
-	}
-	for (var i = 0; i < 8; i++) {
-		enemy_delay("basic4", 96 + irandom_range(-32, 32), 128 + irandom_range(-64, 96), beat_to_frame(4) + beat_to_frame(2) * i);
-		enemy_delay("basic4", WIDTH - 96 + irandom_range(-32, 32), 128 + irandom_range(-64, 96), beat_to_frame(4) + beat_to_frame(2) * i);
+	for (var i = 0; i < 4; i++) {
+		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i);
 	}
 })
 addPause(beat_to_frame(16 * 4))
@@ -1317,6 +1340,12 @@ addSection(function(){
 	enemy("miniboss1", 0, 0);
 });
 addPause(, true)
+
+addPause(beat_to_frame(2 * 4))
+addSection(function(){
+	spawnUpgrade()
+});
+addPause(beat_to_frame(2 * 4))
 
 addPause(, true)
 
