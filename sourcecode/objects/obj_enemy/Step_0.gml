@@ -84,15 +84,21 @@ if hp <= 0 && shakeFix == undefined { // todo: complete rewrite
 				inst.destroyAll = false;
 			}
 		
-			instance_create_depth(x, y, depth+100, obj_effect_hitpop).sprite_index = sprite_index;
-	
-			repeat pointGive {
-				var _spread = min(power(pointGive, 0.5), 3)
+			instance_create_depth(x, y, depth + 100, obj_effect_hitpop).sprite_index = sprite_index;
+			
+			var _spread = min(power(pointGive / 1.25, 0.5), 3)
+			for (var i = 0; i < pointGive; i++) {
+				var _offset;
+				if pointGive == 1 {
+					_offset = 0
+				} else {
+					_offset = (i / (pointGive - 1) * 2 - 1) * _spread;
+				}
 				with instance_create_layer(x, y, "Instances", obj_collectable) {
 					sprite_index = spr_collectable_point;
 					scoreGive = 1000;
-					x_vel = random_range(-_spread, _spread);
-					y_vel = random_range(-3, -1);
+					x_vel = _offset;
+					y_vel = -2;
 				}
 			}
 	
