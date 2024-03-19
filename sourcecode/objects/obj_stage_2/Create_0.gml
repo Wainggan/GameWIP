@@ -287,7 +287,7 @@ pattern_add("stage2-miniboss1-2", function(){
 	
 	b_angle = 0;
 	
-	b_amount = 13;
+	b_amount = 11;
 	b_change = 4
 	if b_meta {
 		b_amount = 12
