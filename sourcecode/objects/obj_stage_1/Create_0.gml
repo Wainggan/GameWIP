@@ -568,25 +568,27 @@ addSection(function(){
 })
 addPause(, true);
 
+addPause(beat_to_frame(2 * 4))
+
 addSection(function(){
 	game_background([5, 6], 2)
 	spawnUpgrade()
 })
-addPause(beat_to_frame(4))
+addPause(beat_to_frame(2 * 4))
 
 addSection(function(){
-	for (var i = 0; i < 25; i++)
+	for (var i = 0; i < 22; i++)
 		enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(80, 128), i * beat_to_frame(2));
 	
 	for (var i = 0; i < 4; i += 2) {
-		enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 4 + i * (60 * 4));
-		enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 4 + (i + 1) * (60 * 4));
+		enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 3 + i * (60 * 4));
+		enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 3 + (i + 1) * (60 * 4));
 	}
 	
 	enemy_delay("big1", WIDTH / 2, 70, beat_to_frame(8 * 4));
 	enemy_delay("big1", WIDTH / 2, 70, beat_to_frame(12 * 4));
 })
-addPause(beat_to_frame(16 * 4) - 4);
+addPause(beat_to_frame(16 * 4 - 3 * 4));
 
 addPause(beat_to_frame(4));
 
