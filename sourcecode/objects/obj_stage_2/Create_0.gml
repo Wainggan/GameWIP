@@ -159,7 +159,7 @@ addEnemy("big1", function() {
 	
 });
 
-addEnemy("basic3", function(_rate = 2){
+addEnemy("basic3", function(_rate = 3){
 	
 	setHp(70)
 	setPoints(2000, 4)
@@ -176,13 +176,13 @@ addEnemy("basic3", function(_rate = 2){
 		function(){
 			
 			bullet_preset_ring(x, y, 5, 16, b_angle, function(_x, _y, _dir, _i){
-				with bullet_shoot_dir3(_x, _y, 4, 0.2, 0, 1, 4, _dir) {
+				with bullet_shoot_dir3(_x, _y, 3.5, 0.2, 0, 1, 4, _dir) {
 					glow = _i == 0 ? cb_white : cb_indigo
 					sprite_index = _i == 0 ? spr_bullet_spark : spr_bullet_square
 				}
 			})
 			sound.play(snd_bulletshoot)
-			b_angle += 360 / 5 / 2 + 3
+			b_angle += 360 / 5 / 2 + 3.6
 			
 			command_repeat(40)
 			
