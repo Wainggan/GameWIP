@@ -310,7 +310,8 @@ pattern_add("stage1-boss-2", function(){
 		b_speed = 3;
 	}
 	if b_difficulty >= 3 {
-		b_amount = 16
+		b_speed = 2;
+		b_amount = 12
 		b_wait = 40
 	}
 	
@@ -351,10 +352,9 @@ pattern_add("stage1-boss-3", function(){ // Speed
 		b_amount = 15;
 	}
 	if b_difficulty >= 3 {
-		b_reload = 6;
-		b_speed = 5
-		b_amount = 20;
-		b_wait = 10
+		b_reload = 7;
+		b_amount = 24;
+		b_wait = 20
 	}
 	
 	command_set([
