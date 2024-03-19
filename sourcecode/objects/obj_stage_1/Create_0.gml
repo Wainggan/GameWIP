@@ -526,6 +526,9 @@ ignore addSection(function(){
 })
 ignore addPause(, true);
 
+
+global.counters.flower_x = new Counter(0)
+
 addPause(beat_to_frame(1));
 
 addSection(function(){
