@@ -305,14 +305,16 @@ function Page_Leaderboard() : Page() constructor {
 		for (var i = 0; i < array_length(_lb); i++) {
 			draw_set_alpha(0.1)
 			draw_set_color(c_black)
-				draw_text_outline(500, 48 + 32 * i*2, string(_lb[i].name))
+				draw_text(500, 48 + 32 * i*2, string(_lb[i].name))
+				//draw_text_outline(500, 48 + 32 * i*2, string(_lb[i].name))
 			draw_set_alpha(1)
 			draw_set_color(c_white)
 				draw_text(500, 48 + 32 * i*2, string(_lb[i].name))
 				
 			draw_set_alpha(0.1)
 			draw_set_color(c_black)
-				draw_text_outline(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
+				draw_text(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
+				//draw_text_outline(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
 				draw_set_alpha(1)
 			draw_set_color(c_white)
 				draw_text(500, 48 + 32 * i*2 + 24, string(_lb[i].score))
@@ -394,7 +396,8 @@ function MenuButton(_text = "", _onClick) : MenuElement(_onClick) constructor {
 	draw = function(_x, _y, _selected) {
 		anim.update(global.delta_milli, _selected);
 		draw_set_color(_selected ? #fc7484 : c_white)
-		draw_text_outline(_x + anim.value * 16, _y, text)
+		draw_text(_x + anim.value * 16, _y, text)
+		//draw_text_outline(_x + anim.value * 16, _y, text)
 	}
 }
 
@@ -421,7 +424,8 @@ function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _sta
 		animActive.update(global.delta_milli, _selected)
 		
 		draw_set_color(_selected ? #fc7484 : c_white);
-		draw_text_outline(_x, _y, text);
+		draw_text(_x, _y, text);
+		//draw_text_outline(_x, _y, text);
 		
 		_x += string_width(text) + padding;
 		
@@ -430,7 +434,8 @@ function MenuSlider(_text = "", _minimum = 0, _maximum = 10, _interval = 1, _sta
 		draw_roundrect_ext(_x, _y - 4, _x + width, _y + 4, 2, 2, true)
 		
 		draw_set_color(_selected ? #fc7484 : c_white);
-		draw_text_outline(_x + width + padding + animActive.value * 16, _y, value)
+		draw_text(_x + width + padding + animActive.value * 16, _y, value)
+		//draw_text_outline(_x + width + padding + animActive.value * 16, _y, value)
 		
 		//draw_line(_x, _y, _x + width, _y);
 		
@@ -462,19 +467,22 @@ function MenuRadio(_text = "", _options = [], _start = 0, _onChange) : MenuEleme
 		static padding = 24;
 		
 		draw_set_color(_selected ? #fc7484 : c_white);
-		draw_text_outline(_x, _y, text);
+		draw_text(_x, _y, text);
+		//draw_text_outline(_x, _y, text);
 		
 		_x += string_width(text) + padding;
 		
 		for (var i = 0; i < array_length(options); i++) {
 			var str = options[i];
 			draw_set_color(_selected ? #fc7484 : c_white);
-			draw_text_outline(_x, _y, str);
+			draw_text(_x, _y, str);
+			//draw_text_outline(_x, _y, str);
 			
 			if (i == value) {
 				anim.update(global.delta_milli, _x - 20 + _selected * 4);
 				draw_set_color(c_white);
-				draw_text_outline(anim.value, _y, ">");
+				draw_text(anim.value, _y, ">");
+				//draw_text_outline(anim.value, _y, ">");
 			}
 			
 			_x += string_width(str) + padding;
