@@ -252,7 +252,7 @@ pattern_add("stage2-miniboss1-1", function(){
 	
 	command_set([
 		18,
-		b_meta ? 3 : 1,
+		b_meta ? 2 : 1,
 		function(){
 			if b_meta b_golden += 2
 			b_golden = bullet_preset_golden(x, y, 48, b_meta ? 8 : 3, b_golden, function(_x, _y, _dir){
@@ -261,7 +261,7 @@ pattern_add("stage2-miniboss1-1", function(){
 				}
 			})
 			sound.play(snd_bulletshoot)
-			command_repeat(100);
+			command_repeat(b_meta ? 80 : 100);
 		},
 		60,
 		nextPattern,
@@ -291,7 +291,7 @@ pattern_add("stage2-miniboss1-2", function(){
 	b_change = 4
 	if b_meta {
 		b_amount = 12
-		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.5, 0.5)
+		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.25, 0.25)
 	}
 	
 	static __b_dir = 0
