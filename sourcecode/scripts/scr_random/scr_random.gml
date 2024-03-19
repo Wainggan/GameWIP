@@ -24,28 +24,6 @@ function Counter(_seed = 1) constructor {
 }
 
 
-var _test = new Counter(0)
-
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
-
-var _test = new Counter(1)
-
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
-
-var _test = new Counter(10)
-
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
-
-var _test = new Counter(0)
-
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
-show_debug_message(_test.rand())
+global.counters = {}
 
 
