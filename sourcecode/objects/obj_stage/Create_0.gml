@@ -40,9 +40,9 @@ spawnUpgrade = function(_t = undefined){
 		t1 = _t;
 		t2 = _t;
 	}
-	with instance_create_layer(WIDTH / 2 - 128, -32, "Instances", obj_collectable_upgrade)
+	with instance_create_layer(WIDTH / 2 - 104, -32, "Instances", obj_collectable_upgrade)
 		type = _a[t1];
-	with instance_create_layer(WIDTH / 2 + 128, -32, "Instances", obj_collectable_upgrade)
+	with instance_create_layer(WIDTH / 2 + 104, -32, "Instances", obj_collectable_upgrade)
 		type = _a[t2];
 }
 
