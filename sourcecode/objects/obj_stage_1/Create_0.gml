@@ -6,6 +6,8 @@ game_music(mus_stage1)
 
 // ~~ ENEMIES ~~
 
+global.counters.offsets = new Counter(0)
+
 addEnemy("basic1", function(){
 	setHp(5)
 	setPoints(100, 2);
@@ -16,7 +18,7 @@ addEnemy("basic1", function(){
 	startX = x;
 	startY = y;
 		
-	x += irandom_range(-32, 32);
+	x += global.counters.offsets.rand_irange(-32, 32);
 	y = -64;
 	
 	setInvincible(true)
@@ -49,7 +51,8 @@ addEnemy("basic1", function(){
 	]);
 })
 
-addEnemy("basic2", function() {
+
+addEnemy("basic2", function(_seed = 0) {
 	setHp(12)
 	setPoints(200, 2);
 	
@@ -65,13 +68,15 @@ addEnemy("basic2", function() {
 			instance_destroy()
 		}
 	}
+	
+	b_rand = new Counter(_seed)
 		
 	command_set([
 		30,
 		new CommandBeat(12),
 		function(){
-			bullet_preset_ring(x, y, 24, 8, wave(-360, 360, 18, offset * 4.2, time_total / 60), function(_x, _y, _dir){
-				with bullet_shoot_dir2(_x, _y, 2, 0.2, 3, _dir) {
+			bullet_preset_ring(x, y, 24, 8, 270, function(_x, _y, _dir){
+				with bullet_shoot_dir2(_x + b_rand.rand_irange(-5, 5), _y, 2, 0.2, 3, _dir) {
 					sprite_index = spr_bullet_point
 					glow = cb_grey;
 				}
@@ -102,14 +107,14 @@ addEnemy("big1", function(){
 		movement_start(lerp(x, WIDTH / 2, -1), -64, 1/360, , function(){ instance_destroy() })
 	})
 	
-	b_angle = offset * 32
+	b_angle = 270
 
 	command_set([
 		30, 
 		new CommandBeat(8),
 		function(){
 			b_angle += 360 / 26 / 2 
-			bullet_preset_ring(x, y, 26, 8, b_angle, function(_x, _y, _dir){
+			bullet_preset_ring(x, y, 24, 8, b_angle, function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 6, 0.2, 3, _dir) {
 					sprite_index = spr_bullet_large
 					glow = cb_blue;
@@ -122,13 +127,16 @@ addEnemy("big1", function(){
 })
 
 
+global.counters.miniboss_movement = new Counter()
 pattern_add("stage1-miniboss-1", function() {
 	
 	setInvincible(false)
 	
 	b_density = 56;
 	b_range = 64;
-				
+	
+	b_move = global.counters.miniboss_movement.next()
+	
 	command_set([
 		new CommandBeat(8),
 		function(){
@@ -141,14 +149,15 @@ pattern_add("stage1-miniboss-1", function() {
 		40,
 		nextPattern
 	]);
-				
+	
 	command_add([
 		50, 
 		function(){
 			movement_start(
-				approach(x, clamp(obj_player.x + wave(-b_range, b_range, 12, , time_phase / 60), 96, WIDTH - 96), 48), 
-				wave(60, 80, 4, , time_phase / 60), 1/50
+				approach(x, clamp(obj_player.x + (b_move % 2 == 0 ? -1 : 1) * b_range, 96, WIDTH - 96), 48), 
+				70 + sin(b_move) * 10, 1/50
 			);
+			b_move++
 			command_repeat(3)
 		}
 	]);
@@ -157,19 +166,18 @@ pattern_add("stage1-miniboss-1", function() {
 
 pattern_add("stage1-miniboss-2", function() {
 	
-	b_dir = wave(-360, -360, 4, , time_phase / 60)
+	b_dir = 270 //wave(-360, -360, 4, , time_phase / 60)
 	b_dirV = wave(-1, 1, 2, , time_phase / 60) * 5
 	
 	movement_start(
-		clamp(obj_player.x + wave(-96, 96, 12, , time_phase / 60), 96, WIDTH - 96), 
-		wave(60, 70, 4, , time_phase / 60), 1/20
+		clamp(WIDTH / 2 - (obj_player.x - WIDTH / 2), 96, WIDTH - 96), 80, 1/20
 	);
 	
 	command_set([
 		20,
 		new CommandBeat(1),
 		function(){
-			b_dir += 5 * b_dirV
+			b_dir += 4.5 * sign(b_dirV) + 0.2 * b_dirV
 			
 			bullet_preset_ring(x, y, 20, 8, b_dir, function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 9, 0.4, 2, _dir).glow = c_grey
@@ -187,17 +195,20 @@ pattern_add("stage1-miniboss-2", function() {
 pattern_add("stage1-miniboss-3", function() {
 				
 	b_density = 7;
+	
+	b_move = global.counters.miniboss_movement.next()
+	b_dir = b_move % 2 == 0 ? -1 : 1
 				
 	command_set([
 		new CommandBeat(8),
 		function(){
 			sound.play(snd_bulletshoot_2)
-			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + wave(-8, 8, 12, , time_phase / 60), function(_x, _y, _dir, _i){
+			b_dir *= -1
+			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + b_dir * 10, function(_x, _y, _dir, _i){
 				with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
 					bullet_set_vel_target_y(, 0.1, 5)
-								
-					glow = cb_green;
-					sprite_index = spr_bullet_large;
+					
+					bullet_set_look(, spr_bullet_large, glow)
 					
 					offset = _i
 					
@@ -206,8 +217,7 @@ pattern_add("stage1-miniboss-3", function() {
 						sound.play(snd_bulletshoot)
 						bullet_preset_ring(x, y, 9, 4, 90, function(_x, _y, _dir){
 							with bullet_shoot_dir2(_x, _y, 3, 0.1, 1, _dir) {
-								glow = cb_pink;
-								sprite_index = spr_bullet_arrow;
+								bullet_set_look(, spr_bullet_arrow, cb_pink);
 							}
 						})
 						instance_destroy()
@@ -221,12 +231,13 @@ pattern_add("stage1-miniboss-3", function() {
 	])
 	
 	command_add([
+		30,
 		new CommandBeat(8),
-		40,
 		function(){
+			b_move++
 			movement_start(
-				approach(x, clamp(obj_player.x + wave(-32, 32, 12, , time_phase / 60), 96, WIDTH - 96), 48), 
-				wave(50, 100, 4, , time_phase / 60), 1/20
+				approach(x, clamp(obj_player.x + (b_move % 2 == 0 ? -1 : 1) * 48, 96, WIDTH - 96), 48), 
+				75 + sin(b_move) * 25, 1/20
 			);
 			commandIndex--
 		}
@@ -528,13 +539,19 @@ ignore addPause(, true);
 
 
 global.counters.flower_x = new Counter(0)
+global.counters.y = new Counter(1)
 
 addPause(beat_to_frame(1));
 
 addSection(function(){
 	game_background( , 1);
 	for (var i = 0; i < 16; i++)
-		enemy_delay("basic1", WIDTH / 2 + irandom_range(-196, 196), irandom_range(32, 96), i * beat_to_frame(2));
+		enemy_delay(
+			"basic1", 
+			WIDTH / 2 + wave(-196, 196, 7,, i), 
+			global.counters.y.rand_irange(32, 96), 
+			i * beat_to_frame(2)
+		);
 });
 addPause(beat_to_frame(8 * 4 - 1))
 
@@ -547,10 +564,15 @@ addPause(beat_to_frame(4 * 4))
 
 addSection(function(){
 	for (var i = 0; i < 24; i++)
-		enemy_delay("basic1", WIDTH / 2 + irandom_range(-128, 128), irandom_range(80, 128), i * beat_to_frame(2));
+		enemy_delay(
+			"basic1", 
+			WIDTH / 2 + global.counters.flower_x.rand_irange(-128, 128), 
+			global.counters.y.rand_irange(80, 128),
+			i * beat_to_frame(2)
+		);
 	
 	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(2 * 4));
-	enemy_delay("big1", WIDTH / 2, 90, beat_to_frame(6 * 4));
+	enemy_delay("big1", WIDTH / 2 - 100, 90, beat_to_frame(6 * 4));
 })
 addPause(beat_to_frame(12 * 4));
 
@@ -558,8 +580,8 @@ addSection(function(){
 	game_background([1, 2] , 1);
 	
 	for (var i = 0; i < 8; i += 2) {
-		enemy_delay("basic2", WIDTH / 2 + -190, -32, i * (60 * 1));
-		enemy_delay("basic2", WIDTH / 2 +  190, -32, (i + 1) * (60 * 1));
+		enemy_delay("basic2", WIDTH / 2 + -190, -32, i * (60 * 1), [i]);
+		enemy_delay("basic2", WIDTH / 2 +  190, -32, (i + 1) * (60 * 1), [i + 1]);
 	}
 })
 addPause(beat_to_frame(8 * 4));
@@ -580,16 +602,35 @@ addSection(function(){
 addPause(beat_to_frame(2 * 4))
 
 addSection(function(){
-	for (var i = 0; i < 22; i++)
-		enemy_delay("basic1", WIDTH / 2 + irandom_range(-96, 96), irandom_range(80, 128), i * beat_to_frame(2));
+	for (var i = 0; i < 8; i++)
+		enemy_delay(
+			"basic1", 
+			WIDTH / 2 + global.counters.flower_x.rand_irange(-128, 128), 
+			global.counters.y.rand_irange(80, 128), 
+			i * beat_to_frame(2)
+		);
+	for (var i = 0; i < 4; i++)
+		enemy_delay(
+			"basic1", 
+			WIDTH / 2 - 80 + global.counters.flower_x.rand_irange(-100, 100), 
+			global.counters.y.rand_irange(80, 128), 
+			beat_to_frame(4 * 4) + i * beat_to_frame(4)
+		);
+	for (var i = 0; i < 6; i++)
+		enemy_delay(
+			"basic1", 
+			WIDTH / 2 + 40 + global.counters.flower_x.rand_irange(-100, 100), 
+			global.counters.y.rand_irange(80, 128), 
+			beat_to_frame(8 * 4) + i * beat_to_frame(4)
+		);
 	
 	for (var i = 0; i < 4; i += 2) {
-		enemy_delay("basic2", WIDTH / 2 + -190, -32, 60 * 3 + i * (60 * 4));
-		enemy_delay("basic2", WIDTH / 2 +  190, -32, 60 * 3 + (i + 1) * (60 * 4));
+		enemy_delay("basic2", WIDTH / 2 + -170, -32, 60 * 3 + i * (60 * 4), [i]);
+		enemy_delay("basic2", WIDTH / 2 +  170, -32, 60 * 3 + (i + 1) * (60 * 4), [i + 1]);
 	}
 	
-	enemy_delay("big1", WIDTH / 2, 70, beat_to_frame(8 * 4));
-	enemy_delay("big1", WIDTH / 2, 70, beat_to_frame(12 * 4));
+	enemy_delay("big1", WIDTH / 2 + 120, 70, beat_to_frame(8 * 4));
+	enemy_delay("big1", WIDTH / 2 - 160, 70, beat_to_frame(12 * 4));
 })
 addPause(beat_to_frame(16 * 4 - 3 * 4));
 
