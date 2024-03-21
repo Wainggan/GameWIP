@@ -454,7 +454,8 @@ pattern_add("stage1-boss-5", function(){
 			sound.play(snd_bulletshoot_2)
 			bullet_group_start(x, y)
 			bullet_preset_ring(x, y, b_angleDensity, 32, point_direction(x, y, obj_player.x, obj_player.y) + 360 / b_angleDensity / 2, function(_x, _y, _dir){
-				bullet_preset_line2(_x, _y, _dir, b_density, 10, function(_x, _y) {
+				bullet_preset_line2(_x, _y, _dir, b_density, 10, function(_x, _y, _, _i) {
+					if _i == 0 return;
 					with bullet_shoot(_x, _y) {
 						deathBorder = other.b_density * 14;
 						glow = cb_blue
