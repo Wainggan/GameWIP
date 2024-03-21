@@ -546,15 +546,6 @@ addEnemy("boss", function(){
 
 // ~~ STAGE ~~
 
-//stageIndex = 7;
-addSection(function(){
-	game_background(, 1);
-	
-	enemy_delay("boss", 0, 0, 60)
-})
-addPause(, true);
-
-
 global.counters.flower_x = new Counter(0)
 global.counters.y = new Counter(1)
 
