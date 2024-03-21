@@ -538,7 +538,6 @@ addEnemy("boss", function(){
 		}),
 		new AttackPhase(beat_to_time(16 * 4), [1, 4, 2], function(){
 			game_background([7, 8], 6, 0.01)
-			render.look_set_overlay(0.04, c_red)
 			b_difficulty = 3
 		}),
 	]);
