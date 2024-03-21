@@ -10,7 +10,7 @@ global.counters.offsets = new Counter(0)
 
 addEnemy("basic1", function(){
 	setHp(5)
-	setPoints(100, 2);
+	setPoints(100, 1);
 	
 	setSprite(spr_enemy_flower);
 	setHook_Insta();
