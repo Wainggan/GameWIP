@@ -1,3 +1,9 @@
+
+/// @func approach(a, b, amount)
+/// @param {real} _a
+/// @param {real} _b
+/// @param {real} _amount
+/// @returns {real}
 function approach(_a, _b, _amount) {
 	if (_a < _b)
 	    return min(_a + _amount, _b); 
@@ -5,23 +11,40 @@ function approach(_a, _b, _amount) {
 	    return max(_a - _amount, _b);
 }
 
-function round_ext(_value,_round) {
+function floor_ext(_value, _round) {
+	if _round <= 0 return _value;
+	return floor(_value / _round) * _round;
+}
+function ceil_ext(_value, _round) {
+	if _round <= 0 return _value;
+	return ceil(_value / _round) * _round;
+}
+function round_ext(_value, _round) {
+	if _round <= 0 return _value;
 	return round(_value / _round) * _round;
 }
 
-function map(val, start1, end1, start2, end2) {
-	var prop = (val - start1)/(end1-start1);
-	return prop*(end2-start2) + start2;
+function mod_euclidean(_value, _by) {
+	return _value - abs(_by) * floor(_value / abs(_by))
 }
 
-function wave(_from, _to, _duration, _offset = 0, _time = global.time / 60/*current_time * 0.001*/) {
-	var a4 = (_from - _to) * 0.5;
-	return _to + a4 + sin((((_time) + _duration * _offset) / _duration) * (pi*2)) * a4;
+function map(_value, _start_low, _start_high, _target_low, _target_high) {
+    return (((_value - _start_low) / (_start_high - _start_low)) * (_target_high - _target_low)) + _target_low;
 }
 
-function wrap(_value,_min,_max) {
-	var _mod = ( _value - _min ) mod ( _max - _min );
-	if ( _mod < 0 ) return _mod + _max; else return _mod + _min;
+function wave(_from, _to, _duration, _offset = 0, _time = global.time / 60) {
+	var _a4 = (_from - _to) * 0.5;
+	return _to + _a4 + sin(((_time + _duration) / _duration + _offset) * (pi*2)) * _a4;
+}
+
+
+function wrap(_value, _min, _max) {
+	_value = floor(_value);
+	var _low = floor(min(_min, _max));
+	var _high = floor(max(_min, _max));
+	var _range = _high - _low + 1;
+
+	return (((floor(_value) - _low) % _range) + _range) % _range + _low;
 }
 
 
@@ -39,46 +62,52 @@ function parabola_mid_edge(_center, _p, _height, _off) {
   return parabola(_center - (_p - _center), _p, _height, _off)
 }
 
-///@func script_execute_deep(array, [runPlainFunctionFirst = true])
-function script_execute_deep(_in, _plainFunction = true) {
-	if (!is_array(_in)) {
-		if !_plainFunction return _in;
-		if (is_method(_in) || (_in > 100000 && script_exists(_in))) {
-			return _in();
-		} else {
-			return _in;
-		}
-	} else if (array_length(_in)==0 || !(is_method(_in[0]) || (_in[0] > 100000 && script_exists(_in[0])))) return _in;
-	
-	var newIn = [];
-	for (var i = 1; i < array_length(_in); i++) {
-		array_push(newIn, script_execute_deep(_in[i], false));
-	}
-	var fix = _in[0]
-	if is_method(fix) {
-		fix = method_get_index(fix)
-	}
-	return script_execute_ext(fix, newIn);
+function hermite(_t) {
+    return _t * _t * (3.0 - 2.0 * _t);
+}
+function herp(_a, _b, _t) {
+	return lerp(_a, _b, hermite(_t));
 }
 
-function array_foreach(_array, _func) {
-	if !is_array(_array) return;
-	for (var i = 0; i < array_length(_array); i++) {
-		_array[@ i] = _func(_array[@ i], i) ?? _array[@ i];
+function struct_assign(_target, _assign) {
+	var _names = struct_get_names(_assign);
+	for (var i = 0; i < array_length(_names); i++) {
+		_target[$ _names[i]] = _assign[$ _names[i]]
 	}
-}
-function struct_foreach(_struct, _func) {
-	if !is_struct(_struct) return;
-	var _a = variable_struct_get_names(_struct);
-	for (var i = 0; i < array_length(_a); i++) {
-		_struct[$ _a[i]] = _func(_struct[$ _a[i]], _a[i]) ?? _struct[$ _a[i]]
-	}
+	return _target;
 }
 
-///@func array_append(array, array)
-function array_append(array1, array2) {
-	for(var i = 0; i < array_length(array2); i++) {
-		array1[@ array_length(array1)] = array2[i];
+function array_from_list(_list) {
+	var _array = array_create(ds_list_size(_list));
+	for (var i = 0; i < ds_list_size(_list); i++) {
+		_array[i] = _list[| i];
 	}
-	return array1;
+	return _array;
 }
+
+function instance_place_array(_x, _y, _obj, _ordered) {
+	var _list = ds_list_create();
+	instance_place_list(_x, _y, _obj, _list, _ordered);
+	var _array = array_from_list(_list);
+	ds_list_destroy(_list);
+	return _array;
+}
+
+function multiply_color(_c1, _c2) {
+	return _c1 * _c2 / #ffffff;
+}
+
+// for the one time i need this
+function hex_to_dec(_hex) {
+    var _dec = 0;
+ 
+    static _dig = "0123456789ABCDEF";
+    var _len = string_length(_hex);
+    for (var i = 1; i <= _len; i += 1) {
+        _dec = _dec << 4 | (string_pos(string_char_at(_hex, i), _dig) - 1);
+    }
+ 
+    return _dec;
+}
+
+
