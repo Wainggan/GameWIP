@@ -168,6 +168,15 @@ function bullet_preset_golden(_x, _y, _len, _amount, _iteration, _func = functio
 	}
 	return _iteration + _amount;
 }
+function bullet_preset_golden2(_x, _y, _len, _amount, _iteration, _offset, _func = function(_x, _y, _dir, i){}) {
+	static ratio = 1.6180339;
+	var dir = _iteration * ratio * 360;
+	for (var i = 0; i < abs(_amount); i++) {
+		_func(_x + lengthdir_x(_len, dir), _y + lengthdir_y(_len, dir), dir, i);
+		dir += 360 / ratio * sign(_offset);
+	}
+	return _iteration + _amount * sign(_offset) + _offset;
+}
 
 function bullet_group_start(_x, _y) {
 	var inst = instance_create_layer(_x, _y, "Instances", obj_bulletGroup);
