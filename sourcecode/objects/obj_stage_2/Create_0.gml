@@ -398,7 +398,7 @@ pattern_add("stage2-miniboss1-3", function(){
 addEnemy("miniboss1", function(){
 	setBoss();
 	
-	setSprite(spr_car);
+	setSprite(spr_boss_red);
 	setInvincible(true);
 	
 	x = WIDTH - 74;
@@ -423,7 +423,7 @@ addEnemy("miniboss1", function(){
 addEnemy("miniboss2", function(){
 	setBoss();
 	
-	setSprite(spr_car);
+	setSprite(spr_boss_red);
 	setInvincible(true);
 	
 	x = -50;
@@ -733,7 +733,7 @@ pattern_add("stage2-boss-5", function(){
 addEnemy("boss", function(){
 	setBoss()
 	
-	setSprite(spr_car)
+	setSprite(spr_boss_red)
 	setInvincible(true)
 	
 	//hp = 69;
