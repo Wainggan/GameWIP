@@ -142,7 +142,7 @@ blendmodeSet = function(_mode){
 }
 
 
-
+// multiply colors against surface
 look_atmosphere_strength = new Look()
 look_atmosphere_colors = new Look_Array()
 
@@ -155,6 +155,7 @@ look_set_atmosphere = function(
 		look_atmosphere_colors.set(_colors, _force)
 }
 
+// overlay layer
 look_overlay_strength = new Look()
 look_overlay_color = new Look()
 
@@ -166,6 +167,8 @@ look_set_overlay = function(
 	look_overlay_color.set(_color, _force)
 }
 
+// used on the entire water background layer
+// multiply then add
 look_water_multiply = new Look()
 look_water_add = new Look()
 
@@ -177,9 +180,10 @@ look_set_water = function(
 	look_water_add.set(_add, _force)
 }
 
+// factor to multiply against water background
 look_water_mix_background = new Look()
+// factor to multiply against water reflections
 look_water_mix_objects = new Look()
-
 
 look_set_water_mix = function(
 		_background = undefined,
@@ -189,6 +193,7 @@ look_set_water_mix = function(
 	look_water_mix_objects.set(_objects, _force)
 }
 
+// some color for bullets to lerp to
 look_water_bullets = new Look()
 look_water_bullets_amount = new Look()
 
