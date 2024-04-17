@@ -57,9 +57,6 @@ var _lastBY = backgroundY % (_currentB.height * 16) - (_currentB.height - 30) * 
 	
 #endregion
 
-look_update()
-
-
 surface_set_target(shadowtemp_surf)
 	draw_clear_alpha(c_black, 0)
 	

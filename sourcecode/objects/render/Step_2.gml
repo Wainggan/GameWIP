@@ -1,3 +1,5 @@
+look_update()
+
 for (var i = 0; i < array_length(shockwave_waves); i++) {
 	var w = shockwave_waves[i]
 	w.currentlife += 1 * global.delta_multi
