@@ -7,10 +7,13 @@ function Look() constructor {
 	
 	static set = function(_value = target, _force = false) {
 		delta = 0
-		target = _value
 		if _force {
 			current  = _value
+			target = _value
 			value = _value
+		} else {
+			current = value
+			target = _value
 		}
 	}
 	static update = function(_spd) {

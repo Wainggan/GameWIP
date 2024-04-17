@@ -1151,18 +1151,23 @@ addEnemy("boss", function(){
 
 // ~~ stage ~~
 
+render.look_set_overlay(0.1, c_teal, false)
+render.look_set_water(#5555bb, #112233, true)
+render.look_set_water_mix(#cc99ff, #bbbbaa, true)
+render.look_set_water_bullets(#4488bb, 0.7, true)
+
 //stageIndex = 10
 
-addSection(function(){
+ignore addSection(function(){
 	enemy("boss", 0, 0);
 });
 addPause(, true)
 
-
 addPause(beat_to_frame(2))
 
 addSection(function(){
-	game_background( , 1);
+	game_background( , 3);
+	
 	enemy("big1", WIDTH / 2, 80);
 })
 addPause(beat_to_frame(8 * 4 - 2))
@@ -1184,6 +1189,9 @@ addSection(function(){
 addPause(beat_to_frame(24 * 4 - 4))
 
 addSection(function(){
+	game_background([1, 2] , 2);
+	render.look_set_atmosphere(0.12)
+	
 	for (var i = 0; i < 4; i++) {
 		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i);
 	}
@@ -1196,18 +1204,25 @@ addSection(function(){
 addPause(beat_to_frame(16 * 4))
 
 addSection(function(){
+	game_background(, 6);
+	render.look_set_atmosphere(0.05)
+	render.look_set_overlay(0.2, #99aaff)
+	
 	enemy("miniboss1", 0, 0);
 });
 addPause(, true)
 
 addPause(beat_to_frame(2 * 4))
 addSection(function(){
+	render.look_set_overlay(0.1, #443344)
+	game_background(, 2)
 	spawnUpgrade()
 });
 addPause(beat_to_frame(2 * 4))
 
 
 addSection(function(){
+	game_background([3, 4])
 	enemy("basic5", WIDTH / 2, 120)
 })
 addPause(beat_to_frame(2 * 4))
@@ -1260,131 +1275,7 @@ addPause(beat_to_frame(2 * 4))
 
 addPause(, true)
 
-
-ignore stage = [
-	function(){
-		return;
-		enemy("miniboss1", 0, 0);
-		
-		time(, true, 60 * 26)
-	},
-	function(){
-		time(beat_to_frame(2))
-	},
-	function(){
-		// 120 + 8 * 60 + 16 * 40)
-		
-		enemy("big1", WIDTH / 2, 80)
-		
-		time(beat_to_frame(8 * 4 - 2))
-		//time = -1
-	},
-	function(){
-		enemy("basic1", WIDTH/4, 90)
-		enemy("basic1", WIDTH-WIDTH/4, 90)
-		for (var i = 0; i < 8; i++) {
-			enemy_delay("basic1", irandom_range(64, WIDTH - 64), irandom_range(80, 120), 120 + i * 60)
-		}
-		for (var i = 0; i < 8; i++) {
-			enemy_delay("basic1", irandom_range(64, WIDTH - 64), irandom_range(80, 120), 120 + 8 * 60 + i * 40)
-		}
-		for (var i = 0; i < 32; i++) {
-			enemy_delay("basic1", irandom_range(64, WIDTH - 64), irandom_range(80, 120), 120 + 8 * 60 + 8 * 40 + i * 30)
-		}
-		enemy_delay("basic2", WIDTH / 2, 120, 12 * 60)
-		for (var i = 1; i < 8; i++) {
-			enemy_delay("basic2", irandom_range(96, WIDTH - 96), irandom_range(100, 140), 12 * 60 + i * 120)
-		}
-		time(beat_to_frame(24 * 4))
-	},
-	function(){
-		time(beat_to_frame(16 * 4))
-	},
-	function(){
-		//return; // -------
-		enemy("miniboss1", 0, 0);
-		
-		time(, true)
-	},
-	
-	function(){
-		spawnUpgrade()
-		time(120)
-	},
-	function(){
-		enemy("basic3", -128, 60, [1, 4, undefined, 9])
-		time(240)
-	},
-	function(){
-		for (var i = 0; i < 4; i++)
-			enemy_delay("basic3", -16 - i * 64, 60, 1, [1, 0.55, i * 2])
-		for (var i = 0; i < 4; i++)
-			enemy_delay("basic3", WIDTH + + 16 + i * 64, 60, 1, [-1, 0.55, i * 2])
-		
-		for (var i = 1; i < 11; i++) {
-			var _c = i % 2 == 0 ? 1 : -1
-			enemy_delay("idiot", WIDTH / 2 + ((WIDTH / 2) + (i * 128)) * _c, irandom_range(HEIGHT / 2 + 32, HEIGHT - 96), 1, [-_c, 1])
-		}
-		
-		for (var i = 0; i < 5; i++) {
-			enemy_delay("basic2", WIDTH / 2, 120, 60 * 8 + i * 60 * 5, [6, 40, 6])
-		}
-		
-		time(60 * 24)
-	},
-	function(){
-		// 120 + 8 * 60 + 16 * 40)
-		
-		enemy("basic4", WIDTH / 2, 80)
-		
-		time(60 * 12)
-	//time = -1
-	},
-	function(){
-		for (var i = 0; i < 4; i++) {
-			enemy_delay("basic1", irandom_range(64, WIDTH - 64), irandom_range(80, 120), i * 60)
-		}
-		for (var i = 0; i < 8; i++) {
-			enemy_delay("basic1", irandom_range(64, WIDTH - 64), irandom_range(80, 120), 4 * 60 + i * 40)
-		}
-		for (var i = 0; i < 24 + 16; i++) {
-			enemy_delay("basic1", irandom_range(64, WIDTH - 64), irandom_range(80, 120), 4 * 60 + 8 * 40 + i * 30)
-		}
-		for (var i = 2; i < 8; i++) {
-			enemy_delay("basic2", irandom_range(96, WIDTH - 96), irandom_range(100, 140), i * 120)
-		}
-		for (var i = 2; i < 6; i++) {
-			enemy_delay("basic2", irandom_range(96, WIDTH - 96), irandom_range(100, 140), 8 * 120 + i * 160)
-		}
-		
-		for (var i = 0; i < 12; i++) {
-			enemy_delay("basic5", irandom_range(8, WIDTH - 8), HEIGHT + 32, 60 * 26 + i * 60) // buff
-		}
-		
-		time(60 * 36 + 60 * 3) // too small
-	},
-	function(){
-		enemy("miniboss2", 0, 0);
-		
-		time(, true, 60 * 26)
-	},
-	function(){
-		spawnUpgrade()
-		
-		time(240)
-	},
-	function(){
-		enemy("boss", 0, 0);
-		
-		time(, true)
-	},
-	function(){
-		spawnUpgrade()
-		
-		time(, true)
-	},
-	function(){
-		game_music(-1)
-		game_nextRoom(rm_stage3);
-	}
-];
+addSection(function(){
+	game_music(-1)
+	game_nextRoom(rm_stage3);
+})

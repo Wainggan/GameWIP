@@ -11,7 +11,12 @@ if wait {
 		with obj_player event_user(0)
 		
 		obj_player.alarm[0] = 1;
+		
+		// bad dumb idea
+		render.look_default();
+		render.background_reset();
 		room_goto(roomTarget);
+		
 	} else 
 		animCurve.percent -= 1/12 * global.delta_multi;
 	if animCurve.percent < 0 instance_destroy();

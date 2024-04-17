@@ -1,5 +1,8 @@
 layer_set_visible(layer_get_id("Background"), false);
 
+// fuck meeee
+global.currentBackground = 0;
+global.currentBackgroundSpeed = 2 // WHY. FUCK.
 currentBackground = 0;
 newBackground = 0;
 
@@ -16,5 +19,3 @@ ignore if array_length(backgroundOrder) == 0 {
 		image_yscale: 30
 	}));
 }
-
-look_default()

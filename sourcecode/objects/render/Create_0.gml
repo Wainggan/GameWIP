@@ -207,7 +207,7 @@ look_set_water_bullets = function(
 
 
 look_default = function(){
-	look_set_atmosphere(0.04, [ #3333ff, #ff22ff, c_orange, #22ffff, #8830bb], true)
+	look_set_atmosphere(0.07, [ #3333ff, #ff22ff, c_orange, #22ffff, #8830bb], true)
 	look_set_overlay(0.01, c_blue, true)
 	look_set_water(#446699, #333344, true)
 	look_set_water_mix(merge_color(c_white, c_blue, 0.15), merge_color(c_white, c_blue, 0.4), true);
