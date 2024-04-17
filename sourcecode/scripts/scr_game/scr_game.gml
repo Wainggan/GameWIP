@@ -12,7 +12,8 @@ function game_start(_rm = rm_stage1) {
 function game_nextRoom(_rm) {
 	global.logger.log("Next room: " + room_get_name(_rm))
 	
-	game_background(0, 4, );
+	render.background_reset()
+	render.look_default()
 	
 	instance_create_layer(0, 0, "Instances", obj_roomTransition).roomTarget = _rm;
 	

@@ -1162,6 +1162,7 @@ addPause(, true)
 addPause(beat_to_frame(2))
 
 addSection(function(){
+	game_background( , 1);
 	enemy("big1", WIDTH / 2, 80);
 })
 addPause(beat_to_frame(8 * 4 - 2))

@@ -117,6 +117,14 @@ newBackgroundSpeed = 2;
 backgroundSpeed = 2;
 backgroundSpeedAccel = 0.02;
 
+background_reset = function(){
+	currentBackground = 0;
+	newBackground = 0;
+	backgroundSpeed = 2;
+	newBackgroundSpeed = 2;
+	backgroundSpeedAccel = 0.02;
+}
+
 screenShakeX = 0;
 screenShakeY = 0;
 
