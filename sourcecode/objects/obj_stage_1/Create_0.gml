@@ -169,6 +169,8 @@ pattern_add("stage1-miniboss-2", function() {
 	b_dir = 270 //wave(-360, -360, 4, , time_phase / 60)
 	b_dirV = wave(-1, 1, 2, , time_phase / 60) * 5
 	
+	b_hole = 0
+	
 	movement_start(
 		clamp(WIDTH / 2 - (obj_player.x - WIDTH / 2), 96, WIDTH - 96), 80, 1/20
 	);
@@ -177,9 +179,9 @@ pattern_add("stage1-miniboss-2", function() {
 		20,
 		new CommandBeat(1),
 		function(){
-			b_dir += 4.5 * sign(b_dirV) + 0.2 * b_dirV
+			b_dir += (360 / 18 / 2 / 2) * sign(b_dirV) + 0.1 * b_dirV
 			
-			bullet_preset_ring(x, y, 20, 8, b_dir, function(_x, _y, _dir){
+			bullet_preset_ring(x, y, 18, 8, b_dir, function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 9, 0.4, 2, _dir).glow = c_grey
 			});
 			sound.play(snd_bulletshoot)
@@ -208,7 +210,7 @@ pattern_add("stage1-miniboss-3", function() {
 				with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
 					bullet_set_vel_target_y(, 0.1, 5)
 					
-					bullet_set_look(, spr_bullet_large, glow)
+					bullet_set_look(, spr_bullet_large, cb_green)
 					
 					offset = _i
 					
@@ -321,12 +323,12 @@ pattern_add("stage1-boss-2", function(){
 	b_wait = 0
 	
 	if b_difficulty >= 2 {
-		b_amount = 10
+		b_amount = 9
 		b_speed = 3;
 	}
 	if b_difficulty >= 3 {
 		b_speed = 2;
-		b_amount = 12
+		b_amount = 11
 		b_wait = 40
 	}
 	
@@ -374,7 +376,7 @@ pattern_add("stage1-boss-3", function(){ // Speed
 	if b_difficulty >= 3 {
 		b_reload = 7;
 		b_amount = 24;
-		b_wait = 20
+		b_wait = 30
 	}
 	
 	b_move = global.counters.boss_3_move.next()
@@ -441,7 +443,7 @@ pattern_add("stage1-boss-4", function(){
 pattern_add("stage1-boss-5", function(){
 
 	b_dir = -1
-	b_density = 44;
+	b_density = 46
 	b_angleDensity = 12
 	b_rotateSpeed = 0.1
 	b_speed = 1.2
@@ -454,7 +456,7 @@ pattern_add("stage1-boss-5", function(){
 			sound.play(snd_bulletshoot_2)
 			bullet_group_start(x, y)
 			bullet_preset_ring(x, y, b_angleDensity, 32, point_direction(x, y, obj_player.x, obj_player.y) + 360 / b_angleDensity / 2, function(_x, _y, _dir){
-				bullet_preset_line2(_x, _y, _dir, b_density, 10, function(_x, _y, _, _i) {
+				bullet_preset_line2(_x, _y, _dir, b_density, 8, function(_x, _y, _, _i) {
 					if _i == 0 return;
 					with bullet_shoot(_x, _y) {
 						deathBorder = other.b_density * 14;
