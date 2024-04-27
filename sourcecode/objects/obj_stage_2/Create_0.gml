@@ -398,13 +398,13 @@ pattern_add("stage2-miniboss1-3", function(){
 addEnemy("miniboss1", function(){
 	setBoss();
 	
-	setSprite(spr_boss_red);
+	setSprite(spr_boss_red, true);
 	setInvincible(true);
 	
 	x = WIDTH - 74;
 	y = -60;
 	
-	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
+	movement_start(WIDTH / 2, 100, 1/120, , startPhase);
 	
 	b_meta = false
 	
@@ -423,13 +423,13 @@ addEnemy("miniboss1", function(){
 addEnemy("miniboss2", function(){
 	setBoss();
 	
-	setSprite(spr_boss_red);
+	setSprite(spr_boss_red, true);
 	setInvincible(true);
 	
 	x = -50;
 	y = -20;
 	
-	movement_start(WIDTH / 2, 100, 1/80, , startPhase);
+	movement_start(WIDTH / 2, 100, 1/100, , startPhase);
 	
 	b_meta = true
 	
@@ -733,7 +733,7 @@ pattern_add("stage2-boss-5", function(){
 addEnemy("boss", function(){
 	setBoss()
 	
-	setSprite(spr_boss_red)
+	setSprite(spr_boss_red, true)
 	setInvincible(true)
 	
 	//hp = 69;
@@ -1204,7 +1204,7 @@ addSection(function(){
 addPause(beat_to_frame(16 * 4))
 
 addSection(function(){
-	game_background(, 6);
+	game_background(, 3);
 	render.look_set_atmosphere(0.05)
 	render.look_set_overlay(0.2, #99aaff)
 	
