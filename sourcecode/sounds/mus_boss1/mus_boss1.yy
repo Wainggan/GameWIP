@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "bitRate":112,
-  "compression":1,
+  "compression":3,
   "conversionMode":0,
   "duration":74.63181,
   "name":"mus_boss1",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"mus_boss1.mp3",
   "type":1,
-  "volume":0.7,
+  "volume":1.0,
 }

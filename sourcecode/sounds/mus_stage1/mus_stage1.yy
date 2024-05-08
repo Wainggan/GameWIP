@@ -7,8 +7,8 @@
   },
   "bitDepth":1,
   "bitRate":112,
-  "compression":1,
-  "conversionMode":0,
+  "compression":3,
+  "conversionMode":1,
   "duration":106.75324,
   "name":"mus_stage1",
   "parent":{
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"mus_stage1.ogg",
   "type":1,
-  "volume":0.7,
+  "volume":1.0,
 }

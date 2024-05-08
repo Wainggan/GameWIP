@@ -5,8 +5,8 @@
   "managed":true,
   "name":"obj_specialText_damage",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"","%Name":"","name":"","objectId":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},"propertyId":{"name":"color","path":"objects/obj_specialText/obj_specialText.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"$FF947AFF",},
-    {"$GMOverriddenProperty":"","%Name":"","name":"","objectId":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},"propertyId":{"name":"font","path":"objects/obj_specialText/obj_specialText.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"ft_damage",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},"propertyId":{"name":"color","path":"objects/obj_specialText/obj_specialText.yy",},"resource":null,"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"$FF947AFF",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},"propertyId":{"name":"font","path":"objects/obj_specialText/obj_specialText.yy",},"resource":null,"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"ft_damage",},
   ],
   "parent":{
     "name":"effects",

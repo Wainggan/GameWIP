@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "bitRate":112,
-  "compression":1,
+  "compression":3,
   "conversionMode":0,
   "duration":179.35672,
   "name":"mus_boss3",

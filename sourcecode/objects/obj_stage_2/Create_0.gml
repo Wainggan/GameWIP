@@ -288,10 +288,10 @@ pattern_add("stage2-miniboss1-2", function(){
 	b_angle = 0;
 	
 	b_amount = 11;
-	b_change = 4
+	b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.05, 0.05)
 	if b_meta {
 		b_amount = 12
-		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.25, 0.25)
+		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.1, 0.1)
 	}
 	
 	static __b_dir = 0
@@ -303,7 +303,7 @@ pattern_add("stage2-miniboss1-2", function(){
 		},
 		50,
 		function(){
-			movement_start(x + sign(x - obj_player.x) * 32, y -16, 1/40, "linear");
+			movement_start(x + sign(x - obj_player.x) * 24, y -16, 1/40, "linear");
 		},
 		1,
 		function(){
@@ -447,7 +447,7 @@ addEnemy("miniboss2", function(){
 })
 
 
-addEnemy("basic5", function(_amount = 6) {
+addEnemy("basic5", function(_dir = 1, _amount = 6) {
 	
 	setHp(30)
 	setPoints(1000, 2)
@@ -463,7 +463,7 @@ addEnemy("basic5", function(_amount = 6) {
 	
 	
 	b_angle = offset * 40
-	b_dir = offset % 2 == 0 ? -1 : 1
+	b_dir = _dir
 	
 	b_amount = _amount
 	
@@ -507,6 +507,11 @@ addEnemy("basic5", function(_amount = 6) {
 
 pattern_add("stage2-boss-1", function(){
 	
+	b_density = 30
+	if currentPhase > 0 {
+		b_density = 40
+	}
+	
 	command_set([
 		new CommandBeat(16),
 		function(){
@@ -524,7 +529,7 @@ pattern_add("stage2-boss-1", function(){
 	command_add([
 		new CommandBeat(8),
 		function(){
-			bullet_preset_ring(x, y, 30, 0, irandom(360), function(_x, _y, _dir){
+			bullet_preset_ring(x, y, b_density, 0, irandom(360), function(_x, _y, _dir){
 				with bullet_shoot_dir(_x, _y, 2, _dir) {
 					bullet_set_look(, spr_bullet_spark, cb_red)
 				}
@@ -599,10 +604,10 @@ pattern_add("stage2-boss-4", function() {
 	
 	command_set([
 		40,
-		26,
+		22,
 		function(){
 			
-			bullet_preset_ring(WIDTH / 2, HEIGHT / 2, 10 + (b_count++ % 4), point_distance(0, 0, WIDTH, HEIGHT)/2 + 16, frac(sin(time_phase / 60) * 1000) * 360, function(_x, _y, _dir) {
+			bullet_preset_ring(WIDTH / 2, HEIGHT / 2, 12 + (b_count++ % 4), point_distance(0, 0, WIDTH, HEIGHT)/2 + 16, frac(sin(time_phase / 60) * 1000) * 360, function(_x, _y, _dir) {
 				static __frac = function(_x, _y, _t) {
 					
 					
@@ -634,7 +639,7 @@ pattern_add("stage2-boss-4", function() {
 					b_other = other
 					bullet_set_step(, function(){
 						var _c = b_calc(x, y, b_other.time_total / 60)
-						spd = (abs(_c - 0.5) * -2 + 1) * 2 + 1
+						spd = (abs(_c - 0.5) * -2 + 1) * 2.5 + 1
 						dir = _c * 320 - 320/2 - 90
 					})
 				}
@@ -686,6 +691,7 @@ pattern_add("stage2-boss-5", function(){
 				with bullet_shoot_dir3(_x, _y, 1, 2, 12, 0.5, 2, _dir) {
 					bullet_set_look(, spr_bullet_arrow, cb_red);
 				}
+				sound.play(snd_bulletshoot)
 			})
 			command_repeat(floor(60 * 6 / 4))
 		},
@@ -710,6 +716,7 @@ pattern_add("stage2-boss-5", function(){
 				with bullet_shoot_dir(_x, _y, 3, _dir) {
 					bullet_set_look(, spr_bullet_square, cb_black)
 				}
+				sound.play(snd_bulletshoot_2)
 			})
 			if b_count++ > 4 {
 				b_count = 0;
@@ -729,6 +736,66 @@ pattern_add("stage2-boss-5", function(){
 			commandIndex--;
 		}
 	]);
+})
+
+pattern_add("stage2-boss-6", function(){
+	
+	b_dir = 1
+	b_density = 9
+	b_angle = 80
+	b_total = 0
+	
+	command_set([
+		40,
+		6,
+		function(){
+			
+			// sigh
+			command_get(0)[1] = floor(clamp(6 - b_count * 1.5, 2, 5))
+			
+			with bullet_shoot_dir(x, y, 2, 270 + wave(-10, 10, 12, , time_phase / 60) + (-b_angle / 2 + b_angle * b_total) * b_dir) {
+				bullet_set_look(, spr_bullet_square, cb_red)
+			}
+			sound.play(snd_bulletshoot)
+			
+			
+			b_total += 1 / (b_density + irandom(2))
+			if b_total >= 1 {
+				b_total = 0
+				b_dir = -b_dir
+			}
+			commandIndex--
+			
+		}
+	])
+	
+	command_add([
+		new CommandBeat(12),
+		function(){
+			bullet_preset_ring(x, y, 40, 60, random(360), function(_x, _y, _dir) {
+				with bullet_shoot_dir2(_x, _y, 0.5, 0.1, 3, _dir) {
+					bullet_set_look(, spr_bullet_star, cb_indigo)
+				}
+			})
+			sound.play(snd_bulletshoot_2)
+			commandIndex--
+		}
+	])
+	
+	b_count = 0
+	
+	command_add([
+		240,
+		function(){
+			
+			movement_start((b_count++ % 2 == 0 ? 128 : WIDTH - 128) + irandom_range(-64, 64), irandom_range(40, 100), 1/240)
+			command_repeat(3)
+			
+		},
+		240,
+		nextPattern
+	])
+	
 })
 
 addEnemy("boss", function(){
@@ -764,13 +831,15 @@ addEnemy("boss", function(){
 		new Pattern("stage2-boss-3"),
 		new Pattern("stage2-boss-4"),
 		new Pattern("stage2-boss-5"),
+		new Pattern("stage2-boss-6"),
 	]);
 		
 	setPhases([
 		new AttackPhase(beat_to_time(16 * 4), [0, 1]),
-		new AttackPhase(beat_to_time(16 * 4), [3, 2]),
+		new AttackPhase(beat_to_time(16 * 4), [4, 0]),
 		new AttackPhase(beat_to_time(24 * 4), [2, 4, 0, 1]),
 		new AttackPhase(beat_to_time(32 * 4), [3, 1, 3, 0]),
+		new AttackPhase(beat_to_time(32 * 4), [5, 0, 2, 0]),
 	]);
 	
 })
@@ -788,7 +857,7 @@ render.look_set_water_bullets(#4488bb, 0.7, true)
 ignore addSection(function(){
 	enemy("boss", 0, 0);
 });
-addPause(, true)
+ignore addPause(, true)
 
 addPause(beat_to_frame(2))
 
@@ -856,7 +925,7 @@ addPause(beat_to_frame(2 * 4))
 
 addSection(function(){
 	for (var i = 0; i < 14; i++) {
-		enemy_delay("basic5", WIDTH / 2 + (i % 2 == 0 ? -1 : 1) * i * (160 / 14), irandom_range(100, 140), i * beat_to_frame(4), [2 + floor(i / 2)])
+		enemy_delay("basic5", WIDTH / 2 + (i % 2 == 0 ? -1 : 1) * i * (160 / 14), irandom_range(100, 140), i * beat_to_frame(4), [i % 2 == 0 ? -1 : 1, 2 + floor(i / 2)])
 	}
 })
 addPause(beat_to_frame(16 * 4 - 2 * 4))
@@ -872,8 +941,8 @@ addSection(function(){
 	for (var i = 0; i < 16; i++) {
 		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
 	}
-	for (var i = 0; i < 4; i++) {
-		enemy_delay("basic5", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(2 * 4) + i * beat_to_frame(4))
+	for (var i = 0; i < 2; i++) {
+		enemy_delay("basic5", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(4 * 4) + i * beat_to_frame(8), [i == 0 ? -1 : 1])
 	}
 })
 addPause(beat_to_frame(8 * 4))
@@ -882,8 +951,8 @@ addSection(function(){
 	for (var i = 0; i < 20; i++) {
 		enemy_delay("basic1", (i % 2 == 0 ? 140 : WIDTH - 140) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
 	}
-	for (var i = 0; i < 4; i++) {
-		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i, [4]);
+	for (var i = 0; i < 3; i++) {
+		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) + beat_to_frame(16) * i, [4]);
 	}
 })
 addPause(beat_to_frame(16 * 4))
@@ -901,6 +970,20 @@ addSection(function(){
 addPause(beat_to_frame(2 * 4))
 
 addPause(, true)
+
+addPause(beat_to_frame(2 * 4))
+
+addSection(function(){
+	enemy("boss", 0, 0);
+});
+addPause(, true)
+
+addPause(beat_to_frame(60 * 2))
+addSection(function(){
+	spawnUpgrade()
+});
+
+addPause(120, true, 60)
 
 addSection(function(){
 	game_music(-1)

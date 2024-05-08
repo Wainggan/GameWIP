@@ -5,7 +5,7 @@
   "managed":true,
   "name":"obj_specialText_score",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"","%Name":"","name":"","objectId":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},"propertyId":{"name":"color","path":"objects/obj_specialText/obj_specialText.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"$FFCCCCCC",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_specialText","path":"objects/obj_specialText/obj_specialText.yy",},"propertyId":{"name":"color","path":"objects/obj_specialText/obj_specialText.yy",},"resource":null,"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"$FFCCCCCC",},
   ],
   "parent":{
     "name":"effects",

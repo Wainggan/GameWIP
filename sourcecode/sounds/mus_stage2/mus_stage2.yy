@@ -6,9 +6,9 @@
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
-  "compression":1,
-  "conversionMode":0,
+  "bitRate":112,
+  "compression":3,
+  "conversionMode":1,
   "duration":259.72604,
   "name":"mus_stage2",
   "parent":{
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"mus_stage2.ogg",
   "type":1,
-  "volume":0.7,
+  "volume":1.0,
 }
