@@ -41,8 +41,9 @@ addEnemy("basic1", function(){
 			setInvincible(false)
 			b_alt++
 			bullet_preset_plate(x, y, b_alt % 2 == 0 ? 2 : 1, 2, 3, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
-				with bullet_shoot_dir2(_x, _y, 2, 0.3, 4.5, _dir) {
-					if other.b_alt % 2 == 0 sprite_index = spr_bullet_small
+				with bullet_shoot_dir2(_x, _y, 2, 0.3, 4, _dir) {
+					bullet_set_look(, spr_bullet_normal, cb_red)
+					if other.b_alt % 2 == 0 bullet_set_look(, spr_bullet_small)
 				}
 			})
 			sound.play(snd_bulletshoot)
@@ -73,10 +74,10 @@ addEnemy("basic2", function(_seed = 0) {
 		
 	command_set([
 		30,
-		new CommandBeat(12),
+		new CommandBeat(16),
 		function(){
-			bullet_preset_ring(x, y, 24, 8, 270, function(_x, _y, _dir){
-				with bullet_shoot_dir2(_x + b_rand.rand_irange(-5, 5), _y, 2, 0.2, 3, _dir) {
+			bullet_preset_ring(x, y, 28, 8, 270, function(_x, _y, _dir){
+				with bullet_shoot_dir3(_x + b_rand.rand_irange(-5, 5), _y, 0, 0.01, 0.2, 0.1, 1.5, _dir) {
 					sprite_index = spr_bullet_point
 					glow = cb_grey;
 				}
@@ -179,7 +180,7 @@ pattern_add("stage1-miniboss-2", function() {
 		20,
 		new CommandBeat(1),
 		function(){
-			b_dir += (360 / 18 / 2 / 2) * sign(b_dirV) + 0.1 * b_dirV
+			b_dir += (360 / 18 / 2 / 2) * sign(b_dirV) + 0.08 * b_dirV
 			
 			bullet_preset_ring(x, y, 18, 8, b_dir, function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 9, 0.4, 2, _dir).glow = c_grey
@@ -277,12 +278,11 @@ pattern_add("stage1-boss-1", function(){
 	b_reload = 6;
 	b_pause = 0;
 	
-	if b_difficulty >= 1 {
-		b_density = 18
-	}
-	if b_difficulty >= 2 {
+	if currentPhase >= 1 {
 		b_density = 20
-		b_reload = 4;
+	}
+	if currentPhase >= 2 {
+		b_reload = 5;
 		b_speed = 4
 		b_pause = 16
 	}
@@ -310,7 +310,7 @@ pattern_add("stage1-boss-1", function(){
 		60, 
 		function(){
 			b_move++
-			movement_start(clamp(obj_player.x + (b_move++ % 2 == 0 ? -32 : 32), 128, WIDTH - 128), 50 + sin(b_move) * 10, 1/60);
+			movement_start(clamp(obj_player.x + (b_move++ % 2 == 0 ? -32 : 32), 128, WIDTH - 128), 50 + sin(15 * b_move) * 10, 1/60);
 			commandIndex--;
 		}
 	]);
@@ -322,13 +322,12 @@ pattern_add("stage1-boss-2", function(){
 	b_speed = 2.5
 	b_wait = 0
 	
-	if b_difficulty >= 2 {
+	if currentPhase >= 2 {
 		b_amount = 9
 		b_speed = 3;
 	}
-	if b_difficulty >= 3 {
-		b_speed = 2;
-		b_amount = 11
+	if currentPhase >= 3 {
+		b_speed = 2.25;
 		b_wait = 40
 	}
 	
@@ -368,15 +367,12 @@ pattern_add("stage1-boss-3", function(){ // Speed
 	b_reload = 12;
 	b_wait = 0
 	
-	if b_difficulty >= 2 {
-		b_reload = 10;
-		b_speed = 4.5
+	if currentPhase >= 2 {
+		b_reload = 8;
 		b_amount = 15;
-	}
-	if b_difficulty >= 3 {
-		b_reload = 7;
-		b_amount = 24;
 		b_wait = 30
+	}
+	if currentPhase >= 3 {
 	}
 	
 	b_move = global.counters.boss_3_move.next()
@@ -406,16 +402,18 @@ pattern_add("stage1-boss-3", function(){ // Speed
 		120,
 		function(){
 			b_move++
-			movement_start(approach(x, clamp(obj_player.x, 96, WIDTH - 96), 16), 85 + sin(b_move) * 8, 1/60);
+			movement_start(approach(x, clamp(obj_player.x, 96, WIDTH - 96), 16), 85 + sin(15 * b_move) * 8, 1/60);
 			commandIndex--;
 		}
 	])
 })
 
 global.counters.boss_4_pos = new Counter(49)
+global.counters.boss_4_offset = new Counter()
 pattern_add("stage1-boss-4", function(){
 
 	b_golden = 0
+	b_offset = global.counters.boss_4_offset.next()
 
 	movement_start(
 		WIDTH / 2 + global.counters.boss_4_pos.rand_irange(-32, 32),
@@ -427,7 +425,7 @@ pattern_add("stage1-boss-4", function(){
 		1,
 		function(){
 			sound.play(snd_bulletshoot)
-			b_golden = bullet_preset_golden(x, y, 9, 4, b_golden, function(_x, _y, _dir){
+			b_golden = bullet_preset_golden2(x, y, 9, 4, b_offset * 30, b_golden, , function(_x, _y, _dir){
 				with bullet_shoot_dir3(_x, _y, 0.5, 0.01, 1, 0.1, 4, _dir) {
 					glow = cb_rust
 				}
@@ -443,7 +441,7 @@ pattern_add("stage1-boss-4", function(){
 pattern_add("stage1-boss-5", function(){
 
 	b_dir = -1
-	b_density = 46
+	b_density = 44
 	b_angleDensity = 12
 	b_rotateSpeed = 0.1
 	b_speed = 1.2
@@ -524,23 +522,18 @@ addEnemy("boss", function(){
 		new Pattern("stage1-boss-5"),
 	]);
 	
-	b_difficulty = 0
-		
 	setPhases([
 		new AttackPhase(beat_to_time(10 * 4), [0, 1], function(){
 			game_background(, 3)
 		}),
 		new AttackPhase(beat_to_time(16 * 4), [3, 0, 2], function(){
 			game_background([3, 4], 5, 0.01)
-			b_difficulty = 1
 		}),
 		new AttackPhase(beat_to_time(16 * 4), [4, 1], function(){
 			game_background([5, 6])
-			b_difficulty = 2
 		}),
 		new AttackPhase(beat_to_time(16 * 4), [1, 4, 2], function(){
 			game_background([7, 8], 6, 0.01)
-			b_difficulty = 3
 		}),
 	]);
 })

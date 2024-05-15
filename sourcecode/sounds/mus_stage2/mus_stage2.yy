@@ -8,7 +8,7 @@
   "bitDepth":1,
   "bitRate":112,
   "compression":3,
-  "conversionMode":1,
+  "conversionMode":0,
   "duration":259.72604,
   "name":"mus_stage2",
   "parent":{

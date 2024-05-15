@@ -39,14 +39,16 @@ addEnemy("basic1", function(){
 			b_dir = point_direction(x, y, obj_player.x, obj_player.y)
 			sound.play(snd_bulletshoot_2)
 		},
-		3,
+		4,
 		function(){
-			bullet_shoot_dir2(x, y, 0, 0.2, 11, b_dir).glow = cb_pink;
+			with bullet_shoot_dir2(x, y, 0, 0.2, 9, b_dir) {
+				bullet_set_look(, , cb_pink)
+			}
 			if b_reload-- > 0 commandIndex--
 		},
 		20,
 		function(){
-			b_reload = 4;
+			b_reload = 10;
 			movement_start(clamp(x + irandom_range(-128, 128), 32, WIDTH - 32), irandom_range(30, 200), 1/20);
 		},
 		20, 
@@ -58,7 +60,7 @@ addEnemy("basic1", function(){
 		80,
 		new CommandBeat(2),
 		function(){
-			bullet_preset_plate(x, y, 2, 24, 48, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
+			bullet_preset_plate(x, y, 2, 24, 50, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 4, 2, 14, _dir).glow = cb_green;
 			})
 			sound.play(snd_bulletshoot_3)
@@ -68,7 +70,7 @@ addEnemy("basic1", function(){
 })
 
 addEnemy("basic2", function(){
-	setHp(16)
+	setHp(14)
 	setPoints(1000, 2)
 	
 	setSprite(spr_enemy_fire)
@@ -93,7 +95,7 @@ addEnemy("basic2", function(){
 	
 	command_set([
 		24,
-		3,
+		4,
 		function(){
 			b_golden = bullet_preset_golden(x, y, 0, 1, b_golden, function(_x, _y, _dir){
 				bullet_shoot_dir(_x, _y, 2, _dir).glow = cb_grey;
@@ -252,7 +254,7 @@ pattern_add("stage2-miniboss1-1", function(){
 	
 	command_set([
 		18,
-		b_meta ? 2 : 1,
+		b_meta ? 3 : 1,
 		function(){
 			if b_meta b_golden += 2
 			b_golden = bullet_preset_golden(x, y, 48, b_meta ? 8 : 3, b_golden, function(_x, _y, _dir){
@@ -288,10 +290,10 @@ pattern_add("stage2-miniboss1-2", function(){
 	b_angle = 0;
 	
 	b_amount = 11;
-	b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.05, 0.05)
+	b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.025, 0.025)
 	if b_meta {
 		b_amount = 12
-		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.1, 0.1)
+		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.05, 0.05)
 	}
 	
 	static __b_dir = 0
@@ -355,9 +357,9 @@ pattern_add("stage2-miniboss1-3", function(){
 		},
 		16,
 		function(){
-			bullet_preset_plate(x, y, b_meta ? 4 : 2, 0, b_meta ? 30 : 16, 12, angle, function(_x, _y, _dir){
+			bullet_preset_plate(x, y, b_meta ? 4 : 2, 0, b_meta ? 44 : 16, 12, angle, function(_x, _y, _dir){
 				with bullet_shoot_dir(_x, _y, 4, _dir) {
-					bullet_set_look(, spr_bullet_square, cb_red)
+					bullet_set_look(, spr_bullet_square, cb_grey)
 				}
 			})
 			sound.play(snd_bulletshoot_2)
