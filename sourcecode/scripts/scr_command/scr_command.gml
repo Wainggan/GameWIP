@@ -37,6 +37,9 @@ function command_add(_array) {
 function command_get(_index = 0) {
 	return commandList[_index].list;
 }
+function command_edit(_index = 0, _set = []) {
+	commandList[_index].list = _set;
+}
 function command_reset() {
 	commandList = [];
 	commandFrame = function(){};

@@ -229,7 +229,10 @@ pattern_add("stage1-miniboss-3", function() {
 			})
 			command_repeat(6)
 		},
-		80,
+		function(){
+			command_edit(1, [100])
+		},
+		100,
 		nextPattern
 	])
 	
