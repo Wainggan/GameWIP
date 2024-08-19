@@ -33,6 +33,7 @@ addEnemy("basic1", function(){
 	})
 	
 	b_alt = 0
+	b_alt2 = 0
 		
 	command_set([
 		20,
@@ -40,7 +41,9 @@ addEnemy("basic1", function(){
 		function(){
 			setInvincible(false)
 			b_alt++
-			bullet_preset_plate(x, y, b_alt % 2 == 0 ? 2 : 1, 2, 3, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir) {
+			if b_alt % 2 == 0 b_alt2++
+			bullet_preset_plate(x, y, b_alt % 2 == 0 ? 2 : 1, 2, 3, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir, _i) {
+				if b_alt % 2 == 0 if b_alt2 % 2 == _i return;
 				with bullet_shoot_dir2(_x, _y, 2, 0.3, 4, _dir) {
 					bullet_set_look(, spr_bullet_normal, cb_red)
 					if other.b_alt % 2 == 0 bullet_set_look(, spr_bullet_small)
@@ -133,7 +136,7 @@ pattern_add("stage1-miniboss-1", function() {
 	
 	setInvincible(false)
 	
-	b_density = 56;
+	b_density = 52;
 	b_range = 64;
 	
 	b_move = global.counters.miniboss_movement.next()
@@ -180,7 +183,7 @@ pattern_add("stage1-miniboss-2", function() {
 		20,
 		new CommandBeat(1),
 		function(){
-			b_dir += (360 / 18 / 2 / 2) * sign(b_dirV) + 0.08 * b_dirV
+			b_dir += (360 / 18 / 2 / 2) * sign(b_dirV) + 0.06 * b_dirV
 			
 			bullet_preset_ring(x, y, 18, 8, b_dir, function(_x, _y, _dir){
 				bullet_shoot_dir2(_x, _y, 9, 0.4, 2, _dir).glow = c_grey
@@ -208,8 +211,8 @@ pattern_add("stage1-miniboss-3", function() {
 			sound.play(snd_bulletshoot_2)
 			b_dir *= -1
 			bullet_preset_plate(x, y, 5, 4, 135, 0, 90 + b_dir * 10, function(_x, _y, _dir, _i){
-				with bullet_shoot_vel(_x, _y, lengthdir_x(3, _dir), lengthdir_y(3, _dir)) {
-					bullet_set_vel_target_y(, 0.1, 5)
+				with bullet_shoot_vel(_x, _y, lengthdir_x(3.7, _dir), lengthdir_y(3, _dir)) {
+					bullet_set_vel_target_y(, 0.09, 4)
 					
 					bullet_set_look(, spr_bullet_large, cb_green)
 					
