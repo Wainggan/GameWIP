@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"scr_bullet_behaviours",
   "isCompatibility":false,
   "isDnD":false,

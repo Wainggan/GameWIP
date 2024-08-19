@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"scr_lib_animcurves",
   "isCompatibility":false,
   "isDnD":false,

@@ -1,5 +1,4 @@
 
-
 global.bullet_currentGroup = undefined;
 
 function bullet_shoot(_x, _y, _delay = 8) {
