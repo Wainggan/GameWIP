@@ -29,7 +29,7 @@ addEnemy("basic1", function(){
 		movement_start(x + irandom_range(-64, 64), HEIGHT + 64, 1/360, , function(){ instance_destroy() })
 	})
 	
-	b_reload = 4;
+	b_reload = 3;
 	b_dir = 0;
 	
 	command_set([
@@ -41,14 +41,14 @@ addEnemy("basic1", function(){
 		},
 		4,
 		function(){
-			with bullet_shoot_dir2(x, y, 0, 0.2, 9, b_dir) {
+			with bullet_shoot_dir2(x, y, 0, 0.2, 8, b_dir) {
 				bullet_set_look(, , cb_pink)
 			}
 			if b_reload-- > 0 commandIndex--
 		},
 		20,
 		function(){
-			b_reload = 10;
+			b_reload = 5;
 			movement_start(clamp(x + irandom_range(-128, 128), 32, WIDTH - 32), irandom_range(30, 200), 1/20);
 		},
 		20, 
@@ -61,7 +61,7 @@ addEnemy("basic1", function(){
 		new CommandBeat(2),
 		function(){
 			bullet_preset_plate(x, y, 2, 24, 50, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
-				bullet_shoot_dir2(_x, _y, 4, 2, 14, _dir).glow = cb_green;
+				bullet_shoot_dir2(_x, _y, 4, 2, 13, _dir).glow = cb_green;
 			})
 			sound.play(snd_bulletshoot_3)
 			commandIndex--;
@@ -98,7 +98,7 @@ addEnemy("basic2", function(){
 		4,
 		function(){
 			b_golden = bullet_preset_golden(x, y, 0, 1, b_golden, function(_x, _y, _dir){
-				bullet_shoot_dir(_x, _y, 2, _dir).glow = cb_grey;
+				with bullet_shoot_dir(_x, _y, 2, _dir) bullet_set_look(, spr_bullet_line, cb_grey)
 			})
 			sound.play(snd_bulletshoot, 2)
 			commandIndex--
@@ -178,13 +178,13 @@ addEnemy("basic3", function(_rate = 3){
 		function(){
 			
 			bullet_preset_ring(x, y, 5, 16, b_angle, function(_x, _y, _dir, _i){
-				with bullet_shoot_dir3(_x, _y, 3.5, 0.2, 0, 1, 4, _dir) {
+				with bullet_shoot_dir3(_x, _y, 3.2, 0.2, 0, 1, 4, _dir) {
 					glow = _i == 0 ? cb_white : cb_indigo
 					sprite_index = _i == 0 ? spr_bullet_spark : spr_bullet_square
 				}
 			})
 			sound.play(snd_bulletshoot)
-			b_angle += 360 / 5 / 2 + 3.6
+			b_angle += 360 / 5 / 2 + 7.7
 			
 			command_repeat(40)
 			
@@ -258,7 +258,7 @@ pattern_add("stage2-miniboss1-1", function(){
 		function(){
 			if b_meta b_golden += 2
 			b_golden = bullet_preset_golden(x, y, 48, b_meta ? 8 : 3, b_golden, function(_x, _y, _dir){
-				with bullet_shoot_dir2(_x, _y, 12, 0.3, 3, _dir + random_range(-1, 1)) {
+				with bullet_shoot_dir2(_x, _y, 12, 0.3, 2, _dir - abs(angle_difference(_dir, 270) * (1 / 180) * 0.5) * angle_difference(_dir, 90)) {
 					bullet_set_look(, spr_bullet_normal, cb_red);
 				}
 			})
@@ -274,7 +274,7 @@ pattern_add("stage2-miniboss1-1", function(){
 		60,
 		1,
 		function(){
-			var _dist = b_meta ? 220 : 232
+			var _dist = b_meta ? 220 : 244
 			with bullet_shoot_dir2(x + (b_count++ % 2 == 0 ? -_dist : _dist) + irandom_range(-128, 128), HEIGHT + 32, 0, 0.2, 9, 90, 1) {
 				bullet_set_look(, spr_bullet_large, cb_green);
 			}
@@ -289,11 +289,11 @@ pattern_add("stage2-miniboss1-2", function(){
 	
 	b_angle = 0;
 	
-	b_amount = 11;
-	b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.025, 0.025)
+	b_amount = 9;
+	b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.01, 0.01)
 	if b_meta {
-		b_amount = 12
-		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.05, 0.05)
+		b_amount = 10
+		b_change = (360 / b_amount / 2 / 2 / 2) + random_range(-0.02, 0.02)
 	}
 	
 	static __b_dir = 0
@@ -305,7 +305,7 @@ pattern_add("stage2-miniboss1-2", function(){
 		},
 		50,
 		function(){
-			movement_start(x + sign(x - obj_player.x) * 24, y -16, 1/40, "linear");
+			movement_start(x + sign(x - obj_player.x) * (b_meta ? 4 : 8), y -16, 1/40, "linear");
 		},
 		1,
 		function(){
@@ -319,7 +319,7 @@ pattern_add("stage2-miniboss1-2", function(){
 			command_repeat(30);
 		},
 		function(){
-			bullet_preset_plate(x, y, b_meta ? 19 : 9, 8, b_meta ? 40 : 16, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
+			bullet_preset_plate(x, y, b_meta ? 19 : 9, 16, b_meta ? 40 : 16, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 6, 0.1, 2, _dir) {
 					sprite_index = spr_bullet_star
 					glow = cb_green;
@@ -891,7 +891,7 @@ addSection(function(){
 	render.look_set_atmosphere(0.12)
 	
 	for (var i = 0; i < 4; i++) {
-		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i);
+		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) * i, [4]);
 	}
 	
 	for (var i = 0; i < 8 * 4 - 4; i++) {
@@ -954,7 +954,7 @@ addSection(function(){
 		enemy_delay("basic1", (i % 2 == 0 ? 140 : WIDTH - 140) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
 	}
 	for (var i = 0; i < 3; i++) {
-		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) + beat_to_frame(16) * i, [4]);
+		enemy_delay("basic3", WIDTH / 2 + irandom_range(-64, 64), 100 + i * 16, beat_to_frame(16) + beat_to_frame(16) * i, [5]);
 	}
 })
 addPause(beat_to_frame(16 * 4))

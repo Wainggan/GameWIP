@@ -44,7 +44,7 @@ addEnemy("basic1", function(){
 			if b_alt % 2 == 0 b_alt2++
 			bullet_preset_plate(x, y, b_alt % 2 == 0 ? 2 : 1, 2, 3, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir, _i) {
 				if b_alt % 2 == 0 if b_alt2 % 2 == _i return;
-				with bullet_shoot_dir2(_x, _y, 2, 0.3, 4, _dir) {
+				with bullet_shoot_dir2(_x, _y, 2, 0.3, 3.6, _dir) {
 					bullet_set_look(, spr_bullet_normal, cb_red)
 					if other.b_alt % 2 == 0 bullet_set_look(, spr_bullet_small)
 				}
