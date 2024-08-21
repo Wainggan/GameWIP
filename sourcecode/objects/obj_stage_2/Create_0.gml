@@ -258,7 +258,7 @@ pattern_add("stage2-miniboss1-1", function(){
 		function(){
 			if b_meta b_golden += 2
 			b_golden = bullet_preset_golden(x, y, 48, b_meta ? 8 : 3, b_golden, function(_x, _y, _dir){
-				with bullet_shoot_dir2(_x, _y, 12, 0.3, 2, _dir - abs(angle_difference(_dir, 270) * (1 / 180) * 0.5) * angle_difference(_dir, 90)) {
+				with bullet_shoot_dir2(_x, _y, 12, 0.3, 2.5, _dir - abs(angle_difference(_dir, 270) * (1 / 180) * 0.5) * angle_difference(_dir, 90)) {
 					bullet_set_look(, spr_bullet_normal, cb_red);
 				}
 			})
@@ -319,7 +319,7 @@ pattern_add("stage2-miniboss1-2", function(){
 			command_repeat(30);
 		},
 		function(){
-			bullet_preset_plate(x, y, b_meta ? 19 : 9, 16, b_meta ? 40 : 16, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
+			bullet_preset_plate(x, y, b_meta ? 19 : 9, 13, b_meta ? 40 : 16, 0, point_direction(x, y, obj_player.x, obj_player.y), function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 6, 0.1, 2, _dir) {
 					sprite_index = spr_bullet_star
 					glow = cb_green;
@@ -357,9 +357,9 @@ pattern_add("stage2-miniboss1-3", function(){
 		},
 		16,
 		function(){
-			bullet_preset_plate(x, y, b_meta ? 4 : 2, 0, b_meta ? 44 : 16, 12, angle, function(_x, _y, _dir){
+			bullet_preset_plate(x, y, b_meta ? 4 : 2, 0, b_meta ? 40 : 16, 12, angle, function(_x, _y, _dir){
 				with bullet_shoot_dir(_x, _y, 4, _dir) {
-					bullet_set_look(, spr_bullet_square, cb_grey)
+					bullet_set_look(, spr_bullet_square, cb_black)
 				}
 			})
 			sound.play(snd_bulletshoot_2)
@@ -378,18 +378,17 @@ pattern_add("stage2-miniboss1-3", function(){
 	b_golden1 = 0;
 	b_golden2 = 0;
 	command_add([
-		new CommandBeat(1),
+		2,
 		function(){
-			var _amount = b_meta ? 4 : 3
+			var _amount = 2
 			var _fml = bullet_preset_golden(b_count % 2 == 0 ? -32 : WIDTH+32, wave(32, HEIGHT/2, 4,, phaseTimer/60), 9, _amount, b_count % 2 == 0 ? b_golden1 : b_golden2, function(_x, _y, _dir){
-				with bullet_shoot_dir(_x, _y, 2, _dir) {
+				with bullet_shoot_dir(_x, _y, 1.5, _dir) {
 					bullet_set_look(, spr_bullet_small, cb_green);
 				}
 			});
 			if b_count % 2 == 0 b_golden1 = _fml;
 			else b_golden2 = _fml;
 			b_count++;
-			sound.play(snd_bulletshoot_3)
 			
 			commandIndex--;
 		}
