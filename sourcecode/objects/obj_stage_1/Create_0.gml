@@ -117,10 +117,10 @@ addEnemy("big1", function(){
 		30, 
 		new CommandBeat(8),
 		function(){
-			b_angle += 360 / 26 / 2 
-			bullet_preset_ring(x, y, 24, 8, b_angle, function(_x, _y, _dir){
+			b_angle += 360 / 22 / 2 
+			bullet_preset_ring(x, y, 22, 8, b_angle, function(_x, _y, _dir){
 				with bullet_shoot_dir2(_x, _y, 6, 0.2, 3, _dir) {
-					sprite_index = spr_bullet_large
+					sprite_index = spr_bullet_inverted
 					glow = cb_blue;
 				}
 			})
