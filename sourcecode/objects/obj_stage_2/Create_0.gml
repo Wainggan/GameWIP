@@ -258,7 +258,7 @@ pattern_add("stage2-miniboss1-1", function(){
 		function(){
 			if b_meta b_golden += 2
 			b_golden = bullet_preset_golden(x, y, 48, b_meta ? 8 : 3, b_golden, function(_x, _y, _dir){
-				with bullet_shoot_dir2(_x, _y, 12, 0.3, 2.5, _dir - abs(angle_difference(_dir, 270) * (1 / 180) * 0.5) * angle_difference(_dir, 90)) {
+				with bullet_shoot_dir2(_x, _y, 12, 0.3, b_meta ? 3.5 : 2.5, _dir - abs(angle_difference(_dir, 270) * (1 / 180) * 0.5) * angle_difference(_dir, 90)) {
 					bullet_set_look(, spr_bullet_normal, cb_red);
 				}
 			})
@@ -344,8 +344,9 @@ pattern_add("stage2-miniboss1-3", function(){
 			commandIndex--;
 		}
 	]);
-	count = 0;
-	angle = 0;
+	
+	b_count = 0;
+	b_angle = 0;
 	command_add([
 		30,
 		function(){
@@ -353,11 +354,11 @@ pattern_add("stage2-miniboss1-3", function(){
 		},
 		40,
 		function(){
-			angle = point_direction(x, y, obj_player.x, obj_player.y);
+			b_angle = point_direction(x, y, obj_player.x, obj_player.y);
 		},
 		16,
 		function(){
-			bullet_preset_plate(x, y, b_meta ? 4 : 2, 0, b_meta ? 40 : 16, 12, angle, function(_x, _y, _dir){
+			bullet_preset_plate(x, y, b_meta ? 4 : 2, 0, b_meta ? 40 : 16, 12, b_angle, function(_x, _y, _dir){
 				with bullet_shoot_dir(_x, _y, 4, _dir) {
 					bullet_set_look(, spr_bullet_square, cb_black)
 				}
@@ -366,8 +367,8 @@ pattern_add("stage2-miniboss1-3", function(){
 			command_repeat(4)
 		},
 		function(){
-			count++;
-			if count < 2 {
+			b_count++;
+			if b_count < 2 {
 				commandIndex = 0;
 			}
 		},
@@ -377,20 +378,22 @@ pattern_add("stage2-miniboss1-3", function(){
 	
 	b_golden1 = 0;
 	b_golden2 = 0;
+	b_count2 = 0
 	command_add([
+		20,
 		2,
 		function(){
 			var _amount = 2
-			var _fml = bullet_preset_golden(b_count % 2 == 0 ? -32 : WIDTH+32, wave(32, HEIGHT/2, 4,, phaseTimer/60), 9, _amount, b_count % 2 == 0 ? b_golden1 : b_golden2, function(_x, _y, _dir){
+			var _fml = bullet_preset_golden(b_count2 % 2 == 0 ? -32 : WIDTH+32, wave(32, HEIGHT/2, 4,, phaseTimer/60), 9, _amount, b_count2 % 2 == 0 ? b_golden1 : b_golden2, function(_x, _y, _dir){
 				with bullet_shoot_dir(_x, _y, 1.5, _dir) {
 					bullet_set_look(, spr_bullet_small, cb_green);
 				}
 			});
-			if b_count % 2 == 0 b_golden1 = _fml;
+			if b_count2 % 2 == 0 b_golden1 = _fml;
 			else b_golden2 = _fml;
-			b_count++;
+			b_count2++;
 			
-			commandIndex--;
+			if b_count2 < 50 commandIndex--;
 		}
 	])
 	
@@ -725,8 +728,10 @@ pattern_add("stage2-boss-5", function(){
 			} else commandIndex--;
 		}
 	]);
-				
+	
+	b_count2 = 0
 	command_add([
+		30,
 		7,
 		function(){
 			bullet_preset_ring(choose(-32, WIDTH + 32), 20, 5, 0, random_range(0, 360), function(_x, _y, _dir){
@@ -734,7 +739,7 @@ pattern_add("stage2-boss-5", function(){
 					bullet_set_look(, spr_bullet_small, cb_green)
 				}
 			});
-			commandIndex--;
+			if b_count2 < 40 commandIndex--;
 		}
 	]);
 })
@@ -754,7 +759,7 @@ pattern_add("stage2-boss-6", function(){
 			// sigh
 			command_get(0)[1] = floor(clamp(6 - b_count * 1.5, 2, 5))
 			
-			with bullet_shoot_dir(x, y, 2, 270 + wave(-10, 10, 12, , time_phase / 60) + (-b_angle / 2 + b_angle * b_total) * b_dir) {
+			with bullet_shoot_dir(x, y, 1.8, 270 + wave(-10, 10, 12, , time_phase / 60) + (-b_angle / 2 + b_angle * b_total) * b_dir) {
 				bullet_set_look(, spr_bullet_square, cb_red)
 			}
 			sound.play(snd_bulletshoot)
@@ -855,10 +860,10 @@ render.look_set_water_bullets(#4488bb, 0.7, true)
 
 //stageIndex = 10
 
-ignore addSection(function(){
+addSection(function(){
 	enemy("boss", 0, 0);
 });
-ignore addPause(, true)
+addPause(, true)
 
 addPause(beat_to_frame(2))
 
@@ -939,8 +944,8 @@ addSection(function(){
 addPause(beat_to_frame(8 * 4 - 2 * 4))
 
 addSection(function(){
-	for (var i = 0; i < 16; i++) {
-		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(2))
+	for (var i = 0; i < 12; i++) {
+		enemy_delay("basic1", (i % 2 == 0 ? 96 : WIDTH - 96) + irandom_range(-24, 24), irandom_range(80, 120), i * beat_to_frame(3))
 	}
 	for (var i = 0; i < 2; i++) {
 		enemy_delay("basic5", WIDTH / 2 + irandom_range(-32, 32), irandom_range(120, 160), beat_to_frame(4 * 4) + i * beat_to_frame(8), [i == 0 ? -1 : 1])
