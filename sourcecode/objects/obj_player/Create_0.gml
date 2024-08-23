@@ -615,13 +615,31 @@ step : function(){
 		if _testTarget == noone {
 			// check if valid enemy above player exists
 			var _enemyList = ds_list_create()
-			collision_rectangle_list(x-24, y-48, x+24, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
+			collision_rectangle_list(x-24, y-64, x+24, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
 			if ds_list_size(_enemyList) {
-				_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
+				var _highest = HEIGHT
+				var _highest_id = noone
+				for (var i = 0; i < ds_list_size(_enemyList); i++) {
+					if _enemyList[| i].y < _highest {
+						_highest = _enemyList[| i].y
+						_highest_id = i
+					}
+				}
+				_testTarget = _enemyList[| _highest_id];
 			}
-			collision_rectangle_list(x-48, y-48, x+48, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
-			if ds_list_size(_enemyList) {
-				_testTarget = _enemyList[| ds_list_size(_enemyList) - 1];
+			if _testTarget == noone {
+				collision_rectangle_list(x-48, y-64, x+48, y - HEIGHT, obj_enemy, false, true, _enemyList, true);
+				if ds_list_size(_enemyList) {
+					var _highest = HEIGHT
+					var _highest_id = noone
+					for (var i = 0; i < ds_list_size(_enemyList); i++) {
+						if _enemyList[| i].y < _highest {
+							_highest = _enemyList[| i].y
+							_highest_id = i
+						}
+					}
+					_testTarget = _enemyList[| _highest_id];
+				}
 			}
 		
 			ds_list_destroy(_enemyList);
