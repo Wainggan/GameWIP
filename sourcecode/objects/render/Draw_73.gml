@@ -111,10 +111,16 @@ draw_set_color(c_white)
 draw_set_halign(fa_left)
 draw_set_font(ft_debug)
 
-//refreshApplicationSurf()
-//blendmodeSet(shd_blend_invert)
-with obj_player draw_sprite_ext(spr_playerTarget, 0, hook_ind_xAnim.value, hook_ind_yAnim.value, hook_ind_showAnim.value, hook_ind_showAnim.value, 0, c_white, 1)
-//shader_reset()
+
+with obj_player {
+	draw_sprite_ext(spr_playerTarget, 0, hook_ind_xAnim.value, hook_ind_yAnim.value, hook_ind_showAnim.value, hook_ind_showAnim.value, 0, c_white, 1)
+	var _time = (global.time % 70) / 70
+	other.refreshApplicationSurf()
+	other.blendmodeSet(shd_blend_invert)
+	draw_circle_outline(hook_ind_xAnim.value, hook_ind_yAnim.value, power(_time, 0.5) * 128, 4 - _time * 4, c_white, hook_ind_showAnim.value - _time)
+	shader_reset()
+}
+
 
 with obj_player draw_sprite_ext(spr_player_hitbox, 0, round(x), round(y), hitboxSize, hitboxSize, 0, c_white, 1)
 
