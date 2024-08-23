@@ -250,7 +250,7 @@ func_hookPop = function(){
 		text_splash_random(x, y, "1000", 128, 20);
 	global.score += 1000 * 25;
 				
-	iFrames = 9;
+	iFrames = 20;
 	hook_iframe = 6;
 	
 	if hook_extrabuffer < 0 {
